@@ -1,6 +1,7 @@
 package com.example.moviesaandseries.data.remote
 
 import com.example.moviesaandseries.common.Constants
+import com.example.moviesaandseries.data.remote.dto.MovieDetailDto
 import com.example.moviesaandseries.data.remote.dto.MovieDto
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -12,7 +13,7 @@ interface MovieApi {
 
         @Query("query") query: String
 
-    ): MovieDto
+    ): List<MovieDto>
 
     @GET("movie/upcoming?language=pt-BR&api_key=" + Constants.API_KEY)
     suspend fun getUpcoming() : List<MovieDto>
@@ -27,7 +28,7 @@ interface MovieApi {
     suspend fun getRatedMovies(): List<MovieDto>
 
     @GET("movie/{movieID}?language=pt-BR&api_key=" + Constants.API_KEY + "&append_to_response=videos,images,reviews,similar,credits")
-    suspend fun  getMovieInfo(@Path("movieID") movieId: String) : MovieDto
+    suspend fun  getMovieInfo(@Path("movieID") movieId: String) : MovieDetailDto
 
 
 }

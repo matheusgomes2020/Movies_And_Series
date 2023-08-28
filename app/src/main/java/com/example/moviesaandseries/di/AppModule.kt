@@ -2,6 +2,8 @@ package com.example.moviesaandseries.di
 
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.data.remote.MovieApi
+import com.example.moviesaandseries.data.repository.MovieRepositoryImpl
+import com.example.moviesaandseries.domain.repository.MovieRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,6 +26,12 @@ object AppModule {
             .build()
             .create( MovieApi::class.java )
 
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieRepository(api: MovieApi): MovieRepository {
+        return MovieRepositoryImpl(api)
     }
 
 }
