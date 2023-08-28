@@ -1,6 +1,5 @@
 package com.example.moviesaandseries.data.remote.dto
 
-import com.example.filmes.model.general.SpokenLanguage
 import com.example.moviesaandseries.domain.model.Movie
 
 data class MovieDto (

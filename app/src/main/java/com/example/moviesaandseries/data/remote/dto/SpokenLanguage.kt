@@ -1,4 +1,4 @@
-package com.example.filmes.model.general
+package com.example.moviesaandseries.data.remote.dto
 
 data class SpokenLanguage(
     val english_name: String,
