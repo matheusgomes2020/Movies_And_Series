@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.domain.model.Movie
@@ -29,7 +30,7 @@ fun MovieListItem(
 
 Card(
     shape = RoundedCornerShape(15.dp),
-    modifier = Modifier.padding(3.dp)
+    modifier = Modifier.padding(5.dp)
         .clickable { onItemClick(movie) }
         .background(color = Color.White ),
     ) {
@@ -51,7 +52,9 @@ Card(
     Text(
         text = "${movie.title}",
         modifier = Modifier.width(110.dp)
-            .background(Color.White),
+            .background(Color.White)
+            .padding(start = 3.dp),
+        fontSize = 14.sp,
         maxLines = 1
     )
 }

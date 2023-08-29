@@ -8,10 +8,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.common.Resource
 import com.example.moviesaandseries.domain.use_case.get_movie.GetMovieUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
+@HiltViewModel
 class MovieDetailViewModel @Inject constructor(
     private val getMovieUseCase: GetMovieUseCase,
     savedStateHandle: SavedStateHandle
