@@ -1,0 +1,29 @@
+package com.example.moviesaandseries.domain.model
+
+import com.example.moviesaandseries.data.remote.dto.CreatedBy
+import com.example.moviesaandseries.data.remote.dto.Credits
+import com.example.moviesaandseries.data.remote.dto.Genre
+import com.example.moviesaandseries.data.remote.dto.Images
+import com.example.moviesaandseries.data.remote.dto.Reviews
+import com.example.moviesaandseries.data.remote.dto.Season
+import com.example.moviesaandseries.data.remote.dto.Similar
+import com.example.moviesaandseries.data.remote.dto.SimilarSeries
+import com.example.moviesaandseries.data.remote.dto.Videos
+
+data class SeriesDetail(
+    val aggregate_credits: Credits,
+    val genres: List<Genre>,
+    val id: Int,
+    val images: Images,
+    val overview: String,
+    val poster_path: String,
+    val created_by: List<CreatedBy>,
+    val episode_run_time: List<Int>,
+    val first_air_date: String,
+    val reviews: Reviews,
+    val similar: SimilarSeries,
+    val name: String,
+    val videos: Videos,
+    val vote_average: Double,
+    val seasons: List<Season>
+)

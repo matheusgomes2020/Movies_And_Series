@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation
+package com.example.moviesaandseries.presentation.movie_list
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.moviesaandseries.presentation.movie_list.MovieListState
+import com.example.moviesaandseries.presentation.Screen
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListItem
 
 @Composable
