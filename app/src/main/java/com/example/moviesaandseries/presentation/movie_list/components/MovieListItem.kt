@@ -58,8 +58,4 @@ Card(
         maxLines = 1
     )
 }
-
-
-
-
 }

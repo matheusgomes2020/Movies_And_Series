@@ -10,6 +10,6 @@ interface SeriesRepository {
     suspend fun getAiryingSeries(): List<SeriesDto>
     suspend fun getRatedSeries(): List<SeriesDto>
 
-    suspend fun getMovieInfo(seriesId: String): SeriesDetailDto
+    suspend fun getSeriesInfo(seriesId: String): SeriesDetailDto
 
 }

@@ -434,7 +434,7 @@ private fun Reviews() {
                 ReviewListItem3()
             }
         }
-        ReviewListItem3()
+
     }
 }
 
