@@ -80,15 +80,15 @@ class SeriesListViewModel @Inject constructor(
         getAiringTodayUseCase().onEach { result ->
             when (result) {
                 is Resource.Success -> {
-                    _stateOnAir.value = SeriesListState(series = result.data ?: emptyList() )
+                    _stateAiringToday.value = SeriesListState(series = result.data ?: emptyList() )
                 }
                 is Resource.Error -> {
-                    _stateOnAir.value = SeriesListState(
+                    _stateAiringToday.value = SeriesListState(
                         error = result.message ?: "An unexpected error occured"
                     )
                 }
                 is Resource.Loading -> {
-                    _stateOnAir.value = SeriesListState(isLoading = true)
+                    _stateAiringToday.value = SeriesListState(isLoading = true)
                 }
             }
         }.launchIn(viewModelScope)

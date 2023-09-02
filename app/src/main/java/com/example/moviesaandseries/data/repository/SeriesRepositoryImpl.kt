@@ -25,7 +25,7 @@ class SeriesRepositoryImpl @Inject constructor(
         return api.getPopularTopRated().results
     }
 
-    override suspend fun getMovieInfo(seriesId: String): SeriesDetailDto {
+    override suspend fun getSeriesInfo(seriesId: String): SeriesDetailDto {
         return api.getSeriesInfo( seriesId )
     }
 

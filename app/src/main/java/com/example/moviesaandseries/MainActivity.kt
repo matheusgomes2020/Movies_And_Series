@@ -13,6 +13,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.moviesaandseries.presentation.Screen
 import com.example.moviesaandseries.presentation.movie_detail.MovieDetailScreen
 import com.example.moviesaandseries.presentation.movie_list.MovieListScreen
+import com.example.moviesaandseries.presentation.series_detail.SeriesDetailScreen
+import com.example.moviesaandseries.presentation.series_list.SeriesListScreen
 import com.example.moviesaandseries.ui.theme.MoviesAandSeriesTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,10 +32,10 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
-                        startDestination = Screen.MovielistScreen.route
+                        startDestination = Screen.MovieListScreen.route
                     ) {
                         composable(
-                            route = Screen.MovielistScreen.route
+                            route = Screen.MovieListScreen.route
                         ) {
                             MovieListScreen(navController)
 
@@ -42,6 +44,16 @@ class MainActivity : ComponentActivity() {
                             route = Screen.MovieDetailScreen.route + "/{movieId}"
                         ) {
                             MovieDetailScreen(navController)
+                        }
+                        composable(
+                            route = Screen.SeriesListScreen.route
+                        ) {
+                            SeriesListScreen(navController)
+                        }
+                        composable(
+                            route = Screen.SeriesDetailScreen.route + "/{seriesId}"
+                        ) {
+                            SeriesDetailScreen(navController)
                         }
                     }
                 }

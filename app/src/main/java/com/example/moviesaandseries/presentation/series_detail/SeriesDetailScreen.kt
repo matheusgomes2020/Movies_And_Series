@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.movie_detail
+package com.example.moviesaandseries.presentation.series_detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -20,45 +20,42 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.moviesaandseries.presentation.movie_list.MovieListState
-import com.example.moviesaandseries.presentation.series_detail.CastCell
-import com.example.moviesaandseries.presentation.series_detail.CrewCell
-import com.example.moviesaandseries.presentation.series_detail.MainContent
-import com.example.moviesaandseries.presentation.series_detail.ReviewsCell
-import com.example.moviesaandseries.presentation.series_detail.SimilarsMoviesCell
-
+import com.example.moviesaandseries.presentation.series_list.SeriesListState
 
 @Composable
-fun MovieDetailScreen(
+fun SeriesDetailScreen(
     navController: NavController,
-    viewModel: MovieDetailViewModel = hiltViewModel()
+    viewModel: SeriesDetailViewModel = hiltViewModel()
 ){
     val state = viewModel.state.value
-    var stateSimilar: MovieListState
+    var stateSimilar: SeriesListState
     Box(modifier = Modifier.fillMaxSize()) {
-        state.movie?.let { movie ->
-            stateSimilar = MovieListState(movies = movie.similar.results)
+        state.series?.let { series ->
+            stateSimilar = SeriesListState(series = series.similar.results)
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(color = Color.White),
                 contentPadding = PaddingValues(start = 15.dp, end = 15.dp, top = 15.dp)
             ) {
-                val title = if (!movie.title.isNullOrEmpty()) movie.title else "sem título"
-                val overview = if (!movie.overview.isNullOrEmpty()) movie.overview else "sem overview"
-                val posterPath = if (!movie.poster_path.isNullOrEmpty()) movie.poster_path else "sem poster"
-                val data = if (!movie.release_date.isNullOrEmpty()) movie.release_date else "null"
+                val title = if (!series.name.isNullOrEmpty()) series.name else "sem título"
+                val overview = if (!series.overview.isNullOrEmpty()) series.overview else "sem overview"
+                val posterPath = if (!series.poster_path.isNullOrEmpty()) series.poster_path else "sem poster"
+                val data = if (!series.first_air_date.isNullOrEmpty()) series.first_air_date else "null"
+                var runtime = if (!series.episode_run_time.isNullOrEmpty())  series.episode_run_time[0].toString() else "null"
+                //val star = if (!series.first_air_date.isNullOrEmpty()) series.first_air_date else "null"
                 item {
-                    MainContent(title, overview, posterPath, data, movie.runtime.toString(), movie.vote_average, movie.genres)
+                    MainContent( title, overview, posterPath, data, runtime, series.vote_average, series.genres )
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    CastCell(cast = movie.credits.cast)
+                    CastCell(cast = series.aggregate_credits.cast)
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    CrewCell(crew = movie.credits.crew)
+                    CrewCell(crew = series.aggregate_credits.crew)
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    SimilarsMoviesCell(navController = navController, state = stateSimilar )
+                    SimilarsSeriesCell(navController = navController, state = stateSimilar )
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    ReviewsCell(reviews = movie.reviews.results)
+                    ReviewsCell(reviews = series.reviews.results)
                 }
+
             }
         }
 
