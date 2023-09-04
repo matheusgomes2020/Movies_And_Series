@@ -12,7 +12,7 @@
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2023-08-28T19:16:37.425753600Z" />
+    <timeTargetWasSelectedWithDropDown value="2023-09-02T04:18:24.021486700Z" />
     <multipleDevicesSelectedInDropDown value="true" />
     <targetsSelectedWithDialog>
       <Target>
@@ -20,7 +20,7 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\batat\.android\avd\Pixel_API_31.avd" />
+            <value value="C:\Users\batat\.android\avd\Pixel_7_Pro_API_33.avd" />
           </Key>
         </deviceKey>
       </Target>
@@ -29,7 +29,7 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\batat\.android\avd\Pixel_7_Pro_API_33.avd" />
+            <value value="C:\Users\batat\.android\avd\Pixel_API_31.avd" />
           </Key>
         </deviceKey>
       </Target>

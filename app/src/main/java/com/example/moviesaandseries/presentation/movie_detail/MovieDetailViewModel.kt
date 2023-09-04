@@ -23,8 +23,8 @@ class MovieDetailViewModel @Inject constructor(
     val state: State<MovieDetailState> = _state
 
     init {
-        savedStateHandle.get<String>(Constants.PARAM_MOVIE_ID)?.let { movieId ->
-            getMovie( movieId )
+        savedStateHandle.get<String>(Constants.PARAM_MOVIE_ID)?.let { id ->
+            getMovie( id )
         }
     }
 

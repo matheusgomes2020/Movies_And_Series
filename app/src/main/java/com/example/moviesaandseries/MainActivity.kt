@@ -7,14 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.moviesaandseries.presentation.Screen
-import com.example.moviesaandseries.presentation.movie_detail.MovieDetailScreen
-import com.example.moviesaandseries.presentation.movie_list.MovieListScreen
-import com.example.moviesaandseries.presentation.series_detail.SeriesDetailScreen
-import com.example.moviesaandseries.presentation.series_list.SeriesListScreen
+import com.example.moviesaandseries.common.navigation.RootNavigationGraph
 import com.example.moviesaandseries.ui.theme.MoviesAandSeriesTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,35 +23,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val navController = rememberNavController()
-                    NavHost(
-                        navController = navController,
-                        startDestination = Screen.MovieListScreen.route
-                    ) {
-                        composable(
-                            route = Screen.MovieListScreen.route
-                        ) {
-                            MovieListScreen(navController)
-
-                        }
-                        composable(
-                            route = Screen.MovieDetailScreen.route + "/{movieId}"
-                        ) {
-                            MovieDetailScreen(navController)
-                        }
-                        composable(
-                            route = Screen.SeriesListScreen.route
-                        ) {
-                            SeriesListScreen(navController)
-                        }
-                        composable(
-                            route = Screen.SeriesDetailScreen.route + "/{seriesId}"
-                        ) {
-                            SeriesDetailScreen(navController)
-                        }
-                    }
+                    RootNavigationGraph(navController = rememberNavController() )
                 }
             }
         }
     }
 }
+

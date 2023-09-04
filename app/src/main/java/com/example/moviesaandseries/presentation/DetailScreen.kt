@@ -1,6 +1,7 @@
 package com.example.moviesaandseries.presentation.series_detail
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -34,13 +35,20 @@ import com.example.moviesaandseries.presentation.cast.CastListItem
 import com.example.moviesaandseries.presentation.movie_list.MovieListScreenCell
 import com.example.moviesaandseries.presentation.movie_list.MovieListState
 import com.example.moviesaandseries.presentation.review.ReviewListItem
-import com.example.moviesaandseries.presentation.series_list.SeriesListScreenCell
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
 
 
 
 @Composable
- fun MainContent(nomeOrTitle: String, overview: String, posterPath: String, data: String, runtime: String, star: Double, genres: List<Genre>) {
+ fun MainContent(
+    nomeOrTitle: String,
+    overview: String,
+    posterPath: String,
+    data: String,
+    runtime: String,
+    star: Double,
+    genres: List<Genre>
+) {
     Column {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -151,7 +159,7 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListState
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(15.dp))
-        SeriesListScreenCell(navController = navController , state = state)
+        //SeriesListScreenCell(onClick =  , state = state)
     }
 }
 

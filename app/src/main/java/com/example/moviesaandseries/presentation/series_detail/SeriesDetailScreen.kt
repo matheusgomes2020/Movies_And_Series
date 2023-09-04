@@ -45,7 +45,15 @@ fun SeriesDetailScreen(
                 var runtime = if (!series.episode_run_time.isNullOrEmpty())  series.episode_run_time[0].toString() else "null"
                 //val star = if (!series.first_air_date.isNullOrEmpty()) series.first_air_date else "null"
                 item {
-                    MainContent( title, overview, posterPath, data, runtime, series.vote_average, series.genres )
+                    MainContent(
+                        title,
+                        overview,
+                        posterPath,
+                        data,
+                        runtime,
+                        series.vote_average,
+                        series.genres,
+                    )
                     Spacer(modifier = Modifier.height( 15.dp ))
                     CastCell(cast = series.aggregate_credits.cast)
                     Spacer(modifier = Modifier.height( 15.dp ))

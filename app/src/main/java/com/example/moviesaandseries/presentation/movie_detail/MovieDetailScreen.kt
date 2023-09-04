@@ -30,6 +30,8 @@ import com.example.moviesaandseries.presentation.series_detail.SimilarsMoviesCel
 
 @Composable
 fun MovieDetailScreen(
+   // onClick: () -> Unit,
+    //id: String,
     navController: NavController,
     viewModel: MovieDetailViewModel = hiltViewModel()
 ){

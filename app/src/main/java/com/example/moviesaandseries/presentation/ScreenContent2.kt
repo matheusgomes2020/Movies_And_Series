@@ -1,6 +1,5 @@
-package com.example.moviesaandseries.presentation.movie_list
+package com.example.moviesaandseries.presentation
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,40 +15,30 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-
+import com.example.moviesaandseries.presentation.series_list.SeriesListScreenCell
+import com.example.moviesaandseries.presentation.series_list.SeriesListViewModel
 
 @Composable
-fun MovieListScreen(
-    navController: NavController,
-    viewModel: MovieListViewModel = hiltViewModel()
+fun ScreenContent2(
+   navController: NavController,
+    viewModel: SeriesListViewModel = hiltViewModel()
 ){
 
-    val state = viewModel.statePopular.value
-    val state2 = viewModel.stateUpcoming.value
-    val state3 = viewModel.stateNowPlaying.value
-    val state4 = viewModel.stateRated.value
+    val statePopular = viewModel.statePopular.value
+    val stateOnAir = viewModel.stateOnAir.value
+    val stateAiringToday = viewModel.stateAiryngToday.value
+    val stateRated = viewModel.stateRated.value
 
     Box(modifier = Modifier.fillMaxSize()) {
-        state.movies?.let { movies ->
+        statePopular.series?.let { series ->
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(start = 25.dp, end = 25.dp)
             ) {
                 item {
                     Column {
-                        Text(text = "Filmes em alta",
-                            modifier = Modifier
-                                .padding(top = 15.dp, bottom = 15.dp)
-                                .clickable {
-                                           //navController.navigate(Screen.SeriesListScreen.route)
-                                },
-                            fontSize = 18.sp,
-                            style = MaterialTheme.typography.labelMedium,
-                            fontWeight = FontWeight.Bold
-                        )
-                        //Spacer(modifier = Modifier.height(10.dp))
-                        MovieListScreenCell(navController , state = state)
-                        Text(text = "Filmes em cartaz",
+
+                        Text(text = "Séries no ar hoje",
                             modifier = Modifier
                                 .padding(top = 15.dp, bottom = 15.dp),
                             fontSize = 18.sp,
@@ -57,8 +46,8 @@ fun MovieListScreen(
                             fontWeight = FontWeight.Bold
                         )
                         //Spacer(modifier = Modifier.height(10.dp))
-                        MovieListScreenCell(navController = navController , state = state3)
-                        Text(text = "Filmes em lançamentos",
+                        SeriesListScreenCell(navController  , state = stateAiringToday)
+                        Text(text = "Séries no ar",
                             modifier = Modifier
                                 .padding(top = 15.dp, bottom = 15.dp),
                             fontSize = 18.sp,
@@ -66,15 +55,24 @@ fun MovieListScreen(
                             fontWeight = FontWeight.Bold
                         )
                         //Spacer(modifier = Modifier.height(10.dp))
-                        MovieListScreenCell(navController = navController , state = state2)
-                        Text(text = "Filmes melhores avaliados",
+                        SeriesListScreenCell(navController , state = stateOnAir)
+                        Text(text = "Séries populares",
+                            modifier = Modifier
+                                .padding(top = 15.dp, bottom = 15.dp),
+                            fontSize = 18.sp,
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                        //Spacer(modifier = Modifier.height(10.dp))
+                        SeriesListScreenCell(navController , state = statePopular)
+                        Text(text = "Séries melhores avaliadoa",
                             modifier = Modifier
                                 .padding(top = 15.dp, bottom = 15.dp),
                             fontSize = 18.sp,
                             style = MaterialTheme.typography.displayMedium,
                             fontWeight = FontWeight.Bold
                         )
-                        MovieListScreenCell(navController = navController , state = state4)
+                        SeriesListScreenCell(navController , state = stateRated)
                     }
 
                 }
