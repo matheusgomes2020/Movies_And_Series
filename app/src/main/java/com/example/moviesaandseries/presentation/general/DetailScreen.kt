@@ -31,10 +31,14 @@ import com.example.moviesaandseries.data.remote.dto.Cast
 import com.example.moviesaandseries.data.remote.dto.Crew
 import com.example.moviesaandseries.data.remote.dto.Genre
 import com.example.moviesaandseries.data.remote.dto.Review
+import com.example.moviesaandseries.data.remote.dto.Season
 import com.example.moviesaandseries.presentation.cast.CastListItem
 import com.example.moviesaandseries.presentation.movie_list.MovieListScreenCell
 import com.example.moviesaandseries.presentation.movie_list.MovieListState
 import com.example.moviesaandseries.presentation.review.ReviewListItem
+import com.example.moviesaandseries.presentation.season.SeasonListScreenCell
+import com.example.moviesaandseries.presentation.season.SeasonListState
+import com.example.moviesaandseries.presentation.series_list.SeriesListScreenCell
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
 
 
@@ -150,6 +154,22 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListState
 }
 
 @Composable
+fun SeasonsCell(numeroTemporadas: Int,seasons: List<Season>, state: SeasonListState) {
+    Column {
+
+        Text(
+            text = "$numeroTemporadas - temporadas",
+            style = MaterialTheme.typography.headlineMedium,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold
+        )
+        Spacer(modifier = Modifier.height( 15.dp ))
+        SeasonListScreenCell(state = state )
+
+    }
+}
+
+@Composable
  fun SimilarsSeriesCell(navController: NavController, state: SeriesListState) {
     Column {
         Text(
@@ -159,7 +179,7 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListState
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(15.dp))
-        //SeriesListScreenCell(onClick =  , state = state)
+        SeriesListScreenCell(navController  , state = state)
     }
 }
 

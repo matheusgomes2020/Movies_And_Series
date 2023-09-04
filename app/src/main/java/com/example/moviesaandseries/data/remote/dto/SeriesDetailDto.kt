@@ -59,7 +59,8 @@ fun SeriesDetailDto.toSeriesDetail(): SeriesDetail {
         episode_run_time = episode_run_time,
         first_air_date = first_air_date,
         seasons = seasons,
-        vote_average = vote_average
+        vote_average = vote_average,
+        number_of_seasons = number_of_seasons
 
     )
 }

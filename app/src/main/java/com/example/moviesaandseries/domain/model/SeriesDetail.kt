@@ -20,6 +20,7 @@ data class SeriesDetail(
     val created_by: List<CreatedBy>,
     val episode_run_time: List<Int>,
     val first_air_date: String,
+    val number_of_seasons: Int,
     val reviews: Reviews,
     val similar: SimilarSeries,
     val name: String,

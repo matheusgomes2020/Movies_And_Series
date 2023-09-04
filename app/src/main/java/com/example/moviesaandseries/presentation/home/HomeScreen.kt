@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation
+package com.example.moviesaandseries.presentation.home
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.RowScope
@@ -11,14 +11,14 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.navigation.HomeNavGraph
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -43,7 +43,9 @@ fun BottomBar(navController: NavHostController) {
 
     val bottomBarDestination = screens.any { it.route == currentDestination?.route }
     if (bottomBarDestination) {
-        BottomNavigation {
+        BottomNavigation(
+            backgroundColor = Color.White
+        ) {
             screens.forEach { screen ->
                 AddItem(
                     screen = screen,

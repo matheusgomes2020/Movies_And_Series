@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.movie_list
+package com.example.moviesaandseries.presentation.season
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,15 +13,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.example.moviesaandseries.common.navigation.DetailsScreen
-import com.example.moviesaandseries.presentation.movie_list.components.MovieListItem
+
+import com.example.moviesaandseries.presentation.season.components.SeasonListItem
 
 @Composable
-fun MovieListScreenCell(
-    navController: NavController,
-    state: MovieListState
-){
+fun SeasonListScreenCell(
+    //navController: NavController,
+    state: SeasonListState
+) {
     Box(
         //  modifier = Modifier.fillMaxSize()
     ) {
@@ -29,13 +28,9 @@ fun MovieListScreenCell(
         LazyRow(
             //modifier = Modifier.fillMaxSize()
         ) {
-            items(state.movies) { movie ->
-                MovieListItem(
-                    movie = movie,
-                    onItemClick = {
-                        navController.navigate(DetailsScreen.MoviesDetails.route + "/${movie.id}")
-                        //navController.navigate(Graph.DETAILS)
-                    }
+            items(state.seasons) { season ->
+                SeasonListItem(
+                    season = season,
                 )
             }
         }
@@ -55,3 +50,4 @@ fun MovieListScreenCell(
         }
     }
 }
+

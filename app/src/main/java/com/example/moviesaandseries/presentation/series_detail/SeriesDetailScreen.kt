@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.moviesaandseries.presentation.season.SeasonListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
 
 @Composable
@@ -29,9 +30,11 @@ fun SeriesDetailScreen(
 ){
     val state = viewModel.state.value
     var stateSimilar: SeriesListState
+    var stateSeasons: SeasonListState
     Box(modifier = Modifier.fillMaxSize()) {
         state.series?.let { series ->
             stateSimilar = SeriesListState(series = series.similar.results)
+            stateSeasons = SeasonListState(seasons = series.seasons)
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
@@ -58,6 +61,8 @@ fun SeriesDetailScreen(
                     CastCell(cast = series.aggregate_credits.cast)
                     Spacer(modifier = Modifier.height( 15.dp ))
                     CrewCell(crew = series.aggregate_credits.crew)
+                    Spacer(modifier = Modifier.height( 15.dp ))
+                    SeasonsCell(series.number_of_seasons, series.seasons, stateSeasons )
                     Spacer(modifier = Modifier.height( 15.dp ))
                     SimilarsSeriesCell(navController = navController, state = stateSimilar )
                     Spacer(modifier = Modifier.height( 15.dp ))

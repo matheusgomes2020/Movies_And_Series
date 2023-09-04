@@ -9,8 +9,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.example.moviesaandseries.presentation.ScreenContent
-import com.example.moviesaandseries.presentation.BottomBarScreen
+import com.example.moviesaandseries.presentation.general.ScreenContent
+import com.example.moviesaandseries.presentation.home.BottomBarScreen
 import com.example.moviesaandseries.presentation.movie_detail.MovieDetailScreen
 import com.example.moviesaandseries.presentation.movie_list.MovieListScreen
 import com.example.moviesaandseries.presentation.series_detail.SeriesDetailScreen
