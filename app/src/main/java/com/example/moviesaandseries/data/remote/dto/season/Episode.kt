@@ -1,4 +1,8 @@
-package com.example.moviesaandseries.data.remote.dto
+package com.example.moviesaandseries.data.remote.dto.season
+
+import com.example.moviesaandseries.data.remote.dto.Images
+import com.example.moviesaandseries.data.remote.dto.movies.Cast
+import com.example.moviesaandseries.data.remote.dto.movies.Crew
 
 data class Episode(
     val air_date: String,
@@ -16,3 +20,6 @@ data class Episode(
     val vote_average: Double,
     val vote_count: Int
 )
+
+
+

@@ -3,7 +3,6 @@ package com.example.moviesaandseries.presentation.season.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,13 +19,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.common.Constants
-import com.example.moviesaandseries.data.remote.dto.Season
-import com.example.moviesaandseries.domain.model.Movie
+import com.example.moviesaandseries.data.remote.dto.season.SeasonDto
 
 
 @Composable
 fun SeasonListItem(
-    season: Season,
+    season: SeasonDto,
     //onItemClick: (Season) -> Unit
 ) {
 

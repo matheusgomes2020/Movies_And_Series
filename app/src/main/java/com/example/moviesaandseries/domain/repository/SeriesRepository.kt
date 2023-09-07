@@ -1,7 +1,8 @@
 package com.example.moviesaandseries.domain.repository
 
-import com.example.moviesaandseries.data.remote.dto.SeriesDetailDto
-import com.example.moviesaandseries.data.remote.dto.SeriesDto
+import com.example.moviesaandseries.data.remote.dto.season.SeasonDetailDto
+import com.example.moviesaandseries.data.remote.dto.series.SeriesDetailDto
+import com.example.moviesaandseries.data.remote.dto.series.SeriesDto
 
 interface SeriesRepository {
 
@@ -12,4 +13,5 @@ interface SeriesRepository {
 
     suspend fun getSeriesInfo(seriesId: String): SeriesDetailDto
 
+    suspend fun getSeasonInfo(seriesId: String, seasonNumber: Int): SeasonDetailDto
 }

@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
-import com.example.moviesaandseries.data.remote.dto.Cast
+import com.example.moviesaandseries.data.remote.dto.movies.Cast
 
 @Composable
 fun CastListItem(

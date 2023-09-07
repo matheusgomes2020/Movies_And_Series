@@ -1,4 +1,6 @@
-package com.example.moviesaandseries.data.remote.dto
+package com.example.moviesaandseries.data.remote.dto.movies
+
+import com.example.moviesaandseries.data.remote.dto.Job
 
 data class Crew(
     val adult: Boolean,

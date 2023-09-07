@@ -1,13 +1,12 @@
 package com.example.moviesaandseries.domain.model
 
 import com.example.moviesaandseries.data.remote.dto.CreatedBy
-import com.example.moviesaandseries.data.remote.dto.Credits
+import com.example.moviesaandseries.data.remote.dto.movies.Credits
 import com.example.moviesaandseries.data.remote.dto.Genre
 import com.example.moviesaandseries.data.remote.dto.Images
 import com.example.moviesaandseries.data.remote.dto.Reviews
-import com.example.moviesaandseries.data.remote.dto.Season
-import com.example.moviesaandseries.data.remote.dto.Similar
-import com.example.moviesaandseries.data.remote.dto.SimilarSeries
+import com.example.moviesaandseries.data.remote.dto.season.SeasonDto
+import com.example.moviesaandseries.data.remote.dto.series.SimilarSeries
 import com.example.moviesaandseries.data.remote.dto.Videos
 
 data class SeriesDetail(
@@ -26,5 +25,5 @@ data class SeriesDetail(
     val name: String,
     val videos: Videos,
     val vote_average: Double,
-    val seasons: List<Season>
+    val seasons: List<SeasonDto>
 )

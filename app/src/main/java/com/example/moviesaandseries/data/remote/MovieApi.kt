@@ -1,9 +1,8 @@
 package com.example.moviesaandseries.data.remote
 
 import com.example.moviesaandseries.common.Constants
-import com.example.moviesaandseries.data.remote.dto.MovieDetailDto
-import com.example.moviesaandseries.data.remote.dto.MovieDto
-import com.example.moviesaandseries.data.remote.dto.Movies
+import com.example.moviesaandseries.data.remote.dto.movies.MovieDetailDto
+import com.example.moviesaandseries.data.remote.dto.movies.Movies
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

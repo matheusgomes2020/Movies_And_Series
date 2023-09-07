@@ -1,7 +1,6 @@
 package com.example.moviesaandseries.presentation.series_detail
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -27,11 +26,11 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
-import com.example.moviesaandseries.data.remote.dto.Cast
-import com.example.moviesaandseries.data.remote.dto.Crew
+import com.example.moviesaandseries.data.remote.dto.movies.Cast
+import com.example.moviesaandseries.data.remote.dto.movies.Crew
 import com.example.moviesaandseries.data.remote.dto.Genre
 import com.example.moviesaandseries.data.remote.dto.Review
-import com.example.moviesaandseries.data.remote.dto.Season
+import com.example.moviesaandseries.data.remote.dto.season.SeasonDto
 import com.example.moviesaandseries.presentation.cast.CastListItem
 import com.example.moviesaandseries.presentation.movie_list.MovieListScreenCell
 import com.example.moviesaandseries.presentation.movie_list.MovieListState
@@ -154,7 +153,7 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListState
 }
 
 @Composable
-fun SeasonsCell(numeroTemporadas: Int,seasons: List<Season>, state: SeasonListState) {
+fun SeasonsCell(numeroTemporadas: Int, seasons: List<SeasonDto>, state: SeasonListState) {
     Column {
 
         Text(

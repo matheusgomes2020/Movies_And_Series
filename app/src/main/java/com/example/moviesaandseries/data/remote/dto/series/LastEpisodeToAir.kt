@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.data.remote.dto
+package com.example.moviesaandseries.data.remote.dto.series
 data class LastEpisodeToAir(
     val air_date: String,
     val episode_number: Int,

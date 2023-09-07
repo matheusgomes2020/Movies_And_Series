@@ -1,6 +1,6 @@
-package com.example.moviesaandseries.data.remote.dto
+package com.example.moviesaandseries.data.remote.dto.series
 
-data class SeriesS(
+data class SeriesList(
     val page: Int,
     val results: List<SeriesDto>,
     val total_pages: Int,

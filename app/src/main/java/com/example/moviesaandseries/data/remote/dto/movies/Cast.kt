@@ -1,4 +1,8 @@
-package com.example.moviesaandseries.data.remote.dto
+package com.example.moviesaandseries.data.remote.dto.movies
+
+import com.example.moviesaandseries.data.remote.dto.Images
+import com.example.moviesaandseries.data.remote.dto.Role
+import com.example.moviesaandseries.data.remote.dto.series.TvCredits
 
 
 data class Cast(

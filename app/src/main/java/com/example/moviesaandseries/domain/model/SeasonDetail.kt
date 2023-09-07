@@ -1,10 +1,10 @@
-package com.example.moviesaandseries.data.remote.dto
+package com.example.moviesaandseries.domain.model
 
-data class Season(
-    val air_date: String,
+import com.example.moviesaandseries.data.remote.dto.season.Episode
+
+data class SeasonDetail (
     val episode_count: Int,
     val episodes: List<Episode>,
-    val id: Int,
     val name: String,
     val overview: String,
     val poster_path: String,

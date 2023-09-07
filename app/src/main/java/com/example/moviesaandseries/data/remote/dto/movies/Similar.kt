@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.data.remote.dto
+package com.example.moviesaandseries.data.remote.dto.movies
 
 import com.example.moviesaandseries.domain.model.Movie
 

@@ -1,7 +1,7 @@
 package com.example.moviesaandseries.domain.repository
 
-import com.example.moviesaandseries.data.remote.dto.MovieDetailDto
-import com.example.moviesaandseries.data.remote.dto.MovieDto
+import com.example.moviesaandseries.data.remote.dto.movies.MovieDetailDto
+import com.example.moviesaandseries.data.remote.dto.movies.MovieDto
 
 interface MovieRepository {
 

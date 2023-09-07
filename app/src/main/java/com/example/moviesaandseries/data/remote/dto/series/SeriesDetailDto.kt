@@ -1,6 +1,15 @@
-package com.example.moviesaandseries.data.remote.dto
+package com.example.moviesaandseries.data.remote.dto.series
 
-import com.example.moviesaandseries.domain.model.MovieDetail
+import com.example.moviesaandseries.data.remote.dto.CreatedBy
+import com.example.moviesaandseries.data.remote.dto.movies.Credits
+import com.example.moviesaandseries.data.remote.dto.Genre
+import com.example.moviesaandseries.data.remote.dto.Images
+import com.example.moviesaandseries.data.remote.dto.ProductionCompany
+import com.example.moviesaandseries.data.remote.dto.ProductionCountry
+import com.example.moviesaandseries.data.remote.dto.Reviews
+import com.example.moviesaandseries.data.remote.dto.SpokenLanguage
+import com.example.moviesaandseries.data.remote.dto.Videos
+import com.example.moviesaandseries.data.remote.dto.season.SeasonDto
 import com.example.moviesaandseries.domain.model.SeriesDetail
 
 data class SeriesDetailDto(
@@ -32,7 +41,7 @@ data class SeriesDetailDto(
     val production_companies: List<ProductionCompany>,
     val production_countries: List<ProductionCountry>,
     val reviews: Reviews,
-    val seasons: List<Season>,
+    val seasons: List<SeasonDto>,
     val similar: SimilarSeries,
     val spoken_languages: List<SpokenLanguage>,
     val status: String,
