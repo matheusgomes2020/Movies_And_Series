@@ -16,7 +16,7 @@ object HomeGraph {
 
 object SeriesDetailsGraph {
     const val ROOT = "series_details_graph"
-    const val DETAILS = "details"
+    const val DETAILS = "series_details"
     const val CAST= "cast"
     const val SEASON = "season"
     const val SIMILAR = "similar"

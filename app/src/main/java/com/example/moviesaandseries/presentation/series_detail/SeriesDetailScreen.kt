@@ -2,6 +2,7 @@ package com.example.moviesaandseries.presentation.series_detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -62,7 +63,7 @@ fun SeriesDetailScreen(
                     Spacer(modifier = Modifier.height( 15.dp ))
                     CrewCell(crew = series.aggregate_credits.crew)
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    SeasonsCell(navController = navController,series.number_of_seasons, series.seasons, stateSeasons )
+                    SeasonsCell(navController = navController,series.id.toString(), series.number_of_seasons, series.seasons, stateSeasons )
                     Spacer(modifier = Modifier.height( 15.dp ))
                     SimilarsSeriesCell(navController = navController, state = stateSimilar )
                     Spacer(modifier = Modifier.height( 15.dp ))
@@ -84,6 +85,9 @@ fun SeriesDetailScreen(
             )
         }
         if(state.isLoading) {
+            Column {
+                Text(text = "Nada")
+            }
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }

@@ -14,11 +14,12 @@ import javax.inject.Inject
 class GetSeasonUseCase @Inject constructor(
     private val repository: SeriesRepository
 ) {
-    operator fun invoke(seriesId: String, seasonNumber: Int): Flow<Resource<SeasonDetail>> = flow {
+    operator fun invoke(seriesId: String, seasonNumber: String): Flow<Resource<SeasonDetail>> = flow {
 
         try {
             emit(Resource.Loading<SeasonDetail>())
             val season = repository.getSeasonInfo( seriesId, seasonNumber ).toSeasonDetail()
+            emit(Resource.Success<SeasonDetail>(season))
         } catch(e: HttpException) {
             emit(Resource.Error<SeasonDetail>(e.localizedMessage ?: "An unexpected error occured"))
         } catch(e: IOException) {

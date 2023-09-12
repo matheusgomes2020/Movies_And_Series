@@ -1,5 +1,6 @@
 package com.example.moviesaandseries.data.repository
 
+import android.util.Log
 import com.example.moviesaandseries.data.remote.SeriesApi
 import com.example.moviesaandseries.data.remote.dto.season.SeasonDetailDto
 import com.example.moviesaandseries.data.remote.dto.series.SeriesDetailDto
@@ -30,7 +31,8 @@ class SeriesRepositoryImpl @Inject constructor(
         return api.getSeriesInfo( seriesId )
     }
 
-    override suspend fun getSeasonInfo(seriesId: String, seasonNumber: Int): SeasonDetailDto {
+    override suspend fun getSeasonInfo(seriesId: String, seasonNumber: String): SeasonDetailDto {
+        Log.d("YUYTRR", "Id: $seriesId | season number: $seasonNumber")
         return api.getSeasonInfo(seriesId, seasonNumber)
     }
 

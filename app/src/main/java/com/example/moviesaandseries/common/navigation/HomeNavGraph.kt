@@ -18,7 +18,7 @@ import com.example.moviesaandseries.presentation.season.SeasonDetailScreen
 import com.example.moviesaandseries.presentation.series_detail.SeriesDetailScreen
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreen
 
-/*
+
 @Composable
 fun HomeNavGraph(navController: NavHostController) {
     NavHost(
@@ -62,39 +62,16 @@ fun NavGraphBuilder.seriesDetailsNavGraph(navController: NavHostController) {
             }
 
         }
-        composable(route = DetailsScreen.Cast.route) {
-            ScreenContent(name = DetailsScreen.Cast.route) {
-                navController.popBackStack(
-                    route = DetailsScreen.MoviesDetails.route,
-                    inclusive = false
-                )
-            }
-        }
+//        composable(route = DetailsScreen.Cast.route) {
+//            ScreenContent(name = DetailsScreen.Cast.route) {
+//                navController.popBackStack(
+//                    route = DetailsScreen.MoviesDetails.route,
+//                    inclusive = false
+//                )
+//            }
+//        }
 
-        seasonNavGraph(navController = navController)
-    }
-}
-
-fun NavGraphBuilder.seasonNavGraph(navController: NavController) {
-    navigation(
-        route = Graph.SEASON_DETAILS,
-        startDestination = DetailsScreen.SeasonDetails.route
-    ) {
-        composable(route = DetailsScreen.SeasonDetails.route + "/{seriesId}/{seasonNumber}",
-            arguments = listOf(
-                navArgument( "seriesId") {
-                    type = NavType.StringType
-                },
-                navArgument("seasonNumber") {
-                    type = NavType.IntType
-                }
-            )
-        ) { navBackStackEntry ->
-            navBackStackEntry.arguments?.let {
-                SeasonDetailScreen(navController = navController)
-            }
-
-        }
+        //seasonNavGraph(navController = navController)
     }
 }
 
@@ -111,28 +88,52 @@ fun NavGraphBuilder.movieDetailsNavGraph(navController: NavHostController) {
             )
         ) { navBackStackEntry ->
 
-navBackStackEntry.arguments?.getString("movieId").let {
-    MovieDetailScreen(navController = navController )
-}
+            navBackStackEntry.arguments?.getString("movieId").let {
+                MovieDetailScreen(navController = navController )
+            }
 
         }
-        composable(route = DetailsScreen.SeasonDetails.route) {
-            ScreenContent(name = DetailsScreen.Cast.route) {
-                navController.popBackStack(
-                    route = DetailsScreen.MoviesDetails.route,
-                    inclusive = false
-                )
-            }
-        }
+//        composable(route = DetailsScreen.SeasonDetails.route) {
+//            ScreenContent(name = DetailsScreen.Cast.route) {
+//                navController.popBackStack(
+//                    route = DetailsScreen.MoviesDetails.route,
+//                    inclusive = false
+//                )
+//            }
+//        }
     }
 }
+
+//fun NavGraphBuilder.seasonNavGraph(navController: NavController) {
+//    navigation(
+//        route = Graph.SEASON_DETAILS,
+//        startDestination = DetailsScreen.SeasonDetails.route
+//    ) {
+//        composable(route = DetailsScreen.SeasonDetails.route + "/{seriesId}/{seasonNumber}",
+//            arguments = listOf(
+//                navArgument( "seriesId") {
+//                    type = NavType.StringType
+//                },
+//                navArgument("seasonNumber") {
+//                    type = NavType.IntType
+//                }
+//            )
+//        ) { navBackStackEntry ->
+//            navBackStackEntry.arguments?.let {
+//                SeasonDetailScreen(navController = navController)
+//            }
+//
+//        }
+//    }
+//}
+
+
 
 sealed class DetailsScreen(val route: String) {
 
     object SeriesDetails : DetailsScreen(route = "series_detail_screen")
     object MoviesDetails : DetailsScreen(route = "movie_detail_screen")
-    object SeasonDetails : DetailsScreen(route = "seasons_detail_screen")
+    //object SeasonDetails : DetailsScreen(route = "seasons_detail_screen")
 
-    object Cast : DetailsScreen(route = "CAST")
+    //object Cast : DetailsScreen(route = "CAST")
 }
- */

@@ -37,7 +37,6 @@ import com.example.moviesaandseries.presentation.movie_list.MovieListState
 import com.example.moviesaandseries.presentation.review.ReviewListItem
 import com.example.moviesaandseries.presentation.season.SeasonListScreenCell
 import com.example.moviesaandseries.presentation.season.SeasonListState
-import com.example.moviesaandseries.presentation.series_list.SeriesListScreenCell
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
 
 
@@ -62,7 +61,8 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListState
                 text = nomeOrTitle,
                 style = MaterialTheme.typography.headlineMedium,
                 fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                maxLines = 1
             )
             Image(
                 painterResource(R.drawable.ic_action_name),
@@ -153,7 +153,9 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListState
 }
 
 @Composable
-fun SeasonsCell(navController: NavController,numeroTemporadas: Int, seasons: List<SeasonDto>, state: SeasonListState) {
+fun SeasonsCell(
+    navController: NavController,
+    seriesId: String, numeroTemporadas: Int, seasons: List<SeasonDto>, state: SeasonListState) {
     Column {
 
         Text(
@@ -163,7 +165,7 @@ fun SeasonsCell(navController: NavController,numeroTemporadas: Int, seasons: Lis
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height( 15.dp ))
-        SeasonListScreenCell(navController = navController, state = state )
+        SeasonListScreenCell(navController = navController, seriesId = seriesId , state = state )
 
     }
 }
@@ -178,7 +180,7 @@ fun SeasonsCell(navController: NavController,numeroTemporadas: Int, seasons: Lis
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(15.dp))
-        SeriesListScreenCell(navController  , state = state)
+        //SeriesListScreenCell(navController  , state = state)
     }
 }
 

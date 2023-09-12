@@ -1,5 +1,6 @@
 package com.example.moviesaandseries.presentation.season
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
@@ -26,19 +27,20 @@ class SeasonDetailViewModel @Inject constructor(
     init {
 
         var a = ""
-        var b = 0
+        var b = ""
 
         savedStateHandle.get<String>(Constants.PARAM_SERIES_ID)?.let { seriesId ->
             a = seriesId
         }
-        savedStateHandle.get<Int>(Constants.PARAM_SEASON_NUMBER)?.let { seriesId ->
-            b = seriesId
+        savedStateHandle.get<String>(Constants.PARAM_SEASON_NUMBER)?.let { seasonNumber ->
+            b = seasonNumber
         }
 
         getSeason(a,b)
+        Log.d("YUYTRR", "ViewModel: id: $a | season number: $b ")
     }
 
-    private fun getSeason(seriesId: String, seasonNumber: Int) {
+    private fun getSeason(seriesId: String, seasonNumber: String) {
         getSeasonUseCase(seriesId, seasonNumber).onEach { result ->
 
             when (result) {

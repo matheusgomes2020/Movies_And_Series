@@ -13,5 +13,5 @@ interface SeriesRepository {
 
     suspend fun getSeriesInfo(seriesId: String): SeriesDetailDto
 
-    suspend fun getSeasonInfo(seriesId: String, seasonNumber: Int): SeasonDetailDto
+    suspend fun getSeasonInfo(seriesId: String, seasonNumber: String): SeasonDetailDto
 }

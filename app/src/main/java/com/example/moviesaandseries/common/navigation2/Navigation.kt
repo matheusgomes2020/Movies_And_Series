@@ -4,8 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.example.moviesaandseries.common.navigation.seriesDetailsNavGraph
 import com.example.moviesaandseries.presentation.general.ScreenContent
@@ -13,7 +15,10 @@ import com.example.moviesaandseries.presentation.general.ScreenContentSeason
 import com.example.moviesaandseries.presentation.general.ScreenContentSeries
 import com.example.moviesaandseries.presentation.home.HomeScreen
 import com.example.moviesaandseries.presentation.login.LoginContent
+import com.example.moviesaandseries.presentation.movie_detail.MovieDetailScreen
 import com.example.moviesaandseries.presentation.movie_list.MovieListScreen
+import com.example.moviesaandseries.presentation.season.SeasonDetailScreen
+import com.example.moviesaandseries.presentation.series_detail.SeriesDetailScreen
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreen
 
 @Composable
@@ -62,16 +67,13 @@ fun HomeNavGraph2(navController: NavHostController) {
         startDestination = AppGraph.home.MOVIES
     ) {
         composable(route = AppGraph.home.MOVIES) {
-            //MovieListScreen(navController = navController)
-            ScreenContent(name = "Lista Movies") {
-                navController.navigate(AppGraph.movies_details.ROOT)
-            }
+            MovieListScreen(navController = navController)
+            //ScreenContent(name = "Lista Movies") {
+               // navController.navigate(AppGraph.movies_details.ROOT)
+           // }
         }
         composable(route = AppGraph.home.SERIES) {
-            //SeriesListScreen(navController = navController)
-            ScreenContent(name = "Lista Séries") {
-               navController.navigate(AppGraph.series_details.ROOT)
-            }
+            SeriesListScreen(navController = navController)
         }
         composable(route = AppGraph.home.FAVORITES) {
             ScreenContent(name = "Lista Favoritos") {
@@ -88,9 +90,22 @@ fun NavGraphBuilder.movieDetailsNavGraph2(navController: NavController){
         route = AppGraph.movies_details.ROOT,
         startDestination = AppGraph.movies_details.DETAILS
     ) {
-        composable(route = AppGraph.movies_details.DETAILS) {
-            ScreenContent(name = "Movie Details") {
-                navController.navigate(AppGraph.movies_details.CAST)
+        composable(route = AppGraph.movies_details.DETAILS + "/{movieId}",
+            arguments = listOf(
+                navArgument( "movieId" ) {
+                    type = NavType.StringType
+                }
+            )
+        ) { navBackStackEntry ->
+
+            navBackStackEntry.arguments?.getString("movieId").let {
+                MovieDetailScreen(navController = navController)
+
+//                ScreenContentSeries(
+//                    name = it.toString(),
+//                    onClick = { navController.navigate(AppGraph.series_details.CAST) },
+//                    onClick2 = { navController.navigate(AppGraph.series_details.SIMILAR) },
+//                    onClick3 = { navController.navigate(AppGraph.series_details.SEASON)} )
             }
         }
     }
@@ -101,24 +116,35 @@ fun NavGraphBuilder.seriesDetailsNavGraph2(navController: NavController){
         route = AppGraph.series_details.ROOT,
         startDestination = AppGraph.series_details.DETAILS
     ) {
-        composable(route = AppGraph.series_details.DETAILS) {
-            ScreenContentSeries(
-                name = "Séries Details",
-                onClick = { navController.navigate(AppGraph.series_details.CAST) },
-                onClick2 = { navController.navigate(AppGraph.series_details.SIMILAR) },
-                onClick3 = { navController.navigate(AppGraph.series_details.SEASON)} )
-        }
-        composable(route = AppGraph.series_details.CAST) {
-            ScreenContent(name = "Cast") {}
-        }
-        composable(route = AppGraph.series_details.SIMILAR) {
-            ScreenContent(name = "Similar") {}
-        }
-        composable(route = AppGraph.series_details.SEASON) {
-            ScreenContent(name = "Season 435454") {
-                navController.navigate( AppGraph.season_details.ROOT )
+        composable(route = AppGraph.series_details.DETAILS + "/{seriesId}",
+            arguments = listOf(
+                navArgument( "seriesId" ) {
+                    type = NavType.StringType
+                }
+            )
+        ) { navBackStackEntry ->
+
+            navBackStackEntry.arguments?.getString("seriesId").let {
+                SeriesDetailScreen(navController = navController)
+                
+//                ScreenContentSeries(
+//                    name = it.toString(),
+//                    onClick = { navController.navigate(AppGraph.series_details.CAST) },
+//                    onClick2 = { navController.navigate(AppGraph.series_details.SIMILAR) },
+//                    onClick3 = { navController.navigate(AppGraph.series_details.SEASON)} )
             }
         }
+//        composable(route = AppGraph.series_details.CAST) {
+//            ScreenContent(name = "Cast") {}
+//        }
+//        composable(route = AppGraph.series_details.SIMILAR) {
+//            ScreenContent(name = "Similar") {}
+//        }
+//        composable(route = AppGraph.series_details.SEASON) {
+//            ScreenContent(name = "Season 435454") {
+//                navController.navigate( AppGraph.season_details.ROOT )
+//            }
+//        }
         seasonDetailsNavGraph( navController = navController )
     }
 }
@@ -128,9 +154,19 @@ fun NavGraphBuilder.seasonDetailsNavGraph(navController: NavController){
         route = AppGraph.season_details.ROOT,
         startDestination = AppGraph.season_details.DETAILS
     ) {
-        composable( route = AppGraph.season_details.DETAILS ) {
-            ScreenContentSeason(name = "4343434343") {
-                navController.navigate(AppGraph.season_details.EPISODE)
+        composable( route = AppGraph.season_details.DETAILS + "/{seriesId}/{seasonNumber}",
+            arguments = listOf(
+                navArgument("seriesId") {
+                    type = NavType.StringType
+                },
+                navArgument("seasonNumber") {
+                    type = NavType.StringType
+                }
+            )
+        ) { navBackStackEntry ->
+
+            navBackStackEntry.arguments?.getString("seriesId").let {
+                SeasonDetailScreen(navController = navController)
             }
         }
     }

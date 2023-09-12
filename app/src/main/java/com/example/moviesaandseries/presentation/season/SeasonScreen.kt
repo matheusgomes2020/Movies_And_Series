@@ -76,7 +76,7 @@ fun MainContent(numeroTemporada: Int, posterPath: String, overview: String){
         modifier = Modifier.padding(horizontal = 15.dp)
     ) {
         Text(
-            text = "2 - Temporada",
+            text = "$numeroTemporada - Temporada",
             modifier = Modifier.padding(vertical = 10.dp),
             fontWeight = FontWeight.Bold,
             fontSize = 18.sp)
@@ -92,7 +92,7 @@ fun MainContent(numeroTemporada: Int, posterPath: String, overview: String){
             contentScale = ContentScale.Crop
         )
         Text(
-            text = "Agente Phil Coulson da S.H.I.E.L.D. (Superintendência Humana de Intervenção, Espionagem, Logística e Dissuasão) reúne uma equipe de agentes para investigar o novo, o estranho e o desconhecido em todo o mundo, protegendo o comum do extraordinário.",
+            text = overview,
             modifier = Modifier.padding(vertical = 10.dp)
         )
     }

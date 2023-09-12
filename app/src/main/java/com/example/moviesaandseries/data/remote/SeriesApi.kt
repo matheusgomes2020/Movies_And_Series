@@ -35,7 +35,7 @@ interface SeriesApi {
     suspend fun  getSeriesInfo(@Path("serieID") serieId: String) : SeriesDetailDto
 
     @GET("tv/{series_id}/season/{season_number}?language=pt-BR&api_key=" + Constants.API_KEY)
-    suspend fun getSeasonInfo(@Path("series_id") series_id: String, @Path("season_number") season_number: Int ) : SeasonDetailDto
+    suspend fun getSeasonInfo(@Path("series_id") series_id: String, @Path("season_number") season_number: String ) : SeasonDetailDto
 
     @GET("tv/{series_id}/season/{season_number}/episode/{episode_number}?language=pt-BR&api_key=" + Constants.API_KEY + "&append_to_response=images")
     suspend fun getEpisodeInfo(@Path("series_id") series_id: String, @Path("season_number") season_number: Int, @Path("episode_number") episode_number: Int ) : Episode
