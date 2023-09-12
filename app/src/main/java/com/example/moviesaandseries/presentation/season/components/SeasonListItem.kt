@@ -3,6 +3,7 @@ package com.example.moviesaandseries.presentation.season.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -25,13 +26,13 @@ import com.example.moviesaandseries.data.remote.dto.season.SeasonDto
 @Composable
 fun SeasonListItem(
     season: SeasonDto,
-    //onItemClick: (Season) -> Unit
+    onItemClick: (SeasonDto) -> Unit
 ) {
 
     Card(
         shape = RoundedCornerShape(15.dp),
         modifier = Modifier.padding(5.dp)
-            //.clickable { onItemClick(season) }
+            .clickable { onItemClick(season) }
             .background(color = Color.White ),
     ) {
 

@@ -20,19 +20,19 @@ sealed class BottomBarScreen(
     val icon: ImageVector
 ) {
     object Movies : BottomBarScreen(
-        route = "MOVIES",
+        route = "movies",
         title = "Filmes",
         icon = Icons.Default.Home
     )
 
     object Series : BottomBarScreen(
-        route = "SERIES",
+        route = "series",
         title = "Series",
         icon = Icons.Default.MailOutline
     )
 
     object Favorites : BottomBarScreen(
-        route = "FAVORITES",
+        route = "favorites",
         title = "Favoritos",
         icon = Icons.Default.Favorite
     )

@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.moviesaandseries.common.navigation.DetailsScreen
+//import com.example.moviesaandseries.common.navigation.DetailsScreen
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListItem
 
 @Composable
@@ -33,7 +33,7 @@ fun MovieListScreenCell(
                 MovieListItem(
                     movie = movie,
                     onItemClick = {
-                        navController.navigate(DetailsScreen.MoviesDetails.route + "/${movie.id}")
+                        //navController.navigate(DetailsScreen.MoviesDetails.route + "/${movie.id}")
                         //navController.navigate(Graph.DETAILS)
                     }
                 )

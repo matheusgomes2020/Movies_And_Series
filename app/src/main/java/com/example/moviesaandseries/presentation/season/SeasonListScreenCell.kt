@@ -13,12 +13,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 import com.example.moviesaandseries.presentation.season.components.SeasonListItem
 
 @Composable
 fun SeasonListScreenCell(
-    //navController: NavController,
+    navController: NavController,
     state: SeasonListState
 ) {
     Box(
@@ -31,6 +32,9 @@ fun SeasonListScreenCell(
             items(state.seasons) { season ->
                 SeasonListItem(
                     season = season,
+                    onItemClick = {
+                        //navController.navigate(DetailsScreen.SeasonDetails.route + "/${season}")
+                    }
                 )
             }
         }

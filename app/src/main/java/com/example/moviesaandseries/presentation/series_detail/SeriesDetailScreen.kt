@@ -62,7 +62,7 @@ fun SeriesDetailScreen(
                     Spacer(modifier = Modifier.height( 15.dp ))
                     CrewCell(crew = series.aggregate_credits.crew)
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    SeasonsCell(series.number_of_seasons, series.seasons, stateSeasons )
+                    SeasonsCell(navController = navController,series.number_of_seasons, series.seasons, stateSeasons )
                     Spacer(modifier = Modifier.height( 15.dp ))
                     SimilarsSeriesCell(navController = navController, state = stateSimilar )
                     Spacer(modifier = Modifier.height( 15.dp ))

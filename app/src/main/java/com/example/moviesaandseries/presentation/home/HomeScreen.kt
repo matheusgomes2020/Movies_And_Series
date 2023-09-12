@@ -19,7 +19,8 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.moviesaandseries.common.navigation.HomeNavGraph
+//import com.example.moviesaandseries.common.navigation.HomeNavGraph
+import com.example.moviesaandseries.common.navigation2.HomeNavGraph2
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -27,7 +28,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
     Scaffold(
         bottomBar = { BottomBar(navController = navController) }
     ) {
-        HomeNavGraph(navController = navController)
+        HomeNavGraph2(navController = navController)
     }
 }
 

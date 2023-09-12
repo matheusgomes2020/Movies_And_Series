@@ -15,7 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.moviesaandseries.common.navigation.DetailsScreen
+//import com.example.moviesaandseries.common.navigation.DetailsScreen
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListItem
 import com.example.moviesaandseries.presentation.series_list.components.SeriesListItem
 
@@ -35,7 +35,7 @@ fun SeriesListScreenCell(
                 SeriesListItem(
                     series = series,
                     onItemClick = {
-                        navController.navigate(DetailsScreen.SeriesDetails.route + "/${series.id}")
+                        //navController.navigate(DetailsScreen.SeriesDetails.route + "/${series.id}")
                        // navController.navigate(Graph.DETAILS)
                     }
                 )

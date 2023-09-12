@@ -2,6 +2,7 @@ package com.example.moviesaandseries.common.navigation
 
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -13,9 +14,11 @@ import com.example.moviesaandseries.presentation.general.ScreenContent
 import com.example.moviesaandseries.presentation.home.BottomBarScreen
 import com.example.moviesaandseries.presentation.movie_detail.MovieDetailScreen
 import com.example.moviesaandseries.presentation.movie_list.MovieListScreen
+import com.example.moviesaandseries.presentation.season.SeasonDetailScreen
 import com.example.moviesaandseries.presentation.series_detail.SeriesDetailScreen
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreen
 
+/*
 @Composable
 fun HomeNavGraph(navController: NavHostController) {
     NavHost(
@@ -37,6 +40,7 @@ fun HomeNavGraph(navController: NavHostController) {
         }
         movieDetailsNavGraph(navController = navController)
         seriesDetailsNavGraph(navController = navController)
+
     }
 }
 
@@ -66,6 +70,31 @@ fun NavGraphBuilder.seriesDetailsNavGraph(navController: NavHostController) {
                 )
             }
         }
+
+        seasonNavGraph(navController = navController)
+    }
+}
+
+fun NavGraphBuilder.seasonNavGraph(navController: NavController) {
+    navigation(
+        route = Graph.SEASON_DETAILS,
+        startDestination = DetailsScreen.SeasonDetails.route
+    ) {
+        composable(route = DetailsScreen.SeasonDetails.route + "/{seriesId}/{seasonNumber}",
+            arguments = listOf(
+                navArgument( "seriesId") {
+                    type = NavType.StringType
+                },
+                navArgument("seasonNumber") {
+                    type = NavType.IntType
+                }
+            )
+        ) { navBackStackEntry ->
+            navBackStackEntry.arguments?.let {
+                SeasonDetailScreen(navController = navController)
+            }
+
+        }
     }
 }
 
@@ -87,7 +116,7 @@ navBackStackEntry.arguments?.getString("movieId").let {
 }
 
         }
-        composable(route = DetailsScreen.Cast.route) {
+        composable(route = DetailsScreen.SeasonDetails.route) {
             ScreenContent(name = DetailsScreen.Cast.route) {
                 navController.popBackStack(
                     route = DetailsScreen.MoviesDetails.route,
@@ -102,6 +131,8 @@ sealed class DetailsScreen(val route: String) {
 
     object SeriesDetails : DetailsScreen(route = "series_detail_screen")
     object MoviesDetails : DetailsScreen(route = "movie_detail_screen")
+    object SeasonDetails : DetailsScreen(route = "seasons_detail_screen")
 
     object Cast : DetailsScreen(route = "CAST")
 }
+ */

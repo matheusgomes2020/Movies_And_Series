@@ -153,7 +153,7 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListState
 }
 
 @Composable
-fun SeasonsCell(numeroTemporadas: Int, seasons: List<SeasonDto>, state: SeasonListState) {
+fun SeasonsCell(navController: NavController,numeroTemporadas: Int, seasons: List<SeasonDto>, state: SeasonListState) {
     Column {
 
         Text(
@@ -163,7 +163,7 @@ fun SeasonsCell(numeroTemporadas: Int, seasons: List<SeasonDto>, state: SeasonLi
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height( 15.dp ))
-        SeasonListScreenCell(state = state )
+        SeasonListScreenCell(navController = navController, state = state )
 
     }
 }

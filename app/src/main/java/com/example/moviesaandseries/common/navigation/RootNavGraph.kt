@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.moviesaandseries.presentation.home.HomeScreen
 
+
 @Composable
 fun RootNavigationGraph(navController: NavHostController) {
     NavHost(
@@ -26,4 +27,5 @@ object Graph {
     const val HOME = "home_graph"
     const val MOVIE_DETAILS = "details_graph"
     const val SERIES_DETAILS = "series_details_graph"
+    const val SEASON_DETAILS = "seasons_detail_graph"
 }

@@ -23,7 +23,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    RootNavigationGraph(navController = rememberNavController() )
+                    //RootNavigationGraph(navController = rememberNavController() )
+                    com.example.moviesaandseries.common.navigation2.RootNavigationGraph(
+                        navController = rememberNavController()
+                    )
                 }
             }
         }
