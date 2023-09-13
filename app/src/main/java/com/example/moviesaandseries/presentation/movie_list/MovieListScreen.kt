@@ -4,7 +4,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
@@ -41,7 +43,7 @@ fun MovieListScreen(
                             modifier = Modifier
                                 .padding(top = 15.dp, bottom = 15.dp)
                                 .clickable {
-                                           //navController.navigate(Screen.SeriesListScreen.route)
+                                    //navController.navigate(Screen.SeriesListScreen.route)
                                 },
                             fontSize = 18.sp,
                             style = MaterialTheme.typography.labelMedium,
@@ -75,6 +77,7 @@ fun MovieListScreen(
                             fontWeight = FontWeight.Bold
                         )
                         MovieListScreenCell(navController = navController , state = state4)
+                        Spacer(modifier = Modifier.height(55.dp))
                     }
 
                 }

@@ -1,5 +1,6 @@
 package com.example.moviesaandseries.presentation.series_detail
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,12 +27,13 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
+import com.example.moviesaandseries.common.navigation2.AppGraph
 import com.example.moviesaandseries.data.remote.dto.movies.Cast
 import com.example.moviesaandseries.data.remote.dto.movies.Crew
 import com.example.moviesaandseries.data.remote.dto.Genre
 import com.example.moviesaandseries.data.remote.dto.Review
 import com.example.moviesaandseries.data.remote.dto.season.SeasonDto
-import com.example.moviesaandseries.presentation.cast.CastListItem
+import com.example.moviesaandseries.presentation.cast.components.CastListItem
 import com.example.moviesaandseries.presentation.movie_list.MovieListScreenCell
 import com.example.moviesaandseries.presentation.movie_list.MovieListState
 import com.example.moviesaandseries.presentation.review.ReviewListItem
@@ -96,7 +98,9 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListState
 }
 
 @Composable
- fun CastCell(cast: List<Cast>) {
+ fun CastCell(
+    navController: NavController,
+    cast: List<Cast>) {
     Column {
         Text(
             text = "Elenco",
@@ -108,12 +112,19 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListState
         LazyRow(
             contentPadding = PaddingValues()
         ) {
-            items(cast) { castMember ->
+            items(cast) { cast ->
                 CastListItem(
-                    cast = castMember,
+                    cast = cast,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(10.dp)
+                        .padding(10.dp),
+                    onItemClick = {
+                        try {
+                            navController.navigate(AppGraph.cast_details.DETAILS + "/${cast.id}")
+                        }catch (e: Exception){
+                            Log.d("QQQ", "CastCell: ${e.printStackTrace()}")
+                        }
+                    }
                 )
             }
         }

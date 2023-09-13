@@ -19,12 +19,51 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.common.Constants
+import com.example.moviesaandseries.data.remote.dto.series.SeriesWork
 import com.example.moviesaandseries.domain.model.Series
 
 @Composable
 fun SeriesListItem(
     series: Series,
     onItemClick: (Series) -> Unit
+) {
+
+    Card(
+        shape = RoundedCornerShape(15.dp),
+        modifier = Modifier.padding(5.dp)
+            .clickable { onItemClick(series) }
+            .background(color = Color.White ),
+    ) {
+
+        Column(
+            modifier = Modifier
+                .background(color = Color.White)
+        ) {
+            Image(painter = rememberAsyncImagePainter(
+                model = Constants.BASE_IMAGE_URL + series.poster_path),
+                contentScale = ContentScale.Crop,
+                contentDescription = "series image",
+                modifier = Modifier
+                    .width(110.dp)
+                    .height(150.dp)
+                    .clip(shape = RoundedCornerShape(15.dp)))
+        }
+
+        Text(
+            text = "${series.name}",
+            modifier = Modifier.width(110.dp)
+                .background(Color.White)
+                .padding(start = 3.dp),
+            fontSize = 14.sp,
+            maxLines = 1
+        )
+    }
+}
+
+@Composable
+fun SeriesListItemWork(
+    series: SeriesWork,
+    onItemClick: (SeriesWork) -> Unit
 ) {
 
     Card(

@@ -59,7 +59,7 @@ fun SeriesDetailScreen(
                         series.genres,
                     )
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    CastCell(cast = series.aggregate_credits.cast)
+                    CastCell( navController = navController, cast = series.aggregate_credits.cast )
                     Spacer(modifier = Modifier.height( 15.dp ))
                     CrewCell(crew = series.aggregate_credits.crew)
                     Spacer(modifier = Modifier.height( 15.dp ))

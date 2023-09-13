@@ -30,7 +30,7 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
-import com.example.moviesaandseries.data.remote.dto.season.Episode
+import com.example.moviesaandseries.data.remote.dto.episode.EpisodeDto
 
 @Composable
  fun SeasonDetailScreen(
@@ -98,7 +98,7 @@ fun MainContent(numeroTemporada: Int, posterPath: String, overview: String){
     }
 }
 @Composable
-fun EpisodeCell(episodes: List<Episode>){
+fun EpisodeCell(episodes: List<EpisodeDto>){
     Column(
         modifier = Modifier.padding(horizontal = 15.dp)
     ) {
@@ -120,7 +120,7 @@ fun EpisodeCell(episodes: List<Episode>){
 
 @Composable
 fun EpisodeListItem(
-    episode: Episode,
+    episode: EpisodeDto,
     //onItemClick: (Episode) -> Unit
 ){
     Row(

@@ -1,6 +1,7 @@
-package com.example.moviesaandseries.presentation.cast
+package com.example.moviesaandseries.presentation.cast.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -25,11 +26,13 @@ import com.example.moviesaandseries.data.remote.dto.movies.Cast
 @Composable
 fun CastListItem(
     cast: Cast,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onItemClick: (Cast) -> Unit
 ) {
     Column(
         modifier = modifier
-            .padding(),
+            .padding()
+            .clickable { onItemClick(cast) },
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     )

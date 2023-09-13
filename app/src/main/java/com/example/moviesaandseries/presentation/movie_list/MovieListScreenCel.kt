@@ -16,8 +16,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.DetailsScreen
 import com.example.moviesaandseries.common.navigation2.AppGraph
+import com.example.moviesaandseries.presentation.cast.MoviesCastListState
 //import com.example.moviesaandseries.common.navigation.DetailsScreen
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListItem
+import com.example.moviesaandseries.presentation.movie_list.components.MovieListItemWork
 
 @Composable
 fun MovieListScreenCell(
@@ -37,6 +39,51 @@ fun MovieListScreenCell(
                     onItemClick = {
                        // navController.navigate(DetailsScreen.MoviesDetails.route + "/${movie.id}")
                         navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
+                        //navController.navigate(Graph.DETAILS)
+                    }
+                )
+            }
+        }
+        if ( state.error.isNotBlank() ) {
+            Text(
+                text = state.error,
+                color = MaterialTheme.colorScheme.error,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+                    .align(Alignment.Center)
+            )
+        }
+        if(state.isLoading) {
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+        }
+    }
+}
+
+@Composable
+fun MovieListScreenCellWork(
+    navController: NavController,
+    state: MoviesCastListState
+){
+    Box(
+        //  modifier = Modifier.fillMaxSize()
+    ) {
+
+        LazyRow(
+            //modifier = Modifier.fillMaxSize()
+        ) {
+            items(state.movies) { movie ->
+                MovieListItemWork(
+                    movie = movie,
+                    onItemClick = {
+                        try {
+                            navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
+                        }catch (e: Exception){
+                            e.printStackTrace()
+                        }
+                        // navController.navigate(DetailsScreen.MoviesDetails.route + "/${movie.id}")
+
                         //navController.navigate(Graph.DETAILS)
                     }
                 )

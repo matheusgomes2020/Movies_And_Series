@@ -3,7 +3,9 @@ package com.example.moviesaandseries.presentation.series_list
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
@@ -64,7 +66,7 @@ fun SeriesListScreen(
                         )
                         //Spacer(modifier = Modifier.height(10.dp))
                         SeriesListScreenCell(navController = navController , state = statePopular)
-                        Text(text = "Séries melhores avaliadoa",
+                        Text(text = "Séries melhores avaliados",
                             modifier = Modifier
                                 .padding(top = 15.dp, bottom = 15.dp),
                             fontSize = 18.sp,
@@ -72,6 +74,7 @@ fun SeriesListScreen(
                             fontWeight = FontWeight.Bold
                         )
                         SeriesListScreenCell(navController = navController , state = stateRated)
+                        Spacer(modifier = Modifier.height(55.dp))
                     }
 
                 }

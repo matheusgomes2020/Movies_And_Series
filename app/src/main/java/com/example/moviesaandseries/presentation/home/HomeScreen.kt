@@ -1,6 +1,7 @@
 package com.example.moviesaandseries.presentation.home
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -29,7 +30,9 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
     Scaffold(
         bottomBar = { BottomBar(navController = navController) }
     ) {
-        HomeNavGraph2(navController = navController)
+        Column {
+            HomeNavGraph2(navController = navController)
+        }
     }
 }
 

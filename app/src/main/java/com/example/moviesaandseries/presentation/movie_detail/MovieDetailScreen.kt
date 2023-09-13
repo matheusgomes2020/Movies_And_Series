@@ -53,7 +53,7 @@ fun MovieDetailScreen(
                 item {
                     MainContent(title, overview, posterPath, data, movie.runtime.toString(), movie.vote_average, movie.genres)
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    CastCell(cast = movie.credits.cast)
+                    CastCell(navController, cast = movie.credits.cast)
                     Spacer(modifier = Modifier.height( 15.dp ))
                     CrewCell(crew = movie.credits.crew)
                     Spacer(modifier = Modifier.height( 15.dp ))

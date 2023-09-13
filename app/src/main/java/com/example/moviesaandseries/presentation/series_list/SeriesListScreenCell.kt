@@ -18,8 +18,10 @@ import androidx.navigation.compose.rememberNavController
 import com.example.moviesaandseries.common.navigation.DetailsScreen
 import com.example.moviesaandseries.common.navigation.Graph
 import com.example.moviesaandseries.common.navigation2.AppGraph
+import com.example.moviesaandseries.presentation.cast.SeriesCastListState
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListItem
 import com.example.moviesaandseries.presentation.series_list.components.SeriesListItem
+import com.example.moviesaandseries.presentation.series_list.components.SeriesListItemWork
 
 @Composable
 fun SeriesListScreenCell(
@@ -38,6 +40,48 @@ fun SeriesListScreenCell(
                     series = series,
                     onItemClick = {
                         navController.navigate(AppGraph.series_details.DETAILS +"/${series.id}")
+                    }
+                )
+            }
+        }
+        if ( state.error.isNotBlank() ) {
+            Text(
+                text = state.error,
+                color = MaterialTheme.colorScheme.error,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+                    .align(Alignment.Center)
+            )
+        }
+        if(state.isLoading) {
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+        }
+    }
+}
+
+@Composable
+fun SeriesListScreenCellPerson(
+    navController: NavController,
+    state: SeriesCastListState
+) {
+    Box(
+        //  modifier = Modifier.fillMaxSize()
+    ) {
+
+        LazyRow(
+            //modifier = Modifier.fillMaxSize()
+        ) {
+            items(state.series) { series ->
+                SeriesListItemWork(
+                    series = series,
+                    onItemClick = {
+                        try {
+                            navController.navigate(AppGraph.series_details.DETAILS +"/${series.id}")
+                        }catch (e: Exception){
+                            e.printStackTrace()
+                        }
                     }
                 )
             }

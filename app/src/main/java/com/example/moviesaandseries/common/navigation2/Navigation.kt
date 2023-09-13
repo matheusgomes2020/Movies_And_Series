@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.example.moviesaandseries.common.navigation.seriesDetailsNavGraph
+import com.example.moviesaandseries.presentation.cast.CastScreen
 import com.example.moviesaandseries.presentation.general.ScreenContent
 import com.example.moviesaandseries.presentation.general.ScreenContentSeason
 import com.example.moviesaandseries.presentation.general.ScreenContentSeries
@@ -100,14 +101,9 @@ fun NavGraphBuilder.movieDetailsNavGraph2(navController: NavController){
 
             navBackStackEntry.arguments?.getString("movieId").let {
                 MovieDetailScreen(navController = navController)
-
-//                ScreenContentSeries(
-//                    name = it.toString(),
-//                    onClick = { navController.navigate(AppGraph.series_details.CAST) },
-//                    onClick2 = { navController.navigate(AppGraph.series_details.SIMILAR) },
-//                    onClick3 = { navController.navigate(AppGraph.series_details.SEASON)} )
             }
         }
+        castDetailNavGraph(navController = navController)
     }
 }
 
@@ -126,26 +122,30 @@ fun NavGraphBuilder.seriesDetailsNavGraph2(navController: NavController){
 
             navBackStackEntry.arguments?.getString("seriesId").let {
                 SeriesDetailScreen(navController = navController)
-                
-//                ScreenContentSeries(
-//                    name = it.toString(),
-//                    onClick = { navController.navigate(AppGraph.series_details.CAST) },
-//                    onClick2 = { navController.navigate(AppGraph.series_details.SIMILAR) },
-//                    onClick3 = { navController.navigate(AppGraph.series_details.SEASON)} )
             }
         }
-//        composable(route = AppGraph.series_details.CAST) {
-//            ScreenContent(name = "Cast") {}
-//        }
-//        composable(route = AppGraph.series_details.SIMILAR) {
-//            ScreenContent(name = "Similar") {}
-//        }
-//        composable(route = AppGraph.series_details.SEASON) {
-//            ScreenContent(name = "Season 435454") {
-//                navController.navigate( AppGraph.season_details.ROOT )
-//            }
-//        }
         seasonDetailsNavGraph( navController = navController )
+        castDetailNavGraph(navController = navController)
+    }
+}
+
+fun NavGraphBuilder.castDetailNavGraph(navController: NavController) {
+    navigation(
+        route = AppGraph.cast_details.ROOT,
+        startDestination = AppGraph.cast_details.DETAILS
+    ) {
+        composable(route = AppGraph.cast_details.DETAILS + "/{castId}",
+            arguments = listOf(
+                navArgument( "castId" ) {
+                    type = NavType.StringType
+                }
+            )
+        ) { navBackStackEntry ->
+
+            navBackStackEntry.arguments?.getString("castId").let {
+                CastScreen(navController = navController)
+            }
+        }
     }
 }
 

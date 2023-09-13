@@ -17,7 +17,7 @@ object HomeGraph {
 object SeriesDetailsGraph {
     const val ROOT = "series_details_graph"
     const val DETAILS = "series_details"
-    const val CAST= "cast"
+     val CAST = CastGraph
     const val SEASON = "season"
     const val SIMILAR = "similar"
 }
@@ -36,6 +36,14 @@ object SeasonGraph {
     const val CAST= "cast"
 }
 
+object CastGraph {
+    const val ROOT = "cast_details_graph"
+    const val DETAILS = "cast_details"
+    const val MOVIES = "movies"
+    const val SERIES = "series"
+}
+
+
 object RootGraph {
     const val ROOT = "root_graph"
 }
@@ -45,6 +53,7 @@ object AppGraph {
     val series_details = SeriesDetailsGraph
     val movies_details = MoviesDetailsGraph
     val season_details = SeasonGraph
+    val cast_details = CastGraph
     val home = HomeGraph
     val initial = RootGraph
 }
