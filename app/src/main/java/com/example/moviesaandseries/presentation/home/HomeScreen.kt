@@ -1,8 +1,11 @@
 package com.example.moviesaandseries.presentation.home
-
 import android.annotation.SuppressLint
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.ContentAlpha
@@ -10,10 +13,23 @@ import androidx.compose.material.Icon
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SearchBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -21,17 +37,75 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.moviesaandseries.common.navigation.HomeNavGraph
-//import com.example.moviesaandseries.common.navigation.HomeNavGraph
-import com.example.moviesaandseries.common.navigation2.HomeNavGraph2
+import com.example.moviesaandseries.presentation.search.SearchViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(navController: NavHostController = rememberNavController()) {
+fun HomeScreen(navController: NavHostController = rememberNavController(),
+               viewModel: SearchViewModel = hiltViewModel()) {
+    var text by remember { mutableStateOf("") }
+    var active by remember { mutableStateOf(false) }
+    var items = remember {
+        mutableStateListOf(
+            "sdsdsds",
+            "dsdsds",
+            "wdsds"
+        )
+    }
     Scaffold(
         bottomBar = { BottomBar(navController = navController) }
     ) {
         Column {
-            HomeNavGraph2(navController = navController)
+            SearchBar(
+                modifier = Modifier.fillMaxWidth(),
+                query = text,
+                onQueryChange = {
+                    text = it
+                },
+                onSearch = {
+                    items.add(text)
+                    active = false
+                },
+                active = active,
+                onActiveChange = {
+                    active = it
+                },
+                placeholder = {
+                    Text(text = "Pesquisar...")
+                },
+                leadingIcon = {
+                    Icon(imageVector = Icons.Default.Search, contentDescription = "Search Icon" )
+                },
+                trailingIcon = {
+                    if ( active ) {
+                        Icon(
+                            modifier = Modifier.clickable {
+                                if ( text.isNotEmpty() ) {
+                                    text = ""
+                                } else {
+                                    active = false
+                                }
+                            },
+                            imageVector = Icons.Default.Close,
+                            contentDescription = "Close Icon" )
+                    }
+                },
+                ) {
+                
+                items.forEach { 
+                    Row( modifier = Modifier.padding( all = 14.dp ) ) {
+                        Icon(
+                            modifier = Modifier.padding( end = 10.dp ),
+                            imageVector = Icons.Default.List,
+                            contentDescription = "History Icon"
+                        )
+                        Text( text = it )
+                    }
+                }
+                
+            }
+            HomeNavGraph(navController = navController)
         }
     }
 }

@@ -14,12 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.example.moviesaandseries.common.navigation.DetailsScreen
-import com.example.moviesaandseries.common.navigation.Graph
-import com.example.moviesaandseries.common.navigation2.AppGraph
+import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.presentation.cast.SeriesCastListState
-import com.example.moviesaandseries.presentation.movie_list.components.MovieListItem
 import com.example.moviesaandseries.presentation.series_list.components.SeriesListItem
 import com.example.moviesaandseries.presentation.series_list.components.SeriesListItemWork
 

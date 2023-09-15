@@ -2,6 +2,7 @@ package com.example.moviesaandseries.data.repository
 
 import android.util.Log
 import com.example.moviesaandseries.data.remote.SeriesApi
+import com.example.moviesaandseries.data.remote.dto.episode.EpisodeDetailDto
 import com.example.moviesaandseries.data.remote.dto.season.SeasonDetailDto
 import com.example.moviesaandseries.data.remote.dto.series.SeriesDetailDto
 import com.example.moviesaandseries.data.remote.dto.series.SeriesDto
@@ -11,6 +12,10 @@ import javax.inject.Inject
 class SeriesRepositoryImpl @Inject constructor(
     private val api: SeriesApi
 ): SeriesRepository {
+    override suspend fun searchSeries(searchQuery: String): List<SeriesDto> {
+        return api.searchSeries( searchQuery ).results
+    }
+
     override suspend fun getPopularSeries(): List<SeriesDto> {
         return api.getPopularSeries().results
     }
@@ -32,10 +37,12 @@ class SeriesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getSeasonInfo(seriesId: String, seasonNumber: String): SeasonDetailDto {
-        Log.d("YUYTRR", "Id: $seriesId | season number: $seasonNumber")
         return api.getSeasonInfo(seriesId, seasonNumber)
     }
 
+    override suspend fun getEpisodeInfo( seriesId: String, seasonNumber: String, episodeNumber: String): EpisodeDetailDto {
+        return api.getEpisodeInfo(seriesId, seasonNumber, episodeNumber)
+    }
 
 
 }

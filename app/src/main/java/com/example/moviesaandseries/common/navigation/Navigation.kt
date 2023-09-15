@@ -1,5 +1,6 @@
-package com.example.moviesaandseries.common.navigation2
+package com.example.moviesaandseries.common.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -9,11 +10,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.example.moviesaandseries.common.navigation.seriesDetailsNavGraph
 import com.example.moviesaandseries.presentation.cast.CastScreen
+import com.example.moviesaandseries.presentation.cast.castImage.ImagePersonScreen
+import com.example.moviesaandseries.presentation.episode.EpisodeScreen
 import com.example.moviesaandseries.presentation.general.ScreenContent
-import com.example.moviesaandseries.presentation.general.ScreenContentSeason
-import com.example.moviesaandseries.presentation.general.ScreenContentSeries
 import com.example.moviesaandseries.presentation.home.HomeScreen
 import com.example.moviesaandseries.presentation.login.LoginContent
 import com.example.moviesaandseries.presentation.movie_detail.MovieDetailScreen
@@ -29,14 +29,14 @@ fun RootNavigationGraph(navController: NavHostController) {
         route = AppGraph.initial.ROOT,
         startDestination = AppGraph.auth.ROOT
     ) {
-        authNavGraph2(navController = navController)
+        authNavGraph(navController = navController)
         composable(route = AppGraph.home.ROOT) {
            HomeScreen()
         }
     }
 }
 
-fun NavGraphBuilder.authNavGraph2(navController: NavHostController) {
+fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
     navigation(
         route = AppGraph.auth.ROOT,
         startDestination = AppGraph.auth.LOGIN
@@ -61,7 +61,7 @@ fun NavGraphBuilder.authNavGraph2(navController: NavHostController) {
 }
 
 @Composable
-fun HomeNavGraph2(navController: NavHostController) {
+fun HomeNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
         route = AppGraph.home.ROOT,
@@ -69,9 +69,6 @@ fun HomeNavGraph2(navController: NavHostController) {
     ) {
         composable(route = AppGraph.home.MOVIES) {
             MovieListScreen(navController = navController)
-            //ScreenContent(name = "Lista Movies") {
-               // navController.navigate(AppGraph.movies_details.ROOT)
-           // }
         }
         composable(route = AppGraph.home.SERIES) {
             SeriesListScreen(navController = navController)
@@ -81,12 +78,12 @@ fun HomeNavGraph2(navController: NavHostController) {
                 navController.navigate(AppGraph.series_details.ROOT)
             }
         }
-        movieDetailsNavGraph2(navController = navController)
-        seriesDetailsNavGraph2(navController = navController)
+        movieDetailsNavGraph(navController = navController)
+        seriesDetailsNavGraph(navController = navController)
     }
 }
 
-fun NavGraphBuilder.movieDetailsNavGraph2(navController: NavController){
+fun NavGraphBuilder.movieDetailsNavGraph(navController: NavController){
     navigation(
         route = AppGraph.movies_details.ROOT,
         startDestination = AppGraph.movies_details.DETAILS
@@ -100,14 +97,14 @@ fun NavGraphBuilder.movieDetailsNavGraph2(navController: NavController){
         ) { navBackStackEntry ->
 
             navBackStackEntry.arguments?.getString("movieId").let {
+                Log.d("TRT", "movieDetailsNavGraph2: ${navBackStackEntry.destination}")
                 MovieDetailScreen(navController = navController)
             }
         }
-        castDetailNavGraph(navController = navController)
     }
 }
 
-fun NavGraphBuilder.seriesDetailsNavGraph2(navController: NavController){
+fun NavGraphBuilder.seriesDetailsNavGraph(navController: NavController){
     navigation(
         route = AppGraph.series_details.ROOT,
         startDestination = AppGraph.series_details.DETAILS
@@ -121,6 +118,7 @@ fun NavGraphBuilder.seriesDetailsNavGraph2(navController: NavController){
         ) { navBackStackEntry ->
 
             navBackStackEntry.arguments?.getString("seriesId").let {
+                Log.d("TRT", "serieDetailsNavGraph2: ${navBackStackEntry.destination}")
                 SeriesDetailScreen(navController = navController)
             }
         }
@@ -147,6 +145,29 @@ fun NavGraphBuilder.castDetailNavGraph(navController: NavController) {
             }
         }
     }
+
+    imagePersonNavGraph( navController )
+}
+
+fun NavGraphBuilder.imagePersonNavGraph( navController: NavController ) {
+    navigation(
+        route = AppGraph.image_cast_details.ROOT,
+        startDestination = AppGraph.image_cast_details.DETAILS
+    ) {
+        composable(route = AppGraph.image_cast_details.DETAILS + "/{imagePath}",
+            arguments = listOf(
+                navArgument("imagePath") {
+                    type = NavType.StringType
+                }
+            )
+        ) { navBackStackEntry ->
+
+            navBackStackEntry.arguments?.getString("imagePath").let {
+                ImagePersonScreen(it!!,navController)
+                Log.d("IEIEIE", "imagePersonNavGraph: $it")
+            }
+        }
+    }
 }
 
 fun NavGraphBuilder.seasonDetailsNavGraph(navController: NavController){
@@ -164,11 +185,35 @@ fun NavGraphBuilder.seasonDetailsNavGraph(navController: NavController){
                 }
             )
         ) { navBackStackEntry ->
-
             navBackStackEntry.arguments?.getString("seriesId").let {
-                SeasonDetailScreen(navController = navController)
+                SeasonDetailScreen(  it!!, navController = navController)
             }
         }
+        episodeDetailsNavGraph(navController = navController)
     }
 }
+
+fun NavGraphBuilder.episodeDetailsNavGraph(navController: NavController){
+    navigation(
+        route = AppGraph.episode_details.ROOT,
+        startDestination = AppGraph.episode_details.DETAILS
+    ) {
+        composable( route = AppGraph.episode_details.DETAILS + "/{seriesId}/{seasonNumber}/{episodeNumber}",
+            arguments = listOf(
+                navArgument("seriesId") {
+                    type = NavType.StringType
+                },
+                navArgument("seasonNumber") {
+                    type = NavType.StringType
+                },
+                        navArgument("episodeNumber") {
+                    type = NavType.StringType
+                }
+            )
+        ) { navBackStackEntry ->
+            navBackStackEntry.arguments?.getString("episodeNumber").let {
+                EpisodeScreen(navController = navController)
+            }
+        }
+    }}
 

@@ -1,7 +1,9 @@
 package com.example.moviesaandseries.presentation.cast
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,9 +15,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -23,23 +27,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
-import com.example.moviesaandseries.data.remote.dto.Genre
-import com.example.moviesaandseries.presentation.movie_list.MovieListScreenCell
+import com.example.moviesaandseries.common.Constants
+import com.example.moviesaandseries.common.navigation.AppGraph
+import com.example.moviesaandseries.data.remote.dto.Profile
 import com.example.moviesaandseries.presentation.movie_list.MovieListScreenCellWork
-import com.example.moviesaandseries.presentation.movie_list.MovieListState
-import com.example.moviesaandseries.presentation.season.SeasonListState
-import com.example.moviesaandseries.presentation.series_list.SeriesListScreenCell
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreenCellPerson
-import com.example.moviesaandseries.presentation.series_list.SeriesListState
 
 @Composable
 fun CastScreen(
@@ -68,7 +70,7 @@ fun CastScreen(
                 item{
                     MainContent( name, biografia, data, lugarNascimento )
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    ImagesCell()
+                    person.images?.let { ImagesActorCell( navController,images = it.profiles) }
                     Spacer(modifier = Modifier.height( 15.dp ))
                     MoviesCell( navController, statemovies )
                     Spacer(modifier = Modifier.height( 15.dp ))
@@ -122,6 +124,31 @@ fun MainContent(
 }
 
 @Composable
+fun ImageListItem(
+    profile: Profile,
+    modifier: Modifier = Modifier,
+    onItemClick: (Profile) -> Unit
+) {
+    Card(
+        modifier = modifier
+            .padding(5.dp)
+            .clickable { onItemClick(profile) }
+    ) {
+        Image(
+            painter = rememberAsyncImagePainter(
+                model = if (!profile.file_path.isNullOrEmpty()) Constants.BASE_IMAGE_URL + profile.file_path else R.drawable.flash
+            ),
+            contentScale = ContentScale.Crop,
+            contentDescription = "profile image",
+            modifier = Modifier
+                .width(150.dp)
+                .height(200.dp)
+        )
+
+    }
+}
+
+@Composable
 fun ImagesCell(){
     Column {
         Text(
@@ -131,9 +158,79 @@ fun ImagesCell(){
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(15.dp))
-        Text(text = "Imagens do ator")
+        Text( text = "Imagens")
     }
 }
+
+@Composable
+fun ImagesActorCell(
+    navController: NavController,
+    images: List<Profile>){
+    Column {
+        Text(
+            text = "Imagens",
+            style = MaterialTheme.typography.headlineMedium,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold
+        )
+        Spacer(modifier = Modifier.height(15.dp))
+        LazyRow(contentPadding = PaddingValues()
+        ){
+            items(images) { image ->
+                ImageListItem(
+                    profile = image,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp),
+                    onItemClick = {
+                        try {
+                            val image_path = image.file_path
+                            val stringBuilder = StringBuilder(image_path)
+                            stringBuilder.deleteCharAt(0)
+                            navController.navigate(AppGraph.image_cast_details.DETAILS + "/${stringBuilder}")
+                            Log.d("NEYMAR", "ImagesActorCell: ${image.file_path} | $image_path")
+                        }catch (e: Exception) {
+                            e.printStackTrace()
+                            val image_path = image.file_path
+                            val stringBuilder = StringBuilder(image_path)
+                            stringBuilder.deleteCharAt(0)
+                            Log.d("NEYMAR", "WWWWW: ${image_path}\n$stringBuilder")
+                            navController.navigate(AppGraph.image_cast_details.DETAILS + "/${"3dVrtUzLYNszM4QecBhMypUPdU4.jpg"}")
+
+                        }
+
+                    } )
+            }
+        }
+    }
+}
+
+
+@Composable
+fun ImageListItem2(
+    profile: Profile,
+    modifier: Modifier = Modifier,
+    onItemClick: (Profile) -> Unit
+) {
+    Card(
+        modifier = modifier
+            .padding(5.dp)
+            .clickable { onItemClick(profile) }
+    ) {
+        Image(
+            painter = rememberAsyncImagePainter(
+                model = if (!profile.file_path.isNullOrEmpty()) Constants.BASE_IMAGE_URL + profile.file_path else R.drawable.flash
+            ),
+            contentScale = ContentScale.Crop,
+            contentDescription = "profile image",
+            modifier = Modifier
+                .width(150.dp)
+                .height(200.dp)
+        )
+
+    }
+}
+
 
 @Composable
 fun SeriesCell(

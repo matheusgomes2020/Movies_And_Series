@@ -1,9 +1,9 @@
 package com.example.moviesaandseries.domain.use_case.get_season
 
+import android.util.Log
 import com.example.moviesaandseries.common.Resource
 import com.example.moviesaandseries.data.remote.dto.season.toSeasonDetail
 import com.example.moviesaandseries.domain.model.SeasonDetail
-import com.example.moviesaandseries.domain.model.SeriesDetail
 import com.example.moviesaandseries.domain.repository.SeriesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -19,6 +19,7 @@ class GetSeasonUseCase @Inject constructor(
         try {
             emit(Resource.Loading<SeasonDetail>())
             val season = repository.getSeasonInfo( seriesId, seasonNumber ).toSeasonDetail()
+            Log.d("BATATA", "SEASON GetEpisodeUseCase | getEpisode: $seriesId | $seasonNumber\n$season" )
             emit(Resource.Success<SeasonDetail>(season))
         } catch(e: HttpException) {
             emit(Resource.Error<SeasonDetail>(e.localizedMessage ?: "An unexpected error occured"))

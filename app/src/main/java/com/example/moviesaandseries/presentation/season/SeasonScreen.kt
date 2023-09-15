@@ -1,6 +1,8 @@
 package com.example.moviesaandseries.presentation.season
 
+import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -30,10 +32,12 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
+import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.data.remote.dto.episode.EpisodeDto
 
 @Composable
  fun SeasonDetailScreen(
+    seriesId: String,
     navController: NavController,
     viewModel: SeasonDetailViewModel = hiltViewModel()
 
@@ -46,7 +50,7 @@ import com.example.moviesaandseries.data.remote.dto.episode.EpisodeDto
             val posterPath = if (!season.poster_path.isNullOrEmpty()) season.poster_path else "sem poster"
 
             MainContent(numeroTemporada = season.season_number, posterPath = posterPath , overview = overview )
-            EpisodeCell(episodes = season.episodes)
+            EpisodeCell( navController, seriesId = seriesId, episodes = season.episodes)
 
         }
         if ( state.error.isNotBlank() ) {
@@ -98,7 +102,10 @@ fun MainContent(numeroTemporada: Int, posterPath: String, overview: String){
     }
 }
 @Composable
-fun EpisodeCell(episodes: List<EpisodeDto>){
+fun EpisodeCell(
+    navController: NavController,
+    seriesId: String,
+    episodes: List<EpisodeDto>){
     Column(
         modifier = Modifier.padding(horizontal = 15.dp)
     ) {
@@ -111,7 +118,11 @@ fun EpisodeCell(episodes: List<EpisodeDto>){
         LazyColumn(contentPadding = PaddingValues(10.dp)){
             items(episodes) { episode->
                 EpisodeListItem(
-                    episode = episode
+                    episode = episode,
+                    onItemClick = {
+                        navController.navigate(AppGraph.episode_details.DETAILS + "/${seriesId}/${episode.season_number}/${episode.episode_number}")
+                        Log.d("BATATA", "/${seriesId}/${episode.season_number}/${episode.episode_number}")
+                    }
                 )
             }
         }
@@ -121,12 +132,14 @@ fun EpisodeCell(episodes: List<EpisodeDto>){
 @Composable
 fun EpisodeListItem(
     episode: EpisodeDto,
-    //onItemClick: (Episode) -> Unit
+    onItemClick: (EpisodeDto) -> Unit
 ){
     Row(
-        modifier = Modifier.padding(
-            vertical = 5.dp
-        )
+        modifier = Modifier
+            .padding(
+                vertical = 5.dp
+            )
+            .clickable { onItemClick(episode) }
     ) {
         Image(painter = rememberAsyncImagePainter(
             model = Constants.BASE_IMAGE_URL + episode.still_path),

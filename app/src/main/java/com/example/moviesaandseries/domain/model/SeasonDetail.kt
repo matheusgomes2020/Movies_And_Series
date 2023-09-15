@@ -7,7 +7,7 @@ data class SeasonDetail (
     val episodes: List<EpisodeDto>,
     val name: String,
     val overview: String,
-    val poster_path: String,
+    val poster_path: String?,
     val season_number: Int,
     val vote_average: Double
 )

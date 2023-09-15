@@ -37,15 +37,17 @@ class SeasonDetailViewModel @Inject constructor(
         }
 
         getSeason(a,b)
-        Log.d("YUYTRR", "ViewModel: id: $a | season number: $b ")
+        Log.d("BATATA", "INIT ViewModel: id: $a | season number: $b")
     }
 
     private fun getSeason(seriesId: String, seasonNumber: String) {
+        Log.d("BATATA", "CHAMA FUNÇÃO getSeason: id: $seriesId | season number: $seasonNumber")
         getSeasonUseCase(seriesId, seasonNumber).onEach { result ->
 
             when (result) {
                 is Resource.Success -> {
                     _state.value = SeasonDetailState(season = result.data)
+                    Log.d("BATATA", "SEASON | getEpisode: ${result.data}" )
                 }
 
                 is Resource.Error -> {

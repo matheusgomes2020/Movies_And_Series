@@ -50,12 +50,17 @@ fun MovieDetailScreen(
                 val overview = if (!movie.overview.isNullOrEmpty()) movie.overview else "sem overview"
                 val posterPath = if (!movie.poster_path.isNullOrEmpty()) movie.poster_path else "sem poster"
                 val data = if (!movie.release_date.isNullOrEmpty()) movie.release_date else "null"
+                var director = ""
+                if (!movie.credits.crew.isNullOrEmpty()) {
+                    for (i in movie.credits.crew) if ( i.job == "Director" ) director = i.name
+                } else director = "Ninguém"
+
                 item {
                     MainContent(title, overview, posterPath, data, movie.runtime.toString(), movie.vote_average, movie.genres)
                     Spacer(modifier = Modifier.height( 15.dp ))
                     CastCell(navController, cast = movie.credits.cast)
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    CrewCell(crew = movie.credits.crew)
+                    CrewCell( director, crew = movie.credits.crew )
                     Spacer(modifier = Modifier.height( 15.dp ))
                     SimilarsMoviesCell(navController = navController, state = stateSimilar )
                     Spacer(modifier = Modifier.height( 15.dp ))

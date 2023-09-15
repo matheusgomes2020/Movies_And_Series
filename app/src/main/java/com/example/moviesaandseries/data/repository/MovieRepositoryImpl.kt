@@ -9,6 +9,10 @@ import javax.inject.Inject
 class MovieRepositoryImpl @Inject constructor(
     private val api: MovieApi
 ): MovieRepository {
+
+    override suspend fun searchMovies( searchQuery: String ): List<MovieDto> {
+        return api.searchMovies( searchQuery ).results
+    }
     override suspend fun getPopularMovies(): List<MovieDto> {
         return api.getPopularMovies().results
     }

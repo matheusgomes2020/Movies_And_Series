@@ -27,7 +27,7 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
-import com.example.moviesaandseries.common.navigation2.AppGraph
+import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.data.remote.dto.movies.Cast
 import com.example.moviesaandseries.data.remote.dto.movies.Crew
 import com.example.moviesaandseries.data.remote.dto.Genre
@@ -39,6 +39,7 @@ import com.example.moviesaandseries.presentation.movie_list.MovieListState
 import com.example.moviesaandseries.presentation.review.ReviewListItem
 import com.example.moviesaandseries.presentation.season.SeasonListScreenCell
 import com.example.moviesaandseries.presentation.season.SeasonListState
+import com.example.moviesaandseries.presentation.series_list.SeriesListScreenCell
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
 
 
@@ -132,11 +133,11 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListState
 }
 
 @Composable
- fun CrewCell(crew: List<Crew>) {
+ fun CrewCell(
+    director: String,
+    crew: List<Crew>) {
     Column {
-        var director = ""
         var roteiro = ""
-        for (i in crew) if ( i.job == "Director" ) director = i.name
         for (i in crew) if ( i.department == "Writing" ) roteiro += i.name + "\n"
         Text(
             text = "Direção",
@@ -182,7 +183,7 @@ fun SeasonsCell(
 }
 
 @Composable
- fun SimilarsSeriesCell(navController: NavController, state: SeriesListState) {
+ fun SimilarSeriesCell(navController: NavController, state: SeriesListState) {
     Column {
         Text(
             text = "Séries Similares",
@@ -191,7 +192,7 @@ fun SeasonsCell(
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(15.dp))
-        //SeriesListScreenCell(navController  , state = state)
+        SeriesListScreenCell(navController  , state = state)
     }
 }
 

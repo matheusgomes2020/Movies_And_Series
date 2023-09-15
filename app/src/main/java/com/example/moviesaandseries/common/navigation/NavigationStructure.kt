@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.common.navigation2
+package com.example.moviesaandseries.common.navigation
 
 object AuthGraph {
     const val ROOT = "auth_graph"
@@ -14,10 +14,12 @@ object HomeGraph {
     const val FAVORITES = "favorites"
 }
 
+
 object SeriesDetailsGraph {
     const val ROOT = "series_details_graph"
     const val DETAILS = "series_details"
-     val CAST = CastGraph
+    const val CAST= CastGraph.DETAILS
+     //val CAST = CastGraph
     const val SEASON = "season"
     const val SIMILAR = "similar"
 }
@@ -29,10 +31,28 @@ object MoviesDetailsGraph {
     const val SIMILAR = "similar"
 }
 
+object DetailsGraph {
+    const val ROOT = "details_graph"
+    const val HELP= "details"
+    const val FAQ = "cast"
+    const val DISCLAIMER = "disclaimer"
+}
+
 object SeasonGraph {
     const val ROOT = "season_details_graph"
     const val DETAILS = "details"
     const val EPISODE = "episode"
+    const val CAST= "cast"
+}
+
+object ImagePersonGraph {
+    const val ROOT = "image_person_graph"
+    const val DETAILS = "image_details"
+}
+
+object EpisodeGraph {
+    const val ROOT = "episode_details_graph"
+    const val DETAILS = "episode_details"
     const val CAST= "cast"
 }
 
@@ -53,7 +73,9 @@ object AppGraph {
     val series_details = SeriesDetailsGraph
     val movies_details = MoviesDetailsGraph
     val season_details = SeasonGraph
+    val episode_details = EpisodeGraph
     val cast_details = CastGraph
+    val image_cast_details = ImagePersonGraph
     val home = HomeGraph
     val initial = RootGraph
 }

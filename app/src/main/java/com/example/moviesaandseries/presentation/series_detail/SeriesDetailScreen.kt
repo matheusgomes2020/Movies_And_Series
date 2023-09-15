@@ -47,7 +47,12 @@ fun SeriesDetailScreen(
                 val posterPath = if (!series.poster_path.isNullOrEmpty()) series.poster_path else "sem poster"
                 val data = if (!series.first_air_date.isNullOrEmpty()) series.first_air_date else "null"
                 var runtime = if (!series.episode_run_time.isNullOrEmpty())  series.episode_run_time[0].toString() else "null"
-                //val star = if (!series.first_air_date.isNullOrEmpty()) series.first_air_date else "null"
+                var createdBy = ""
+                if (!series.created_by.isNullOrEmpty()) {
+                    for (i in series.created_by) {
+                        createdBy += i.name + "\n"
+                    }
+                } else createdBy = "Ninguém"
                 item {
                     MainContent(
                         title,
@@ -61,11 +66,11 @@ fun SeriesDetailScreen(
                     Spacer(modifier = Modifier.height( 15.dp ))
                     CastCell( navController = navController, cast = series.aggregate_credits.cast )
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    CrewCell(crew = series.aggregate_credits.crew)
+                    CrewCell(createdBy, crew = series.aggregate_credits.crew)
                     Spacer(modifier = Modifier.height( 15.dp ))
                     SeasonsCell(navController = navController,series.id.toString(), series.number_of_seasons, series.seasons, stateSeasons )
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    SimilarsSeriesCell(navController = navController, state = stateSimilar )
+                    SimilarSeriesCell(navController = navController, state = stateSimilar )
                     Spacer(modifier = Modifier.height( 15.dp ))
                     ReviewsCell(reviews = series.reviews.results)
                 }
