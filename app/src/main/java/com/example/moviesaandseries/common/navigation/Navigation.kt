@@ -18,6 +18,7 @@ import com.example.moviesaandseries.presentation.home.HomeScreen
 import com.example.moviesaandseries.presentation.login.LoginContent
 import com.example.moviesaandseries.presentation.movie_detail.MovieDetailScreen
 import com.example.moviesaandseries.presentation.movie_list.MovieListScreen
+import com.example.moviesaandseries.presentation.search.SearchMoviesScreen
 import com.example.moviesaandseries.presentation.season.SeasonDetailScreen
 import com.example.moviesaandseries.presentation.series_detail.SeriesDetailScreen
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreen
@@ -80,6 +81,28 @@ fun HomeNavGraph(navController: NavHostController) {
         }
         movieDetailsNavGraph(navController = navController)
         seriesDetailsNavGraph(navController = navController)
+        searchMoviesNavGraph( navController = navController )
+    }
+}
+
+fun NavGraphBuilder.searchMoviesNavGraph( navController: NavController ) {
+    navigation(
+        route = AppGraph.search_movies.ROOT,
+        startDestination = AppGraph.search_movies.DETAILS
+    ) {
+        composable(route = AppGraph.search_movies.DETAILS + "/{queryMovie}",
+            arguments = listOf(
+                navArgument( "queryMovie" ) {
+                    type = NavType.StringType
+                }
+            )
+        ) { navBackStackEntry ->
+
+            navBackStackEntry.arguments?.getString("queryMovie").let {
+                Log.d("BATATAO", "searchMovies: ${navBackStackEntry.destination}")
+                SearchMoviesScreen( navController = navController )
+            }
+        }
     }
 }
 

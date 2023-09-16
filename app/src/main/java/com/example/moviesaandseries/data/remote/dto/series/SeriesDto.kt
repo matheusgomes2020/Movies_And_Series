@@ -3,7 +3,7 @@ package com.example.moviesaandseries.data.remote.dto.series
 import com.example.moviesaandseries.domain.model.Series
 
 data class SeriesDto (
-    val poster_path: String,
+    val poster_path: String?,
     val id: Int,
     val name: String,
 )

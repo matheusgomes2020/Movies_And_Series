@@ -1,5 +1,6 @@
 package com.example.moviesaandseries.presentation.home
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -44,69 +45,11 @@ import com.example.moviesaandseries.presentation.search.SearchViewModel
 @Composable
 fun HomeScreen(navController: NavHostController = rememberNavController(),
                viewModel: SearchViewModel = hiltViewModel()) {
-    var text by remember { mutableStateOf("") }
-    var active by remember { mutableStateOf(false) }
-    var items = remember {
-        mutableStateListOf(
-            "sdsdsds",
-            "dsdsds",
-            "wdsds"
-        )
-    }
+
     Scaffold(
         bottomBar = { BottomBar(navController = navController) }
     ) {
-        Column {
-            SearchBar(
-                modifier = Modifier.fillMaxWidth(),
-                query = text,
-                onQueryChange = {
-                    text = it
-                },
-                onSearch = {
-                    items.add(text)
-                    active = false
-                },
-                active = active,
-                onActiveChange = {
-                    active = it
-                },
-                placeholder = {
-                    Text(text = "Pesquisar...")
-                },
-                leadingIcon = {
-                    Icon(imageVector = Icons.Default.Search, contentDescription = "Search Icon" )
-                },
-                trailingIcon = {
-                    if ( active ) {
-                        Icon(
-                            modifier = Modifier.clickable {
-                                if ( text.isNotEmpty() ) {
-                                    text = ""
-                                } else {
-                                    active = false
-                                }
-                            },
-                            imageVector = Icons.Default.Close,
-                            contentDescription = "Close Icon" )
-                    }
-                },
-                ) {
-                
-                items.forEach { 
-                    Row( modifier = Modifier.padding( all = 14.dp ) ) {
-                        Icon(
-                            modifier = Modifier.padding( end = 10.dp ),
-                            imageVector = Icons.Default.List,
-                            contentDescription = "History Icon"
-                        )
-                        Text( text = it )
-                    }
-                }
-                
-            }
             HomeNavGraph(navController = navController)
-        }
     }
 }
 

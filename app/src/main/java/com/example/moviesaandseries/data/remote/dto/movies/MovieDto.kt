@@ -12,7 +12,7 @@ import com.example.moviesaandseries.domain.model.Movie
 
 data class MovieDto (
     val id: Int,
-    val poster_path: String,
+    val poster_path: String?,
 
     val title: String
 )
