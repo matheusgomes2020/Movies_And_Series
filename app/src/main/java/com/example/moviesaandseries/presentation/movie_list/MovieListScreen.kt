@@ -1,6 +1,7 @@
 package com.example.moviesaandseries.presentation.movie_list
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,7 +12,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -21,6 +24,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
+import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -28,8 +32,15 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -67,32 +78,36 @@ fun MovieListScreen(
             ) {
                 Column {
                     SearchBar(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth()
+                            .height(60.dp)
+                            .padding(start = 20.dp, end = 20.dp, top = 10.dp),
                         query = queryMovie,
                         onQueryChange = {
                             queryMovie = it
                         },
                         onSearch = {
-                            //items.add(text)
-//                            searchViewModel.searchMovies(text).let {
-//                                Log.d("BATATAO", "HomeScreen: ${searchViewModel.state.value.movies}")
-//                            }
-                            //try {
                                 navController.navigate( AppGraph.search_movies.DETAILS + "/${queryMovie}" )
-                            //}catch (e: Exception) {
-                               // e.printStackTrace()
-                           // }
                             active = false
                         },
-                        active = active,
+                        active = false,
                         onActiveChange = {
                             active = it
                         },
                         placeholder = {
-                            androidx.compose.material.Text(text = "Pesquisar...")
+                            Text(text = "Pesquisar...",
+                                modifier = Modifier,
+                                color = Color.LightGray,
+                                fontSize = 13.sp,
+                                textAlign = TextAlign.Center
+                            )
                         },
                         leadingIcon = {
-                            Icon(imageVector = Icons.Default.Search, contentDescription = "Search Icon" )
+                            Icon(
+                                imageVector = Icons.Default.Search,
+                                contentDescription = "Search Icon",
+                                modifier = Modifier.size(20.dp),
+                                tint = Color.LightGray
+                                    )
                         },
                         trailingIcon = {
                             if ( active ) {
@@ -103,23 +118,29 @@ fun MovieListScreen(
                                         } else {
                                             active = false
                                         }
-                                    },
+                                    }
+                                        .size(20.dp),
                                     imageVector = Icons.Default.Close,
-                                    contentDescription = "Close Icon" )
+                                    contentDescription = "Close Icon",
+                                    tint = Color.LightGray
+                                    )
                             }
                         },
+                        shape = RoundedCornerShape(15.dp),
                     ) {
 
-                        items.forEach {
-                            Row( modifier = Modifier.padding( all = 14.dp ) ) {
-                                Icon(
-                                    modifier = Modifier.padding( end = 10.dp ),
-                                    imageVector = Icons.Default.List,
-                                    contentDescription = "History Icon"
-                                )
-                                androidx.compose.material.Text( text = it )
-                            }
-                        }
+                        Text(text = "Olá")
+
+//                        items.forEach {
+//                            Row( modifier = Modifier.padding( all = 14.dp ) ) {
+//                                Icon(
+//                                    modifier = Modifier.padding( end = 10.dp ),
+//                                    imageVector = Icons.Default.List,
+//                                    contentDescription = "History Icon"
+//                                )
+//                                androidx.compose.material.Text( text = it )
+//                            }
+//                        }
 
                     }
                 LazyColumn(

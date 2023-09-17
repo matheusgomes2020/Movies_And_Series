@@ -100,7 +100,7 @@ fun NavGraphBuilder.searchMoviesNavGraph( navController: NavController ) {
 
             navBackStackEntry.arguments?.getString("queryMovie").let {
                 Log.d("BATATAO", "searchMovies: ${navBackStackEntry.destination}")
-                SearchMoviesScreen( navController = navController )
+                SearchMoviesScreen( it!!, navController = navController )
             }
         }
     }

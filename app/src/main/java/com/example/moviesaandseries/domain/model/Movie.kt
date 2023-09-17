@@ -5,5 +5,7 @@ data class Movie(
     val poster_path: String?,
     val title: String,
     var userId: String = "",
-    var idFirebase: String = ""
+    var overview: String?,
+    var idFirebase: String = "",
+    val vote_average: Double?,
 )

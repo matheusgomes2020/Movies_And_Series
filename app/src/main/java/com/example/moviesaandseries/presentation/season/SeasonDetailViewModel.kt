@@ -26,18 +26,18 @@ class SeasonDetailViewModel @Inject constructor(
 
     init {
 
-        var a = ""
-        var b = ""
+        var seriesIdHandle = ""
+        var seasonNumberHandle = ""
 
         savedStateHandle.get<String>(Constants.PARAM_SERIES_ID)?.let { seriesId ->
-            a = seriesId
+            seriesIdHandle = seriesId
         }
         savedStateHandle.get<String>(Constants.PARAM_SEASON_NUMBER)?.let { seasonNumber ->
-            b = seasonNumber
+            seasonNumberHandle = seasonNumber
         }
 
-        getSeason(a,b)
-        Log.d("BATATA", "INIT ViewModel: id: $a | season number: $b")
+        getSeason(seriesIdHandle,seasonNumberHandle)
+        Log.d("BATATA", "INIT ViewModel: id: $seriesIdHandle | season number: $seasonNumberHandle")
     }
 
     private fun getSeason(seriesId: String, seasonNumber: String) {
