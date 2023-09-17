@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.search
+package com.example.moviesaandseries.presentation.searchMovies
 
 import android.util.Log
 import androidx.compose.runtime.State
@@ -8,49 +8,48 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.common.Resource
-import com.example.moviesaandseries.domain.use_case.search_movies.SearchMoviesUseCase
-import com.example.moviesaandseries.presentation.movie_list.MovieListState
-import com.example.moviesaandseries.presentation.season.SeasonDetailState
+import com.example.moviesaandseries.domain.use_case.search_series.SearchSeriesUseCase
+import com.example.moviesaandseries.presentation.series_list.SeriesListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(
-    private val searchMoviesUseCase: SearchMoviesUseCase,
+class SearchSeriesViewModel @Inject constructor(
+    private val searchSeriesUseCase: SearchSeriesUseCase,
     savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
-    private val _state = mutableStateOf(MovieListState())
-    val state: State<MovieListState> = _state
+    private val _state = mutableStateOf(SeriesListState())
+    val state: State<SeriesListState> = _state
     init {
-        savedStateHandle.get<String>(Constants.PARAM_SEARCH_MOVIE)?.let { queryMovie ->
-            searchMovies( queryMovie )
+        savedStateHandle.get<String>(Constants.PARAM_SEARCH_SERIES)?.let { querySeries ->
+            searchSeries( querySeries )
         }
    }
 
 
 
-     private fun searchMovies(query: String ) {
+     private fun searchSeries(query: String ) {
          Log.d("BATATAO", "VIEW MODEL searchMovies: $query")
 
-        searchMoviesUseCase( query ).onEach { result ->
+        searchSeriesUseCase( query ).onEach { result ->
             Log.d("BATATAO", "VIEW MODEL result: $result")
             when (result) {
                 is Resource.Success -> {
-                    _state.value = MovieListState(movies = result.data ?: emptyList())
+                    _state.value = SeriesListState(series = result.data ?: emptyList())
                     Log.d("BATATAO", "VIEW MODEL state value: ${state.value}")
                 }
 
                 is Resource.Error -> {
-                    _state.value = MovieListState(
+                    _state.value = SeriesListState(
                         error = result.message ?: "An unexpected error occured"
                     )
                 }
 
                 is Resource.Loading -> {
-                    _state.value = MovieListState(isLoading = true)
+                    _state.value = SeriesListState(isLoading = true)
                 }
             }
         }.launchIn( viewModelScope )

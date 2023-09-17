@@ -18,7 +18,8 @@ import com.example.moviesaandseries.presentation.home.HomeScreen
 import com.example.moviesaandseries.presentation.login.LoginContent
 import com.example.moviesaandseries.presentation.movie_detail.MovieDetailScreen
 import com.example.moviesaandseries.presentation.movie_list.MovieListScreen
-import com.example.moviesaandseries.presentation.search.SearchMoviesScreen
+import com.example.moviesaandseries.presentation.searchMovies.SearchMoviesScreen
+import com.example.moviesaandseries.presentation.searchSeries.SearchSeriesScreen
 import com.example.moviesaandseries.presentation.season.SeasonDetailScreen
 import com.example.moviesaandseries.presentation.series_detail.SeriesDetailScreen
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreen
@@ -82,6 +83,7 @@ fun HomeNavGraph(navController: NavHostController) {
         movieDetailsNavGraph(navController = navController)
         seriesDetailsNavGraph(navController = navController)
         searchMoviesNavGraph( navController = navController )
+        searchSeriesNavGraph( navController = navController )
     }
 }
 
@@ -105,6 +107,28 @@ fun NavGraphBuilder.searchMoviesNavGraph( navController: NavController ) {
         }
     }
 }
+
+fun NavGraphBuilder.searchSeriesNavGraph( navController: NavController ) {
+    navigation(
+        route = AppGraph.search_series.ROOT,
+        startDestination = AppGraph.search_series.SEARCH
+    ) {
+        composable(route = AppGraph.search_series.SEARCH + "/{querySeries}",
+            arguments = listOf(
+                navArgument("querySeries") {
+                    type = NavType.StringType
+                }
+            )
+        ) { navBackStackEntry ->
+
+            navBackStackEntry.arguments?.getString("querySeries").let {
+                Log.d("BATATAO", "searchSeries: ${navBackStackEntry.destination}")
+                SearchSeriesScreen(it!!, navController = navController)
+            }
+        }
+    }
+}
+
 
 fun NavGraphBuilder.movieDetailsNavGraph(navController: NavController){
     navigation(

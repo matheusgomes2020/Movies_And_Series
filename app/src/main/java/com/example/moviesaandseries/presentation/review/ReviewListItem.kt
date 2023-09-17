@@ -31,9 +31,11 @@ import com.example.moviesaandseries.data.remote.dto.Review
 @Composable
 fun ReviewListItem(
     review: Review,
-    modifier: Modifier
+    //modifier: Modifier
 ){
-    Card(modifier = modifier) {
+    Card(
+        //modifier = modifier
+    ) {
 
         Row(modifier = Modifier
             .padding(start = 2.dp, top = 2.dp)

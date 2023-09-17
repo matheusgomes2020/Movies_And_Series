@@ -223,7 +223,9 @@ fun SimilarsMoviesCell(navController: NavController, state: MovieListState) {
         Spacer(modifier = Modifier.height(15.dp))
         LazyRow(contentPadding = PaddingValues() ){
             items(reviews) { review ->
-                ReviewListItem(review, modifier = Modifier)
+                ReviewListItem(review,
+                   // modifier = Modifier
+                )
             }
         }
     }

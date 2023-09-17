@@ -7,5 +7,5 @@ data class Movie(
     var userId: String = "",
     var overview: String?,
     var idFirebase: String = "",
-    val vote_average: Double?,
+    val vote_average: Double?
 )

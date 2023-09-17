@@ -1,15 +1,12 @@
-package com.example.moviesaandseries.presentation.search
+package com.example.moviesaandseries.presentation.searchMovies
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -23,13 +20,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.moviesaandseries.presentation.search.components.SearchMovieListItem
+import com.example.moviesaandseries.common.navigation.AppGraph
+import com.example.moviesaandseries.presentation.searchMovies.components.SearchMovieListItem
 
 @Composable
 fun SearchMoviesScreen(
     query: String,
     navController: NavController,
-    searchViewModel: SearchViewModel = hiltViewModel()
+    searchViewModel: SearchMoviesViewModel = hiltViewModel()
 ) {
     val state = searchViewModel.state.value
 
@@ -53,7 +51,7 @@ fun SearchMoviesScreen(
                             movie = movie,
                             onItemClick = {
                                 // navController.navigate(DetailsScreen.MoviesDetails.route + "/${movie.id}")
-                                //navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
+                                navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
                                 //navController.navigate(Graph.DETAILS)
                             }
                         )

@@ -12,9 +12,15 @@ object Constants {
 
     const val PARAM_PERSON_ID = "castId"
 
-    const val PARAM_EPISODE = "episode"
+    const val PARAM_EPISODE_NUMBER = "episodeNumber"
 
     const val PARAM_SEASON_NUMBER = "seasonNumber"
+
+    const val PARAM_SEARCH_MOVIE = "queryMovie"
+
+    const val PARAM_SEARCH_SERIES = "querySeries"
+
+    const val IMAGE_FILE_PATH = "imagePath"
 
     const val LANGUAGE = "PT-BR"
 
