@@ -12,6 +12,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -20,6 +21,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.moviesaandseries.common.navigation.HomeNavGraph
+import com.example.moviesaandseries.common.navigation2.HomeNavigation
 import com.example.moviesaandseries.presentation.searchMovies.SearchMoviesViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,6 +34,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),
         bottomBar = { BottomBar(navController = navController) }
     ) {
             HomeNavGraph(navController = navController)
+        //HomeNavigation()
     }
 }
 
@@ -74,7 +77,7 @@ fun RowScope.AddItem(
         icon = {
             Icon(
                 //painter = painterResource(id = R.drawable.ic_movie),
-                imageVector = screen.icon,
+                painterResource(id = screen.icon),
                 contentDescription = "Navigation Icon"
             )
         },

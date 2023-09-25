@@ -72,7 +72,7 @@ fun SeriesDetailScreen(
                     Spacer(modifier = Modifier.height( 15.dp ))
                     SimilarSeriesCell(navController = navController, state = stateSimilar )
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    ReviewsCell(reviews = series.reviews.results)
+                    ReviewsCell2(reviews = series.reviews.results)
                 }
 
             }

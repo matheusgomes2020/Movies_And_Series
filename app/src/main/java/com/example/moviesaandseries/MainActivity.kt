@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import com.example.moviesaandseries.common.navigation2.AppNavigation
 import com.example.moviesaandseries.ui.theme.MoviesAandSeriesTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,9 +24,9 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                    // RootNavigationGraph(navController = rememberNavController() )
-                   com.example.moviesaandseries.common.navigation.RootNavigationGraph(
-                       navController = rememberNavController()
-                   )
+//                   com.example.moviesaandseries.common.navigation.RootNavigationGraph(
+//                       navController = rememberNavController())
+                    AppNavigation()
                 }
             }
         }

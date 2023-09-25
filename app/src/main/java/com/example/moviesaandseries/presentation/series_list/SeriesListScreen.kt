@@ -78,7 +78,7 @@ fun SeriesListScreen(
                             querySeries = it
                         },
                         onSearch = {
-                            navController.navigate( AppGraph.search_series.SEARCH + "/${querySeries}" ).let {
+                            navController.navigate( AppGraph.search_series.SEARCH_SERIES + "/${querySeries}" ).let {
                                 Log.d("GHHHH", "SeriesListScreen: $it")
                             }
                             active = false

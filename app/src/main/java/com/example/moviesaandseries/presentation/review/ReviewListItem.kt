@@ -2,12 +2,15 @@ package com.example.moviesaandseries.presentation.review
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -27,21 +30,15 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.data.remote.dto.Review
+import com.example.moviesaandseries.data.remote.dto.episode.EpisodeDto
 
 @Composable
 fun ReviewListItem(
     review: Review,
     //modifier: Modifier
 ){
-    Card(
-        //modifier = modifier
-    ) {
-
-        Row(modifier = Modifier
-            .padding(start = 2.dp, top = 2.dp)
-            .fillMaxWidth(),
-            //.background(Color.White),
-            verticalAlignment = Alignment.CenterVertically) {
+    Column {
+        Row {
             Image(painter = rememberAsyncImagePainter(
                 model = if (!review.author_details.avatar_path.isNullOrEmpty()) Constants.BASE_IMAGE_URL + review.author_details.avatar_path else R.drawable.flash
             ),
@@ -52,9 +49,7 @@ fun ReviewListItem(
                     .height(50.dp)
                     .clip(RoundedCornerShape(10.dp))
             )
-
-            Column(modifier = Modifier
-                .padding(start = 5.dp)) {
+            Column {
                 Text(text = if (!review.author.isNullOrEmpty()) review.author else "no content",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold)
@@ -62,10 +57,8 @@ fun ReviewListItem(
                     fontSize = 14.sp,)
             }
         }
-        Column(modifier = Modifier
-            .padding(5.dp)
-            // .background(Color.White)
-        ) {
+
+        Column {
             val average = when ( review.author_details.rating.toDouble() ) {
                 in 0.0..1.9 ->  "⭐"
                 in 2.0..3.9 -> "⭐⭐"
@@ -84,8 +77,59 @@ fun ReviewListItem(
         }
 
     }
+
+
 }
 
+@Composable
+fun ReviewListItem3(
+    review: Review,
+){
+    Row(
+        modifier = Modifier
+            .padding(
+                vertical = 5.dp
+            )
+            .background(Color.Yellow)
+
+    ) {
+        Image(painter = rememberAsyncImagePainter(
+            model = if (!review.author_details.avatar_path.isNullOrEmpty()) Constants.BASE_IMAGE_URL + review.author_details.avatar_path else R.drawable.flash
+        ),
+            contentScale = ContentScale.Crop,
+            contentDescription = "person image",
+            modifier = Modifier
+                .width(50.dp)
+                .height(50.dp)
+                .clip(RoundedCornerShape(10.dp))
+        )
+        Column(
+            modifier = Modifier.padding(
+                vertical = 10.dp,
+                horizontal = 5.dp
+            )
+        ) {
+            val average = when ( review.author_details.rating.toDouble() ) {
+                in 0.0..1.9 ->  "⭐"
+                in 2.0..3.9 -> "⭐⭐"
+                in 4.0..5.9 ->  "⭐⭐⭐"
+                in 6.0..7.9 ->  "⭐⭐⭐⭐"
+                in 8.0..10.0 ->  "⭐⭐⭐⭐⭐"
+                else -> {}
+            }
+            Text(text = average.toString(),
+                modifier = Modifier
+                    .padding(bottom = 3.dp),
+                fontSize = 14.sp,)
+            Text(text = if (!review.content.isNullOrEmpty()) review.content else "no content",
+           // Text(text = "if (!review.content.isNullOrEmpty()) review.content else no contentif (!review.content.isNullOrEmpty()) review.content else no content",
+                fontSize = 12.sp,
+                maxLines = 3,
+                modifier = Modifier
+                    .fillMaxWidth())
+        }
+    }
+}
 
 @Preview
 @Composable

@@ -24,10 +24,6 @@ object SeriesDetailsGraph {
     const val SIMILAR = "similar"
 }
 
-object SearchSeriesGraph {
-    const val ROOT = "search_series_graph"
-    const val SEARCH = "search"
-}
 
 object MoviesDetailsGraph {
     const val ROOT = "movies_details_graph"
@@ -36,9 +32,14 @@ object MoviesDetailsGraph {
     const val SIMILAR = "similar"
 }
 
+object SearchSeriesGraph {
+    const val ROOT = "search_series_graph"
+    const val SEARCH_SERIES = "searchSeries"
+}
+
 object SearchMoviesGraph {
     const val ROOT = "search_movies_graph"
-    const val DETAILS = "search"
+    const val SEARCH_MOVIES = "searchMovies"
 }
 
 object DetailsGraph {
@@ -79,15 +80,16 @@ object RootGraph {
 }
 
 object AppGraph {
+    val initial = RootGraph
     val auth = AuthGraph
-    val series_details = SeriesDetailsGraph
+    val home = HomeGraph
     val movies_details = MoviesDetailsGraph
+    val series_details = SeriesDetailsGraph
+    val search_movies = SearchMoviesGraph
+    val search_series = SearchSeriesGraph
     val season_details = SeasonGraph
     val episode_details = EpisodeGraph
     val cast_details = CastGraph
     val image_cast_details = ImagePersonGraph
-    val search_movies = SearchMoviesGraph
-    val search_series = SearchSeriesGraph
-    val home = HomeGraph
-    val initial = RootGraph
+
 }

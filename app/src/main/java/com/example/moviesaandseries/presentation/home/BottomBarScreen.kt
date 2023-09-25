@@ -17,23 +17,23 @@ import com.example.moviesaandseries.R
 sealed class BottomBarScreen(
     val route: String,
     val title: String,
-    val icon: ImageVector
+    val icon: Int
 ) {
     object Movies : BottomBarScreen(
         route = "movies",
         title = "Filmes",
-        icon = Icons.Default.Home
+        icon = R.drawable.ic_movie
     )
 
     object Series : BottomBarScreen(
         route = "series",
         title = "Series",
-        icon = Icons.Default.MailOutline
+        icon = R.drawable.ic_tv
     )
 
     object Favorites : BottomBarScreen(
         route = "favorites",
         title = "Favoritos",
-        icon = Icons.Default.Favorite
+        icon = R.drawable.ic_boomark
     )
 }

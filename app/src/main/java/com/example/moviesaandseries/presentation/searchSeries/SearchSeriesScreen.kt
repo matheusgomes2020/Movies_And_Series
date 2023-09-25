@@ -52,7 +52,7 @@ fun SearchSeriesScreen(
                             series = series,
                             onItemClick = {
                                 // navController.navigate(DetailsScreen.MoviesDetails.route + "/${movie.id}")
-                                navController.navigate(AppGraph.movies_details.DETAILS + "/${series.id}")
+                                navController.navigate(AppGraph.series_details.DETAILS + "/${series.id}")
                                 //navController.navigate(Graph.DETAILS)
                             }
                         )

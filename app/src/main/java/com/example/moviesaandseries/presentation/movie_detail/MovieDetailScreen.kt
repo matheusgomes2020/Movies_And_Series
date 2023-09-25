@@ -24,7 +24,7 @@ import com.example.moviesaandseries.presentation.movie_list.MovieListState
 import com.example.moviesaandseries.presentation.series_detail.CastCell
 import com.example.moviesaandseries.presentation.series_detail.CrewCell
 import com.example.moviesaandseries.presentation.series_detail.MainContent
-import com.example.moviesaandseries.presentation.series_detail.ReviewsCell
+import com.example.moviesaandseries.presentation.series_detail.ReviewsCell2
 import com.example.moviesaandseries.presentation.series_detail.SimilarsMoviesCell
 
 
@@ -64,7 +64,7 @@ fun MovieDetailScreen(
                     Spacer(modifier = Modifier.height( 15.dp ))
                     SimilarsMoviesCell(navController = navController, state = stateSimilar )
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    ReviewsCell(reviews = movie.reviews.results)
+                    ReviewsCell2(reviews = movie.reviews.results)
                 }
             }
         }

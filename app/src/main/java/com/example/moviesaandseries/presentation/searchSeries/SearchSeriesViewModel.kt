@@ -32,7 +32,7 @@ class SearchSeriesViewModel @Inject constructor(
 
 
      private fun searchSeries(query: String ) {
-         Log.d("BATATAO", "VIEW MODEL searchMovies: $query")
+         Log.d("BATATAO", "VIEW MODEL searchSéries: $query")
 
         searchSeriesUseCase( query ).onEach { result ->
             Log.d("BATATAO", "VIEW MODEL result: $result")

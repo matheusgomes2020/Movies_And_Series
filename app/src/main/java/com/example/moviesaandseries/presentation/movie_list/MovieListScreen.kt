@@ -46,7 +46,7 @@ import com.example.moviesaandseries.presentation.searchMovies.SearchMoviesViewMo
 fun MovieListScreen(
     navController: NavController,
     viewModel: MovieListViewModel = hiltViewModel(),
-    searchViewModel: SearchMoviesViewModel = hiltViewModel()
+    //searchViewModel: SearchMoviesViewModel = hiltViewModel()
 ){
 
     val state = viewModel.statePopular.value
@@ -77,7 +77,7 @@ fun MovieListScreen(
                             queryMovie = it
                         },
                         onSearch = {
-                                navController.navigate( AppGraph.search_movies.DETAILS + "/${queryMovie}" )
+                                navController.navigate( AppGraph.search_movies.SEARCH_MOVIES + "/${queryMovie}" )
                             active = false
                         },
                         active = false,

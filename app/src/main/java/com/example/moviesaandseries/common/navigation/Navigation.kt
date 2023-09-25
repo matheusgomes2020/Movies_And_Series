@@ -82,17 +82,18 @@ fun HomeNavGraph(navController: NavHostController) {
         }
         movieDetailsNavGraph(navController = navController)
         seriesDetailsNavGraph(navController = navController)
-        searchMoviesNavGraph( navController = navController )
         searchSeriesNavGraph( navController = navController )
+        searchMoviesNavGraph( navController = navController )
+
     }
 }
 
 fun NavGraphBuilder.searchMoviesNavGraph( navController: NavController ) {
     navigation(
         route = AppGraph.search_movies.ROOT,
-        startDestination = AppGraph.search_movies.DETAILS
+        startDestination = AppGraph.search_movies.SEARCH_MOVIES
     ) {
-        composable(route = AppGraph.search_movies.DETAILS + "/{queryMovie}",
+        composable(route = AppGraph.search_movies.SEARCH_MOVIES + "/{queryMovie}",
             arguments = listOf(
                 navArgument( "queryMovie" ) {
                     type = NavType.StringType
@@ -111,9 +112,9 @@ fun NavGraphBuilder.searchMoviesNavGraph( navController: NavController ) {
 fun NavGraphBuilder.searchSeriesNavGraph( navController: NavController ) {
     navigation(
         route = AppGraph.search_series.ROOT,
-        startDestination = AppGraph.search_series.SEARCH
+        startDestination = AppGraph.search_series.SEARCH_SERIES
     ) {
-        composable(route = AppGraph.search_series.SEARCH + "/{querySeries}",
+        composable(route = AppGraph.search_series.SEARCH_SERIES + "/{querySeries}",
             arguments = listOf(
                 navArgument("querySeries") {
                     type = NavType.StringType
