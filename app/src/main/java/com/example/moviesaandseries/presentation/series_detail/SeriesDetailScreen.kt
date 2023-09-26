@@ -21,6 +21,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.moviesaandseries.presentation.general.CastCell
+import com.example.moviesaandseries.presentation.general.CrewCell
+import com.example.moviesaandseries.presentation.general.MainContent
+import com.example.moviesaandseries.presentation.general.ReviewsCell
+import com.example.moviesaandseries.presentation.general.SeasonsCell
+import com.example.moviesaandseries.presentation.general.SimilarSeriesCell
 import com.example.moviesaandseries.presentation.season.SeasonListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
 
@@ -72,7 +78,7 @@ fun SeriesDetailScreen(
                     Spacer(modifier = Modifier.height( 15.dp ))
                     SimilarSeriesCell(navController = navController, state = stateSimilar )
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    ReviewsCell2(reviews = series.reviews.results)
+                    if (!series.reviews.results.isNullOrEmpty()) ReviewsCell(reviews = series.reviews.results)
                 }
 
             }

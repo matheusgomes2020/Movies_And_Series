@@ -38,7 +38,7 @@ fun CastListItem(
     )
     {
         Image(painter = rememberAsyncImagePainter(
-            model = if (!cast.profile_path.isNullOrEmpty()) Constants.BASE_IMAGE_URL + cast.profile_path else R.drawable.flash
+            model = if (!cast.profile_path.isNullOrEmpty()) Constants.BASE_IMAGE_URL + cast.profile_path else R.drawable.logo
         ),
             contentScale = ContentScale.Crop,
             contentDescription = "person image",

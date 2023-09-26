@@ -22,7 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.presentation.searchMovies.SearchSeriesViewModel
-import com.example.moviesaandseries.presentation.searchMovies.components.SearchSeriesListItem
+import com.example.moviesaandseries.presentation.searchSeries.components.SearchSeriesListItem
 
 @Composable
 fun SearchSeriesScreen(

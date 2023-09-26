@@ -2,16 +2,12 @@ package com.example.moviesaandseries.presentation.review
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,20 +20,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.data.remote.dto.Review
-import com.example.moviesaandseries.data.remote.dto.episode.EpisodeDto
-
 @Composable
-fun ItemReview(
+fun ReviewListItem(
     review: Review
 ) {
     val average = when (review.author_details.rating.toDouble()) {
@@ -56,19 +48,12 @@ fun ItemReview(
         ),
         modifier = Modifier
             .padding(bottom = 8.dp)
-            // .clickable { onItemClick( series ) }
             .background(color = Color.White),
-        //
     ) {
 
         Column(
             modifier = Modifier
-                //.fillMaxWidth()
                 .padding(1.dp),
-            //.background(Color.LightGray)
-            // .clip(shape = RoundedCornerShape(5.dp)
-            //  .copy(CornerSize(5.dp))),
-
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
@@ -107,7 +92,6 @@ fun ItemReview(
                     )
                 }
             }
-
             Column(
                 verticalArrangement = Arrangement.Center,
                 modifier = Modifier.padding(5.dp)
@@ -116,7 +100,7 @@ fun ItemReview(
                     text = average.toString(),
                     fontSize = 14.sp,
                 )
-                Spacer(modifier = Modifier.width(10.dp))
+                Spacer(modifier = Modifier.height(5.dp))
                 Text(
                     text = if (!review.content.isNullOrEmpty()) review.content else "no content",
                     modifier = Modifier.width(365.dp),
@@ -124,71 +108,7 @@ fun ItemReview(
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis,
                 )
-
             }
-        }
-
-    }
-}
-
-@Preview
-@Composable
-fun Item() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(1.dp),
-        horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.SpaceBetween
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-
-            ) {
-            Image(
-                painter = painterResource(R.drawable.ic_launcher_background),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(56.dp)
-                    .clip(RoundedCornerShape(15.dp))
-            )
-
-            Column(
-                verticalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(
-                    start = 5.dp
-                )
-            ) {
-                Text(
-                    text = "Lucas B",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-                Text(
-                    text = "2023/03/03",
-                    fontSize = 11.sp,
-                )
-            }
-        }
-
-        Column(
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.padding( 5.dp )
-        ) {
-            Text(
-                text = "⭐⭐⭐⭐⭐",
-                fontSize = 14.sp,
-            )
-            Spacer(modifier = Modifier.width(5.dp))
-            Text(
-                text = "O príncipe T'Challa retorna a Wakanda para ser coroado rei. Assumindo o manto de Pantera Negra, ele vai à caça de um vilão que roubou um precioso metal de seu país.",
-                fontSize = 12.sp,
-                maxLines = 3,
-                overflow = TextOverflow.Ellipsis,
-            )
-
         }
     }
 }

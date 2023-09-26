@@ -21,8 +21,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.presentation.cast.ImagesCell
-import com.example.moviesaandseries.presentation.series_detail.CastCell
-import com.example.moviesaandseries.presentation.series_detail.CrewCell
+import com.example.moviesaandseries.presentation.general.CastCell
+import com.example.moviesaandseries.presentation.general.CrewCell
 
 @Composable
 fun EpisodeScreen(

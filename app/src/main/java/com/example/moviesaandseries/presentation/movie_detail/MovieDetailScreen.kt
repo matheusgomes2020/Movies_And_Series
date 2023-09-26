@@ -21,17 +21,16 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.presentation.movie_list.MovieListState
-import com.example.moviesaandseries.presentation.series_detail.CastCell
-import com.example.moviesaandseries.presentation.series_detail.CrewCell
-import com.example.moviesaandseries.presentation.series_detail.MainContent
-import com.example.moviesaandseries.presentation.series_detail.ReviewsCell2
-import com.example.moviesaandseries.presentation.series_detail.SimilarsMoviesCell
+import com.example.moviesaandseries.presentation.general.CastCell
+import com.example.moviesaandseries.presentation.general.CrewCell
+import com.example.moviesaandseries.presentation.general.MainContent
+import com.example.moviesaandseries.presentation.general.ReviewsCell
+import com.example.moviesaandseries.presentation.general.ShimmerListItemMovieDetails
+import com.example.moviesaandseries.presentation.general.SimilarsMoviesCell
 
 
 @Composable
 fun MovieDetailScreen(
-   // onClick: () -> Unit,
-    //id: String,
     navController: NavController,
     viewModel: MovieDetailViewModel = hiltViewModel()
 ){
@@ -64,7 +63,7 @@ fun MovieDetailScreen(
                     Spacer(modifier = Modifier.height( 15.dp ))
                     SimilarsMoviesCell(navController = navController, state = stateSimilar )
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    ReviewsCell2(reviews = movie.reviews.results)
+                    if (!movie.reviews.results.isNullOrEmpty()) ReviewsCell(reviews = movie.reviews.results)
                 }
             }
         }
@@ -81,7 +80,7 @@ fun MovieDetailScreen(
             )
         }
         if(state.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            ShimmerListItemMovieDetails(isLoading = true, contentAfterLoading = { /*TODO*/ })
         }
     }
 }
