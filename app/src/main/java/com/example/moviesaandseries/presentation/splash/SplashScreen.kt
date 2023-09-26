@@ -63,7 +63,7 @@ fun AnimatedSplashScreen(navController: NavHostController) {
 
     LaunchedEffect(key1 = true) {
         startAnimation = true
-        delay(4000)
+        delay(1000)
         navController.popBackStack()
         navController.navigate(Screens.LoginScreen.name)
     }
@@ -73,8 +73,9 @@ fun AnimatedSplashScreen(navController: NavHostController) {
 @Composable
 fun Splash(alpha: Float) {
     Box(
+
         modifier = Modifier
-            .background(if (isSystemInDarkTheme()) Color.Black else Color.Yellow)
+            .background(if (isSystemInDarkTheme()) Color.Black else Color.Transparent)
             .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
