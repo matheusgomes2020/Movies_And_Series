@@ -1,0 +1,57 @@
+package com.example.moviesaandseries.presentation.searchMovies
+
+import android.util.Log
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.moviesaandseries.common.Constants
+import com.example.moviesaandseries.common.Resource
+import com.example.moviesaandseries.domain.use_case.search_series.SearchSeriesUseCase
+import com.example.moviesaandseries.presentation.series_list.SeriesListState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
+
+@HiltViewModel
+class SearchSeriesViewModel @Inject constructor(
+    private val searchSeriesUseCase: SearchSeriesUseCase,
+    savedStateHandle: SavedStateHandle
+): ViewModel() {
+
+    private val _state = mutableStateOf(SeriesListState())
+    val state: State<SeriesListState> = _state
+    init {
+        savedStateHandle.get<String>(Constants.PARAM_SEARCH_SERIES)?.let { querySeries ->
+            searchSeries( querySeries )
+        }
+   }
+
+
+
+     private fun searchSeries(query: String ) {
+         Log.d("BATATAO", "VIEW MODEL searchSéries: $query")
+
+        searchSeriesUseCase( query ).onEach { result ->
+            Log.d("BATATAO", "VIEW MODEL result: $result")
+            when (result) {
+                is Resource.Success -> {
+                    _state.value = SeriesListState(series = result.data ?: emptyList())
+                    Log.d("BATATAO", "VIEW MODEL state value: ${state.value}")
+                }
+
+                is Resource.Error -> {
+                    _state.value = SeriesListState(
+                        error = result.message ?: "An unexpected error occured"
+                    )
+                }
+
+                is Resource.Loading -> {
+                    _state.value = SeriesListState(isLoading = true)
+                }
+            }
+        }.launchIn( viewModelScope )
+    }
+}

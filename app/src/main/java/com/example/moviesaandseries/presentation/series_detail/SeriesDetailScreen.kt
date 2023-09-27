@@ -2,6 +2,7 @@ package com.example.moviesaandseries.presentation.series_detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +21,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.moviesaandseries.presentation.general.CastCell
+import com.example.moviesaandseries.presentation.general.CrewCell
+import com.example.moviesaandseries.presentation.general.MainContent
+import com.example.moviesaandseries.presentation.general.ReviewsCell
+import com.example.moviesaandseries.presentation.general.SeasonsCell
+import com.example.moviesaandseries.presentation.general.SimilarSeriesCell
+import com.example.moviesaandseries.presentation.season.SeasonListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
 
 @Composable
@@ -29,9 +37,11 @@ fun SeriesDetailScreen(
 ){
     val state = viewModel.state.value
     var stateSimilar: SeriesListState
+    var stateSeasons: SeasonListState
     Box(modifier = Modifier.fillMaxSize()) {
         state.series?.let { series ->
             stateSimilar = SeriesListState(series = series.similar.results)
+            stateSeasons = SeasonListState(seasons = series.seasons)
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
@@ -43,17 +53,32 @@ fun SeriesDetailScreen(
                 val posterPath = if (!series.poster_path.isNullOrEmpty()) series.poster_path else "sem poster"
                 val data = if (!series.first_air_date.isNullOrEmpty()) series.first_air_date else "null"
                 var runtime = if (!series.episode_run_time.isNullOrEmpty())  series.episode_run_time[0].toString() else "null"
-                //val star = if (!series.first_air_date.isNullOrEmpty()) series.first_air_date else "null"
+                var createdBy = ""
+                if (!series.created_by.isNullOrEmpty()) {
+                    for (i in series.created_by) {
+                        createdBy += i.name + "\n"
+                    }
+                } else createdBy = "Ninguém"
                 item {
-                    MainContent( title, overview, posterPath, data, runtime, series.vote_average, series.genres )
+                    MainContent(
+                        title,
+                        overview,
+                        posterPath,
+                        data,
+                        runtime,
+                        series.vote_average,
+                        series.genres,
+                    )
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    CastCell(cast = series.aggregate_credits.cast)
+                    CastCell( navController = navController, cast = series.aggregate_credits.cast )
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    CrewCell(crew = series.aggregate_credits.crew)
+                    CrewCell(createdBy, crew = series.aggregate_credits.crew)
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    SimilarsSeriesCell(navController = navController, state = stateSimilar )
+                    SeasonsCell(navController = navController,series.id.toString(), series.number_of_seasons, series.seasons, stateSeasons )
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    ReviewsCell(reviews = series.reviews.results)
+                    SimilarSeriesCell(navController = navController, state = stateSimilar )
+                    Spacer(modifier = Modifier.height( 15.dp ))
+                    if (!series.reviews.results.isNullOrEmpty()) ReviewsCell(reviews = series.reviews.results)
                 }
 
             }
@@ -71,6 +96,9 @@ fun SeriesDetailScreen(
             )
         }
         if(state.isLoading) {
+            Column {
+                Text(text = "Nada")
+            }
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }

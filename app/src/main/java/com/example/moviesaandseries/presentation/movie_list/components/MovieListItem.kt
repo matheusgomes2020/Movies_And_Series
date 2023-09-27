@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.common.Constants
+import com.example.moviesaandseries.data.remote.dto.person.MovieWork
 import com.example.moviesaandseries.domain.model.Movie
 
 
@@ -58,4 +59,42 @@ Card(
         maxLines = 1
     )
 }
+}
+
+@Composable
+fun MovieListItemWork(
+    movie: MovieWork,
+    onItemClick: (MovieWork) -> Unit
+) {
+
+    Card(
+        shape = RoundedCornerShape(15.dp),
+        modifier = Modifier.padding(5.dp)
+            .clickable { onItemClick(movie) }
+            .background(color = Color.White ),
+    ) {
+
+        Column(
+            modifier = Modifier
+                .background(color = Color.White)
+        ) {
+            Image(painter = rememberAsyncImagePainter(
+                model = Constants.BASE_IMAGE_URL + movie.poster_path),
+                contentScale = ContentScale.Crop,
+                contentDescription = "movie image",
+                modifier = Modifier
+                    .width(110.dp)
+                    .height(150.dp)
+                    .clip(shape = RoundedCornerShape(15.dp)))
+        }
+
+        Text(
+            text = "${movie.title}",
+            modifier = Modifier.width(110.dp)
+                .background(Color.White)
+                .padding(start = 3.dp),
+            fontSize = 14.sp,
+            maxLines = 1
+        )
+    }
 }

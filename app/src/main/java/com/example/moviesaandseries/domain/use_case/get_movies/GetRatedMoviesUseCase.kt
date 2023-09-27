@@ -1,7 +1,7 @@
 package com.example.moviesaandseries.domain.use_case.get_movies
 
 import com.example.moviesaandseries.common.Resource
-import com.example.moviesaandseries.data.remote.dto.toMovie
+import com.example.moviesaandseries.data.remote.dto.movies.toMovie
 import com.example.moviesaandseries.domain.model.Movie
 import com.example.moviesaandseries.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow

@@ -21,11 +21,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.presentation.movie_list.MovieListState
-import com.example.moviesaandseries.presentation.series_detail.CastCell
-import com.example.moviesaandseries.presentation.series_detail.CrewCell
-import com.example.moviesaandseries.presentation.series_detail.MainContent
-import com.example.moviesaandseries.presentation.series_detail.ReviewsCell
-import com.example.moviesaandseries.presentation.series_detail.SimilarsMoviesCell
+import com.example.moviesaandseries.presentation.general.CastCell
+import com.example.moviesaandseries.presentation.general.CrewCell
+import com.example.moviesaandseries.presentation.general.MainContent
+import com.example.moviesaandseries.presentation.general.ReviewsCell
+import com.example.moviesaandseries.presentation.general.ShimmerListItemMovieDetails
+import com.example.moviesaandseries.presentation.general.SimilarsMoviesCell
 
 
 @Composable
@@ -48,16 +49,21 @@ fun MovieDetailScreen(
                 val overview = if (!movie.overview.isNullOrEmpty()) movie.overview else "sem overview"
                 val posterPath = if (!movie.poster_path.isNullOrEmpty()) movie.poster_path else "sem poster"
                 val data = if (!movie.release_date.isNullOrEmpty()) movie.release_date else "null"
+                var director = ""
+                if (!movie.credits.crew.isNullOrEmpty()) {
+                    for (i in movie.credits.crew) if ( i.job == "Director" ) director = i.name
+                } else director = "Ninguém"
+
                 item {
                     MainContent(title, overview, posterPath, data, movie.runtime.toString(), movie.vote_average, movie.genres)
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    CastCell(cast = movie.credits.cast)
+                    CastCell(navController, cast = movie.credits.cast)
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    CrewCell(crew = movie.credits.crew)
+                    CrewCell( director, crew = movie.credits.crew )
                     Spacer(modifier = Modifier.height( 15.dp ))
                     SimilarsMoviesCell(navController = navController, state = stateSimilar )
                     Spacer(modifier = Modifier.height( 15.dp ))
-                    ReviewsCell(reviews = movie.reviews.results)
+                    if (!movie.reviews.results.isNullOrEmpty()) ReviewsCell(reviews = movie.reviews.results)
                 }
             }
         }
@@ -74,7 +80,7 @@ fun MovieDetailScreen(
             )
         }
         if(state.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            ShimmerListItemMovieDetails(isLoading = true, contentAfterLoading = { /*TODO*/ })
         }
     }
 }

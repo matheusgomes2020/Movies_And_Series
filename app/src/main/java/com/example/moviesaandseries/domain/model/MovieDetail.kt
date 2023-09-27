@@ -1,11 +1,10 @@
 package com.example.moviesaandseries.domain.model
 
-import com.example.moviesaandseries.data.remote.dto.BelongsToCollection
-import com.example.moviesaandseries.data.remote.dto.Credits
+import com.example.moviesaandseries.data.remote.dto.movies.Credits
 import com.example.moviesaandseries.data.remote.dto.Genre
 import com.example.moviesaandseries.data.remote.dto.Images
 import com.example.moviesaandseries.data.remote.dto.Reviews
-import com.example.moviesaandseries.data.remote.dto.Similar
+import com.example.moviesaandseries.data.remote.dto.movies.Similar
 import com.example.moviesaandseries.data.remote.dto.Videos
 
 
