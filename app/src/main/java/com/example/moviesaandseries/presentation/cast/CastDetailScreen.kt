@@ -40,6 +40,7 @@ import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.data.remote.dto.Profile
+import com.example.moviesaandseries.presentation.general.ActorDetailShimmer
 import com.example.moviesaandseries.presentation.movie_list.MovieListScreenCellWork
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreenCellPerson
 
@@ -92,7 +93,7 @@ fun CastScreen(
             )
         }
         if(state.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            ActorDetailShimmer(isLoading = true, contentAfterLoading = { /*TODO*/ })
         }
     }
 }
@@ -188,13 +189,11 @@ fun ImagesActorCell(
                             val stringBuilder = StringBuilder(image_path)
                             stringBuilder.deleteCharAt(0)
                             navController.navigate(AppGraph.image_cast_details.DETAILS + "/${stringBuilder}")
-                            Log.d("NEYMAR", "ImagesActorCell: ${image.file_path} | $image_path")
                         }catch (e: Exception) {
                             e.printStackTrace()
                             val image_path = image.file_path
                             val stringBuilder = StringBuilder(image_path)
                             stringBuilder.deleteCharAt(0)
-                            Log.d("NEYMAR", "WWWWW: ${image_path}\n$stringBuilder")
                             navController.navigate(AppGraph.image_cast_details.DETAILS + "/${"3dVrtUzLYNszM4QecBhMypUPdU4.jpg"}")
 
                         }

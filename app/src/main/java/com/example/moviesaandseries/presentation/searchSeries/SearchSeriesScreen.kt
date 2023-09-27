@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
+import com.example.moviesaandseries.presentation.general.SearchResultsShimmer
 import com.example.moviesaandseries.presentation.searchMovies.SearchSeriesViewModel
 import com.example.moviesaandseries.presentation.searchSeries.components.SearchSeriesListItem
 
@@ -51,9 +52,7 @@ fun SearchSeriesScreen(
                         SearchSeriesListItem(
                             series = series,
                             onItemClick = {
-                                // navController.navigate(DetailsScreen.MoviesDetails.route + "/${movie.id}")
                                 navController.navigate(AppGraph.series_details.DETAILS + "/${series.id}")
-                                //navController.navigate(Graph.DETAILS)
                             }
                         )
                     }
@@ -72,7 +71,7 @@ fun SearchSeriesScreen(
             )
         }
         if(state.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            SearchResultsShimmer(isLoading = true, contentAfterLoading = { /*TODO*/ })
         }
     }
 

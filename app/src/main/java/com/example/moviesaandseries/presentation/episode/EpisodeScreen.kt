@@ -23,6 +23,7 @@ import androidx.navigation.NavController
 import com.example.moviesaandseries.presentation.cast.ImagesCell
 import com.example.moviesaandseries.presentation.general.CastCell
 import com.example.moviesaandseries.presentation.general.CrewCell
+import com.example.moviesaandseries.presentation.general.EpisodeDetailShimmer
 
 @Composable
 fun EpisodeScreen(
@@ -62,7 +63,7 @@ val state = viewModel.state.value
         }
     }
         if(state.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            EpisodeDetailShimmer(isLoading = true, contentAfterLoading = { /*TODO*/ })
         }
     }
 }

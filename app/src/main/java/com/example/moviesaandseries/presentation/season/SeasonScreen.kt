@@ -34,6 +34,7 @@ import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.data.remote.dto.episode.EpisodeDto
+import com.example.moviesaandseries.presentation.general.SeasonDetailShimmer
 
 @Composable
  fun SeasonDetailScreen(
@@ -65,7 +66,7 @@ import com.example.moviesaandseries.data.remote.dto.episode.EpisodeDto
             )
         }
         if(state.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(CenterHorizontally))
+            SeasonDetailShimmer(isLoading = true, contentAfterLoading = { /*TODO*/ })
         }
     }
 }

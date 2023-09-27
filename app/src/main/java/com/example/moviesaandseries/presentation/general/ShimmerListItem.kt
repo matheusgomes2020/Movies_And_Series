@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,8 +33,10 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun ShimmerListItem(
@@ -109,6 +112,85 @@ fun ShimmerDetail(
 }
 
 @Composable
+fun SeasonDetailShimmer(
+    isLoading: Boolean,
+    contentAfterLoading: @Composable () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    if ( isLoading ) {
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 15.dp)
+        ) {
+            Title()
+            Spacer(modifier = Modifier.height(16.dp))
+            ImageSeason()
+            Spacer(modifier = Modifier.height(16.dp))
+            OverviewAndBiography(count = 3)
+            Spacer(modifier = Modifier.height(16.dp))
+            Episodes()
+        }
+
+    } else {
+        contentAfterLoading()
+    }
+}
+
+@Composable
+fun EpisodeDetailShimmer(
+    isLoading: Boolean,
+    contentAfterLoading: @Composable () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    if ( isLoading ) {
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 15.dp)
+        ) {
+            Title()
+            Spacer(modifier = Modifier.height(16.dp))
+            OverviewAndBiography(count = 3)
+            Spacer(modifier = Modifier.height(16.dp))
+            RowCards()
+            Spacer(modifier = Modifier.height(16.dp))
+            Crew()
+        }
+
+    } else {
+        contentAfterLoading()
+    }
+}
+
+@Composable
+fun ActorDetailShimmer(
+    isLoading: Boolean,
+    contentAfterLoading: @Composable () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    if ( isLoading ) {
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 15.dp)
+        ) {
+            Title()
+            Spacer(modifier = Modifier.height(16.dp))
+            TopItems( count = 2 )
+            Spacer(modifier = Modifier.height(16.dp))
+            OverviewAndBiography( count = 5 )
+            Spacer(modifier = Modifier.height(16.dp))
+            ImagesActor()
+            Spacer(modifier = Modifier.height(16.dp))
+            RowCards()
+            Spacer(modifier = Modifier.height(16.dp))
+            RowCards()
+        }
+
+    } else {
+        contentAfterLoading()
+    }
+}
+
+@Composable
 private fun Genres( count: Int ) {
     LazyRow() {
         items( count ) {
@@ -131,6 +213,47 @@ private fun Image() {
             .height(200.dp)
             .shimmerEffect()
     )
+}
+
+@Composable
+private fun ImageSeason() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(300.dp)
+            .shimmerEffect()
+    )
+}
+
+@Composable
+private fun ImageActor() {
+    Box(
+        modifier = Modifier
+            .width(150.dp)
+            .height(200.dp)
+            .clip(shape = RoundedCornerShape(15.dp))
+            .shimmerEffect()
+    )
+}
+
+@Composable
+private fun ImagesActor() {
+    Column(
+    ) {
+        Box(
+            modifier = Modifier
+                .width(100.dp)
+                .height(25.dp)
+                .shimmerEffect()
+        )
+        Spacer(modifier = Modifier.height(15.dp))
+        LazyRow(contentPadding = PaddingValues(5.dp)) {
+            items(3) {
+                ImageActor()
+                Spacer(modifier = Modifier.width(16.dp))
+            }
+        }
+    }
 }
 
 @Composable
@@ -207,6 +330,96 @@ private fun RowCards() {
                         .clip(shape = RoundedCornerShape(15.dp))
                         .shimmerEffect()
                 )
+                Spacer(modifier = Modifier.width(16.dp))
+            }
+        }
+    }
+}
+
+
+
+@Composable
+ fun SearchResultsShimmer(
+    isLoading: Boolean,
+    contentAfterLoading: @Composable () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    if (isLoading) {
+
+            Box(
+                modifier = Modifier
+                    .size(110.dp)
+                    .clip(shape = RoundedCornerShape(15.dp))
+                    .shimmerEffect()
+            )
+
+
+    }
+    else {
+        contentAfterLoading()
+    }
+
+}
+@Composable
+private fun Episodes() {
+    Column(
+    ) {
+        Box(
+            modifier = Modifier
+                .width(110.dp)
+                .height(23.dp)
+                .shimmerEffect()
+        )
+        Spacer(modifier = Modifier.height(15.dp))
+        LazyColumn() {
+            items(5) {
+                Row(
+                    modifier = Modifier
+                        .padding(
+                            10.dp
+                        )
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(110.dp)
+                            .clip(shape = RoundedCornerShape(15.dp))
+                            .shimmerEffect()
+                    )
+                    Column(
+                        modifier = Modifier.padding(
+                            10.dp
+                            )
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .width(150.dp)
+                                .height(18.dp)
+                                .shimmerEffect()
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(13.dp)
+                                .shimmerEffect()
+                        )
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(13.dp)
+                                .shimmerEffect()
+                        )
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(13.dp)
+                                .shimmerEffect()
+                        )
+                    }
+                }
+
                 Spacer(modifier = Modifier.width(16.dp))
             }
         }
