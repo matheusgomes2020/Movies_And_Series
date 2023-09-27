@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,7 +24,7 @@ import com.example.moviesaandseries.presentation.general.CastCell
 import com.example.moviesaandseries.presentation.general.CrewCell
 import com.example.moviesaandseries.presentation.general.MainContent
 import com.example.moviesaandseries.presentation.general.ReviewsCell
-import com.example.moviesaandseries.presentation.general.ShimmerListItemMovieDetails
+import com.example.moviesaandseries.presentation.general.ShimmerDetail
 import com.example.moviesaandseries.presentation.general.SimilarsMoviesCell
 
 
@@ -80,7 +79,7 @@ fun MovieDetailScreen(
             )
         }
         if(state.isLoading) {
-            ShimmerListItemMovieDetails(isLoading = true, contentAfterLoading = { /*TODO*/ })
+            ShimmerDetail(isLoading = true, contentAfterLoading = { /*TODO*/ })
         }
     }
 }

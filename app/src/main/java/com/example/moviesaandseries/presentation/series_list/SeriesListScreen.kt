@@ -161,7 +161,7 @@ fun SeriesListScreen(
                                 )
                                 //Spacer(modifier = Modifier.height(10.dp))
                                 SeriesListScreenCell(navController = navController , state = statePopular)
-                                Text(text = "Séries melhores avaliados",
+                                Text(text = "Séries melhores avaliadas",
                                     modifier = Modifier
                                         .padding(top = 15.dp, bottom = 15.dp),
                                     fontSize = 18.sp,

@@ -13,14 +13,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,10 +32,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun ShimmerListItem(
@@ -82,119 +78,179 @@ fun ShimmerListItem(
 }
 
 @Composable
-fun ShimmerListItemMovieDetails(
+fun ShimmerDetail(
     isLoading: Boolean,
     contentAfterLoading: @Composable () -> Unit,
     modifier: Modifier = Modifier
 ) {
     if ( isLoading ) {
-            Column(
-                modifier = Modifier.padding(
-                    15.dp
-                )
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(30.dp)
-                        .shimmerEffect()
-                )
-                Spacer(modifier = Modifier.height( 16.dp ) )
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Box(modifier = Modifier
-                        .size(25.dp)
-                        .shimmerEffect())
-                    //Spacer(modifier = Modifier.width( 16.dp ) )
-                    Box(modifier = Modifier
-                        .height(25.dp)
-                        .width(70.dp)
-                        .shimmerEffect())
-                    //Spacer(modifier = Modifier.width( 16.dp ) )
-                    Box(modifier = Modifier
-                        .size(25.dp)
-                        .shimmerEffect())
-                   // Spacer(modifier = Modifier.width( 16.dp ) )
-                    Box(modifier = Modifier
-                        .height(25.dp)
-                        .width(70.dp)
-                        .shimmerEffect())
-                    //Spacer(modifier = Modifier.width( 16.dp ) )
-                    Box(modifier = Modifier
-                        .size(25.dp)
-                        .shimmerEffect())
-                    //Spacer(modifier = Modifier.width( 16.dp ) )
-                    Box(modifier = Modifier
-                        .height(25.dp)
-                        .width(70.dp)
-                        .shimmerEffect())
-                }
-                Spacer(modifier = Modifier.height( 16.dp ) )
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(200.dp)
-                        .shimmerEffect()
-                )
-                Spacer(modifier = Modifier.height( 16.dp ) )
-                Column {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(20.dp)
-                            .shimmerEffect()
-                    )
-                    Spacer(modifier = Modifier.height( 5.dp ) )
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(20.dp)
-                            .shimmerEffect()
-                    )
-                    Spacer(modifier = Modifier.height( 5.dp ) )
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(20.dp)
-                            .shimmerEffect()
-                    )
-                }
-                Spacer(modifier = Modifier.height( 16.dp ) )
-                Column(
-                    Modifier.padding(horizontal = 5.dp)
-                ) {
-                    Text(
-                        text = "Elenco",
-                        style = MaterialTheme.typography.headlineMedium,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Spacer(modifier = Modifier.height(15.dp))
-                    LazyRow(contentPadding = PaddingValues( 5.dp )) {
-                        items(20) {
-                            Box(
-                                modifier = Modifier
-                                    .width(110.dp)
-                                    .height(150.dp)
-                                    .clip(shape = RoundedCornerShape(15.dp))
-                                    .shimmerEffect()
-                            )
-                            Spacer(modifier = Modifier.width( 16.dp ))
-                        }
-                    }
-                }
-
-
-
-            }
-
-
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 15.dp)
+        ) {
+            Title()
+            Spacer(modifier = Modifier.height(16.dp))
+            TopItems( count = 3 )
+            Spacer(modifier = Modifier.height(16.dp))
+            Genres( count = 3 )
+            Spacer(modifier = Modifier.height(16.dp))
+            Image()
+            Spacer(modifier = Modifier.height(16.dp))
+            OverviewAndBiography( count = 5 )
+            Spacer(modifier = Modifier.height(11.dp))
+            RowCards()
+            Spacer(modifier = Modifier.height(16.dp))
+            Crew()
+        }
 
     } else {
         contentAfterLoading()
+    }
+}
+
+@Composable
+private fun Genres( count: Int ) {
+    LazyRow() {
+        items( count ) {
+            Box(
+                modifier = Modifier
+                    .height(15.dp)
+                    .width(60.dp)
+                    .shimmerEffect()
+            )
+            Spacer(modifier = Modifier.width(10.dp))
+        }
+    }
+}
+
+@Composable
+private fun Image() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp)
+            .shimmerEffect()
+    )
+}
+
+@Composable
+private fun Title() {
+    Spacer(modifier = Modifier.height(10.dp))
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(30.dp)
+            .shimmerEffect()
+    )
+}
+
+@Composable
+private fun OverviewAndBiography( count: Int ) {
+    LazyColumn(
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        items( count ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(20.dp)
+                    .shimmerEffect()
+            )
+            Spacer(modifier = Modifier.height(5.dp))
+        }
+    }
+}
+
+@Composable
+private fun TopItems( count: Int ) {
+    LazyRow(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        items( count ) {
+            Row {
+                Box(
+                    modifier = Modifier
+                        .size(25.dp)
+                        .shimmerEffect()
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+                Box(
+                    modifier = Modifier
+                        .height(25.dp)
+                        .width(70.dp)
+                        .shimmerEffect()
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun RowCards() {
+    Column(
+    ) {
+        Box(
+            modifier = Modifier
+                .width(100.dp)
+                .height(25.dp)
+                .shimmerEffect()
+        )
+        Spacer(modifier = Modifier.height(15.dp))
+        LazyRow(contentPadding = PaddingValues(5.dp)) {
+            items(3) {
+                Box(
+                    modifier = Modifier
+                        .width(110.dp)
+                        .height(150.dp)
+                        .clip(shape = RoundedCornerShape(15.dp))
+                        .shimmerEffect()
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+            }
+        }
+    }
+}
+
+@Composable
+private fun Crew() {
+    Column(
+    ) {
+        Box(
+            modifier = Modifier
+                .width(100.dp)
+                .height(23.dp)
+                .shimmerEffect()
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        Box(
+            modifier = Modifier
+                .width(90.dp)
+                .height(20.dp)
+                .padding(start = 5.dp)
+                .shimmerEffect()
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Box(
+            modifier = Modifier
+                .width(100.dp)
+                .height(23.dp)
+                .shimmerEffect()
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        LazyColumn(contentPadding = PaddingValues(5.dp)) {
+            items(3) {
+                Box(
+                    modifier = Modifier
+                        .width(90.dp)
+                        .height(20.dp)
+                        .padding(start = 5.dp)
+                        .shimmerEffect()
+                )
+                Spacer(modifier = Modifier.height(5.dp))
+            }
+        }
     }
 }
 

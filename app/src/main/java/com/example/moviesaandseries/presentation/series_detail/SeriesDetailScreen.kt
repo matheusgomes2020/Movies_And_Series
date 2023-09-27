@@ -26,6 +26,7 @@ import com.example.moviesaandseries.presentation.general.CrewCell
 import com.example.moviesaandseries.presentation.general.MainContent
 import com.example.moviesaandseries.presentation.general.ReviewsCell
 import com.example.moviesaandseries.presentation.general.SeasonsCell
+import com.example.moviesaandseries.presentation.general.ShimmerDetail
 import com.example.moviesaandseries.presentation.general.SimilarSeriesCell
 import com.example.moviesaandseries.presentation.season.SeasonListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
@@ -99,7 +100,7 @@ fun SeriesDetailScreen(
             Column {
                 Text(text = "Nada")
             }
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            ShimmerDetail(isLoading = true, contentAfterLoading = { /*TODO*/ })
         }
     }
 }

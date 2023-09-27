@@ -85,7 +85,7 @@ fun MovieListScreen(
                             active = it
                         },
                         placeholder = {
-                            Text(text = "Pesquisar...",
+                            Text(text = "Pesquisar filmes...",
                                 modifier = Modifier,
                                 color = Color.LightGray,
                                 fontSize = 13.sp,
@@ -161,7 +161,7 @@ fun MovieListScreen(
                             )
                             //Spacer(modifier = Modifier.height(10.dp))
                             MovieListScreenCell(navController = navController , state = state3)
-                            Text(text = "Filmes em lançamentos",
+                            Text(text = "Filmes em lançamento",
                                 modifier = Modifier
                                     .padding(top = 15.dp, bottom = 15.dp),
                                 fontSize = 18.sp,
