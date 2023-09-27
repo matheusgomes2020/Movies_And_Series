@@ -47,7 +47,7 @@ fun ReviewListItem(
             defaultElevation = 2.dp
         ),
         modifier = Modifier
-            .padding(bottom = 8.dp)
+            .padding(bottom = 16.dp, end = 8.dp)
             .background(color = Color.White),
     ) {
 

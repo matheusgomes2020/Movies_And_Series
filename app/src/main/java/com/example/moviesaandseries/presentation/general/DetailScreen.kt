@@ -47,13 +47,14 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListState
 
 @Composable
  fun MainContent(
+    isVideo: Boolean,
     nomeOrTitle: String,
     overview: String,
     posterPath: String,
     data: String,
     runtime: String,
     star: Double,
-    genres: List<Genre>
+    genres: List<Genre>,
 ) {
     Column {
         Row(
@@ -77,17 +78,23 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListState
         //data, time and star
         IconsContent( data, runtime, star, genres )
         Spacer(modifier = Modifier.height(15.dp))
-        //image
-        Image(
-            painter = rememberAsyncImagePainter(
-                model = if (!posterPath.equals("sem poster")) Constants.BASE_IMAGE_URL + posterPath else R.drawable.logo
-            ),
-            contentScale = ContentScale.Crop,
-            contentDescription = "poster image",
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(200.dp)
-        )
+        //image or trailer
+        if ( isVideo ) {
+            Player( posterPath )
+        } else {
+            Image(
+                painter = rememberAsyncImagePainter(
+                    model = if (!posterPath.equals("sem poster")) Constants.BASE_IMAGE_URL + posterPath else R.drawable.logo
+                ),
+                contentScale = ContentScale.Crop,
+                contentDescription = "poster image",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+            )
+        }
+
+
         Spacer(modifier = Modifier.height(15.dp))
         //overview
         Text(
@@ -103,7 +110,11 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListState
  fun CastCell(
     navController: NavController,
     cast: List<Cast>) {
-    Column {
+    Column(
+        modifier = Modifier.padding(
+            10.dp
+        )
+    ) {
         Text(
             text = "Elenco",
             style = MaterialTheme.typography.headlineMedium,
@@ -119,7 +130,7 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListState
                     cast = cast,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(10.dp),
+                        .padding(5.dp),
                     onItemClick = {
                         try {
                             navController.navigate(AppGraph.cast_details.DETAILS + "/${cast.id}")
@@ -168,7 +179,11 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListState
 fun SeasonsCell(
     navController: NavController,
     seriesId: String, numeroTemporadas: Int, seasons: List<SeasonDto>, state: SeasonListState) {
-    Column {
+    Column(
+        modifier = Modifier.padding(
+            10.dp
+        )
+    ) {
 
         Text(
             text = "$numeroTemporadas - temporadas",
@@ -183,7 +198,11 @@ fun SeasonsCell(
 
 @Composable
  fun SimilarSeriesCell(navController: NavController, state: SeriesListState) {
-    Column {
+    Column(
+        modifier = Modifier.padding(
+            10.dp
+        )
+    ) {
         Text(
             text = "Séries Similares",
             style = MaterialTheme.typography.headlineMedium,
@@ -197,7 +216,11 @@ fun SeasonsCell(
 
 @Composable
 fun SimilarsMoviesCell(navController: NavController, state: MovieListState) {
-    Column {
+    Column(
+        modifier = Modifier.padding(
+            10.dp
+        )
+    ) {
         Text(
             text = "Filmes Similares",
             style = MaterialTheme.typography.headlineMedium,

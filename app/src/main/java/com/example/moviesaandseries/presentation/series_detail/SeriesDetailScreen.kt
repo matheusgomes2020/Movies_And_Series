@@ -60,8 +60,19 @@ fun SeriesDetailScreen(
                         createdBy += i.name + "\n"
                     }
                 } else createdBy = "Ninguém"
+                val urlVideo = if ( !series.videos.results.isNullOrEmpty() )  series.videos.results[0].key else "sem trailer"
+                var url = ""
+                var isVideo: Boolean
+                if (urlVideo == "sem trailer"){
+                    isVideo = false
+                    url = posterPath
+                } else {
+                    isVideo = true
+                    url = urlVideo
+                }
                 item {
                     MainContent(
+                        isVideo,
                         title,
                         overview,
                         posterPath,

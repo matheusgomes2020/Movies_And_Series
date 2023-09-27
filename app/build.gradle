@@ -109,6 +109,10 @@ dependencies {
     // OkHttp
     implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.2")
 
+    //Youtube Player
+        implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0'
+
+
 
 
 

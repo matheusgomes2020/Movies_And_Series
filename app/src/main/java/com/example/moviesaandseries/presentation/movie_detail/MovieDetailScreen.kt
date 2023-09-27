@@ -52,9 +52,20 @@ fun MovieDetailScreen(
                 if (!movie.credits.crew.isNullOrEmpty()) {
                     for (i in movie.credits.crew) if ( i.job == "Director" ) director = i.name
                 } else director = "Ninguém"
+                val urlVideo = if ( !movie.videos.results.isNullOrEmpty() )  movie.videos.results[0].key else "sem trailer"
+                var url = ""
+                var isVideo: Boolean
+                if (urlVideo == "sem trailer"){
+                    isVideo = false
+                    url = posterPath
+                } else {
+                    isVideo = true
+                    url = urlVideo
+                }
 
                 item {
-                    MainContent(title, overview, posterPath, data, movie.runtime.toString(), movie.vote_average, movie.genres)
+
+                    MainContent(isVideo,title, overview, url, data, movie.runtime.toString(), movie.vote_average, movie.genres)
                     Spacer(modifier = Modifier.height( 15.dp ))
                     CastCell(navController, cast = movie.credits.cast)
                     Spacer(modifier = Modifier.height( 15.dp ))
