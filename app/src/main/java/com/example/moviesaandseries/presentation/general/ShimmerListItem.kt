@@ -346,12 +346,58 @@ private fun RowCards() {
 ) {
     if (isLoading) {
 
-            Box(
-                modifier = Modifier
-                    .size(110.dp)
-                    .clip(shape = RoundedCornerShape(15.dp))
-                    .shimmerEffect()
-            )
+            Row(
+                modifier = Modifier.padding(
+                    bottom = 3.dp
+                )
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(110.dp)
+                        .clip(shape = RoundedCornerShape(15.dp))
+                        .shimmerEffect()
+                )
+                Column(
+                    modifier = Modifier
+                        .padding(top = 16.dp, bottom = 10.dp, start = 15.dp, end = 10.dp)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .width(110.dp)
+                            .height(13.dp)
+                            .shimmerEffect()
+                    )
+                    Spacer(modifier = Modifier.height(5.dp))
+                    Box(
+                        modifier = Modifier
+                            .width(110.dp)
+                            .height(13.dp)
+                            .shimmerEffect()
+                    )
+                    Spacer(modifier = Modifier.height(5.dp))
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(10.dp)
+                            .shimmerEffect()
+                    )
+                    Spacer(modifier = Modifier.height(2.dp))
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(10.dp)
+                            .shimmerEffect()
+                    )
+                    Spacer(modifier = Modifier.height(2.dp))
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(10.dp)
+                            .shimmerEffect()
+                    )
+                }
+
+            }
 
 
     }

@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
+import com.example.moviesaandseries.presentation.general.SearchResultsShimmer
 import com.example.moviesaandseries.presentation.searchMovies.components.SearchMovieListItem
 
 @Composable
@@ -43,16 +44,12 @@ fun SearchMoviesScreen(
                     maxLines = 1
                 )
                 LazyColumn(contentPadding = PaddingValues(12.dp),
-                    //modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
-                    //modifier = Modifier.fillMaxSize()
                 ) {
                     items(state.movies) { movie ->
                         SearchMovieListItem(
                             movie = movie,
                             onItemClick = {
-                                // navController.navigate(DetailsScreen.MoviesDetails.route + "/${movie.id}")
                                 navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
-                                //navController.navigate(Graph.DETAILS)
                             }
                         )
                     }
@@ -71,7 +68,7 @@ fun SearchMoviesScreen(
             )
         }
         if(state.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            SearchResultsShimmer(isLoading = true, contentAfterLoading = { /*TODO*/ })
         }
     }
 

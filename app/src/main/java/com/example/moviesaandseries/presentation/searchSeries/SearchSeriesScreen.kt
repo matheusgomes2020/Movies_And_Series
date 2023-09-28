@@ -45,10 +45,9 @@ fun SearchSeriesScreen(
                     maxLines = 1
                 )
                 LazyColumn(contentPadding = PaddingValues(12.dp),
-                    //modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
-                    //modifier = Modifier.fillMaxSize()
                 ) {
                     items(state.series) { series ->
+
                         SearchSeriesListItem(
                             series = series,
                             onItemClick = {
