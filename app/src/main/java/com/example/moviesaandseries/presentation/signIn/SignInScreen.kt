@@ -2,6 +2,7 @@ package com.example.moviesaandseries.presentation.signIn
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,9 +22,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.moviesaandseries.R
 
 @Composable
@@ -48,26 +51,32 @@ fun SignInScreen(
             .padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
-        Column {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
 
 
         Image(painterResource(id  = R.drawable.logo), contentDescription = "google logo",
-            modifier = Modifier.size(100.dp))
-        Spacer(modifier = Modifier.width(16.dp))
+            modifier = Modifier.size(200.dp))
+        Spacer(modifier = Modifier.height(16.dp))
         Row(
             modifier = Modifier
                 .clickable { onSignInClick() }
                 .width(100.dp)
                 .height(30.dp)
-                .clip(shape = RoundedCornerShape(10.dp)),) {
+                //.padding( 10.dp )
+                .clip(shape = RoundedCornerShape(10.dp))
+                .background(Color.LightGray),) {
 //            Icon(painterResource(id  = R.drawable.googlelogo), contentDescription = "google logo",
 //                modifier = Modifier.size(23.dp))
             Image(painterResource(id  = R.drawable.googlelogo), contentDescription = "google logo",
-                modifier = Modifier.size(23.dp))
+                modifier = Modifier.size(30.dp)
+                    .padding(5.dp))
             Text(text = "Login",
                 modifier = Modifier
-                    .padding( start = 5.dp ))
+                    .padding( start = 5.dp ),
+                fontSize = 20.sp)
 
         }
         }
