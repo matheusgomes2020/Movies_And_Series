@@ -33,9 +33,11 @@ fun EpisodeScreen(
 
 val state = viewModel.state.value
     Box(modifier = Modifier.fillMaxSize()) {
-    Column {
+    Column(
+        modifier = Modifier
+            .padding(15.dp)
+    ) {
         state.episode?.let { episode ->
-            Log.d("BATATA", "EpisodeScreen: $episode")
             val nome = if (!episode.name.isNullOrEmpty()) episode.name else "sem nome"
             val overview = if (!episode.overview.isNullOrEmpty()) episode.overview else "sem overview"
             var director = ""
@@ -44,8 +46,14 @@ val state = viewModel.state.value
             } else director = "Ninguém"
 
             MainContent(nome, overview)
-            Spacer(modifier = Modifier.height(15.dp))
-            CastCell(navController = navController, cast = episode.guest_stars)
+//            Spacer(modifier = Modifier.height(15.dp))
+//            Column(
+//                modifier = Modifier.padding(
+//                    horizontal = 12.dp
+//                )
+//            ) {
+                CastCell(navController = navController, cast = episode.guest_stars)
+            //}
             Spacer(modifier = Modifier.height(15.dp))
             CrewCell( director, episode.crew )
             ImagesCell()
@@ -68,25 +76,20 @@ val state = viewModel.state.value
     }
 }
 
+
 @Composable
 fun MainContent(nome: String, overview: String){
     Column(
-        modifier = Modifier.padding(horizontal = 15.dp)
+        //modifier = Modifier.padding(horizontal = 16.dp)
     ) {
         Text(
             text = nome,
-            modifier = Modifier.padding(vertical = 10.dp),
             fontWeight = FontWeight.Bold,
-            fontSize = 18.sp)
-
+            fontSize = 20.sp)
+        Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = overview,
-            modifier = Modifier.padding(vertical = 10.dp)
+            fontSize = 14.sp
         )
     }
 }
-
-//Elenco
-//direcao
-//roteiro
-// imagens
