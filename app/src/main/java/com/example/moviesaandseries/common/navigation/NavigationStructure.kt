@@ -79,10 +79,16 @@ object RootGraph {
     const val ROOT = "root_graph"
 }
 
+object SplashGraph {
+    const val ROOT = "splash_graph"
+    const val SPLASH = "splash"
+}
+
 object AppGraph {
     val initial = RootGraph
     val auth = AuthGraph
     val home = HomeGraph
+    val splash = SplashGraph
     val movies_details = MoviesDetailsGraph
     val series_details = SeriesDetailsGraph
     val search_movies = SearchMoviesGraph

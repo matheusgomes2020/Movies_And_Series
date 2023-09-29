@@ -38,7 +38,9 @@ fun AppNavigation() {
         }
 
         composable(Screens.HomeScreen.name) {
-            HomeScreen()
+//            HomeScreen(
+//
+//            )
         }
 
 

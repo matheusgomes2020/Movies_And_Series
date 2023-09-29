@@ -68,7 +68,17 @@ fun SearchMoviesScreen(
             )
         }
         if(state.isLoading) {
-            SearchResultsShimmer(isLoading = true, contentAfterLoading = { /*TODO*/ })
+            Column {
+                Text(
+                    text =  "Resultados para $query",
+                    modifier = Modifier
+                        .padding(12.dp),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                    maxLines = 1
+                )
+                SearchResultsShimmer(isLoading = true, contentAfterLoading = { /*TODO*/ })
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.moviesaandseries.presentation.home
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -8,6 +9,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,17 +25,23 @@ import androidx.navigation.compose.rememberNavController
 import com.example.moviesaandseries.common.navigation.HomeNavGraph
 import com.example.moviesaandseries.common.navigation2.HomeNavigation
 import com.example.moviesaandseries.presentation.searchMovies.SearchMoviesViewModel
+import com.example.moviesaandseries.presentation.signIn.UserData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(navController: NavHostController = rememberNavController(),
-               viewModel: SearchMoviesViewModel = hiltViewModel()) {
+               viewModel: SearchMoviesViewModel = hiltViewModel(),
+               userData: UserData?,
+               onSignOut: () -> Unit) {
 
     Scaffold(
         bottomBar = { BottomBar(navController = navController) }
     ) {
-            HomeNavGraph(navController = navController)
+
+                HomeNavGraph(navController = navController, userData = userData, onSignOut = onSignOut)
+
+
         //HomeNavigation()
     }
 }

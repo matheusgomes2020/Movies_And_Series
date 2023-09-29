@@ -65,7 +65,8 @@ fun AnimatedSplashScreen(navController: NavHostController) {
         startAnimation = true
         delay(1000)
         navController.popBackStack()
-        navController.navigate(Screens.LoginScreen.name)
+        //navController.navigate(Screens.LoginScreen.name)
+        navController.navigate("sign_in")
     }
     Splash(alpha = alphaAnim.value)
 }

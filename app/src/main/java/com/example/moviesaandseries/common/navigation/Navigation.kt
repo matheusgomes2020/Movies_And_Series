@@ -23,6 +23,8 @@ import com.example.moviesaandseries.presentation.searchSeries.SearchSeriesScreen
 import com.example.moviesaandseries.presentation.season.SeasonDetailScreen
 import com.example.moviesaandseries.presentation.series_detail.SeriesDetailScreen
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreen
+import com.example.moviesaandseries.presentation.signIn.ProfileScreen
+import com.example.moviesaandseries.presentation.signIn.UserData
 
 @Composable
 fun RootNavigationGraph(navController: NavHostController) {
@@ -33,7 +35,7 @@ fun RootNavigationGraph(navController: NavHostController) {
     ) {
         authNavGraph(navController = navController)
         composable(route = AppGraph.home.ROOT) {
-           HomeScreen()
+           //HomeScreen()
         }
     }
 }
@@ -63,7 +65,8 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
 }
 
 @Composable
-fun HomeNavGraph(navController: NavHostController) {
+fun HomeNavGraph(navController: NavHostController, userData: UserData?,
+                 onSignOut: () -> Unit) {
     NavHost(
         navController = navController,
         route = AppGraph.home.ROOT,
@@ -76,9 +79,7 @@ fun HomeNavGraph(navController: NavHostController) {
             SeriesListScreen(navController = navController)
         }
         composable(route = AppGraph.home.FAVORITES) {
-            ScreenContent(name = "Lista Favoritos") {
-                navController.navigate(AppGraph.series_details.ROOT)
-            }
+            ProfileScreen(userData = userData, onSignOut = onSignOut)
         }
         movieDetailsNavGraph(navController = navController)
         seriesDetailsNavGraph(navController = navController)
