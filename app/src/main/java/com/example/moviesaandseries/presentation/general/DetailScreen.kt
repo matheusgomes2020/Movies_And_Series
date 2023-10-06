@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
@@ -42,7 +43,9 @@ import com.example.moviesaandseries.presentation.season.SeasonListScreenCell
 import com.example.moviesaandseries.presentation.season.SeasonListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreenCell
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
-
+import com.example.moviesaandseries.presentation.series_list.TextT
+import com.example.moviesaandseries.ui.theme.fontFamily
+import com.example.moviesaandseries.ui.theme.fontFamilyLato
 
 
 @Composable
@@ -67,6 +70,7 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListState
                 style = MaterialTheme.typography.headlineMedium,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
+                fontFamily = fontFamily,
                 maxLines = 1
             )
             Image(
@@ -93,16 +97,18 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListState
                     .height(200.dp)
             )
         }
-
-
         Spacer(modifier = Modifier.height(15.dp))
         //overview
-        Text(
-            text = overview,
-            style = MaterialTheme.typography.headlineMedium,
-            lineHeight = 25.sp,
-            fontSize = 16.sp
-        )
+        if (overview != "sem overview") {
+            Text(
+                text = overview,
+                style = MaterialTheme.typography.headlineMedium,
+                lineHeight = 25.sp,
+                fontFamily = fontFamilyLato,
+                fontSize = 16.sp,
+                modifier = Modifier.padding(5.dp)
+            )
+        }
     }
 }
 
@@ -110,18 +116,13 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListState
  fun CastCell(
     navController: NavController,
     cast: List<Cast>) {
+    TextT(title = "Elenco")
     Column(
         modifier = Modifier.padding(
             10.dp
         )
     ) {
-        Text(
-            text = "Elenco",
-            style = MaterialTheme.typography.headlineMedium,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(modifier = Modifier.height(15.dp))
+        //Spacer(modifier = Modifier.height(10.dp))
         LazyRow(
             contentPadding = PaddingValues()
         ) {
@@ -150,28 +151,26 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListState
     crew: List<Crew>) {
     Column {
         var roteiro = ""
-        for (i in crew) if ( i.department == "Writing" ) roteiro += i.name + "\n"
-        Text(
-            text = "Direção",
-            style = MaterialTheme.typography.headlineMedium,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Text(text = director,
-            fontSize = 17.sp,
-            modifier = Modifier.padding(top = 5.dp, start = 7.dp))
+        for (i in crew) if ( i.department == "Writing" ) {
+            roteiro += i.name + "\n"
+        }
+        if (director != "Ninguém") {
+            TextT(title = "Direção")
+            Text(text = director,
+                fontSize = 17.sp,
+                fontFamily = fontFamilyLato,
+                modifier = Modifier.padding(top = 5.dp, start = 7.dp))
+            Spacer(modifier = Modifier.height( 10.dp ))
+        }
+        if (!roteiro.isNullOrEmpty()) {
+            TextT(title = "Roteiro")
+            Text(text = roteiro.trim(),
+                fontSize = 17.sp,
+                fontFamily = fontFamilyLato,
+                modifier = Modifier.padding(top = 5.dp, start = 7.dp),
+                maxLines = 5)
+        }
 
-        Spacer(modifier = Modifier.height( 15.dp ))
-        Text(
-            text = "Roteiro",
-            style = MaterialTheme.typography.headlineMedium,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Text(text = roteiro,
-            fontSize = 17.sp,
-            modifier = Modifier.padding(top = 5.dp, start = 7.dp),
-            maxLines = 5)
     }
 }
 
@@ -179,18 +178,12 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListState
 fun SeasonsCell(
     navController: NavController,
     seriesId: String, numeroTemporadas: Int, seasons: List<SeasonDto>, state: SeasonListState) {
+    TextT(title =  "$numeroTemporadas - temporadas")
     Column(
         modifier = Modifier.padding(
-            10.dp
+            horizontal = 10.dp
         )
     ) {
-
-        Text(
-            text = "$numeroTemporadas - temporadas",
-            style = MaterialTheme.typography.headlineMedium,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
-        )
         Spacer(modifier = Modifier.height( 15.dp ))
         SeasonListScreenCell(navController = navController, seriesId = seriesId , state = state )
     }
@@ -198,49 +191,32 @@ fun SeasonsCell(
 
 @Composable
  fun SimilarSeriesCell(navController: NavController, state: SeriesListState) {
-    Column(
-        modifier = Modifier.padding(
-            10.dp
-        )
+    Spacer(modifier = Modifier.height(10.dp))
+    TextT(title = "Séries Similares")
+    Column(modifier = Modifier.padding(10.dp)
     ) {
-        Text(
-            text = "Séries Similares",
-            style = MaterialTheme.typography.headlineMedium,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(modifier = Modifier.height(15.dp))
         SeriesListScreenCell(navController  , state = state)
     }
 }
 
 @Composable
 fun SimilarsMoviesCell(navController: NavController, state: MovieListState) {
-    Column(
-        modifier = Modifier.padding(
-            10.dp
+    Spacer(modifier = Modifier.height(10.dp))
+    TextT(title = "Filmes Similares")
+    Column(modifier = Modifier.padding(10.dp)) {
+        MovieListScreenCell(
+            navController = navController,
+            state = state
         )
-    ) {
-        Text(
-            text = "Filmes Similares",
-            style = MaterialTheme.typography.headlineMedium,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(modifier = Modifier.height(15.dp))
-        MovieListScreenCell(navController = navController , state = state)
     }
 }
 
 @Composable
 fun ReviewsCell(reviews: List<Review> ){
-    Column {
-        Text(
-            text = "Avaliações",
-            style = MaterialTheme.typography.headlineMedium,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
-        )
+    TextT(title = "Avaliações")
+    Column(
+        modifier = Modifier.padding( horizontal = 10.dp )
+    ) {
         Spacer(modifier = Modifier.height(15.dp))
         ReviewListScreenCell(reviews = reviews)
     }
@@ -263,47 +239,22 @@ fun ReviewListScreenCell(
 
 @Composable
  fun IconsContent(data: String, runtime: String, star: Double, genres: List<Genre>) {
+    val average = when ( star ) {
+        in 0.0..1.9 ->  "⭐"
+        in 2.0..3.9 -> "⭐⭐"
+        in 4.0..5.9 ->  "⭐⭐⭐"
+        in 6.0..7.9 ->  "⭐⭐⭐⭐"
+        in 8.0..10.0 ->  "⭐⭐⭐⭐⭐"
+        else -> {}
+    }
     Column {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
+        LazyRow(modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(
-                painterResource(R.drawable.ic_calendar),
-                contentDescription = null,
-                modifier = Modifier.requiredSize(25.dp)
-            )
-            Text(
-                text = data,
-                fontSize = 14.sp
-            )
-            Image(
-                painterResource(R.drawable.ic_clock),
-                contentDescription = null,
-                modifier = Modifier.requiredSize(25.dp)
-            )
-            Text(
-                text = runtime,
-                fontSize = 14.sp
-            )
-            Image(
-                painterResource(R.drawable.ic_star),
-                contentDescription = null,
-                modifier = Modifier.requiredSize(25.dp)
-            )
-            val average = when ( star ) {
-                in 0.0..1.9 ->  "⭐"
-                in 2.0..3.9 -> "⭐⭐"
-                in 4.0..5.9 ->  "⭐⭐⭐"
-                in 6.0..7.9 ->  "⭐⭐⭐⭐"
-                in 8.0..10.0 ->  "⭐⭐⭐⭐⭐"
-                else -> {}
-            }
-            Text(
-                text = average.toString(),
-                fontSize = 14.sp
-            )
+        ){
+            item { RowIcons(text = data, painterResource = R.drawable.ic_calendar  ) }
+            item { RowIcons(text = runtime, painterResource = R.drawable.ic_clock  ) }
+            item { RowIcons(text = average.toString(), painterResource = R.drawable.ic_star  ) }
         }
         Spacer(modifier = Modifier.height(10.dp))
         LazyRow(
@@ -315,5 +266,24 @@ fun ReviewListScreenCell(
                     modifier = Modifier.padding(end = 3.dp))
             }
         }
+    }
+}
+
+@Composable
+private fun RowIcons(text: String, painterResource: Int) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Image(
+            painterResource(painterResource),
+            contentDescription = null,
+            modifier = Modifier.requiredSize(25.dp)
+        )
+        Spacer(modifier = Modifier.width(7.dp))
+        Text(
+            text = text,
+            fontSize = 13.sp,
+            fontFamily = fontFamilyLato,
+        )
     }
 }

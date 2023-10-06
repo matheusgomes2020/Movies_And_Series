@@ -38,6 +38,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.presentation.searchMovies.SearchMoviesViewModel
+import com.example.moviesaandseries.presentation.series_list.TextT
+import com.example.moviesaandseries.ui.theme.fontFamily
+import com.example.moviesaandseries.ui.theme.fontFamilyLato
+import com.example.moviesaandseries.ui.theme.fontFamilyN
+import com.example.moviesaandseries.ui.theme.fontFamilyR
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -69,7 +74,8 @@ fun MovieListScreen(
             ) {
                 Column {
                     SearchBar(
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
                             .height(60.dp)
                             .padding(start = 20.dp, end = 20.dp, top = 10.dp),
                         query = queryMovie,
@@ -103,13 +109,14 @@ fun MovieListScreen(
                         trailingIcon = {
                             if ( active ) {
                                 Icon(
-                                    modifier = Modifier.clickable {
-                                        if ( queryMovie.isNotEmpty() ) {
-                                            queryMovie = ""
-                                        } else {
-                                            active = false
+                                    modifier = Modifier
+                                        .clickable {
+                                            if (queryMovie.isNotEmpty()) {
+                                                queryMovie = ""
+                                            } else {
+                                                active = false
+                                            }
                                         }
-                                    }
                                         .size(20.dp),
                                     imageVector = Icons.Default.Close,
                                     contentDescription = "Close Icon",
@@ -139,44 +146,26 @@ fun MovieListScreen(
                     contentPadding = PaddingValues(start = 25.dp, end = 25.dp)
                 ) {
                     item {
-                        Column {
-                            Text(text = "Filmes em alta",
-                                modifier = Modifier
-                                    .padding(top = 15.dp, bottom = 15.dp)
-                                    .clickable {
-                                        //navController.navigate(Screen.SeriesListScreen.route)
-                                    },
-                                fontSize = 18.sp,
-                                style = MaterialTheme.typography.labelMedium,
-                                fontWeight = FontWeight.Bold
+                        Column(
+                            modifier = Modifier.padding(
+                                vertical = 20.dp
+                                //, horizontal = 3.dp
                             )
-                            //Spacer(modifier = Modifier.height(10.dp))
+                        ) {
+                            TextT(title = "Filmes em alta")
+                            Spacer(modifier = Modifier.height(5.dp))
                             MovieListScreenCell(navController , state = state)
-                            Text(text = "Filmes em cartaz",
-                                modifier = Modifier
-                                    .padding(top = 15.dp, bottom = 15.dp),
-                                fontSize = 18.sp,
-                                style = MaterialTheme.typography.labelLarge,
-                                fontWeight = FontWeight.Bold
-                            )
-                            //Spacer(modifier = Modifier.height(10.dp))
+                            Spacer(modifier = Modifier.height(10.dp))
+                            TextT(title = "Filmes em cartaz")
+                            Spacer(modifier = Modifier.height(5.dp))
                             MovieListScreenCell(navController = navController , state = state3)
-                            Text(text = "Filmes em lançamento",
-                                modifier = Modifier
-                                    .padding(top = 15.dp, bottom = 15.dp),
-                                fontSize = 18.sp,
-                                style = MaterialTheme.typography.bodyMedium,
-                                fontWeight = FontWeight.Bold
-                            )
-                            //Spacer(modifier = Modifier.height(10.dp))
+                            Spacer(modifier = Modifier.height(10.dp))
+                            TextT(title = "Filmes em lançamento")
+                            Spacer(modifier = Modifier.height(5.dp))
                             MovieListScreenCell(navController = navController , state = state2)
-                            Text(text = "Filmes melhores avaliados",
-                                modifier = Modifier
-                                    .padding(top = 15.dp, bottom = 15.dp),
-                                fontSize = 18.sp,
-                                style = MaterialTheme.typography.displayMedium,
-                                fontWeight = FontWeight.Bold
-                            )
+                            Spacer(modifier = Modifier.height(10.dp))
+                            TextT(title = "Filmes melhores avaliados")
+                            Spacer(modifier = Modifier.height(5.dp))
                             MovieListScreenCell(navController = navController , state = state4)
                             Spacer(modifier = Modifier.height(55.dp))
                             }

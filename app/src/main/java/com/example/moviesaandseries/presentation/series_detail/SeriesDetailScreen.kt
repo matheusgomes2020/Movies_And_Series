@@ -82,11 +82,11 @@ fun SeriesDetailScreen(
                         series.genres,
                     )
                     Spacer(modifier = Modifier.height( 15.dp ))
+                    SeasonsCell(navController = navController,series.id.toString(), series.number_of_seasons, series.seasons, stateSeasons )
+                    Spacer(modifier = Modifier.height( 15.dp ))
                     CastCell( navController = navController, cast = series.aggregate_credits.cast )
                     Spacer(modifier = Modifier.height( 15.dp ))
                     CrewCell(createdBy, crew = series.aggregate_credits.crew)
-                    Spacer(modifier = Modifier.height( 15.dp ))
-                    SeasonsCell(navController = navController,series.id.toString(), series.number_of_seasons, series.seasons, stateSeasons )
                     Spacer(modifier = Modifier.height( 15.dp ))
                     SimilarSeriesCell(navController = navController, state = stateSimilar )
                     Spacer(modifier = Modifier.height( 15.dp ))

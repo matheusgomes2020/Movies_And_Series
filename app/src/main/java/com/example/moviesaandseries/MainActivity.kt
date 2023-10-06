@@ -20,9 +20,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.moviesaandseries.common.navigation.AppGraph
-import com.example.moviesaandseries.common.navigation.RootNavigationGraph
 import com.example.moviesaandseries.presentation.home.HomeScreen
-import com.example.moviesaandseries.presentation.signIn.GoogleUiClient
+import com.example.moviesaandseries.domain.repository.GoogleUiClient
 import com.example.moviesaandseries.presentation.signIn.SignInScreen
 import com.example.moviesaandseries.presentation.signIn.SignInViewModel
 import com.example.moviesaandseries.presentation.splash.AnimatedSplashScreen

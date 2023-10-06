@@ -25,11 +25,9 @@ fun SeasonListScreenCell(
     state: SeasonListState
 ) {
     Box(
-        //  modifier = Modifier.fillMaxSize()
     ) {
 
         LazyRow(
-            //modifier = Modifier.fillMaxSize()
         ) {
             items(state.seasons) { season ->
                 SeasonListItem(

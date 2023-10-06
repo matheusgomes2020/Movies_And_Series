@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.data.remote.dto.season.SeasonDto
+import com.example.moviesaandseries.ui.theme.fontFamily
 
 
 @Composable
@@ -31,7 +32,8 @@ fun SeasonListItem(
 
     Card(
         shape = RoundedCornerShape(15.dp),
-        modifier = Modifier.padding(5.dp)
+        modifier = Modifier
+            .padding(horizontal = 5.dp)
             .clickable { onItemClick(season) }
             .background(color = Color.White ),
     ) {
@@ -49,14 +51,14 @@ fun SeasonListItem(
                     .height(150.dp)
                     .clip(shape = RoundedCornerShape(15.dp)))
         }
-
         Text(
             text = "${season.season_number} - temporada",
             modifier = Modifier.width(110.dp)
                 .background(Color.White)
                 .padding(start = 3.dp),
-            fontSize = 14.sp,
-            maxLines = 1
+            fontSize = 13.sp,
+            maxLines = 1,
+            fontFamily = fontFamily
         )
     }
 }

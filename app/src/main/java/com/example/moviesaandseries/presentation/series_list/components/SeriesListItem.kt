@@ -21,6 +21,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.data.remote.dto.series.SeriesWork
 import com.example.moviesaandseries.domain.model.Series
+import com.example.moviesaandseries.ui.theme.fontFamily
 
 @Composable
 fun SeriesListItem(
@@ -55,6 +56,7 @@ fun SeriesListItem(
                 .background(Color.White)
                 .padding(start = 3.dp),
             fontSize = 14.sp,
+            fontFamily = fontFamily,
             maxLines = 1
         )
     }

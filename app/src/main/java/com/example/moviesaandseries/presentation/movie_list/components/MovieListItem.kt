@@ -21,6 +21,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.data.remote.dto.person.MovieWork
 import com.example.moviesaandseries.domain.model.Movie
+import com.example.moviesaandseries.ui.theme.fontFamily
 
 
 @Composable
@@ -56,6 +57,7 @@ Card(
             .background(Color.White)
             .padding(start = 3.dp),
         fontSize = 14.sp,
+        fontFamily = fontFamily,
         maxLines = 1
     )
 }

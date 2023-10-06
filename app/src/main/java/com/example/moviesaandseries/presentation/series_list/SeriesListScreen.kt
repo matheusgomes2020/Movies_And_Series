@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
+import com.example.moviesaandseries.ui.theme.fontFamily
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -132,42 +133,26 @@ fun SeriesListScreen(
                         contentPadding = PaddingValues(start = 25.dp, end = 25.dp)
                     ) {
                         item {
-                            Column {
-
-                                Text(text = "Séries no ar hoje",
-                                    modifier = Modifier
-                                        .padding(top = 15.dp, bottom = 15.dp),
-                                    fontSize = 18.sp,
-                                    style = MaterialTheme.typography.labelLarge,
-                                    fontWeight = FontWeight.Bold
+                            Column(
+                                modifier = Modifier.padding(
+                                    vertical = 20.dp
+                                    //, horizontal = 3.dp
                                 )
-                                //Spacer(modifier = Modifier.height(10.dp))
+                            ) {
+                                TextT(title = "Séries no ar hoje")
+                                Spacer(modifier = Modifier.height(5.dp))
                                 SeriesListScreenCell(navController = navController , state = stateAiringToday)
-                                Text(text = "Séries no ar",
-                                    modifier = Modifier
-                                        .padding(top = 15.dp, bottom = 15.dp),
-                                    fontSize = 18.sp,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    fontWeight = FontWeight.Bold
-                                )
-                                //Spacer(modifier = Modifier.height(10.dp))
+                                Spacer(modifier = Modifier.height(10.dp))
+                                TextT(title = "Séries no ar")
+                                Spacer(modifier = Modifier.height(5.dp))
                                 SeriesListScreenCell(navController = navController , state = stateOnAir)
-                                Text(text = "Séries populares",
-                                    modifier = Modifier
-                                        .padding(top = 15.dp, bottom = 15.dp),
-                                    fontSize = 18.sp,
-                                    style = MaterialTheme.typography.labelMedium,
-                                    fontWeight = FontWeight.Bold
-                                )
-                                //Spacer(modifier = Modifier.height(10.dp))
+                                Spacer(modifier = Modifier.height(10.dp))
+                                TextT(title = "Séries populares")
+                                Spacer(modifier = Modifier.height(5.dp))
                                 SeriesListScreenCell(navController = navController , state = statePopular)
-                                Text(text = "Séries melhores avaliadas",
-                                    modifier = Modifier
-                                        .padding(top = 15.dp, bottom = 15.dp),
-                                    fontSize = 18.sp,
-                                    style = MaterialTheme.typography.displayMedium,
-                                    fontWeight = FontWeight.Bold
-                                )
+                                Spacer(modifier = Modifier.height(10.dp))
+                                TextT(title = "Séries melhores avaliadas")
+                                Spacer(modifier = Modifier.height(5.dp))
                                 SeriesListScreenCell(navController = navController , state = stateRated)
                                 Spacer(modifier = Modifier.height(55.dp))
                             }
@@ -177,6 +162,16 @@ fun SeriesListScreen(
             }
         }
     }
+}
+
+@Composable
+fun TextT(title: String){
+    Text(text = title,
+        fontSize = 18.sp,
+        style = MaterialTheme.typography.displayMedium,
+        fontWeight = FontWeight.Bold,
+        fontFamily = fontFamily,
+    )
 }
 
 
