@@ -42,11 +42,11 @@ import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.data.remote.dto.Profile
 import com.example.moviesaandseries.presentation.general.ActorDetailShimmer
 import com.example.moviesaandseries.presentation.general.RowIcons
+import com.example.moviesaandseries.presentation.general.TextBiografia
+import com.example.moviesaandseries.presentation.general.TextSubTitulos
+import com.example.moviesaandseries.presentation.general.TextTitulos
 import com.example.moviesaandseries.presentation.movie_list.MovieListScreenCellWork
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreenCellPerson
-import com.example.moviesaandseries.presentation.series_list.TextBiografia
-import com.example.moviesaandseries.presentation.series_list.TextSubTitulos
-import com.example.moviesaandseries.presentation.series_list.TextTitulos
 
 @Composable
 fun CastScreen(
@@ -111,7 +111,7 @@ fun MainContent(
 ){
     Column {
         TextTitulos(title = nome )
-        Spacer(modifier = Modifier.height(15.dp))
+        //Spacer(modifier = Modifier.height(15.dp))
         PersonIconsContent(data = data, localNascimento = lugarDeNascimento )
         Spacer(modifier = Modifier.height(15.dp))
         TextBiografia(title = biografia)
@@ -166,7 +166,9 @@ fun ImagesActorCell(
                     profile = image,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(10.dp),
+                        .padding(
+                            //vertical = 10.dp,
+                            horizontal = 16.dp),
                     onItemClick = {
                         try {
                             val image_path = image.file_path

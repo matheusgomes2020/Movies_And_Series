@@ -16,12 +16,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
+import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.data.remote.dto.series.SeriesWork
 import com.example.moviesaandseries.domain.model.Series
-import com.example.moviesaandseries.ui.theme.fontFamily
+import com.example.moviesaandseries.presentation.general.TextCards
 
 @Composable
 fun SeriesListItem(
@@ -31,35 +31,34 @@ fun SeriesListItem(
 
     Card(
         shape = RoundedCornerShape(15.dp),
-        modifier = Modifier.padding(5.dp)
+        modifier = Modifier
+            .padding(5.dp)
             .clickable { onItemClick(series) }
-            .background(color = Color.White ),
+            .background(color = Color.White),
     ) {
+        MoviesAndSeriesColumnItem(nameOrTitle = series.name, posterPath = series.poster_path )
+    }
+}
 
-        Column(
+@Composable
+ fun MoviesAndSeriesColumnItem(nameOrTitle: String, posterPath: String?) {
+    Column(
+        modifier = Modifier
+            .background(color = Color.White)
+    ) {
+        Image(
+            painter = rememberAsyncImagePainter(
+                model = if (!posterPath.isNullOrEmpty()) Constants.BASE_IMAGE_URL + posterPath else R.drawable.logo
+            ),
+            contentScale = ContentScale.Crop,
+            contentDescription = "image",
             modifier = Modifier
-                .background(color = Color.White)
-        ) {
-            Image(painter = rememberAsyncImagePainter(
-                model = Constants.BASE_IMAGE_URL + series.poster_path),
-                contentScale = ContentScale.Crop,
-                contentDescription = "series image",
-                modifier = Modifier
-                    .width(110.dp)
-                    .height(150.dp)
-                    .clip(shape = RoundedCornerShape(15.dp)))
-        }
-
-        Text(
-            text = "${series.name}",
-            modifier = Modifier.width(110.dp)
-                .background(Color.White)
-                .padding(start = 3.dp),
-            fontSize = 14.sp,
-            fontFamily = fontFamily,
-            maxLines = 1
+                .width(110.dp)
+                .height(150.dp)
+                .clip(shape = RoundedCornerShape(15.dp))
         )
     }
+    TextCards( title = nameOrTitle )
 }
 
 @Composable
@@ -70,32 +69,11 @@ fun SeriesListItemWork(
 
     Card(
         shape = RoundedCornerShape(15.dp),
-        modifier = Modifier.padding(5.dp)
+        modifier = Modifier
+            .padding(5.dp)
             .clickable { onItemClick(series) }
-            .background(color = Color.White ),
+            .background(color = Color.White),
     ) {
-
-        Column(
-            modifier = Modifier
-                .background(color = Color.White)
-        ) {
-            Image(painter = rememberAsyncImagePainter(
-                model = Constants.BASE_IMAGE_URL + series.poster_path),
-                contentScale = ContentScale.Crop,
-                contentDescription = "series image",
-                modifier = Modifier
-                    .width(110.dp)
-                    .height(150.dp)
-                    .clip(shape = RoundedCornerShape(15.dp)))
-        }
-
-        Text(
-            text = "${series.name}",
-            modifier = Modifier.width(110.dp)
-                .background(Color.White)
-                .padding(start = 3.dp),
-            fontSize = 14.sp,
-            maxLines = 1
-        )
+        MoviesAndSeriesColumnItem(nameOrTitle = series.name, posterPath = series.poster_path)
     }
 }

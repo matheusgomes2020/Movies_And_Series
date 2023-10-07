@@ -20,7 +20,7 @@ import com.example.moviesaandseries.presentation.cast.ImagesCell
 import com.example.moviesaandseries.presentation.general.CastCell
 import com.example.moviesaandseries.presentation.general.CrewCell
 import com.example.moviesaandseries.presentation.general.EpisodeDetailShimmer
-import com.example.moviesaandseries.presentation.series_list.TextTitulos
+import com.example.moviesaandseries.presentation.general.TextTitulos
 
 @Composable
 fun EpisodeScreen(

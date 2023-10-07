@@ -21,6 +21,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.data.remote.dto.person.MovieWork
 import com.example.moviesaandseries.domain.model.Movie
+import com.example.moviesaandseries.presentation.series_list.components.MoviesAndSeriesColumnItem
 import com.example.moviesaandseries.ui.theme.fontFamily
 
 
@@ -36,31 +37,8 @@ Card(
         .clickable { onItemClick(movie) }
         .background(color = Color.White ),
     ) {
-
-    Column(
-        modifier = Modifier
-            .background(color = Color.White)
-    ) {
-        Image(painter = rememberAsyncImagePainter(
-            model = Constants.BASE_IMAGE_URL + movie.poster_path),
-            contentScale = ContentScale.Crop,
-            contentDescription = "movie image",
-            modifier = Modifier
-                .width(110.dp)
-                .height(150.dp)
-                .clip(shape = RoundedCornerShape(15.dp)))
+        MoviesAndSeriesColumnItem(nameOrTitle = movie.title, posterPath = movie.poster_path)
     }
-
-    Text(
-        text = "${movie.title}",
-        modifier = Modifier.width(110.dp)
-            .background(Color.White)
-            .padding(start = 3.dp),
-        fontSize = 14.sp,
-        fontFamily = fontFamily,
-        maxLines = 1
-    )
-}
 }
 
 @Composable
@@ -75,28 +53,6 @@ fun MovieListItemWork(
             .clickable { onItemClick(movie) }
             .background(color = Color.White ),
     ) {
-
-        Column(
-            modifier = Modifier
-                .background(color = Color.White)
-        ) {
-            Image(painter = rememberAsyncImagePainter(
-                model = Constants.BASE_IMAGE_URL + movie.poster_path),
-                contentScale = ContentScale.Crop,
-                contentDescription = "movie image",
-                modifier = Modifier
-                    .width(110.dp)
-                    .height(150.dp)
-                    .clip(shape = RoundedCornerShape(15.dp)))
-        }
-
-        Text(
-            text = "${movie.title}",
-            modifier = Modifier.width(110.dp)
-                .background(Color.White)
-                .padding(start = 3.dp),
-            fontSize = 14.sp,
-            maxLines = 1
-        )
+        MoviesAndSeriesColumnItem(nameOrTitle = movie.title, posterPath = movie.poster_path )
     }
 }

@@ -35,7 +35,9 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
-import com.example.moviesaandseries.presentation.series_list.TextSubTitulos
+import com.example.moviesaandseries.presentation.general.TextSearchBar
+import com.example.moviesaandseries.presentation.general.TextSubTitulos
+import com.example.moviesaandseries.ui.theme.fontFamily
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -84,18 +86,13 @@ fun MovieListScreen(
                             active = it
                         },
                         placeholder = {
-                            Text(text = "Pesquisar filmes...",
-                                modifier = Modifier,
-                                color = Color.LightGray,
-                                fontSize = 13.sp,
-                                textAlign = TextAlign.Center
-                            )
+                            TextSearchBar(title = "Pesquisar filmes...")
                         },
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Search,
                                 contentDescription = "Search Icon",
-                                modifier = Modifier.size(20.dp),
+                                modifier = Modifier.size(22.dp),
                                 tint = Color.LightGray
                                     )
                         },

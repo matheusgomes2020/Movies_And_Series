@@ -2,6 +2,7 @@ package com.example.moviesaandseries.presentation.series_list
 
 import android.annotation.SuppressLint
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -39,6 +41,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
+import com.example.moviesaandseries.presentation.general.TextSearchBar
+import com.example.moviesaandseries.presentation.general.TextSubTitulos
 import com.example.moviesaandseries.ui.theme.fontFamily
 import com.example.moviesaandseries.ui.theme.fontFamilyLato
 
@@ -91,12 +95,7 @@ fun SeriesListScreen(
                             active = it
                         },
                         placeholder = {
-                            Text(text = "Pesquisar séries...",
-                                modifier = Modifier,
-                                color = Color.LightGray,
-                                fontSize = 13.sp,
-                                textAlign = TextAlign.Center
-                            )
+                            TextSearchBar(title = "Pesquisar séries...")
                         },
                         leadingIcon = {
                             Icon(
@@ -138,7 +137,6 @@ fun SeriesListScreen(
                             Column(
                                 modifier = Modifier.padding(
                                     vertical = 20.dp
-                                    //, horizontal = 3.dp
                                 )
                             ) {
                                 TextSubTitulos(title = "Séries no ar hoje")
@@ -165,42 +163,3 @@ fun SeriesListScreen(
         }
     }
 }
-
-@Composable
-fun TextSubTitulos(title: String){
-    Text(text = title,
-        fontSize = 18.sp,
-        style = MaterialTheme.typography.displayMedium,
-        fontWeight = FontWeight.Bold,
-        fontFamily = fontFamily,
-    )
-}
-
-@Composable
-fun TextTitulos(title: String){
-    Text(text = title,
-        fontSize = 20.sp,
-        style = MaterialTheme.typography.displayMedium,
-        fontWeight = FontWeight.Bold,
-        fontFamily = fontFamily,
-        maxLines = 1
-    )
-
-
-}
-
-@Composable
-fun TextBiografia(title: String){
-    Text(
-        text = title,
-        style = MaterialTheme.typography.headlineMedium,
-        lineHeight = 25.sp,
-        fontSize = 16.sp,
-        fontFamily = fontFamilyLato
-    )
-}
-
-
-
-
-

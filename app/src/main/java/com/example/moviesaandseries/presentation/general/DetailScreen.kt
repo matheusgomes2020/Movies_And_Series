@@ -43,9 +43,6 @@ import com.example.moviesaandseries.presentation.season.SeasonListScreenCell
 import com.example.moviesaandseries.presentation.season.SeasonListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreenCell
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
-import com.example.moviesaandseries.presentation.series_list.TextBiografia
-import com.example.moviesaandseries.presentation.series_list.TextSubTitulos
-import com.example.moviesaandseries.presentation.series_list.TextTitulos
 import com.example.moviesaandseries.ui.theme.fontFamily
 import com.example.moviesaandseries.ui.theme.fontFamilyLato
 
