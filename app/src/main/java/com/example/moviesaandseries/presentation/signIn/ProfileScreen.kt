@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.presentation.general.ShimmerListItem
+import com.example.moviesaandseries.presentation.general.TextSubTitulos
 import com.google.android.gms.auth.api.identity.Identity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlin.coroutines.coroutineContext
@@ -60,66 +61,58 @@ fun ProfileScreen(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-                AsyncImage(
-                    model = if(userData?.profilePictureUrl != null) userData.profilePictureUrl else R.drawable.logo,
-                    contentDescription = "Profile picture",
-                    modifier = Modifier
-                        .size(35.dp)
-                        .clip(CircleShape),
-                    contentScale = ContentScale.Crop,
-                )
+            AsyncImage(
+                model = if (userData?.profilePictureUrl != null) userData.profilePictureUrl else R.drawable.logo,
+                contentDescription = "Profile picture",
+                modifier = Modifier
+                    .size(35.dp)
+                    .clip(CircleShape),
+                contentScale = ContentScale.Crop,
+            )
             Spacer(modifier = Modifier.width(320.dp))
             Icon(
                 //painter = painterResource(id = R.drawable.ic_movie),
-                painterResource(id =R.drawable.ic_logout),
+                painterResource(id = R.drawable.ic_logout),
                 contentDescription = null,
                 modifier = Modifier
                     .requiredSize(35.dp)
                     .clickable { onSignOut() }
             )
 
-            }
-        Text(text = "Filmes favoritos",
+        }
+        Column(
             modifier = Modifier
-                .padding(top = 15.dp, bottom = 15.dp),
-            fontSize = 18.sp,
-            style = MaterialTheme.typography.labelLarge,
-            fontWeight = FontWeight.Bold
-        )
-        LazyRow {
-            items(20) {
-                ShimmerListItem(isLoading = true,
-                    contentAfterLoading = { /*TODO*/ })
+                .padding(vertical = 16.dp)
+        ) {
+            TextSubTitulos(title = "Filmes favoritos")
+            Spacer(modifier = Modifier.height(5.dp))
+            LazyRow(
+                modifier = Modifier.padding(
+                    horizontal = 5.dp
+                )
+            ) {
+                items(20) {
+                    ShimmerListItem(isLoading = true,
+                        contentAfterLoading = { /*TODO*/ })
+                }
             }
         }
-
-        Text(text = "Séries favoritas",
-            modifier = Modifier
-                .padding(top = 15.dp, bottom = 15.dp),
-            fontSize = 18.sp,
-            style = MaterialTheme.typography.labelLarge,
-            fontWeight = FontWeight.Bold
-        )
-        LazyRow {
-            items(20) {
-                ShimmerListItem(isLoading = true,
-                    contentAfterLoading = { /*TODO*/ })
+        Column(
+            
+        ) {
+            TextSubTitulos(title = "Séries favoritas")
+            Spacer(modifier = Modifier.height(5.dp))
+            LazyRow(
+                modifier = Modifier.padding(
+                    horizontal = 5.dp
+                )
+            ) {
+                items(20) {
+                    ShimmerListItem(isLoading = true,
+                        contentAfterLoading = { /*TODO*/ })
+                }
             }
         }
-
-
-//        if(userData?.username != null) {
-//            Text(
-//                text = userData.username,
-//                textAlign = TextAlign.Center,
-//                fontSize = 36.sp,
-//                fontWeight = FontWeight.SemiBold
-//            )
-//            Spacer(modifier = Modifier.height(16.dp))
-//        }
-//        Button(onClick = onSignOut) {
-//            Text(text = "Sign out")
-//        }
     }
 }
 

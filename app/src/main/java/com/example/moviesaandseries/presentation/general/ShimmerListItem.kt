@@ -45,35 +45,30 @@ fun ShimmerListItem(
     modifier: Modifier = Modifier
 ) {
     if ( isLoading ) {
-        Row {
-            Column {
+        Row(
+            modifier = Modifier
+                .padding(horizontal = 5.dp)
+        ) {
 
-            }
-            Box(
-                modifier = Modifier
-                    .width(110.dp)
-                    .height(150.dp)
-                    .clip(shape = RoundedCornerShape(15.dp))
-                    .shimmerEffect()
-            )
-            Spacer(modifier = Modifier.width( 16.dp ))
-            Column(
-                modifier = Modifier.weight( 1f )
-            ) {
-                Box(
+                Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(20.dp)
-                        .shimmerEffect()
-                )
-                Spacer(modifier = Modifier.height( 16.dp ))
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth(0.7f)
-                        .height(20.dp)
-                        .shimmerEffect()
-                )
-            }
+                        //.padding(5.dp)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .width(110.dp)
+                            .height(150.dp)
+                            .clip(shape = RoundedCornerShape(15.dp))
+                            .shimmerEffect()
+                    )
+                    Spacer(modifier = Modifier.height( 5.dp ))
+                    Box(
+                        modifier = Modifier
+                            .width(110.dp)
+                            .height(18.dp)
+                            .shimmerEffect()
+                    )
+                }
         }
     } else {
         contentAfterLoading()

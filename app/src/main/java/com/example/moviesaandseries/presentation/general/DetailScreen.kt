@@ -15,11 +15,13 @@ import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -87,6 +89,7 @@ import com.example.moviesaandseries.ui.theme.fontFamilyLato
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp)
+                    .clip(shape = RoundedCornerShape(16.dp))
             )
         }
         Spacer(modifier = Modifier.height(15.dp))
@@ -236,11 +239,17 @@ fun ReviewListScreenCell(
         LazyRow(modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ){
-            item { RowIcons(text = data, painterResource = R.drawable.ic_calendar  )
-                Spacer(modifier = Modifier.width(8.dp))}
-            item { RowIcons(text = runtime, painterResource = R.drawable.ic_clock  )
-                Spacer(modifier = Modifier.width(8.dp))}
-            item { RowIcons(text = average.toString(), painterResource = R.drawable.ic_star  ) }
+            if (!data.isNullOrEmpty()) {
+                item { RowIcons(text = data, painterResource = R.drawable.ic_calendar  )
+                    Spacer(modifier = Modifier.width(8.dp))}
+            }
+            if (runtime != "null") {
+                item { RowIcons(text = runtime, painterResource = R.drawable.ic_clock  )
+                    Spacer(modifier = Modifier.width(8.dp))}
+            }
+            if (star != null) {
+                item { RowIcons(text = average.toString(), painterResource = R.drawable.ic_star  ) }
+            }
         }
         Spacer(modifier = Modifier.height(10.dp))
         LazyRow(

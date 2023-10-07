@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -35,6 +36,11 @@ import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.data.remote.dto.episode.EpisodeDto
 import com.example.moviesaandseries.presentation.general.SeasonDetailShimmer
+import com.example.moviesaandseries.presentation.general.TextBiografia
+import com.example.moviesaandseries.presentation.general.TextSubTitulos
+import com.example.moviesaandseries.presentation.general.TextTitulos
+import com.example.moviesaandseries.ui.theme.fontFamily
+import com.example.moviesaandseries.ui.theme.fontFamilyLato
 
 @Composable
  fun SeasonDetailScreen(
@@ -78,28 +84,23 @@ import com.example.moviesaandseries.presentation.general.SeasonDetailShimmer
 @Composable
 fun MainContent(numeroTemporada: Int, posterPath: String, overview: String){
     Column(
-        modifier = Modifier.padding(horizontal = 15.dp)
+        modifier = Modifier.padding(16.dp)
     ) {
-        Text(
-            text = "$numeroTemporada - Temporada",
-            modifier = Modifier.padding(vertical = 10.dp),
-            fontWeight = FontWeight.Bold,
-            fontSize = 18.sp)
-
+        TextTitulos(title = "$numeroTemporada - Temporada")
+        Spacer(modifier = Modifier.height( 10.dp ))
         Image(
             painter = rememberAsyncImagePainter(
-                model = if (!posterPath.equals("sem poster")) Constants.BASE_IMAGE_URL + posterPath else R.drawable.flash
+                model = if (!posterPath.equals("sem poster")) Constants.BASE_IMAGE_URL + posterPath else R.drawable.logo
             ),
             contentDescription = null,
             modifier = Modifier
+                .fillMaxWidth()
                 .height(300.dp)
-                .fillMaxWidth(),
+                .clip(shape = RoundedCornerShape(16.dp)),
             contentScale = ContentScale.Crop
         )
-        Text(
-            text = overview,
-            modifier = Modifier.padding(vertical = 10.dp)
-        )
+        Spacer(modifier = Modifier.height( 16.dp ))
+        TextBiografia(title = overview)
     }
 }
 @Composable
@@ -110,19 +111,13 @@ fun EpisodeCell(
     Column(
         modifier = Modifier.padding(horizontal = 15.dp)
     ) {
-        Text(text = "Episódios",
-            modifier = Modifier.padding(
-                top = 5.dp
-            ),
-            fontWeight = FontWeight.Bold,
-            fontSize = 18.sp)
+        TextSubTitulos(title = "Episódios")
         LazyColumn(contentPadding = PaddingValues(10.dp)){
             items(episodes) { episode->
                 EpisodeListItem(
                     episode = episode,
                     onItemClick = {
                         navController.navigate(AppGraph.episode_details.DETAILS + "/${seriesId}/${episode.season_number}/${episode.episode_number}")
-                        Log.d("BATATA", "/${seriesId}/${episode.season_number}/${episode.episode_number}")
                     }
                 )
             }
@@ -153,18 +148,21 @@ fun EpisodeListItem(
         Column(
             modifier = Modifier.padding(
                 vertical = 10.dp,
-                horizontal = 5.dp
+                horizontal = 6.dp
             )
         ) {
             Text(text = "${episode.episode_number} - ${episode.name}",
                 fontWeight = FontWeight.Bold,
-                fontSize = 14.sp)
+                fontSize = 14.sp,
+                fontFamily = fontFamily,
+                maxLines = 1)
             Text(text = episode.overview,
                 modifier = Modifier.padding(
                     top = 7.dp
                 ),
                 fontSize = 14.sp,
-                maxLines = 3)
+                maxLines = 3
+            , fontFamily = fontFamilyLato)
         }
     }
 }
@@ -195,7 +193,8 @@ private fun mainContent() {
             contentDescription = null,
             modifier = Modifier
                 .height(300.dp)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .clip(shape = RoundedCornerShape(16.dp)),
             contentScale = ContentScale.Crop
         )
         Text(

@@ -20,6 +20,7 @@ import com.example.moviesaandseries.presentation.cast.ImagesCell
 import com.example.moviesaandseries.presentation.general.CastCell
 import com.example.moviesaandseries.presentation.general.CrewCell
 import com.example.moviesaandseries.presentation.general.EpisodeDetailShimmer
+import com.example.moviesaandseries.presentation.general.TextBiografia
 import com.example.moviesaandseries.presentation.general.TextTitulos
 
 @Composable
@@ -43,14 +44,7 @@ val state = viewModel.state.value
             } else director = "Ninguém"
 
             MainContent(nome, overview)
-//            Spacer(modifier = Modifier.height(15.dp))
-//            Column(
-//                modifier = Modifier.padding(
-//                    horizontal = 12.dp
-//                )
-//            ) {
-                CastCell(navController = navController, cast = episode.guest_stars)
-            //}
+            CastCell(navController = navController, cast = episode.guest_stars)
             Spacer(modifier = Modifier.height(15.dp))
             CrewCell( director, episode.crew )
             ImagesCell()
@@ -77,13 +71,9 @@ val state = viewModel.state.value
 @Composable
 fun MainContent(nome: String, overview: String){
     Column(
-        //modifier = Modifier.padding(horizontal = 16.dp)
     ) {
         TextTitulos(title = nome)
         Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = overview,
-            fontSize = 14.sp
-        )
+        TextBiografia(title = overview )
     }
 }
