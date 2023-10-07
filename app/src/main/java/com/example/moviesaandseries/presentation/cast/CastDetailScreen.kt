@@ -222,8 +222,12 @@ fun SeriesCell(
     navController: NavController,
     state: SeriesCastListState
 ){
-    Column {
-        TextSubTitulos(title = "Séries")
+    TextSubTitulos(title = "Séries")
+    Column(
+        modifier = Modifier.padding(
+            horizontal = 10.dp
+        )
+    ) {
         Spacer(modifier = Modifier.height(15.dp))
         SeriesListScreenCellPerson(navController  , state = state)
     }
@@ -234,8 +238,12 @@ fun MoviesCell(
     navController: NavController,
     state: MoviesCastListState
 ){
-    Column {
-        TextSubTitulos(title = "Filmes")
+    TextSubTitulos(title = "Filmes")
+    Column(
+        modifier = Modifier.padding(
+            horizontal = 10.dp
+        )
+    ) {
         Spacer(modifier = Modifier.height(15.dp))
         MovieListScreenCellWork(navController = navController , state = state)
     }
