@@ -43,7 +43,9 @@ import com.example.moviesaandseries.presentation.season.SeasonListScreenCell
 import com.example.moviesaandseries.presentation.season.SeasonListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreenCell
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
-import com.example.moviesaandseries.presentation.series_list.TextT
+import com.example.moviesaandseries.presentation.series_list.TextBiografia
+import com.example.moviesaandseries.presentation.series_list.TextSubTitulos
+import com.example.moviesaandseries.presentation.series_list.TextTitulos
 import com.example.moviesaandseries.ui.theme.fontFamily
 import com.example.moviesaandseries.ui.theme.fontFamilyLato
 
@@ -65,14 +67,7 @@ import com.example.moviesaandseries.ui.theme.fontFamilyLato
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = nomeOrTitle,
-                style = MaterialTheme.typography.headlineMedium,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = fontFamily,
-                maxLines = 1
-            )
+            TextTitulos(title = nomeOrTitle)
             Image(
                 painterResource(R.drawable.ic_action_name),
                 contentDescription = null,
@@ -100,14 +95,7 @@ import com.example.moviesaandseries.ui.theme.fontFamilyLato
         Spacer(modifier = Modifier.height(15.dp))
         //overview
         if (overview != "sem overview") {
-            Text(
-                text = overview,
-                style = MaterialTheme.typography.headlineMedium,
-                lineHeight = 25.sp,
-                fontFamily = fontFamilyLato,
-                fontSize = 16.sp,
-                modifier = Modifier.padding(5.dp)
-            )
+            TextBiografia(title = overview )
         }
     }
 }
@@ -116,7 +104,7 @@ import com.example.moviesaandseries.ui.theme.fontFamilyLato
  fun CastCell(
     navController: NavController,
     cast: List<Cast>) {
-    TextT(title = "Elenco")
+    TextSubTitulos(title = "Elenco")
     Column(
         modifier = Modifier.padding(
             10.dp
@@ -155,7 +143,7 @@ import com.example.moviesaandseries.ui.theme.fontFamilyLato
             roteiro += i.name + "\n"
         }
         if (director != "Ninguém") {
-            TextT(title = "Direção")
+            TextSubTitulos(title = "Direção")
             Text(text = director,
                 fontSize = 17.sp,
                 fontFamily = fontFamilyLato,
@@ -163,7 +151,7 @@ import com.example.moviesaandseries.ui.theme.fontFamilyLato
             Spacer(modifier = Modifier.height( 10.dp ))
         }
         if (!roteiro.isNullOrEmpty()) {
-            TextT(title = "Roteiro")
+            TextSubTitulos(title = "Roteiro")
             Text(text = roteiro.trim(),
                 fontSize = 17.sp,
                 fontFamily = fontFamilyLato,
@@ -178,7 +166,7 @@ import com.example.moviesaandseries.ui.theme.fontFamilyLato
 fun SeasonsCell(
     navController: NavController,
     seriesId: String, numeroTemporadas: Int, seasons: List<SeasonDto>, state: SeasonListState) {
-    TextT(title =  "$numeroTemporadas - temporadas")
+    TextSubTitulos(title =  "$numeroTemporadas - temporadas")
     Column(
         modifier = Modifier.padding(
             horizontal = 10.dp
@@ -192,7 +180,7 @@ fun SeasonsCell(
 @Composable
  fun SimilarSeriesCell(navController: NavController, state: SeriesListState) {
     Spacer(modifier = Modifier.height(10.dp))
-    TextT(title = "Séries Similares")
+    TextSubTitulos(title = "Séries Similares")
     Column(modifier = Modifier.padding(10.dp)
     ) {
         SeriesListScreenCell(navController  , state = state)
@@ -202,7 +190,7 @@ fun SeasonsCell(
 @Composable
 fun SimilarsMoviesCell(navController: NavController, state: MovieListState) {
     Spacer(modifier = Modifier.height(10.dp))
-    TextT(title = "Filmes Similares")
+    TextSubTitulos(title = "Filmes Similares")
     Column(modifier = Modifier.padding(10.dp)) {
         MovieListScreenCell(
             navController = navController,
@@ -213,7 +201,7 @@ fun SimilarsMoviesCell(navController: NavController, state: MovieListState) {
 
 @Composable
 fun ReviewsCell(reviews: List<Review> ){
-    TextT(title = "Avaliações")
+    TextSubTitulos(title = "Avaliações")
     Column(
         modifier = Modifier.padding( horizontal = 10.dp )
     ) {
@@ -249,11 +237,12 @@ fun ReviewListScreenCell(
     }
     Column {
         LazyRow(modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ){
-            item { RowIcons(text = data, painterResource = R.drawable.ic_calendar  ) }
-            item { RowIcons(text = runtime, painterResource = R.drawable.ic_clock  ) }
+            item { RowIcons(text = data, painterResource = R.drawable.ic_calendar  )
+                Spacer(modifier = Modifier.width(8.dp))}
+            item { RowIcons(text = runtime, painterResource = R.drawable.ic_clock  )
+                Spacer(modifier = Modifier.width(8.dp))}
             item { RowIcons(text = average.toString(), painterResource = R.drawable.ic_star  ) }
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -270,7 +259,7 @@ fun ReviewListScreenCell(
 }
 
 @Composable
-private fun RowIcons(text: String, painterResource: Int) {
+fun RowIcons(text: String, painterResource: Int) {
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {

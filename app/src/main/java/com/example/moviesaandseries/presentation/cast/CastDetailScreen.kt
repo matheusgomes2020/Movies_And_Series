@@ -41,8 +41,12 @@ import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.data.remote.dto.Profile
 import com.example.moviesaandseries.presentation.general.ActorDetailShimmer
+import com.example.moviesaandseries.presentation.general.RowIcons
 import com.example.moviesaandseries.presentation.movie_list.MovieListScreenCellWork
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreenCellPerson
+import com.example.moviesaandseries.presentation.series_list.TextBiografia
+import com.example.moviesaandseries.presentation.series_list.TextSubTitulos
+import com.example.moviesaandseries.presentation.series_list.TextTitulos
 
 @Composable
 fun CastScreen(
@@ -106,21 +110,11 @@ fun MainContent(
     lugarDeNascimento: String,
 ){
     Column {
-        Text(
-            text = nome,
-            style = MaterialTheme.typography.headlineMedium,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            maxLines = 1
-        )
+        TextTitulos(title = nome )
+        Spacer(modifier = Modifier.height(15.dp))
         PersonIconsContent(data = data, localNascimento = lugarDeNascimento )
         Spacer(modifier = Modifier.height(15.dp))
-        Text(
-            text = biografia,
-            style = MaterialTheme.typography.headlineMedium,
-            lineHeight = 25.sp,
-            fontSize = 16.sp
-        )
+        TextBiografia(title = biografia)
     }
 }
 
@@ -152,12 +146,7 @@ fun ImageListItem(
 @Composable
 fun ImagesCell(){
     Column {
-        Text(
-            text = "Imagens",
-            style = MaterialTheme.typography.headlineMedium,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
-        )
+        TextSubTitulos(title = "Imagens")
         Spacer(modifier = Modifier.height(15.dp))
         Text( text = "Imagens")
     }
@@ -168,12 +157,7 @@ fun ImagesActorCell(
     navController: NavController,
     images: List<Profile>){
     Column {
-        Text(
-            text = "Imagens",
-            style = MaterialTheme.typography.headlineMedium,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
-        )
+        TextSubTitulos(title = "Imagens")
         Spacer(modifier = Modifier.height(15.dp))
         LazyRow(contentPadding = PaddingValues()
         ){
@@ -223,8 +207,8 @@ fun ImageListItem2(
             contentScale = ContentScale.Crop,
             contentDescription = "profile image",
             modifier = Modifier
-                .width(150.dp)
-                .height(200.dp)
+                .width(160.dp)
+                .height(210.dp)
         )
 
     }
@@ -237,12 +221,7 @@ fun SeriesCell(
     state: SeriesCastListState
 ){
     Column {
-        Text(
-            text = "Séries",
-            style = MaterialTheme.typography.headlineMedium,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
-        )
+        TextSubTitulos(title = "Séries")
         Spacer(modifier = Modifier.height(15.dp))
         SeriesListScreenCellPerson(navController  , state = state)
     }
@@ -254,12 +233,7 @@ fun MoviesCell(
     state: MoviesCastListState
 ){
     Column {
-        Text(
-            text = "Filmes",
-            style = MaterialTheme.typography.headlineMedium,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
-        )
+        TextSubTitulos(title = "Filmes")
         Spacer(modifier = Modifier.height(15.dp))
         MovieListScreenCellWork(navController = navController , state = state)
     }
@@ -268,29 +242,19 @@ fun MoviesCell(
 @Composable
 fun PersonIconsContent(data: String, localNascimento: String) {
     Column {
-        Row(
+        LazyRow(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
-                painterResource(R.drawable.ic_calendar),
-                contentDescription = null,
-                modifier = Modifier.requiredSize(25.dp)
-            )
-            Text(
-                text = data,
-                fontSize = 14.sp
-            )
-            Image(
-                painterResource(R.drawable.ic_clock),
-                contentDescription = null,
-                modifier = Modifier.requiredSize(25.dp)
-            )
-            Text(
-                text = localNascimento,
-                fontSize = 14.sp
-            )
+            item {
+                RowIcons(text = data, painterResource = R.drawable.ic_calendar)
+                Spacer(modifier = Modifier.width(8.dp))
+            }
+            item {
+                RowIcons(text = localNascimento, painterResource = R.drawable.ic_earth)
+
+            }
         }
+
     }
 }

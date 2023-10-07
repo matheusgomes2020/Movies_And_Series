@@ -18,7 +18,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
@@ -30,19 +29,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
-import com.example.moviesaandseries.presentation.searchMovies.SearchMoviesViewModel
-import com.example.moviesaandseries.presentation.series_list.TextT
-import com.example.moviesaandseries.ui.theme.fontFamily
-import com.example.moviesaandseries.ui.theme.fontFamilyLato
-import com.example.moviesaandseries.ui.theme.fontFamilyN
-import com.example.moviesaandseries.ui.theme.fontFamilyR
+import com.example.moviesaandseries.presentation.series_list.TextSubTitulos
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -152,19 +145,19 @@ fun MovieListScreen(
                                 //, horizontal = 3.dp
                             )
                         ) {
-                            TextT(title = "Filmes em alta")
+                            TextSubTitulos(title = "Filmes em alta")
                             Spacer(modifier = Modifier.height(5.dp))
                             MovieListScreenCell(navController , state = state)
                             Spacer(modifier = Modifier.height(10.dp))
-                            TextT(title = "Filmes em cartaz")
+                            TextSubTitulos(title = "Filmes em cartaz")
                             Spacer(modifier = Modifier.height(5.dp))
                             MovieListScreenCell(navController = navController , state = state3)
                             Spacer(modifier = Modifier.height(10.dp))
-                            TextT(title = "Filmes em lançamento")
+                            TextSubTitulos(title = "Filmes em lançamento")
                             Spacer(modifier = Modifier.height(5.dp))
                             MovieListScreenCell(navController = navController , state = state2)
                             Spacer(modifier = Modifier.height(10.dp))
-                            TextT(title = "Filmes melhores avaliados")
+                            TextSubTitulos(title = "Filmes melhores avaliados")
                             Spacer(modifier = Modifier.height(5.dp))
                             MovieListScreenCell(navController = navController , state = state4)
                             Spacer(modifier = Modifier.height(55.dp))

@@ -33,12 +33,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.ui.theme.fontFamily
+import com.example.moviesaandseries.ui.theme.fontFamilyLato
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -139,19 +141,19 @@ fun SeriesListScreen(
                                     //, horizontal = 3.dp
                                 )
                             ) {
-                                TextT(title = "Séries no ar hoje")
+                                TextSubTitulos(title = "Séries no ar hoje")
                                 Spacer(modifier = Modifier.height(5.dp))
                                 SeriesListScreenCell(navController = navController , state = stateAiringToday)
                                 Spacer(modifier = Modifier.height(10.dp))
-                                TextT(title = "Séries no ar")
+                                TextSubTitulos(title = "Séries no ar")
                                 Spacer(modifier = Modifier.height(5.dp))
                                 SeriesListScreenCell(navController = navController , state = stateOnAir)
                                 Spacer(modifier = Modifier.height(10.dp))
-                                TextT(title = "Séries populares")
+                                TextSubTitulos(title = "Séries populares")
                                 Spacer(modifier = Modifier.height(5.dp))
                                 SeriesListScreenCell(navController = navController , state = statePopular)
                                 Spacer(modifier = Modifier.height(10.dp))
-                                TextT(title = "Séries melhores avaliadas")
+                                TextSubTitulos(title = "Séries melhores avaliadas")
                                 Spacer(modifier = Modifier.height(5.dp))
                                 SeriesListScreenCell(navController = navController , state = stateRated)
                                 Spacer(modifier = Modifier.height(55.dp))
@@ -165,7 +167,7 @@ fun SeriesListScreen(
 }
 
 @Composable
-fun TextT(title: String){
+fun TextSubTitulos(title: String){
     Text(text = title,
         fontSize = 18.sp,
         style = MaterialTheme.typography.displayMedium,
@@ -173,6 +175,32 @@ fun TextT(title: String){
         fontFamily = fontFamily,
     )
 }
+
+@Composable
+fun TextTitulos(title: String){
+    Text(text = title,
+        fontSize = 20.sp,
+        style = MaterialTheme.typography.displayMedium,
+        fontWeight = FontWeight.Bold,
+        fontFamily = fontFamily,
+        maxLines = 1
+    )
+
+
+}
+
+@Composable
+fun TextBiografia(title: String){
+    Text(
+        text = title,
+        style = MaterialTheme.typography.headlineMedium,
+        lineHeight = 25.sp,
+        fontSize = 16.sp,
+        fontFamily = fontFamilyLato
+    )
+}
+
+
 
 
 

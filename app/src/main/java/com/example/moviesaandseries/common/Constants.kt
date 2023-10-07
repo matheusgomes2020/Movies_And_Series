@@ -22,7 +22,7 @@ object Constants {
 
     const val IMAGE_FILE_PATH = "imagePath"
 
-    const val LANGUAGE = "PT-BR"
+    const val LANGUAGE = "pt-BR"
 
     const val BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
 }

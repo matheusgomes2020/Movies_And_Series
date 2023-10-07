@@ -1,6 +1,5 @@
 package com.example.moviesaandseries.presentation.episode
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,12 +8,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -24,6 +20,7 @@ import com.example.moviesaandseries.presentation.cast.ImagesCell
 import com.example.moviesaandseries.presentation.general.CastCell
 import com.example.moviesaandseries.presentation.general.CrewCell
 import com.example.moviesaandseries.presentation.general.EpisodeDetailShimmer
+import com.example.moviesaandseries.presentation.series_list.TextTitulos
 
 @Composable
 fun EpisodeScreen(
@@ -82,10 +79,7 @@ fun MainContent(nome: String, overview: String){
     Column(
         //modifier = Modifier.padding(horizontal = 16.dp)
     ) {
-        Text(
-            text = nome,
-            fontWeight = FontWeight.Bold,
-            fontSize = 20.sp)
+        TextTitulos(title = nome)
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = overview,
