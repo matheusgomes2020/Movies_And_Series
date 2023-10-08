@@ -1,8 +1,8 @@
-package com.example.moviesaandseries.presentation.cast
+package com.example.moviesaandseries.presentation.person_detail
 
 import com.example.moviesaandseries.domain.model.Person
 
-data class CastDetailState(
+data class PersonDetailState(
     val isLoading: Boolean = false,
     val person: Person? = null,
     val error: String = ""

@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.cast
+package com.example.moviesaandseries.presentation.person_list
 
 import com.example.moviesaandseries.data.remote.dto.person.MovieWork
 

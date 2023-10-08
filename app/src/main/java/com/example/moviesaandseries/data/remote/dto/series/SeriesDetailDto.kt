@@ -37,7 +37,7 @@ data class SeriesDetailDto(
     val original_name: String,
     val overview: String,
     val popularity: Double,
-    val poster_path: String,
+    val poster_path: String?,
     val production_companies: List<ProductionCompany>,
     val production_countries: List<ProductionCountry>,
     val reviews: Reviews,

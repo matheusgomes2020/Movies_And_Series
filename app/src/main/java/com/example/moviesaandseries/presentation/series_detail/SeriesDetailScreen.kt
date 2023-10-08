@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +27,7 @@ import com.example.moviesaandseries.presentation.general.ReviewsCell
 import com.example.moviesaandseries.presentation.general.SeasonsCell
 import com.example.moviesaandseries.presentation.general.ShimmerDetail
 import com.example.moviesaandseries.presentation.general.SimilarSeriesCell
-import com.example.moviesaandseries.presentation.season.SeasonListState
+import com.example.moviesaandseries.presentation.season_list.SeasonListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
 
 @Composable
@@ -71,28 +70,28 @@ fun SeriesDetailScreen(
                     url = urlVideo
                 }
                 item {
-                    MainContent(
-                        isVideo,
-                        title,
-                        overview,
-                        posterPath,
-                        data,
-                        runtime,
-                        series.vote_average,
-                        series.genres,
-                    )
-                    Spacer(modifier = Modifier.height( 15.dp ))
-                    SeasonsCell(navController = navController,series.id.toString(), series.number_of_seasons, series.seasons, stateSeasons )
-                    Spacer(modifier = Modifier.height( 15.dp ))
-                    CastCell( navController = navController, cast = series.aggregate_credits.cast )
-                    Spacer(modifier = Modifier.height( 15.dp ))
-                    CrewCell(createdBy, crew = series.aggregate_credits.crew)
-                    Spacer(modifier = Modifier.height( 15.dp ))
-                    SimilarSeriesCell(navController = navController, state = stateSimilar )
-                    Spacer(modifier = Modifier.height( 15.dp ))
-                    if (!series.reviews.results.isNullOrEmpty()) ReviewsCell(reviews = series.reviews.results)
+                    MainContent(isVideo, title, overview, posterPath, data, runtime, series.vote_average, series.genres,)
+                    if ( !series.seasons.isNullOrEmpty() ) {
+                        Spacer(modifier = Modifier.height( 16.dp ))
+                        SeasonsCell(navController = navController,series.id.toString(), series.number_of_seasons, series.seasons, stateSeasons )
+                    }
+                    if ( !series.aggregate_credits.cast.isNullOrEmpty() ) {
+                        Spacer(modifier = Modifier.height( 16.dp ))
+                        CastCell( navController = navController, cast = series.aggregate_credits.cast, "Elenco" )
+                    }
+                    if (!createdBy.isNullOrEmpty() && !series.aggregate_credits.crew.isNullOrEmpty() ) {
+                        Spacer(modifier = Modifier.height( 16.dp ))
+                        CrewCell(createdBy, crew = series.aggregate_credits.crew)
+                    }
+                    if (!series.similar.results.isNullOrEmpty()) {
+                        Spacer(modifier = Modifier.height( 16.dp ))
+                        SimilarSeriesCell(navController = navController, state = stateSimilar )
+                    }
+                    if (!series.reviews.results.isNullOrEmpty()) {
+                        Spacer(modifier = Modifier.height( 16.dp ))
+                        ReviewsCell(reviews = series.reviews.results)
+                    }
                 }
-
             }
         }
 
@@ -108,9 +107,6 @@ fun SeriesDetailScreen(
             )
         }
         if(state.isLoading) {
-            Column {
-                Text(text = "Nada")
-            }
             ShimmerDetail(isLoading = true, contentAfterLoading = { /*TODO*/ })
         }
     }

@@ -65,7 +65,7 @@ fun SearchMovieListItem(
 @Composable
 fun SearchItem(
     titleOrName: String,
-    imagePath: String,
+    imagePath: String?,
     rating: Double,
     overview: String,
 ) {
@@ -77,7 +77,7 @@ fun SearchItem(
     ) {
         Image(
             painter = rememberAsyncImagePainter(
-                model = if (imagePath == "sem poster")R.drawable.flash  else Constants.BASE_IMAGE_URL + imagePath
+                model = if (imagePath == "sem poster")R.drawable.logo  else Constants.BASE_IMAGE_URL + imagePath
             ),
             contentScale = ContentScale.Crop,
             contentDescription = "movie search image",
@@ -102,10 +102,6 @@ fun SearchItem(
             }
             Text(
                 text = if (!titleOrName.isNullOrEmpty()) titleOrName else "sem título",
-                // modifier = Modifier,
-                //.width(110.dp),
-                // .background(Color.White),
-                // .padding(start = 3.dp),
                 fontWeight = FontWeight.Bold,
                 fontSize = 14.sp,
                 maxLines = 1
@@ -113,26 +109,20 @@ fun SearchItem(
             Spacer(modifier = Modifier.height(5.dp))
             Text(
                 text = "$star",
-                // modifier = Modifier
-                //.width(110.dp)
-                // .background(Color.White),
-                // .padding(start = 3.dp),
                 fontSize = 14.sp,
                 maxLines = 1
             )
-            Spacer(modifier = Modifier.height(5.dp))
-            Text(
-                text = if (!overview.isNullOrEmpty()) overview else "sem overview",
-                modifier = Modifier
-                    .fillMaxWidth(),
-                //.background(Color.Cyan),
-                //.padding(start = 3.dp),
-                fontSize = 12.sp,
-                maxLines = 3,
-                lineHeight = 18.sp
-
-            )
-
+            if (overview != "sem overview" ) {
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(
+                    text = overview ,
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    fontSize = 12.sp,
+                    maxLines = 3,
+                    lineHeight = 18.sp
+                )
+            }
         }
 
 

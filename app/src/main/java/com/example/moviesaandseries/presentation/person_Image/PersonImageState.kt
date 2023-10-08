@@ -1,6 +1,4 @@
-package com.example.moviesaandseries.presentation.cast.castImage
-
-import com.example.moviesaandseries.domain.model.Person
+package com.example.moviesaandseries.presentation.person_Image
 
 data class PersonImageState(
     val isLoading: Boolean = false,

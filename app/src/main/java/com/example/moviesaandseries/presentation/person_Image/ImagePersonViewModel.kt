@@ -1,14 +1,11 @@
-package com.example.moviesaandseries.presentation.cast.castImage
+package com.example.moviesaandseries.presentation.person_Image
 
 import android.util.Log
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.unit.Constraints
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.moviesaandseries.common.Constants
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 
 class ImagePersonViewModel(

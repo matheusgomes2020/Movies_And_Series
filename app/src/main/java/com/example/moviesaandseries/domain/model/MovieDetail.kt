@@ -14,7 +14,7 @@ data class MovieDetail(
     val id: Int,
     val images: Images,
     val overview: String,
-    val poster_path: String,
+    val poster_path: String?,
     val release_date: String,
     val reviews: Reviews,
     val runtime: Int,

@@ -10,7 +10,6 @@ import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.common.Resource
 import com.example.moviesaandseries.domain.use_case.get_episode.GetEpisodeUseCase
 
-import com.example.moviesaandseries.presentation.cast.CastDetailState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

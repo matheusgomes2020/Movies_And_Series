@@ -10,11 +10,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.example.moviesaandseries.presentation.cast.CastScreen
-import com.example.moviesaandseries.presentation.cast.castImage.ImagePersonScreen
+import com.example.moviesaandseries.presentation.person_detail.CastScreen
+import com.example.moviesaandseries.presentation.person_Image.ImagePersonScreen
 import com.example.moviesaandseries.presentation.episode.EpisodeScreen
 import com.example.moviesaandseries.presentation.general.ScreenContent
-import com.example.moviesaandseries.presentation.home.HomeScreen
 import com.example.moviesaandseries.presentation.login.LoginContent
 import com.example.moviesaandseries.presentation.movie_detail.MovieDetailScreen
 import com.example.moviesaandseries.presentation.movie_list.MovieListScreen

@@ -25,6 +25,7 @@ import com.example.moviesaandseries.presentation.general.CrewCell
 import com.example.moviesaandseries.presentation.general.MainContent
 import com.example.moviesaandseries.presentation.general.ReviewsCell
 import com.example.moviesaandseries.presentation.general.ShimmerDetail
+import com.example.moviesaandseries.presentation.general.SimilarSeriesCell
 import com.example.moviesaandseries.presentation.general.SimilarsMoviesCell
 
 
@@ -62,18 +63,24 @@ fun MovieDetailScreen(
                     isVideo = true
                     url = urlVideo
                 }
-
                 item {
-
                     MainContent(isVideo,title, overview, url, data, movie.runtime.toString(), movie.vote_average, movie.genres)
-                    Spacer(modifier = Modifier.height( 15.dp ))
-                    CastCell(navController, cast = movie.credits.cast)
-                    Spacer(modifier = Modifier.height( 15.dp ))
-                    CrewCell( director, crew = movie.credits.crew )
-                    Spacer(modifier = Modifier.height( 15.dp ))
-                    SimilarsMoviesCell(navController = navController, state = stateSimilar )
-                    Spacer(modifier = Modifier.height( 15.dp ))
-                    if (!movie.reviews.results.isNullOrEmpty()) ReviewsCell(reviews = movie.reviews.results)
+                    if ( !movie.credits.cast.isNullOrEmpty() ) {
+                        Spacer(modifier = Modifier.height( 16.dp ))
+                        CastCell(navController, cast = movie.credits.cast, "Elenco")
+                    }
+                    if (!movie.credits.crew.isNullOrEmpty() ) {
+                        Spacer(modifier = Modifier.height( 16.dp ))
+                        CrewCell( director, crew = movie.credits.crew )
+                    }
+                    if (!movie.similar.results.isNullOrEmpty()) {
+                        Spacer(modifier = Modifier.height( 16.dp ))
+                        SimilarsMoviesCell(navController = navController, state = stateSimilar )
+                    }
+                    if (!movie.reviews.results.isNullOrEmpty()) {
+                        Spacer(modifier = Modifier.height( 16.dp ))
+                        ReviewsCell(reviews = movie.reviews.results)
+                    }
                 }
             }
         }

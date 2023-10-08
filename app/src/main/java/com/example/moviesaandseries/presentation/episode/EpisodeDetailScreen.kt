@@ -13,10 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.moviesaandseries.presentation.cast.ImagesCell
+import com.example.moviesaandseries.presentation.person_detail.ImagesCell
 import com.example.moviesaandseries.presentation.general.CastCell
 import com.example.moviesaandseries.presentation.general.CrewCell
 import com.example.moviesaandseries.presentation.general.EpisodeDetailShimmer
@@ -33,7 +32,7 @@ val state = viewModel.state.value
     Box(modifier = Modifier.fillMaxSize()) {
     Column(
         modifier = Modifier
-            .padding(15.dp)
+            .padding( 16.dp)
     ) {
         state.episode?.let { episode ->
             val nome = if (!episode.name.isNullOrEmpty()) episode.name else "sem nome"
@@ -42,22 +41,30 @@ val state = viewModel.state.value
             if (!episode.crew.isNullOrEmpty()) {
                 for (i in episode.crew) if ( i.job == "Director" ) director = i.name
             } else director = "Ninguém"
-
             MainContent(nome, overview)
-            CastCell(navController = navController, cast = episode.guest_stars)
-            Spacer(modifier = Modifier.height(15.dp))
-            CrewCell( director, episode.crew )
-            ImagesCell()
+            if ( !episode.guest_stars.isNullOrEmpty() ) {
+                Spacer(modifier = Modifier.height(16.dp))
+                CastCell(navController = navController, cast = episode.guest_stars, "Elenco convidado")
+            }
+            if (!episode.crew.isNullOrEmpty() ) {
+                Spacer(modifier = Modifier.height(16.dp))
+                CrewCell( director, episode.crew )
+            }
+            if (!episode.images.stills.isNullOrEmpty()) {
+                Spacer(modifier = Modifier.height(16.dp))
+                ImagesCell()
+            }
+
         }
         if (state.error.isNotBlank()) {
-            androidx.compose.material3.Text(
+            Text(
                 text = state.error,
                 color = MaterialTheme.colorScheme.error,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)
-                //.align(Alignment.Center)
+
             )
         }
     }
@@ -73,7 +80,9 @@ fun MainContent(nome: String, overview: String){
     Column(
     ) {
         TextTitulos(title = nome)
-        Spacer(modifier = Modifier.height(16.dp))
-        TextBiografia(title = overview )
+        if (overview != "sem overview") {
+            Spacer(modifier = Modifier.height(16.dp))
+            TextBiografia(title = overview)
+        }
     }
 }

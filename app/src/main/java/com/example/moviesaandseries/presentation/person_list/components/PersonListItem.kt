@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.cast.components
+package com.example.moviesaandseries.presentation.person_list.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

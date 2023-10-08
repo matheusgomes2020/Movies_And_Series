@@ -15,7 +15,7 @@ data class SeriesDetail(
     val id: Int,
     val images: Images,
     val overview: String,
-    val poster_path: String,
+    val poster_path: String?,
     val created_by: List<CreatedBy>,
     val episode_run_time: List<Int>,
     val first_air_date: String,

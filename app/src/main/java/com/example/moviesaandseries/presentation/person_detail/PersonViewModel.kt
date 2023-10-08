@@ -1,6 +1,5 @@
-package com.example.moviesaandseries.presentation.cast
+package com.example.moviesaandseries.presentation.person_detail
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
@@ -15,18 +14,17 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class CastViewModel @Inject constructor(
+class PersonViewModel @Inject constructor(
     private val getPersonUseCase: GetPersonUseCase,
     savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
-    private val _state = mutableStateOf(CastDetailState())
-    val state: State<CastDetailState> = _state
+    private val _state = mutableStateOf(PersonDetailState())
+    val state: State<PersonDetailState> = _state
 
     init {
         savedStateHandle.get<String>(Constants.PARAM_PERSON_ID)?.let { castId ->
             getPerson( castId )
-            Log.d("hdygfd", "$castId: ")
         }
     }
 
@@ -34,15 +32,15 @@ class CastViewModel @Inject constructor(
         getPersonUseCase(castId).onEach { result ->
             when (result) {
                 is Resource.Success -> {
-                    _state.value = CastDetailState(person = result.data)
+                    _state.value = PersonDetailState(person = result.data)
                 }
                 is Resource.Error -> {
-                    _state.value = CastDetailState(
+                    _state.value = PersonDetailState(
                         error = result.message ?: "An unexpected error occured"
                     )
                 }
                 is Resource.Loading -> {
-                    _state.value = CastDetailState(isLoading = true)
+                    _state.value = PersonDetailState(isLoading = true)
                 }
             }
         }.launchIn(viewModelScope)

@@ -32,10 +32,15 @@ fun SearchSeriesListItem(
         //
     ) {
 
+        var overview = "sem overview"
+        var poster = "sem poster"
+        if (!series.name.isNullOrEmpty())  overview = series.overview!!
+        if (!series.poster_path.isNullOrEmpty())  poster = series.poster_path!!
+
         SearchItem(
             titleOrName = series.name,
-            overview = series.overview!!,
-            imagePath = series.poster_path!!,
+            overview = overview,
+            imagePath = poster,
             rating = series.vote_average!!
         )
 

@@ -15,7 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
-import com.example.moviesaandseries.presentation.cast.SeriesCastListState
+import com.example.moviesaandseries.presentation.person_list.SeriesCastListState
 import com.example.moviesaandseries.presentation.general.ShimmerListItem
 import com.example.moviesaandseries.presentation.series_list.components.SeriesListItem
 import com.example.moviesaandseries.presentation.series_list.components.SeriesListItemWork
