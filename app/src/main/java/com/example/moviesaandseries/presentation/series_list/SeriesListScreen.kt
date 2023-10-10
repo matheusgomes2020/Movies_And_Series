@@ -72,7 +72,6 @@ fun SeriesListScreen(
         statePopular.series?.let { series ->
 
             Scaffold(
-
             ) {
                 Column {
                     SearchBar(
@@ -113,16 +112,11 @@ fun SeriesListScreen(
                                             if (querySeries.isNotEmpty()) {
                                                 querySeries = ""
                                             } else {
-                                                active = false
-                                            }
-                                        }
+                                                active = false } }
                                         .size(20.dp),
                                     imageVector = Icons.Default.Close,
                                     contentDescription = "Close Icon",
-                                    tint = Color.LightGray
-                                )
-                            }
-                        },
+                                    tint = Color.LightGray) } },
                         shape = RoundedCornerShape(15.dp),
                     ) {
 

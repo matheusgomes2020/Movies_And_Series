@@ -31,7 +31,7 @@ class SearchMoviesViewModel @Inject constructor(
 
 
 
-     private fun searchMovies(query: String ) {
+      fun searchMovies(query: String ) {
          Log.d("BATATAO", "VIEW MODEL searchMovies: $query")
 
         searchMoviesUseCase( query ).onEach { result ->

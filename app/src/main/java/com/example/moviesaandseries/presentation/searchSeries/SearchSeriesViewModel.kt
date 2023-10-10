@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.searchMovies
+package com.example.moviesaandseries.presentation.searchSeries
 
 import android.util.Log
 import androidx.compose.runtime.State
@@ -31,7 +31,7 @@ class SearchSeriesViewModel @Inject constructor(
 
 
 
-     private fun searchSeries(query: String ) {
+      fun searchSeries(query: String ) {
          Log.d("BATATAO", "VIEW MODEL searchSéries: $query")
 
         searchSeriesUseCase( query ).onEach { result ->
@@ -54,4 +54,35 @@ class SearchSeriesViewModel @Inject constructor(
             }
         }.launchIn( viewModelScope )
     }
+
+//    fun searchNew(query: String ) {
+//        Log.d("BATATAO", "VIEW MODEL searchSéries: $query")
+//
+//        searchSeriesUseCase( query ).onEach { result ->
+//            Log.d("BATATAO", "VIEW MODEL result: $result")
+//            when (result) {
+//                is Resource.Success -> {
+//                    _stateNewSearch.value = SeriesListState(series = result.data ?: emptyList())
+//                    Log.d("BATATAO", "VIEW MODEL state value: ${state.value}")
+//                }
+//
+//                is Resource.Error -> {
+//                    _stateNewSearch.value = SeriesListState(
+//                        error = result.message ?: "An unexpected error occured"
+//                    )
+//                }
+//
+//                is Resource.Loading -> {
+//                    _stateNewSearch.value = SeriesListState(isLoading = true)
+//                }
+//            }
+//        }.launchIn( viewModelScope )
+//    }
+//
+//    fun resetState() {
+//        _state.update {
+//            SeriesListState()
+//        }
+//    }
 }
+

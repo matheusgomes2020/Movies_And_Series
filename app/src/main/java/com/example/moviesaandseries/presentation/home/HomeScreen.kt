@@ -26,6 +26,7 @@ import com.example.moviesaandseries.common.navigation.HomeNavGraph
 import com.example.moviesaandseries.common.navigation2.HomeNavigation
 import com.example.moviesaandseries.presentation.searchMovies.SearchMoviesViewModel
 import com.example.moviesaandseries.presentation.signIn.UserData
+import com.example.moviesaandseries.ui.theme.fontFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -40,9 +41,6 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),
     ) {
 
                 HomeNavGraph(navController = navController, userData = userData, onSignOut = onSignOut)
-
-
-        //HomeNavigation()
     }
 }
 
@@ -80,7 +78,9 @@ fun RowScope.AddItem(
 ) {
     BottomNavigationItem(
         label = {
-            Text(text = screen.title)
+            Text(text = screen.title,
+                fontFamily = fontFamily
+            )
         },
         icon = {
             Icon(
