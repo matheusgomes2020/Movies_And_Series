@@ -1,10 +1,6 @@
-package com.example.moviesaandseries.presentation.signIn
+package com.example.moviesaandseries.presentation.favorites
 
-import android.widget.Toast
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,37 +13,28 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ExitToApp
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.currentCompositionLocalContext
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.presentation.general.ShimmerListItem
 import com.example.moviesaandseries.presentation.general.TextSubTitulos
-import com.google.android.gms.auth.api.identity.Identity
-import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlin.coroutines.coroutineContext
+import com.example.moviesaandseries.presentation.signIn.UserData
 
 
 @Composable
 fun ProfileScreen(
+    navController: NavController,
     userData: UserData?,
-    onSignOut: () -> Unit
+    onSignOut: () -> Unit,
+    viewModel: FavoriteViewModel = hiltViewModel()
 ) {
 
     Column(
@@ -112,6 +99,20 @@ fun ProfileScreen(
                         contentAfterLoading = { /*TODO*/ })
                 }
             }
+
+            Spacer(modifier = Modifier.height(5.dp))
+            
+            Movies(userData = userData,
+                moviesContent = { movies ->
+                    MoviesContent(
+                        navController = navController, movies = movies, deleteMovie =  { idFirebase ->
+
+                        viewModel.deleteMovie( idFirebase )
+                    }
+                    )
+                }
+            )
+            
         }
     }
 }

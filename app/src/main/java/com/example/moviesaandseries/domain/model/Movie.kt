@@ -8,4 +8,6 @@ data class Movie(
     var overview: String?,
     var idFirebase: String = "",
     val vote_average: Double?
+
+
 )

@@ -2,6 +2,7 @@ package com.example.moviesaandseries.presentation.general
 
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -67,7 +68,11 @@ import com.example.moviesaandseries.ui.theme.fontFamilyLato
             Image(
                 painterResource(R.drawable.ic_action_name),
                 contentDescription = null,
-                modifier = Modifier.requiredSize(40.dp)
+                modifier = Modifier
+                    .requiredSize(40.dp)
+                    .clickable {
+
+                    }
             )
         }
         //data, time and star

@@ -22,7 +22,7 @@ import com.example.moviesaandseries.presentation.searchSeries.SearchSeriesScreen
 import com.example.moviesaandseries.presentation.season.SeasonDetailScreen
 import com.example.moviesaandseries.presentation.series_detail.SeriesDetailScreen
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreen
-import com.example.moviesaandseries.presentation.signIn.ProfileScreen
+import com.example.moviesaandseries.presentation.favorites.ProfileScreen
 import com.example.moviesaandseries.presentation.signIn.UserData
 
 @Composable
@@ -78,7 +78,7 @@ fun HomeNavGraph(navController: NavHostController, userData: UserData?,
             SeriesListScreen(navController = navController)
         }
         composable(route = AppGraph.home.FAVORITES) {
-            ProfileScreen(userData = userData, onSignOut = onSignOut)
+            ProfileScreen(navController = navController, userData = userData, onSignOut = onSignOut)
         }
         movieDetailsNavGraph(navController = navController)
         seriesDetailsNavGraph(navController = navController)

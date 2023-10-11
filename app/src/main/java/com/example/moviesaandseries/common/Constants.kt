@@ -25,5 +25,9 @@ object Constants {
     const val LANGUAGE = "pt-BR"
 
     const val BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
+
+    const val MOVIES = "Movies"
+
+    const val SERIES = "series"
 }
 
