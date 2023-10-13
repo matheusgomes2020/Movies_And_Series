@@ -1,8 +1,10 @@
 package com.example.moviesaandseries.presentation.movie_list.components
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,6 +23,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.data.remote.dto.person.MovieWork
 import com.example.moviesaandseries.domain.model.Movie
+import com.example.moviesaandseries.domain.model.MovieFirebase
 import com.example.moviesaandseries.presentation.series_list.components.MoviesAndSeriesColumnItem
 import com.example.moviesaandseries.ui.theme.fontFamily
 
@@ -54,5 +57,26 @@ fun MovieListItemWork(
             .background(color = Color.White ),
     ) {
         MoviesAndSeriesColumnItem(nameOrTitle = movie.title, posterPath = movie.poster_path )
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun MovieListItemFirebase(
+    movie: MovieFirebase,
+    deleteMovie: () -> Unit,
+    onItemClick: (MovieFirebase) -> Unit
+) {
+
+    Card(
+        shape = RoundedCornerShape(15.dp),
+        modifier = Modifier.padding(5.dp)
+            .combinedClickable(
+                onClick = {onItemClick(movie)},
+                onLongClick = {deleteMovie()}
+
+    ).background(color = Color.White )
+    ){
+        MoviesAndSeriesColumnItem(nameOrTitle = movie.title, posterPath = movie.posterPath )
     }
 }

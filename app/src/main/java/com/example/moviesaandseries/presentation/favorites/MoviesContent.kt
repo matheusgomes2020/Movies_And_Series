@@ -21,7 +21,7 @@ fun MoviesContent(
 ) {
     LazyRow(
         modifier = Modifier
-            .fillMaxSize()
+            //.fillMaxSize()
             //.padding(padding)
     ) {
         items(

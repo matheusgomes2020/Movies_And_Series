@@ -2,17 +2,6 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <multipleDevicesSelectedInDropDown value="true" />
-    <runningDeviceTargetsSelectedWithDialog>
-      <Target>
-        <type value="RUNNING_DEVICE_TARGET" />
-        <deviceKey>
-          <Key>
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\batat\.android\avd\Pixel_2_API_29.avd" />
-          </Key>
-        </deviceKey>
-      </Target>
-    </runningDeviceTargetsSelectedWithDialog>
     <targetsSelectedWithDialog>
       <Target>
         <type value="QUICK_BOOT_TARGET" />
@@ -28,7 +17,7 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\batat\.android\avd\Pixel_7_Pro_API_33.avd" />
+            <value value="C:\Users\batat\.android\avd\Pixel_API_31.avd" />
           </Key>
         </deviceKey>
       </Target>
@@ -37,7 +26,7 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\batat\.android\avd\Pixel_API_31.avd" />
+            <value value="C:\Users\batat\.android\avd\Pixel_7_Pro_API_33.avd" />
           </Key>
         </deviceKey>
       </Target>

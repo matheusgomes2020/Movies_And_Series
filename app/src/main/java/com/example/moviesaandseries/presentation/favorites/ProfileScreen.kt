@@ -26,6 +26,7 @@ import coil.compose.AsyncImage
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.presentation.general.ShimmerListItem
 import com.example.moviesaandseries.presentation.general.TextSubTitulos
+import com.example.moviesaandseries.presentation.movie_list.MovieListScreenCellFirebase
 import com.example.moviesaandseries.presentation.signIn.UserData
 
 
@@ -34,8 +35,11 @@ fun ProfileScreen(
     navController: NavController,
     userData: UserData?,
     onSignOut: () -> Unit,
-    viewModel: FavoriteViewModel = hiltViewModel()
+    viewModel: FavoriteViewModel = hiltViewModel(),
+    viewModel2: FirebaseMoviesVIweModel = hiltViewModel()
 ) {
+
+    val stateMoviesFirebase = viewModel2.movieList.value
 
     Column(
         modifier = Modifier
@@ -68,52 +72,62 @@ fun ProfileScreen(
 
         }
         Column(
-            modifier = Modifier
-                .padding(vertical = 16.dp)
+            Modifier.padding(16.dp)
         ) {
             TextSubTitulos(title = "Filmes favoritos")
-            Spacer(modifier = Modifier.height(5.dp))
-            LazyRow(
-                modifier = Modifier.padding(
-                    horizontal = 5.dp
-                )
-            ) {
-                items(20) {
-                    ShimmerListItem(isLoading = true,
-                        contentAfterLoading = { /*TODO*/ })
-                }
-            }
-        }
-        Column(
-            
-        ) {
-            TextSubTitulos(title = "Séries favoritas")
-            Spacer(modifier = Modifier.height(5.dp))
-            LazyRow(
-                modifier = Modifier.padding(
-                    horizontal = 5.dp
-                )
-            ) {
-                items(20) {
-                    ShimmerListItem(isLoading = true,
-                        contentAfterLoading = { /*TODO*/ })
-                }
-            }
+//            Spacer(modifier = Modifier.height(5.dp))
 
-            Spacer(modifier = Modifier.height(5.dp))
-            
             Movies(userData = userData,
                 moviesContent = { movies ->
                     MoviesContent(
                         navController = navController, movies = movies, deleteMovie =  { idFirebase ->
 
-                        viewModel.deleteMovie( idFirebase )
-                    }
+                            viewModel.deleteMovie( idFirebase )
+                        }
                     )
                 }
             )
-            
         }
+
+        Column(
+            modifier = Modifier
+                .padding(vertical = 16.dp)
+        ) {
+            TextSubTitulos(title = "Filmes favoritos")
+            Spacer(modifier = Modifier.height(5.dp))
+            Movies(userData = userData
+            ) { movies ->
+                MovieListScreenCellFirebase(
+                    navController = navController,
+                    movies = movies
+                ) { idFirebase ->
+                    viewModel.deleteMovie(idFirebase)
+                }
+            }
+        }
+
+        }
+//        Column(
+//
+//        ) {
+//            TextSubTitulos(title = "Séries favoritas")
+//            Spacer(modifier = Modifier.height(5.dp))
+//            LazyRow(
+//                modifier = Modifier.padding(
+//                    horizontal = 5.dp
+//                )
+//            ) {
+//                items(20) {
+//                    ShimmerListItem(isLoading = true,
+//                        contentAfterLoading = { /*TODO*/ })
+//                }
+//            }
+//
+//            Spacer(modifier = Modifier.height(5.dp))
+//
+//
+//
+//        }
     }
-}
+
 

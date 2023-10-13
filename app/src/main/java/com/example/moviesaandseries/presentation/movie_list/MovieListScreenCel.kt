@@ -15,9 +15,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
+import com.example.moviesaandseries.domain.repository.Movies
+import com.example.moviesaandseries.presentation.favorites.MovieFirebaseState
 import com.example.moviesaandseries.presentation.person_list.MoviesCastListState
 import com.example.moviesaandseries.presentation.general.ShimmerListItem
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListItem
+import com.example.moviesaandseries.presentation.movie_list.components.MovieListItemFirebase
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListItemWork
 
 @Composable
@@ -134,5 +137,56 @@ fun MovieListScreenCellWork(
         if(state.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
+    }
+}
+
+@Composable
+fun MovieListScreenCellFirebase(
+    navController: NavController,
+    movies: Movies,
+    deleteMovie: (idFirebase: String) -> Unit
+){
+    Box(
+    ) {
+
+        LazyRow(
+        ) {
+            items(movies) { movie ->
+                MovieListItemFirebase(
+                    movie = movie,
+                    onItemClick = {
+                        try {
+                            navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
+                        }catch (e: Exception){
+                            e.printStackTrace()
+                        }
+                    },
+                    deleteMovie = {
+                        movie.idFirebase?.let { idFirebase ->
+                            deleteMovie( idFirebase )
+                        }
+                    }
+                )
+            }
+        }
+//        if ( state.error.isNotBlank() ) {
+//            Text(
+//                text = state.error,
+//                color = MaterialTheme.colorScheme.error,
+//                textAlign = TextAlign.Center,
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(horizontal = 20.dp)
+//                    .align(Alignment.Center)
+//            )
+//        }
+//        if(state.isLoading) {
+//            LazyRow {
+//                items(20) {
+//                    ShimmerListItem(isLoading = true,
+//                        contentAfterLoading = { /*TODO*/ })
+//                }
+//            }
+//        }
     }
 }
