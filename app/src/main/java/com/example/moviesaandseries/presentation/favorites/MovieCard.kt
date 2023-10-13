@@ -32,7 +32,7 @@ fun MovieCard(
             .clickable { onItemClick(movie) }
             .background(color = Color.White ),
     ) {
-        MoviesAndSeriesColumnItem(nameOrTitle = movie.title, posterPath = movie.poster_path)
+        MoviesAndSeriesColumnItem(nameOrTitle = movie.title, posterPath = movie.posterPath)
         DeleteIcon(
             deleteMovie = deleteMovie
         )

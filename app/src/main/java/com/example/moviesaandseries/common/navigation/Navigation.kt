@@ -80,7 +80,7 @@ fun HomeNavGraph(navController: NavHostController, userData: UserData?,
         composable(route = AppGraph.home.FAVORITES) {
             ProfileScreen(navController = navController, userData = userData, onSignOut = onSignOut)
         }
-        movieDetailsNavGraph(navController = navController)
+        movieDetailsNavGraph(navController = navController, userData = userData)
         seriesDetailsNavGraph(navController = navController)
         searchSeriesNavGraph( navController = navController )
         searchMoviesNavGraph( navController = navController )
@@ -131,7 +131,7 @@ fun NavGraphBuilder.searchSeriesNavGraph( navController: NavController ) {
 }
 
 
-fun NavGraphBuilder.movieDetailsNavGraph(navController: NavController){
+fun NavGraphBuilder.movieDetailsNavGraph(navController: NavController, userData: UserData? ){
     navigation(
         route = AppGraph.movies_details.ROOT,
         startDestination = AppGraph.movies_details.DETAILS
@@ -146,7 +146,7 @@ fun NavGraphBuilder.movieDetailsNavGraph(navController: NavController){
 
             navBackStackEntry.arguments?.getString("movieId").let {
                 Log.d("TRT", "movieDetailsNavGraph2: ${navBackStackEntry.destination}")
-                MovieDetailScreen(navController = navController)
+                MovieDetailScreen(navController = navController, userData = userData )
             }
         }
     }

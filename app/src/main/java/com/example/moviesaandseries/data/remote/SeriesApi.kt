@@ -31,7 +31,7 @@ interface SeriesApi {
     @GET("tv/on_the_air?language=pt-BR&api_key=" + Constants.API_KEY)
     suspend fun getOnTheAirSeries(): SeriesList
 
-    @GET("tv/{serieID}?language=pt-BR&api_key=" + Constants.API_KEY + "&append_to_response=videos,images,reviews,similar,aggregate_credits,episodes" )
+    @GET("tv/{serieID}?language=pt-BR&api_key=" + Constants.API_KEY + "&append_to_response=videos,images,reviews,similar,aggregate_credits,episodes,recommendations" )
     suspend fun  getSeriesInfo(@Path("serieID") serieId: String) : SeriesDetailDto
 
     @GET("tv/{series_id}/season/{season_number}?language=pt-BR&api_key=" + Constants.API_KEY)

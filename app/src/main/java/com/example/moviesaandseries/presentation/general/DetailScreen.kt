@@ -1,6 +1,7 @@
 package com.example.moviesaandseries.presentation.general
 
 import android.util.Log
+import androidx.compose.animation.AnimatedContentTransitionScope.SlideDirection.Companion.End
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -50,6 +51,7 @@ import com.example.moviesaandseries.ui.theme.fontFamilyLato
 @Composable
  fun MainContent(
     isVideo: Boolean,
+    logo: String,
     nomeOrTitle: String,
     overview: String,
     posterPath: String,
@@ -57,6 +59,7 @@ import com.example.moviesaandseries.ui.theme.fontFamilyLato
     runtime: String,
     star: Double,
     genres: List<Genre>,
+    onCLickFavoriteButton: () -> Unit
 ) {
     Column {
         Row(
@@ -71,12 +74,12 @@ import com.example.moviesaandseries.ui.theme.fontFamilyLato
                 modifier = Modifier
                     .requiredSize(40.dp)
                     .clickable {
-
+                        onCLickFavoriteButton()
                     }
             )
         }
         //data, time and star
-        IconsContent( data, runtime, star, genres )
+        IconsContent( data, runtime, star, genres, logo )
         Spacer(modifier = Modifier.height(15.dp))
         //image or trailer
         if ( isVideo ) {
@@ -94,7 +97,27 @@ import com.example.moviesaandseries.ui.theme.fontFamilyLato
                     .clip(shape = RoundedCornerShape(16.dp))
             )
         }
-        Spacer(modifier = Modifier.height(15.dp))
+        Column(
+            Modifier.fillMaxWidth()
+            //horizontalAlignment = Alignment.End
+        ) {
+            if (logo != "sem logo") {
+                Spacer(modifier = Modifier.height(8.dp))
+                Image(
+                    painter = rememberAsyncImagePainter(
+                        model =  Constants.BASE_IMAGE_URL + logo
+                    ),
+                    contentScale = ContentScale.None,
+                    contentDescription = "production company",
+                    modifier = Modifier
+                        .width(100.dp)
+                        .height(30.dp)
+                        .align(Alignment.End)
+                        .clip(shape = RoundedCornerShape(8.dp))
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(8.dp))
         //overview
         if (overview != "sem overview") {
             TextBiografia(title = overview )
@@ -202,6 +225,28 @@ fun SimilarsMoviesCell(navController: NavController, state: MovieListState) {
 }
 
 @Composable
+fun RecommendationMoviesCell(navController: NavController, state: MovieListState) {
+    TextSubTitulos(title = "Filmes Recomendados")
+    Column(modifier = Modifier.padding(10.dp)) {
+        MovieListScreenCell(
+            navController = navController,
+            state = state
+        )
+    }
+}
+
+@Composable
+fun RecommendationSeriesCell(navController: NavController, state: SeriesListState) {
+    TextSubTitulos(title = "Séries Recomendadas")
+    Column(modifier = Modifier.padding(10.dp)) {
+        SeriesListScreenCell(
+            navController = navController,
+            state = state
+        )
+    }
+}
+
+@Composable
 fun ReviewsCell(reviews: List<Review> ){
     TextSubTitulos(title = "Avaliações")
     Column(
@@ -228,7 +273,7 @@ fun ReviewListScreenCell(
 }
 
 @Composable
- fun IconsContent(data: String, runtime: String, star: Double, genres: List<Genre>) {
+ fun IconsContent(data: String, runtime: String, star: Double, genres: List<Genre>, logo: String) {
     val average = when ( star ) {
         in 0.0..1.9 ->  "⭐"
         in 2.0..3.9 -> "⭐⭐"
@@ -254,15 +299,15 @@ fun ReviewListScreenCell(
             }
         }
         Spacer(modifier = Modifier.height(10.dp))
-        LazyRow(
-            contentPadding = PaddingValues()
-        ){
-            items(genres) { index ->
-                Text(text = index.name,
-                    fontSize = 13.sp,
-                    modifier = Modifier.padding(end = 3.dp))
+            LazyRow(
+                contentPadding = PaddingValues()
+            ){
+                items(genres) { index ->
+                    Text(text = index.name,
+                        fontSize = 13.sp,
+                        modifier = Modifier.padding(end = 3.dp))
+                }
             }
-        }
     }
 }
 

@@ -27,7 +27,7 @@ interface MovieApi {
     @GET("movie/top_rated?language=pt-BR&api_key=" + Constants.API_KEY)
     suspend fun getRatedMovies(): Movies
 
-    @GET("movie/{movieID}?language=pt-BR&api_key=" + Constants.API_KEY + "&append_to_response=videos,images,reviews,similar,credits")
+    @GET("movie/{movieID}?language=pt-BR&api_key=" + Constants.API_KEY + "&append_to_response=videos,images,reviews,similar,credits,recommendations")
     suspend fun  getMovieInfo(@Path("movieID") movieId: String) : MovieDetailDto
 
 

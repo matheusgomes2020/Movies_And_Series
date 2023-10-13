@@ -15,7 +15,7 @@ import com.example.moviesaandseries.domain.model.SeriesDetail
 data class SeriesDetailDto(
     val adult: Boolean,
     val aggregate_credits: Credits,
-    val backdrop_path: String,
+    val backdrop_path: String?,
     val created_by: List<CreatedBy>,
     val episode_run_time: List<Int>,
     val first_air_date: String,
@@ -43,6 +43,7 @@ data class SeriesDetailDto(
     val reviews: Reviews,
     val seasons: List<SeasonDto>,
     val similar: SimilarSeries,
+    val recommendations: RecommendationSeries,
     val spoken_languages: List<SpokenLanguage>,
     val status: String,
     val tagline: String,
@@ -62,13 +63,16 @@ fun SeriesDetailDto.toSeriesDetail(): SeriesDetail {
         overview = overview,
         reviews = reviews,
         similar = similar,
+        recommendations = recommendations,
         videos = videos,
         poster_path = poster_path,
+        backdrop_path = backdrop_path,
         created_by = created_by,
         episode_run_time = episode_run_time,
         first_air_date = first_air_date,
         seasons = seasons,
         vote_average = vote_average,
+        production_companies = production_companies,
         number_of_seasons = number_of_seasons
 
     )

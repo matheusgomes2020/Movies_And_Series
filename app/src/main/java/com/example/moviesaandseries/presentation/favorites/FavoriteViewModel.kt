@@ -48,8 +48,11 @@ class FavoriteViewModel @Inject constructor(
     fun addMovie(id: Int, title: String,
                 posterPath: String,
                 userId: String) = viewModelScope.launch {
+        Log.d("FFFFIRRE", "Add:  $id, $title, $posterPath, $userId")
         addMovieResponse = Response.Loading
         addMovieResponse = useCases.addMovie(id, title, posterPath, userId)
+        Log.d("FFFFIRRE", "Add: " + addMovieResponse.toString())
+
     }
 
     fun deleteMovie(idFirebase: String) = viewModelScope.launch {

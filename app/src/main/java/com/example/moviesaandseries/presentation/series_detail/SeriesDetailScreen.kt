@@ -23,6 +23,8 @@ import androidx.navigation.NavController
 import com.example.moviesaandseries.presentation.general.CastCell
 import com.example.moviesaandseries.presentation.general.CrewCell
 import com.example.moviesaandseries.presentation.general.MainContent
+import com.example.moviesaandseries.presentation.general.RecommendationMoviesCell
+import com.example.moviesaandseries.presentation.general.RecommendationSeriesCell
 import com.example.moviesaandseries.presentation.general.ReviewsCell
 import com.example.moviesaandseries.presentation.general.SeasonsCell
 import com.example.moviesaandseries.presentation.general.ShimmerDetail
@@ -37,10 +39,12 @@ fun SeriesDetailScreen(
 ){
     val state = viewModel.state.value
     var stateSimilar: SeriesListState
+    var stateRecommendations: SeriesListState
     var stateSeasons: SeasonListState
     Box(modifier = Modifier.fillMaxSize()) {
         state.series?.let { series ->
             stateSimilar = SeriesListState(series = series.similar.results)
+            stateRecommendations = SeriesListState(series = series.recommendations.results)
             stateSeasons = SeasonListState(seasons = series.seasons)
             LazyColumn(
                 modifier = Modifier
@@ -50,10 +54,16 @@ fun SeriesDetailScreen(
             ) {
                 val title = if (!series.name.isNullOrEmpty()) series.name else "sem título"
                 val overview = if (!series.overview.isNullOrEmpty()) series.overview else "sem overview"
-                val posterPath = if (!series.poster_path.isNullOrEmpty()) series.poster_path else "sem poster"
+                val posterPath = if (!series.backdrop_path.isNullOrEmpty()) series.backdrop_path else "sem poster"
                 val data = if (!series.first_air_date.isNullOrEmpty()) series.first_air_date else "null"
                 var runtime = if (!series.episode_run_time.isNullOrEmpty())  series.episode_run_time[0].toString() else "null"
                 var createdBy = ""
+                var logo = "sem logo"
+                if ( !series.production_companies.isNullOrEmpty() ) {
+                    if (!series.production_companies.get(0).logo_path.isNullOrEmpty()) {
+                        logo = series.production_companies.get(0).logo_path
+                    }
+                }
                 if (!series.created_by.isNullOrEmpty()) {
                     for (i in series.created_by) {
                         createdBy += i.name + "\n"
@@ -70,7 +80,7 @@ fun SeriesDetailScreen(
                     url = urlVideo
                 }
                 item {
-                    MainContent(isVideo, title, overview, posterPath, data, runtime, series.vote_average, series.genres,)
+                    MainContent(isVideo, logo, title, overview, posterPath, data, runtime, series.vote_average, series.genres, onCLickFavoriteButton = {} )
                     if ( !series.seasons.isNullOrEmpty() ) {
                         Spacer(modifier = Modifier.height( 16.dp ))
                         SeasonsCell(navController = navController,series.id.toString(), series.number_of_seasons, series.seasons, stateSeasons )
@@ -82,6 +92,10 @@ fun SeriesDetailScreen(
                     if (!createdBy.isNullOrEmpty() && !series.aggregate_credits.crew.isNullOrEmpty() ) {
                         Spacer(modifier = Modifier.height( 16.dp ))
                         CrewCell(createdBy, crew = series.aggregate_credits.crew)
+                    }
+                    if (!series.recommendations.results.isNullOrEmpty()) {
+                        Spacer(modifier = Modifier.height( 16.dp ))
+                        RecommendationSeriesCell(navController = navController, state = stateRecommendations )
                     }
                     if (!series.similar.results.isNullOrEmpty()) {
                         Spacer(modifier = Modifier.height( 16.dp ))

@@ -1,15 +1,10 @@
 package com.example.moviesaandseries.data.repository
 
-import android.util.Log
-import com.example.moviesaandseries.domain.model.Movie
 import com.example.moviesaandseries.domain.model.MovieFirebase
 import com.example.moviesaandseries.domain.model.Response
-import com.example.moviesaandseries.domain.repository.DeleteMovieResponse
 import com.example.moviesaandseries.domain.repository.MoviesFirebaseRepository
-import com.example.moviesaandseries.domain.repository.MoviesResponse
 import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -37,14 +32,14 @@ class MoviesFirebaseRepositoryImpl @Inject constructor(
     override suspend fun addMovieToFirestore(
         id: Int,
         title: String,
-        posterPth: String,
+        posterPath: String,
         userId: String
     ) = try {
         val idFirebase = moviesRef.document().id
         val movie = MovieFirebase(
-            id = id,
+            id = id.toString(),
             title = title,
-            poster_path = posterPth,
+            posterPath = posterPath,
             idFirebase = idFirebase,
             userId = userId
         )
