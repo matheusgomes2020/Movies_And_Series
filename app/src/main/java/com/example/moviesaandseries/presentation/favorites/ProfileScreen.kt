@@ -36,10 +36,8 @@ fun ProfileScreen(
     userData: UserData?,
     onSignOut: () -> Unit,
     viewModel: FavoriteViewModel = hiltViewModel(),
-    viewModel2: FirebaseMoviesVIweModel = hiltViewModel()
 ) {
 
-    val stateMoviesFirebase = viewModel2.movieList.value
 
     Column(
         modifier = Modifier
@@ -70,23 +68,6 @@ fun ProfileScreen(
                     .clickable { onSignOut() }
             )
 
-        }
-        Column(
-            Modifier.padding(16.dp)
-        ) {
-            TextSubTitulos(title = "Filmes favoritos")
-//            Spacer(modifier = Modifier.height(5.dp))
-
-            Movies(userData = userData,
-                moviesContent = { movies ->
-                    MoviesContent(
-                        navController = navController, movies = movies, deleteMovie =  { idFirebase ->
-
-                            viewModel.deleteMovie( idFirebase )
-                        }
-                    )
-                }
-            )
         }
 
         Column(

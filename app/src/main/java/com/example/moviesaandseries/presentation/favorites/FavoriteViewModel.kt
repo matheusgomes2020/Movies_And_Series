@@ -30,8 +30,7 @@ import javax.inject.Inject
 class FavoriteViewModel @Inject constructor(
     private val useCases: UseCases
 ): ViewModel() {
-    private val _state = mutableStateOf(MovieFirebaseState())
-    val state: State<MovieFirebaseState> = _state
+
     var moviesResponse by mutableStateOf<MoviesResponse>(Response.Loading)
         private set
     var addMovieResponse by mutableStateOf<AddMovieResponse>(Response.Success(false))
@@ -40,7 +39,6 @@ class FavoriteViewModel @Inject constructor(
         private set
 
     init {
-        getmovies2()
         getmovies()
     }
 
@@ -49,28 +47,6 @@ class FavoriteViewModel @Inject constructor(
             moviesResponse = response
             Log.d("FFFFIRRE", "getmovies: " + response)
         }
-    }
-
-    private fun getmovies2() {
-        Log.d("FFFFIRRE", "getmovies2: chama?????")
-        useCases.getMovies().onEach { response ->
-            Log.d("FFFFIRRE", "RRRRRRRRRRRRRRRRRR:  " + response)
-            when (response) {
-                is Response.Success -> {
-                    _state.value = MovieFirebaseState(movies = response.data ?: emptyList())
-                }
-                is Response.Failure -> {
-                    _state.value = MovieFirebaseState(
-                        error = response.toString()
-                    )
-                }
-                is Response.Loading -> {
-                    _state.value = MovieFirebaseState(isLoading = true)
-                }
-            }
-            //moviesResponse = response
-            Log.d("FFFFIRRE", "getmovies22222222: " + response)
-        }.launchIn(viewModelScope)
     }
 
     fun addMovie(id: Int, title: String,

@@ -11,13 +11,11 @@ import com.example.moviesaandseries.data.repository.PersonRepositoryImpl
 import com.example.moviesaandseries.data.repository.SeriesRepositoryImpl
 import com.example.moviesaandseries.domain.repository.MovieRepository
 import com.example.moviesaandseries.domain.repository.MoviesFirebaseRepository
-import com.example.moviesaandseries.domain.repository.MoviesFirebaseRepository2
 import com.example.moviesaandseries.domain.repository.PersonRepository
 import com.example.moviesaandseries.domain.repository.SeriesRepository
 import com.example.moviesaandseries.domain.use_case.movies_firestore.AddMovie
 import com.example.moviesaandseries.domain.use_case.movies_firestore.DeleteMovie
 import com.example.moviesaandseries.domain.use_case.movies_firestore.GetMovies
-import com.example.moviesaandseries.domain.use_case.movies_firestore.GetMovies2
 import com.example.moviesaandseries.domain.use_case.movies_firestore.UseCases
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -102,7 +100,6 @@ object AppModule {
         repo: MoviesFirebaseRepository,
     ) = UseCases(
         getMovies = GetMovies(repo),
-        getMovies2 = GetMovies2(repo),
         addMovie = AddMovie(repo),
         deleteMovie = DeleteMovie(repo)
     )
