@@ -51,6 +51,7 @@ import com.example.moviesaandseries.ui.theme.fontFamilyLato
 @Composable
  fun MainContent(
     isVideo: Boolean,
+    isFavorite: Boolean,
     logo: String,
     nomeOrTitle: String,
     overview: String,
@@ -68,7 +69,16 @@ import com.example.moviesaandseries.ui.theme.fontFamilyLato
             verticalAlignment = Alignment.CenterVertically
         ) {
             TextTitulos(title = nomeOrTitle)
+            if (isFavorite)
             Image(
+                painterResource(R.drawable.ic_boomarkfilled),
+                contentDescription = null,
+                modifier = Modifier
+                    .requiredSize(40.dp)
+                    .clickable {
+                        onCLickFavoriteButton()
+                    }
+            ) else Image(
                 painterResource(R.drawable.ic_action_name),
                 contentDescription = null,
                 modifier = Modifier

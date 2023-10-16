@@ -144,6 +144,7 @@ fun MovieListScreenCellWork(
 fun MovieListScreenCellFirebase(
     navController: NavController,
     movies: Movies,
+    tipo: String,
     deleteMovie: (idFirebase: String) -> Unit
 ){
     Box(
@@ -156,7 +157,8 @@ fun MovieListScreenCellFirebase(
                     movie = movie,
                     onItemClick = {
                         try {
-                            navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
+                            if ( tipo == "movie" ) navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
+                            else navController.navigate(AppGraph.series_details.DETAILS + "/${movie.id}")
                         }catch (e: Exception){
                             e.printStackTrace()
                         }

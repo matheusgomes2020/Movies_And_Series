@@ -36,10 +36,8 @@ fun ProfileScreen(
     userData: UserData?,
     onSignOut: () -> Unit,
     viewModel: FavoriteViewModel = hiltViewModel(),
-    viewModel2: FirebaseMoviesVIweModel = hiltViewModel()
 ) {
 
-    val stateMoviesFirebase = viewModel2.movieList.value
 
     Column(
         modifier = Modifier
@@ -71,23 +69,6 @@ fun ProfileScreen(
             )
 
         }
-        Column(
-            Modifier.padding(16.dp)
-        ) {
-            TextSubTitulos(title = "Filmes favoritos")
-//            Spacer(modifier = Modifier.height(5.dp))
-
-            Movies(userData = userData,
-                moviesContent = { movies ->
-                    MoviesContent(
-                        navController = navController, movies = movies, deleteMovie =  { idFirebase ->
-
-                            viewModel.deleteMovie( idFirebase )
-                        }
-                    )
-                }
-            )
-        }
 
         Column(
             modifier = Modifier
@@ -95,11 +76,32 @@ fun ProfileScreen(
         ) {
             TextSubTitulos(title = "Filmes favoritos")
             Spacer(modifier = Modifier.height(5.dp))
-            Movies(userData = userData
+            Movies(userData = userData,
+                tipo = "movies"
             ) { movies ->
                 MovieListScreenCellFirebase(
                     navController = navController,
-                    movies = movies
+                    movies = movies,
+                    tipo = "movie",
+                ) { idFirebase ->
+                    viewModel.deleteMovie(idFirebase)
+                }
+            }
+        }
+
+        Column(
+            modifier = Modifier
+                .padding(vertical = 16.dp)
+        ) {
+            TextSubTitulos(title = "Séries favoritas")
+            Spacer(modifier = Modifier.height(5.dp))
+            Movies(userData = userData,
+                tipo = "series"
+            ) { movies ->
+                MovieListScreenCellFirebase(
+                    navController = navController,
+                    movies = movies,
+                    tipo = "series",
                 ) { idFirebase ->
                     viewModel.deleteMovie(idFirebase)
                 }
@@ -107,27 +109,7 @@ fun ProfileScreen(
         }
 
         }
-//        Column(
-//
-//        ) {
-//            TextSubTitulos(title = "Séries favoritas")
-//            Spacer(modifier = Modifier.height(5.dp))
-//            LazyRow(
-//                modifier = Modifier.padding(
-//                    horizontal = 5.dp
-//                )
-//            ) {
-//                items(20) {
-//                    ShimmerListItem(isLoading = true,
-//                        contentAfterLoading = { /*TODO*/ })
-//                }
-//            }
-//
-//            Spacer(modifier = Modifier.height(5.dp))
-//
-//
-//
-//        }
+
     }
 
 

@@ -1,5 +1,9 @@
 package com.example.moviesaandseries.data.repository
 
+import android.content.Context
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
+import com.example.moviesaandseries.common.Constants.MOVIES
 import com.example.moviesaandseries.domain.model.MovieFirebase
 import com.example.moviesaandseries.domain.model.Response
 import com.example.moviesaandseries.domain.repository.MoviesFirebaseRepository
@@ -8,6 +12,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Singleton
@@ -33,6 +38,7 @@ class MoviesFirebaseRepositoryImpl @Inject constructor(
         id: Int,
         title: String,
         posterPath: String,
+        tipo: String,
         userId: String
     ) = try {
         val idFirebase = moviesRef.document().id
@@ -40,6 +46,7 @@ class MoviesFirebaseRepositoryImpl @Inject constructor(
             id = id.toString(),
             title = title,
             posterPath = posterPath,
+            tipo = tipo,
             idFirebase = idFirebase,
             userId = userId
         )
@@ -56,5 +63,7 @@ class MoviesFirebaseRepositoryImpl @Inject constructor(
     } catch (e: Exception) {
         Response.Failure(e)
     }
+
+
 
 }

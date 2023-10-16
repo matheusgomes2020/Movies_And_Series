@@ -1,5 +1,7 @@
 package com.example.moviesaandseries.presentation.series_detail
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,10 +18,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.moviesaandseries.domain.model.MovieFirebase
+import com.example.moviesaandseries.domain.model.Response
+import com.example.moviesaandseries.presentation.favorites.FavoriteViewModel
+import com.example.moviesaandseries.presentation.favorites.ProgressBar
 import com.example.moviesaandseries.presentation.general.CastCell
 import com.example.moviesaandseries.presentation.general.CrewCell
 import com.example.moviesaandseries.presentation.general.MainContent
@@ -31,21 +38,39 @@ import com.example.moviesaandseries.presentation.general.ShimmerDetail
 import com.example.moviesaandseries.presentation.general.SimilarSeriesCell
 import com.example.moviesaandseries.presentation.season_list.SeasonListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
+import com.example.moviesaandseries.presentation.signIn.UserData
 
 @Composable
 fun SeriesDetailScreen(
     navController: NavController,
-    viewModel: SeriesDetailViewModel = hiltViewModel()
+    userData: UserData?,
+    viewModel: SeriesDetailViewModel = hiltViewModel(),
+    favoriteViewModel: FavoriteViewModel = hiltViewModel(),
 ){
     val state = viewModel.state.value
     var stateSimilar: SeriesListState
     var stateRecommendations: SeriesListState
     var stateSeasons: SeasonListState
+    val context = LocalContext.current
+    var isFavorite: Boolean
     Box(modifier = Modifier.fillMaxSize()) {
         state.series?.let { series ->
             stateSimilar = SeriesListState(series = series.similar.results)
             stateRecommendations = SeriesListState(series = series.recommendations.results)
             stateSeasons = SeasonListState(seasons = series.seasons)
+
+            var listOfMovies = emptyList<MovieFirebase>()
+            when(val moviesResponse = favoriteViewModel.moviesResponse) {
+                is Response.Loading -> ProgressBar()
+                is Response.Success -> moviesResponse.data.let { movies ->
+                    listOfMovies = movies.filter { movieFirebase ->
+                        movieFirebase.userId == userData?.userId && movieFirebase.title == series.name
+                    }
+                }
+                is Response.Failure -> print(moviesResponse.e)
+            }
+            isFavorite = !listOfMovies.isNullOrEmpty()
+
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
@@ -78,9 +103,29 @@ fun SeriesDetailScreen(
                 } else {
                     isVideo = true
                     url = urlVideo
+
                 }
                 item {
-                    MainContent(isVideo, logo, title, overview, posterPath, data, runtime, series.vote_average, series.genres, onCLickFavoriteButton = {} )
+                    MainContent(isVideo, isFavorite, logo, title, overview, posterPath, data, runtime, series.vote_average, series.genres, onCLickFavoriteButton = {
+
+                        try {
+                            if (isFavorite) {
+                                favoriteViewModel.deleteMovie(listOfMovies[0].idFirebase)
+                                Toast.makeText(context, "$title deletada com sucesso!!!", Toast.LENGTH_LONG).show()
+
+                            } else {
+                                favoriteViewModel.addMovie(series.id, series.name, series.poster_path!!, "series", userData!!.userId)
+                                Toast.makeText(context, "$title salva com sucesso!!!", Toast.LENGTH_LONG).show()
+                            }
+
+
+                        }catch (e: Exception) {
+                            Toast.makeText(context, "erro ao salvar $title!!!", Toast.LENGTH_LONG).show()
+                        }
+
+
+
+                    } )
                     if ( !series.seasons.isNullOrEmpty() ) {
                         Spacer(modifier = Modifier.height( 16.dp ))
                         SeasonsCell(navController = navController,series.id.toString(), series.number_of_seasons, series.seasons, stateSeasons )

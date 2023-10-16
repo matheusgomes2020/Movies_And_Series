@@ -1,5 +1,7 @@
 package com.example.moviesaandseries.presentation.movie_detail
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -13,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -29,7 +33,10 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
+import com.example.moviesaandseries.domain.model.MovieFirebase
+import com.example.moviesaandseries.domain.model.Response
 import com.example.moviesaandseries.presentation.favorites.FavoriteViewModel
+import com.example.moviesaandseries.presentation.favorites.ProgressBar
 import com.example.moviesaandseries.presentation.movie_list.MovieListState
 import com.example.moviesaandseries.presentation.general.CastCell
 import com.example.moviesaandseries.presentation.general.CrewCell
@@ -53,10 +60,25 @@ fun MovieDetailScreen(
     val state = viewModel.state.value
     var stateSimilar: MovieListState
     var stateRecommendations: MovieListState
+    val context = LocalContext.current
+    var isFavorite: Boolean
     Box(modifier = Modifier.fillMaxSize()) {
         state.movie?.let { movie ->
             stateSimilar = MovieListState(movies = movie.similar.results)
             stateRecommendations = MovieListState(movies = movie.recommendations.results)
+
+            var listOfMovies = emptyList<MovieFirebase>()
+            when(val moviesResponse = favoriteViewModel.moviesResponse) {
+                is Response.Loading -> ProgressBar()
+                is Response.Success -> moviesResponse.data.let { movies ->
+                    listOfMovies = movies.filter { movieFirebase ->
+                        movieFirebase.userId == userData?.userId && movieFirebase.title == movie.title
+                    }
+                }
+                is Response.Failure -> print(moviesResponse.e)
+            }
+            isFavorite = !listOfMovies.isNullOrEmpty()
+
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
@@ -88,12 +110,23 @@ fun MovieDetailScreen(
                     url = urlVideo
                 }
                 item {
-                    MainContent(isVideo, logo, title, overview, url, data, movie.runtime.toString(), movie.vote_average, movie.genres, onCLickFavoriteButton = {
-//                        addMovie(
-//                        movie.id, movie.title, movie.poster_path!!, userData!!.userId
-//                    )
-                        favoriteViewModel.addMovie(movie.id, movie.title, movie.poster_path!!, userData!!.userId)
+                    MainContent(isVideo, isFavorite, logo, title, overview, url, data, movie.runtime.toString(), movie.vote_average, movie.genres, onCLickFavoriteButton = {
+                        try {
+                            if (isFavorite) {
+                                favoriteViewModel.deleteMovie(listOfMovies[0].idFirebase)
+                                Toast.makeText(context, "$title deletado com sucesso!!!", Toast.LENGTH_LONG).show()
+
+                            } else {
+                                favoriteViewModel.addMovie(movie.id, movie.title, movie.poster_path!!, "movie", userData!!.userId)
+                                Toast.makeText(context, "$title salvo com sucesso!!!", Toast.LENGTH_LONG).show()
+                            }
+
+
+                        }catch (e: Exception) {
+                            Toast.makeText(context, "erro ao salvar $title!!!", Toast.LENGTH_LONG).show()
+                        }
                     })
+
                     if ( !movie.credits.cast.isNullOrEmpty() ) {
                         Spacer(modifier = Modifier.height( 16.dp ))
                         CastCell(navController, cast = movie.credits.cast, "Elenco")

@@ -28,6 +28,6 @@ object Constants {
 
     const val MOVIES = "Movies"
 
-    const val SERIES = "series"
+    const val SERIES = "Series"
 }
 
