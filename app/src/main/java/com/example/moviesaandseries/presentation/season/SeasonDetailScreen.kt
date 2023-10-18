@@ -1,7 +1,9 @@
 package com.example.moviesaandseries.presentation.season
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -18,6 +20,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,6 +39,7 @@ import com.example.moviesaandseries.presentation.general.SeasonDetailShimmer
 import com.example.moviesaandseries.presentation.general.TextBiografia
 import com.example.moviesaandseries.presentation.general.TextSubTitulos
 import com.example.moviesaandseries.presentation.general.TextTitulos
+import com.example.moviesaandseries.ui.theme.BlueGrey11
 import com.example.moviesaandseries.ui.theme.fontFamily
 import com.example.moviesaandseries.ui.theme.fontFamilyLato
 
@@ -48,7 +52,10 @@ import com.example.moviesaandseries.ui.theme.fontFamilyLato
 ) {
     val state = viewModel.state.value
 
-    Column {
+    Column(
+        modifier = Modifier
+            .background(color = if (isSystemInDarkTheme())  BlueGrey11 else Color.White),
+    ) {
         state.season?.let { season ->
             val overview = if (!season.overview.isNullOrEmpty()) season.overview else "sem overview"
             val posterPath = if (!season.poster_path.isNullOrEmpty()) season.poster_path else "sem poster"
@@ -134,7 +141,9 @@ fun EpisodeListItem(
             .padding(
                 vertical = 5.dp
             )
-            .clickable { onItemClick(episode) }
+            .clickable { onItemClick(episode)
+            }
+            .background(color = if (isSystemInDarkTheme())  BlueGrey11 else Color.White),
     ) {
         Image(painter = rememberAsyncImagePainter(
             model = Constants.BASE_IMAGE_URL + episode.still_path),
@@ -154,14 +163,16 @@ fun EpisodeListItem(
                 fontWeight = FontWeight.Bold,
                 fontSize = 14.sp,
                 fontFamily = fontFamily,
-                maxLines = 1)
+                maxLines = 1,
+                color =  if (isSystemInDarkTheme()) Color.White  else BlueGrey11)
             Text(text = episode.overview,
                 modifier = Modifier.padding(
                     top = 7.dp
                 ),
                 fontSize = 14.sp,
                 maxLines = 3
-            , fontFamily = fontFamilyLato)
+            , fontFamily = fontFamilyLato,
+                color =  if (isSystemInDarkTheme()) Color.White  else BlueGrey11)
         }
     }
 }

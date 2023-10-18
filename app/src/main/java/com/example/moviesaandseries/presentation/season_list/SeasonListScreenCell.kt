@@ -1,5 +1,7 @@
 package com.example.moviesaandseries.presentation.season_list
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,12 +13,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
 
 import com.example.moviesaandseries.presentation.season.components.SeasonListItem
+import com.example.moviesaandseries.ui.theme.BlueGrey11
 
 @Composable
 fun SeasonListScreenCell(
@@ -25,6 +29,7 @@ fun SeasonListScreenCell(
     state: SeasonListState
 ) {
     Box(
+
     ) {
 
         LazyRow(

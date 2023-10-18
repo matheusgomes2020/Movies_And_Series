@@ -1,6 +1,7 @@
 package com.example.moviesaandseries.presentation.general
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
@@ -12,6 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.moviesaandseries.ui.theme.BlueGrey11
 import com.example.moviesaandseries.ui.theme.fontFamily
 import com.example.moviesaandseries.ui.theme.fontFamilyLato
 
@@ -55,7 +57,7 @@ fun TextCards(title: String){
         text = title,
         modifier = Modifier
             .width(110.dp)
-            .background(Color.White)
+            .background( color = if (isSystemInDarkTheme())  BlueGrey11 else Color.White )
             .padding(start = 3.dp),
         fontSize = 14.sp,
         fontFamily = fontFamily,

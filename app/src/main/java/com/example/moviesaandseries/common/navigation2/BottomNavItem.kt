@@ -9,13 +9,13 @@ sealed class BottomNavItem(
     object Movies :
         BottomNavItem(
             "Movies",
-            R.drawable.ic_movie
+            R.drawable.movie_d
         )
 
     object Series :
         BottomNavItem(
             "Series",
-            R.drawable.ic_tv
+            R.drawable.tv_d
         )
 
     object Favorites :

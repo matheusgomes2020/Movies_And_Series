@@ -2,6 +2,7 @@ package com.example.moviesaandseries.presentation.episode
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -37,6 +38,7 @@ import com.example.moviesaandseries.presentation.general.EpisodeDetailShimmer
 import com.example.moviesaandseries.presentation.general.TextBiografia
 import com.example.moviesaandseries.presentation.general.TextSubTitulos
 import com.example.moviesaandseries.presentation.general.TextTitulos
+import com.example.moviesaandseries.ui.theme.BlueGrey11
 
 @Composable
 fun EpisodeScreen(
@@ -50,6 +52,7 @@ val state = viewModel.state.value
         modifier = Modifier
            // .padding( 16.dp)
             .fillMaxWidth()
+            .background(color = if (isSystemInDarkTheme())  BlueGrey11 else Color.White),
     ) {
         state.episode?.let { episode ->
             val nome = if (!episode.name.isNullOrEmpty()) episode.name else "sem nome"
@@ -61,7 +64,7 @@ val state = viewModel.state.value
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(color = Color.White),
+                        .background(color = if (isSystemInDarkTheme())  BlueGrey11 else Color.White),
                 contentPadding = PaddingValues(start = 15.dp, end = 15.dp, top = 15.dp)
             ) {
                 item {

@@ -3,6 +3,7 @@ import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
@@ -44,6 +45,7 @@ import com.example.moviesaandseries.common.navigation.navigationScreens
 import com.example.moviesaandseries.common.navigation2.HomeNavigation
 import com.example.moviesaandseries.presentation.searchMovies.SearchMoviesViewModel
 import com.example.moviesaandseries.presentation.signIn.UserData
+import com.example.moviesaandseries.ui.theme.BlueGrey11
 import com.example.moviesaandseries.ui.theme.MoviesAandSeriesTheme
 import com.example.moviesaandseries.ui.theme.Purple40
 import com.example.moviesaandseries.ui.theme.fontFamily
@@ -91,7 +93,8 @@ fun BottomNavBar(navController: NavController, visible: Boolean = true ){
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentDestination = navBackStackEntry?.destination
             navigationScreens.forEach { screen ->
-                NavigationBarItem( selected = currentDestination?.hierarchy?.any {
+                NavigationBarItem(
+                    selected = currentDestination?.hierarchy?.any {
                     it.route == screen.route
                 } == true,
                     onClick = {
@@ -111,7 +114,8 @@ fun BottomNavBar(navController: NavController, visible: Boolean = true ){
                         )
                     },
                     label = {
-                        Text(text = stringResource(id = screen.label))
+                        Text(text = stringResource(id = screen.label)
+                        )
                             //, style = MaterialTheme.typography.displaySmall)
                     },
                     colors = NavigationBarItemDefaults.colors(
@@ -167,6 +171,7 @@ fun BottomBar(navController: NavHostController) {
     }
 }
 
+
 @Composable
 fun RowScope.AddItem(
     screen: BottomBarScreen,
@@ -174,8 +179,11 @@ fun RowScope.AddItem(
     navController: NavHostController
 ) {
     BottomNavigationItem(
+        modifier = Modifier
+            .background(color = if (isSystemInDarkTheme())  BlueGrey11 else Color.White),
         label = {
-            Text(text = screen.label.toString(),
+            Text(text = screen.label,
+                //, color = ( if (isSystemInDarkTheme())    Color.White else BlueGrey11),
                 fontFamily = fontFamily
             )
         },
@@ -190,7 +198,7 @@ fun RowScope.AddItem(
         selected = currentDestination?.hierarchy?.any {
             it.route == screen.route
         } == true,
-        unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.disabled),
+        unselectedContentColor = if (isSystemInDarkTheme()) Color.White else BlueGrey11,
         selectedContentColor = Purple40,
         onClick = {
             navController.navigate(screen.route) {

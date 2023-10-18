@@ -3,6 +3,7 @@ package com.example.moviesaandseries.presentation.series_list.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,6 +23,7 @@ import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.data.remote.dto.series.SeriesWork
 import com.example.moviesaandseries.domain.model.Series
 import com.example.moviesaandseries.presentation.general.TextCards
+import com.example.moviesaandseries.ui.theme.BlueGrey11
 
 @Composable
 fun SeriesListItem(
@@ -34,7 +36,7 @@ fun SeriesListItem(
         modifier = Modifier
             .padding(5.dp)
             .clickable { onItemClick(series) }
-            .background(color = Color.White),
+            .background( color = if (isSystemInDarkTheme())  BlueGrey11 else Color.White ),
     ) {
         MoviesAndSeriesColumnItem(nameOrTitle = series.name, posterPath = series.poster_path )
     }
@@ -44,7 +46,7 @@ fun SeriesListItem(
  fun MoviesAndSeriesColumnItem(nameOrTitle: String, posterPath: String?) {
     Column(
         modifier = Modifier
-            .background(color = Color.White)
+            .background( color = if (isSystemInDarkTheme())  BlueGrey11 else Color.White )
     ) {
         Image(
             painter = rememberAsyncImagePainter(
@@ -72,7 +74,7 @@ fun SeriesListItemWork(
         modifier = Modifier
             .padding(5.dp)
             .clickable { onItemClick(series) }
-            .background(color = Color.White),
+            .background( color = if (isSystemInDarkTheme())  BlueGrey11 else Color.White ),
     ) {
         MoviesAndSeriesColumnItem(nameOrTitle = series.name, posterPath = series.poster_path)
     }

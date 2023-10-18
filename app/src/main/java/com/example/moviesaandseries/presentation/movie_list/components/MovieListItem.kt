@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -25,6 +26,7 @@ import com.example.moviesaandseries.data.remote.dto.person.MovieWork
 import com.example.moviesaandseries.domain.model.Movie
 import com.example.moviesaandseries.domain.model.MovieFirebase
 import com.example.moviesaandseries.presentation.series_list.components.MoviesAndSeriesColumnItem
+import com.example.moviesaandseries.ui.theme.BlueGrey11
 import com.example.moviesaandseries.ui.theme.fontFamily
 
 
@@ -38,7 +40,7 @@ Card(
     shape = RoundedCornerShape(15.dp),
     modifier = Modifier.padding(5.dp)
         .clickable { onItemClick(movie) }
-        .background(color = Color.White ),
+        .background( color = if (isSystemInDarkTheme())  BlueGrey11 else Color.White ),
     ) {
         MoviesAndSeriesColumnItem(nameOrTitle = movie.title, posterPath = movie.poster_path)
     }
@@ -54,7 +56,7 @@ fun MovieListItemWork(
         shape = RoundedCornerShape(15.dp),
         modifier = Modifier.padding(5.dp)
             .clickable { onItemClick(movie) }
-            .background(color = Color.White ),
+            .background( color = if (isSystemInDarkTheme())  BlueGrey11 else Color.White ),
     ) {
         MoviesAndSeriesColumnItem(nameOrTitle = movie.title, posterPath = movie.poster_path )
     }
@@ -75,7 +77,8 @@ fun MovieListItemFirebase(
                 onClick = {onItemClick(movie)},
                 onLongClick = {deleteMovie()}
 
-    ).background(color = Color.White )
+    )
+            .background( color = if (isSystemInDarkTheme())  BlueGrey11 else Color.White ),
     ){
         MoviesAndSeriesColumnItem(nameOrTitle = movie.title, posterPath = movie.posterPath )
     }

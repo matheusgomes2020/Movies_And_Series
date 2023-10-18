@@ -3,6 +3,7 @@ package com.example.moviesaandseries.presentation.series_detail
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -40,6 +41,7 @@ import com.example.moviesaandseries.presentation.general.SimilarSeriesCell
 import com.example.moviesaandseries.presentation.season_list.SeasonListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
 import com.example.moviesaandseries.presentation.signIn.UserData
+import com.example.moviesaandseries.ui.theme.BlueGrey11
 
 @Composable
 fun SeriesDetailScreen(
@@ -75,7 +77,7 @@ fun SeriesDetailScreen(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(color = Color.White),
+                    .background(color = if (isSystemInDarkTheme())  BlueGrey11 else Color.White),
                 contentPadding = PaddingValues(start = 15.dp, end = 15.dp, top = 15.dp)
             ) {
                 val title = if (!series.name.isNullOrEmpty()) series.name else "sem título"

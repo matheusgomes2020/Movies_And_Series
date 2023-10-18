@@ -6,6 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,6 +37,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.moviesaandseries.R
+import com.example.moviesaandseries.ui.theme.BlueGrey11
 import com.example.moviesaandseries.ui.theme.fontFamily
 
 @Composable
@@ -58,40 +60,53 @@ fun SignInScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
-            .background(Color.White),
+            .background(color = if (isSystemInDarkTheme()) BlueGrey11 else Color.White),
         contentAlignment = Alignment.Center
     ) {
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally
+
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                //.background(color = Color.Transparent),
         ) {
 
 
             Image(painterResource(id  = R.drawable.logo), contentDescription = "app logo",
                 modifier = Modifier.size(200.dp))
             Spacer(modifier = Modifier.height(160.dp))
-        Row(
+        Column(
             modifier = Modifier
-                .clickable { onSignInClick() }
-                .padding(10.dp)
-                .border(
-                    border = BorderStroke(1.dp, Color.LightGray),
-                    shape = RoundedCornerShape(16.dp)
-                ),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-            ,) {
-            Image(painterResource(id  = R.drawable.googlelogo), contentDescription = "google logo",
+                .clip(RoundedCornerShape(16.dp)),
+               // .background(color = Color.White),
+        ) {
+            Row(
                 modifier = Modifier
-                    .size(35.dp)
-                    .padding(start = 10.dp,
-                        top = 7.dp,
-                        bottom = 7.dp))
-            Text(text = "Login com o Google",
-                modifier = Modifier
-                    .padding( vertical = 7.dp, horizontal = 10.dp ),
-                fontSize = 16.sp,
-                fontFamily = fontFamily,
-                color = Color.DarkGray)
+                    .clickable { onSignInClick() }
+                    //.padding(10.dp)
+                    .border(
+                        border = BorderStroke(1.dp, Color.LightGray),
+                        shape = RoundedCornerShape(16.dp),
+                    )
+                .background(color = Color.White)
+                    .clip(RoundedCornerShape(16.dp)),
+                   // .background(color = if (isSystemInDarkTheme())  Color.White else BlueGrey11),
+
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+                ,) {
+                Image(painterResource(id  = R.drawable.googlelogo), contentDescription = "google logo",
+                    modifier = Modifier
+                        .size(35.dp)
+                        .padding(start = 10.dp,
+                            top = 7.dp,
+                            bottom = 7.dp))
+                Text(text = "Login com o Google",
+                    modifier = Modifier
+                        .padding( vertical = 7.dp, horizontal = 10.dp ),
+                    fontSize = 16.sp,
+                    fontFamily = fontFamily,
+                    color = Color.DarkGray)
+            }
         }
         }
     }
@@ -129,9 +144,11 @@ fun SignInScreen2(
                     Image(painterResource(id  = R.drawable.googlelogo), contentDescription = "google logo",
                         modifier = Modifier
                             .size(35.dp)
-                            .padding(start = 10.dp,
+                            .padding(
+                                start = 10.dp,
                                 top = 7.dp,
-                                bottom = 7.dp))
+                                bottom = 7.dp
+                            ))
                     Text(text = "Login com o Google",
                         modifier = Modifier
                             .padding( vertical = 7.dp, horizontal = 10.dp ),

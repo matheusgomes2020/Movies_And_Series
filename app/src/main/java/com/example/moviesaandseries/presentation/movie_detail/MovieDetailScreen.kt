@@ -4,6 +4,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -49,6 +50,7 @@ import com.example.moviesaandseries.presentation.general.ShimmerDetail
 import com.example.moviesaandseries.presentation.general.SimilarSeriesCell
 import com.example.moviesaandseries.presentation.general.SimilarsMoviesCell
 import com.example.moviesaandseries.presentation.signIn.UserData
+import com.example.moviesaandseries.ui.theme.BlueGrey11
 
 
 @Composable
@@ -64,7 +66,8 @@ fun MovieDetailScreen(
     var stateRecommendations: MovieListState
     val context = LocalContext.current
     var isFavorite: Boolean
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize()
+    ) {
         state.movie?.let { movie ->
             stateSimilar = MovieListState(movies = movie.similar.results)
             stateRecommendations = MovieListState(movies = movie.recommendations.results)
@@ -84,7 +87,7 @@ fun MovieDetailScreen(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(color = Color.White),
+                    .background(color = if (isSystemInDarkTheme())  BlueGrey11 else Color.White),
                 contentPadding = PaddingValues(start = 15.dp, end = 15.dp, top = 15.dp)
             ) {
                 val title = if (!movie.title.isNullOrEmpty()) movie.title else "sem título"

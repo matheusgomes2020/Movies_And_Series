@@ -3,6 +3,7 @@ package com.example.moviesaandseries.presentation.person_detail
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -41,6 +42,7 @@ import com.example.moviesaandseries.presentation.movie_list.MovieListScreenCellW
 import com.example.moviesaandseries.presentation.person_list.MoviesCastListState
 import com.example.moviesaandseries.presentation.person_list.SeriesCastListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreenCellPerson
+import com.example.moviesaandseries.ui.theme.BlueGrey11
 
 @Composable
 fun CastScreen(
@@ -57,7 +59,7 @@ fun CastScreen(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(color = Color.White),
+                    .background(color = if (isSystemInDarkTheme())  BlueGrey11 else Color.White),
                 contentPadding = PaddingValues(start = 15.dp, end = 15.dp, top = 15.dp)
             ) {
 
