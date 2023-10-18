@@ -106,8 +106,10 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
+
                         composable(AppGraph.home.ROOT) {
                             HomeScreen(
+
                                 userData = googleAuthUiClient.getSignedInUser(),
                                 onSignOut = {
                                     lifecycleScope.launch {
