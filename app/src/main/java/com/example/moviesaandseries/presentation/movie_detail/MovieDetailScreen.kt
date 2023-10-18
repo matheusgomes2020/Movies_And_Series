@@ -35,6 +35,8 @@ import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.domain.model.MovieFirebase
 import com.example.moviesaandseries.domain.model.Response
+import com.example.moviesaandseries.presentation.episode.EpisodeImageListItem
+import com.example.moviesaandseries.presentation.episode.ImagesCell
 import com.example.moviesaandseries.presentation.favorites.FavoriteViewModel
 import com.example.moviesaandseries.presentation.favorites.ProgressBar
 import com.example.moviesaandseries.presentation.movie_list.MovieListState
@@ -146,6 +148,10 @@ fun MovieDetailScreen(
                     if (!movie.reviews.results.isNullOrEmpty()) {
                         Spacer(modifier = Modifier.height( 16.dp ))
                         ReviewsCell(reviews = movie.reviews.results)
+                    }
+                    if (!movie.images.stills.isNullOrEmpty()) {
+                        Spacer(modifier = Modifier.height( 16.dp ))
+                        ImagesCell(images = movie.images.stills)
                     }
                 }
             }

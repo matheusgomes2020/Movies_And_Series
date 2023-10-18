@@ -1,9 +1,12 @@
 package com.example.moviesaandseries.presentation.signIn
 
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,6 +18,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,9 +31,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.moviesaandseries.R
+import com.example.moviesaandseries.ui.theme.fontFamily
 
 @Composable
 fun SignInScreen(
@@ -48,7 +57,8 @@ fun SignInScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(16.dp)
+            .background(Color.White),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -56,29 +66,79 @@ fun SignInScreen(
         ) {
 
 
-
-        Image(painterResource(id  = R.drawable.logo), contentDescription = "google logo",
-            modifier = Modifier.size(200.dp))
-        Spacer(modifier = Modifier.height(16.dp))
+            Image(painterResource(id  = R.drawable.logo), contentDescription = "app logo",
+                modifier = Modifier.size(200.dp))
+            Spacer(modifier = Modifier.height(160.dp))
         Row(
             modifier = Modifier
                 .clickable { onSignInClick() }
-                .width(100.dp)
-                .height(30.dp)
-                //.padding( 10.dp )
-                .clip(shape = RoundedCornerShape(10.dp))
-                .background(Color.LightGray),) {
-//            Icon(painterResource(id  = R.drawable.googlelogo), contentDescription = "google logo",
-//                modifier = Modifier.size(23.dp))
+                .padding(10.dp)
+                .border(
+                    border = BorderStroke(1.dp, Color.LightGray),
+                    shape = RoundedCornerShape(16.dp)
+                ),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+            ,) {
             Image(painterResource(id  = R.drawable.googlelogo), contentDescription = "google logo",
-                modifier = Modifier.size(30.dp)
-                    .padding(5.dp))
-            Text(text = "Login",
                 modifier = Modifier
-                    .padding( start = 5.dp ),
-                fontSize = 20.sp)
-
+                    .size(35.dp)
+                    .padding(start = 10.dp,
+                        top = 7.dp,
+                        bottom = 7.dp))
+            Text(text = "Login com o Google",
+                modifier = Modifier
+                    .padding( vertical = 7.dp, horizontal = 10.dp ),
+                fontSize = 16.sp,
+                fontFamily = fontFamily,
+                color = Color.DarkGray)
         }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun SignInScreen2(
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+            .background(Color.White),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
+
+            Image(painterResource(id  = R.drawable.logo), contentDescription = "app logo",
+                modifier = Modifier.size(200.dp))
+            Spacer(modifier = Modifier.height(160.dp))
+                Row(
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .border(
+                            border = BorderStroke(1.dp, Color.LightGray),
+                            shape = RoundedCornerShape(16.dp)
+                        ),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                    ,) {
+                    Image(painterResource(id  = R.drawable.googlelogo), contentDescription = "google logo",
+                        modifier = Modifier
+                            .size(35.dp)
+                            .padding(start = 10.dp,
+                                top = 7.dp,
+                                bottom = 7.dp))
+                    Text(text = "Login com o Google",
+                        modifier = Modifier
+                            .padding( vertical = 7.dp, horizontal = 10.dp ),
+                        fontSize = 16.sp,
+                        fontFamily = fontFamily,
+                        color = Color.DarkGray)
+                }
         }
     }
 }

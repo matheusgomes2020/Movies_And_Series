@@ -142,14 +142,6 @@ fun ImageListItem(
     }
 }
 
-@Composable
-fun ImagesCell(){
-    Column {
-        TextSubTitulos(title = "Imagens")
-        Spacer(modifier = Modifier.height(16.dp))
-        Text( text = "Imagens")
-    }
-}
 
 @Composable
 fun ImagesActorCell(

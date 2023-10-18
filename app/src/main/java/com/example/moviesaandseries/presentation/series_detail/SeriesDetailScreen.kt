@@ -25,6 +25,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.domain.model.MovieFirebase
 import com.example.moviesaandseries.domain.model.Response
+import com.example.moviesaandseries.presentation.episode.ImagesCell
 import com.example.moviesaandseries.presentation.favorites.FavoriteViewModel
 import com.example.moviesaandseries.presentation.favorites.ProgressBar
 import com.example.moviesaandseries.presentation.general.CastCell
@@ -149,6 +150,10 @@ fun SeriesDetailScreen(
                     if (!series.reviews.results.isNullOrEmpty()) {
                         Spacer(modifier = Modifier.height( 16.dp ))
                         ReviewsCell(reviews = series.reviews.results)
+                    }
+                    if (!series.images.stills.isNullOrEmpty()) {
+                        Spacer(modifier = Modifier.height( 16.dp ))
+                        ImagesCell(images = series.images.stills)
                     }
                 }
             }
