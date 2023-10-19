@@ -42,6 +42,37 @@ object SearchMoviesGraph {
     const val SEARCH_MOVIES = "searchMovies"
 }
 
+object MoviesGenresGraph {
+    const val ROOT = "movies_genres_graph"
+    const val GENRE_MOVIES = "genreMovies"
+}
+
+object PopularMoviesGraph {
+    const val ROOT = "popular_movies_graph"
+    const val POPULAR_MOVIES = "popularMovies"
+}
+
+object RatedMoviesGraph {
+    const val ROOT = "rated_movies_graph"
+    const val RATED_MOVIES = "ratedMovies"
+}
+
+object UpcomingMoviesGraph {
+    const val ROOT = "upcoming_movies_graph"
+    const val UPCOMING_MOVIES = "upcomingMovies"
+}
+
+object NowPlayingMoviesGraph {
+    const val ROOT = "nowPlaying_movies_graph"
+    const val NOW_PLAYING_MOVIES = "nowPlayingMovies"
+}
+
+object TrendingTodayMoviesGraph {
+    const val ROOT = "trending_Today_movies_graph"
+    const val TRENDING_TODAY_MOVIES = "trendingTodayMovies"
+}
+
+
 object DetailsGraph {
     const val ROOT = "details_graph"
     const val HELP= "details"
@@ -97,5 +128,11 @@ object AppGraph {
     val episode_details = EpisodeGraph
     val cast_details = CastGraph
     val image_cast_details = ImagePersonGraph
+    val movie_genres = MoviesGenresGraph
+    val popular_movies = PopularMoviesGraph
+    val rated_movies = RatedMoviesGraph
+    val upcoming_movies = UpcomingMoviesGraph
+    val now_Playing_movies = NowPlayingMoviesGraph
+    val trending_today_movies = TrendingTodayMoviesGraph
 
 }
