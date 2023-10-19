@@ -1,15 +1,13 @@
 package com.example.moviesaandseries.common.navigation2
 
-import android.window.SplashScreen
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.moviesaandseries.presentation.general.ScreenContent
-import com.example.moviesaandseries.presentation.home.HomeScreen
-import com.example.moviesaandseries.presentation.login.LoginContent
 import com.example.moviesaandseries.presentation.login.LoginContent2
-import com.example.moviesaandseries.presentation.movie_list.MovieListScreen
+import com.example.moviesaandseries.presentation.newUI.MoviesScreenNewUI
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreen
 import com.example.moviesaandseries.presentation.splash.AnimatedSplashScreen
 
@@ -56,7 +54,8 @@ fun HomeNavigation() {
         startDestination = Screens.MoviesScreen.name) {
 
         composable(Screens.MoviesScreen.name) {
-            MovieListScreen(navController = navController)
+            //MovieListScreen(navController = navController)
+            MoviesScreenNewUI(navController = navController, isSystemInDarkTheme())
         }
 
         composable(Screens.SeriesScreen.name) {

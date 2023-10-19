@@ -13,6 +13,11 @@ class MovieRepositoryImpl @Inject constructor(
     override suspend fun searchMovies( searchQuery: String ): List<MovieDto> {
         return api.searchMovies( searchQuery ).results
     }
+
+    override suspend fun getTrendingTodayMovies(): List<MovieDto> {
+        return api.getTrendingToday().results
+    }
+
     override suspend fun getPopularMovies(): List<MovieDto> {
         return api.getPopularMovies().results
     }

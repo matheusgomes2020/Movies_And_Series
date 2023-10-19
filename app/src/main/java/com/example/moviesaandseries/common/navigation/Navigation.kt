@@ -1,6 +1,7 @@
 package com.example.moviesaandseries.common.navigation
 
 import android.util.Log
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -23,6 +24,7 @@ import com.example.moviesaandseries.presentation.season.SeasonDetailScreen
 import com.example.moviesaandseries.presentation.series_detail.SeriesDetailScreen
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreen
 import com.example.moviesaandseries.presentation.favorites.ProfileScreen
+import com.example.moviesaandseries.presentation.newUI.MoviesScreenNewUI
 import com.example.moviesaandseries.presentation.signIn.UserData
 
 @Composable
@@ -72,7 +74,8 @@ fun HomeNavGraph(navController: NavHostController, userData: UserData?,
         startDestination = AppGraph.home.MOVIES
     ) {
         composable(route = AppGraph.home.MOVIES) {
-            MovieListScreen(navController = navController)
+            MoviesScreenNewUI(navController = navController, isSystemInDarkTheme())
+            //MovieListScreen(navController = navController)
         }
         composable(route = AppGraph.home.SERIES) {
             SeriesListScreen(navController = navController)

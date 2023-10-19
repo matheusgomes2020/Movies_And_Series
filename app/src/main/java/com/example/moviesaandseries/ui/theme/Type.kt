@@ -21,50 +21,99 @@ val provider = GoogleFont.Provider(
 
 val fontName = GoogleFont("Poppins")
 val fontNameLato = GoogleFont("Lato")
-val fontNameN = GoogleFont("nunito_sans")
-val fontNameR = GoogleFont("merriweather")
 
 
 val fontFamily = FontFamily(
     Font(googleFont = fontName, fontProvider = provider)
 )
 
+val fontFamily2 = FontFamily(
+    Font(R.font.nunito_bold, FontWeight.Bold),
+    Font(R.font.nunito_semibold, FontWeight.SemiBold),
+    Font(R.font.nunito_extra_bold, FontWeight.ExtraBold),
+    Font(R.font.nunito_light, FontWeight.Light),
+    Font(R.font.nunito_medium, FontWeight.Medium),
+    Font(R.font.nunito_regular, FontWeight.Normal)
+)
+
+val fontFamily3 = FontFamily(
+    Font(R.font.poppins_bold, FontWeight.Bold),
+    Font(R.font.poppins_semibold, FontWeight.SemiBold),
+    Font(R.font.poppins_extrabold, FontWeight.ExtraBold),
+    Font(R.font.poppins_light, FontWeight.Light),
+    Font(R.font.poppins_medium, FontWeight.Medium),
+    Font(R.font.poppins_regular, FontWeight.Normal)
+)
+
 val fontFamilyLato = FontFamily(
     Font(googleFont = fontNameLato, fontProvider = provider)
 )
 
-val fontFamilyN = FontFamily(
-    Font(googleFont = fontNameN, fontProvider = provider)
-
-)
-
-val fontFamilyR = FontFamily(
-    Font(googleFont = fontNameR, fontProvider = provider)
-)
 
 // Set of Material typography styles to start with
 val Typography = Typography(
+    headlineLarge = TextStyle(
+        fontFamily = fontFamily2,
+        fontWeight = FontWeight.Bold,
+        fontSize = SpDimensions.HeadlineLarge,
+        lineHeight = 28.sp,
+        letterSpacing = 0.5.sp
+    ),
     bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
+        fontFamily = fontFamily2,
+        fontWeight = FontWeight.Medium,
+        fontSize = SpDimensions.BodyLarge,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
-    )
-    /* Other default text styles to override
-    titleLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
     ),
-    labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
+    bodyMedium = TextStyle(
+        fontFamily = fontFamily2,
+        fontWeight = FontWeight.Normal,
+        fontSize = SpDimensions.BodyMedium,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
+    ),
+    bodySmall = TextStyle(
+        fontFamily = fontFamily2,
+        fontWeight = FontWeight.Normal,
+        fontSize = SpDimensions.BodySmall,
+        lineHeight = 20.sp,
+        letterSpacing = 0.5.sp
+    ),
+    titleMedium = TextStyle(
+        fontFamily = fontFamily3,
+        fontWeight = FontWeight.Normal,
+        fontSize = SpDimensions.TitleLarge,
+        lineHeight = 22.sp,
+        letterSpacing = 0.5.sp
+    ),
+    titleLarge = TextStyle(
+        fontFamily = fontFamily2,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = SpDimensions.TitleLarge,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
+    ),
+    headlineMedium = TextStyle(
+        fontFamily = fontFamily2,
+        fontWeight = FontWeight.Bold,
+        fontSize = SpDimensions.HeadlineMedium,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
+    ),
+    titleSmall = TextStyle(
+        fontFamily = fontFamily2,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = SpDimensions.TitleSmall,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
+    ),
+    headlineSmall =TextStyle(
+        fontFamily = fontFamily2,
+        fontWeight = FontWeight.Bold,
+        fontSize = SpDimensions.HeadlineSmall,
+        lineHeight = 22.sp,
         letterSpacing = 0.5.sp
     )
-    */
+
 )

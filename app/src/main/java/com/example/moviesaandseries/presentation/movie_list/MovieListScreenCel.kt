@@ -1,6 +1,8 @@
 package com.example.moviesaandseries.presentation.movie_list
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
@@ -16,12 +18,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.domain.repository.Movies
-import com.example.moviesaandseries.presentation.favorites.MovieFirebaseState
 import com.example.moviesaandseries.presentation.person_list.MoviesCastListState
 import com.example.moviesaandseries.presentation.general.ShimmerListItem
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListItem
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListItemFirebase
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListItemWork
+import com.example.moviesaandseries.presentation.newUI.DpDimensions
+import com.example.moviesaandseries.presentation.newUI.MovieItemNewUi
+import com.example.moviesaandseries.presentation.newUI.TrendingCard
 
 @Composable
 fun MovieListScreenCell(
@@ -30,37 +34,7 @@ fun MovieListScreenCell(
 
 ){
 
-//    var isLoading by remember {
-//        mutableStateOf(state.isLoading)
-//    }
-//LaunchedEffect(key1 = true ) {
-//    delay(1000)
-//    isLoading = false
-//}
-//    LazyRow(
-//        modifier = Modifier
-//            .fillMaxSize()
-//    ) {
-//        items( state.movies ) { movie ->
-//            ShimmerListItem(
-//                isLoading =  isLoading,
-//                contentAfterLoading = {
-//                    MovieListItem(
-//                    movie = movie,
-//                    onItemClick = {
-//                        navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
-//                    }
-//                )
-//                },
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(16.dp)
-//            )
-//        }
-//    }
-
     Box(
-        //  modifier = Modifier.fillMaxSize()
     ) {
 
         LazyRow {
@@ -89,6 +63,90 @@ fun MovieListScreenCell(
                 items(20) {
                    ShimmerListItem(isLoading = true,
                        contentAfterLoading = { /*TODO*/ })
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun MovieTrendingCell(
+    navController: NavController,
+    state: MovieListState,
+    ){
+
+    Box(
+    ) {
+
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
+                contentPadding = PaddingValues(horizontal = 16.dp),
+        ) {
+            items(state.movies) { movie ->
+                TrendingCard(movie = movie, onClick = {
+                    navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
+                } )
+            }
+        }
+        if ( state.error.isNotBlank() ) {
+            Text(
+                text = state.error,
+                color = MaterialTheme.colorScheme.error,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+                    .align(Alignment.Center)
+            )
+        }
+        if(state.isLoading) {
+            LazyRow {
+                items(20) {
+                    Text(text = "Carregando")
+//                    ShimmerListItem(isLoading = true,
+//                        contentAfterLoading = { /*TODO*/ })
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun MovieNewUICell(
+    navController: NavController,
+    state: MovieListState,
+){
+
+    Box(
+    ) {
+
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
+            contentPadding = PaddingValues(horizontal = 16.dp),
+        ) {
+            items(state.movies) { movie ->
+                MovieItemNewUi(movie = movie, onClick = {
+                    navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
+                } )
+            }
+        }
+        if ( state.error.isNotBlank() ) {
+            Text(
+                text = state.error,
+                color = MaterialTheme.colorScheme.error,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+                    .align(Alignment.Center)
+            )
+        }
+        if(state.isLoading) {
+            LazyRow {
+                items(20) {
+                    Text(text = "Carregando")
+//                    ShimmerListItem(isLoading = true,
+//                        contentAfterLoading = { /*TODO*/ })
                 }
             }
         }
