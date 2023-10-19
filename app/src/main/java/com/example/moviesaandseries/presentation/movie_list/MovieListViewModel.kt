@@ -2,11 +2,8 @@ package com.example.moviesaandseries.presentation.movie_list
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.moviesaandseries.common.Constants
-import com.example.moviesaandseries.common.Constants.TYPE
 import com.example.moviesaandseries.common.Resource
 import com.example.moviesaandseries.domain.use_case.get_movies.GetNowPlayingMoviesUseCase
 import com.example.moviesaandseries.domain.use_case.get_movies.GetPopularMoviesUseCase
@@ -24,9 +21,7 @@ class MovieListViewModel @Inject constructor(
     private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
     private val getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase,
     private val getNowPlayingMoviesUseCase: GetNowPlayingMoviesUseCase,
-    private val getRatedMoviesUseCase: GetRatedMoviesUseCase,
-    savedStateHandle: SavedStateHandle
-
+    private val getRatedMoviesUseCase: GetRatedMoviesUseCase
 ): ViewModel(){
 
     private val _stateTrendingToday = mutableStateOf(MovieListState())
@@ -42,9 +37,6 @@ class MovieListViewModel @Inject constructor(
     val stateRated: State<MovieListState> = _stateRated
 
     init {
-        savedStateHandle.get<String>(TYPE)?.let { type ->
-
-        }
         getTrendingTodayMovies()
         getPopularMovies()
         getUpcomingMovies()

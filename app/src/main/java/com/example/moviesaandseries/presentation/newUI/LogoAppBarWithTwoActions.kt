@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -76,47 +74,15 @@ fun LogoAppBarWithTwoActions(
                 )
             }
 
-        }
-    }
-}
-
-@Composable
-fun AppBarWithBack(
-    modifier: Modifier = Modifier,
-    //onSearchClick: () -> Unit = {},
-    onBackClick: () -> Unit = {},
-    title: String,
-    backIcon: ImageVector
-) {
-    Box(
-        modifier = modifier.background(MaterialTheme.colorScheme.background),
-        contentAlignment = Alignment.Center,
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(
-                horizontal = DpDimensions.Smallest,
-                vertical = DpDimensions.Small
-            )
-        ) {
-
-            IconButton(onClick = onBackClick) {
-                Icon(
-                    imageVector = backIcon,
-                    contentDescription = null,
-                    //tint = MaterialTheme.colorScheme.inversePrimary
-                )
-            }
-
-            Text(
-                text = title,
-                style = MaterialTheme.typography.headlineMedium,
-                //color = MaterialTheme.colorScheme.inversePrimary,
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(start = DpDimensions.Normal),
-                textAlign = TextAlign.Start,
-            )
+//            if (isNotificationIconVisible) {
+//                IconButton(onClick = onNotificationClick) {
+//                    Icon(
+//                        painter = painterResource(id = icon2),
+//                        contentDescription = null,
+//                        tint = MaterialTheme.colorScheme.inversePrimary
+//                    )
+//                }
+//            }
         }
     }
 }
@@ -124,16 +90,6 @@ fun AppBarWithBack(
 
 
 
-@Preview
-@Composable
-fun AppBarWithSearchPreview() {
-    MoviesAandSeriesTheme {
-        AppBarWithBack(
-            title = "Aventura",
-            backIcon = Icons.Default.ArrowBack
-        )
-    }
-}
 
 @Preview
 @Preview(uiMode = UI_MODE_NIGHT_YES)

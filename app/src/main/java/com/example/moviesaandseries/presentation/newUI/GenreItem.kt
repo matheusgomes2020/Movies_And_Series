@@ -27,21 +27,29 @@ import com.example.moviesaandseries.ui.theme.MoviesAandSeriesTheme
 
 @Composable
 fun GenreItem(
+    modifier: Modifier = Modifier,
     genre: Genre,
-    onClick: (Genre) -> Unit,
+    onClick: (Genre) -> Unit = {},
     height: Dp = 118.dp
 ) {
+
     Surface(
         shape = RoundedCornerShape(DpDimensions.Dp20),
-        modifier = Modifier
+        modifier = modifier
             .width(170.dp)
             .height(height),
         onClick = { onClick(genre) }
     ) {
+
+
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(genre.color)
+//                .paint(
+//                    painter = painterResource(id = genre.image),
+//                    contentScale = ContentScale.Crop
+//                )
                 .background(
                     brush = Brush.verticalGradient(
                         listOf(
@@ -50,10 +58,13 @@ fun GenreItem(
                             Color.Black
                         )
                     ),
+//                RoundedCornerShape(DpDimensions.Small)
                 )
                 .clip(RoundedCornerShape(DpDimensions.Small)),
             contentAlignment = Alignment.BottomStart
         ) {
+
+
             Column(
                 modifier = Modifier.padding(DpDimensions.Normal)
             ) {
@@ -72,11 +83,11 @@ fun GenreItem(
 
 
 
-//@Preview
-//@Composable
-//fun CollectionItemPreview() {
-//    MoviesAandSeriesTheme {
-//        GenreItem(genre = genres[0])
-//    }
-//}
+@Preview
+@Composable
+fun CollectionItemPreview() {
+    MoviesAandSeriesTheme {
+        GenreItem(genre = genres[0])
+    }
+}
 

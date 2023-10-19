@@ -1,7 +1,5 @@
 package com.example.moviesaandseries.presentation.newUI
 
-import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,7 +12,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -61,7 +58,7 @@ fun MoviesScreenNewUI(navController: NavController,
         topBar = {
             LogoAppBarWithTwoActions(
                 icon1 = R.drawable.search,
-                title = "Filmes",
+                title = "Movies",
                 onLogoClick = {},
                 onSearchClick = {
                     navController.navigate( AppGraph.search_movies.SEARCH_MOVIES + "/${"gameN"}" )
@@ -74,17 +71,12 @@ fun MoviesScreenNewUI(navController: NavController,
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
                 .fillMaxSize()
-                .background(color =if (useDarkIcons)
-                    Color.White else DarkGrey11)
         ) {
             CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
                 SubtitleHeader(
                     title = "Tendência hoje",
                     modifier = Modifier.fillMaxWidth(),
-                    isSystemInDarkTheme = true,
-                    onClick = {
-                        navController.navigate(AppGraph.trending_today_movies.TRENDING_TODAY_MOVIES)
-                    }
+                    onClick = {  }
                 )
             }
             MovieTrendingCell(navController = navController, state = stateTrendingToday)
@@ -95,7 +87,6 @@ fun MoviesScreenNewUI(navController: NavController,
                 SubtitleHeader(
                     title = "Gêneros",
                     modifier = Modifier.fillMaxWidth(),
-                    isSystemInDarkTheme = true,
                     onClick = {  }
                 )
             }
@@ -105,9 +96,7 @@ fun MoviesScreenNewUI(navController: NavController,
                 contentPadding = PaddingValues(horizontal = 16.dp),
             ) {
                 items(genres) { genre ->
-                    GenreItem(genre = genre, onClick = {
-                        navController.navigate( AppGraph.movie_genres.GENRE_MOVIES + "/${"1"}/${genre.id}/${genre.title}" )
-                    })
+                    GenreItem(genre = genre)
                 }
             }
             Spacer(modifier = Modifier.height(DpDimensions.Small))
@@ -115,10 +104,7 @@ fun MoviesScreenNewUI(navController: NavController,
                 SubtitleHeader(
                     title = "Em alta",
                     modifier = Modifier.fillMaxWidth(),
-                    isSystemInDarkTheme = true,
-                    onClick = {
-                        navController.navigate(AppGraph.popular_movies.POPULAR_MOVIES)
-                    }
+                    onClick = {  }
                 )
             }
             MovieNewUICell(navController = navController, state = statePopular)
@@ -127,11 +113,7 @@ fun MoviesScreenNewUI(navController: NavController,
                 SubtitleHeader(
                     title = "Em cartaz",
                     modifier = Modifier.fillMaxWidth(),
-                    isSystemInDarkTheme = true,
-                    onClick = {
-                        navController.navigate(AppGraph.now_Playing_movies.NOW_PLAYING_MOVIES)
-
-                    }
+                    onClick = {  }
                 )
             }
             MovieNewUICell(navController = navController, state = stateNowPlaying)
@@ -140,11 +122,7 @@ fun MoviesScreenNewUI(navController: NavController,
                 SubtitleHeader(
                     title = "Lançamentos",
                     modifier = Modifier.fillMaxWidth(),
-                    isSystemInDarkTheme = true,
-                    onClick = {
-                        navController.navigate(AppGraph.upcoming_movies.UPCOMING_MOVIES)
-
-                    }
+                    onClick = {  }
                 )
             }
             MovieNewUICell(navController = navController, state = stateUpcoming)
@@ -153,11 +131,7 @@ fun MoviesScreenNewUI(navController: NavController,
                 SubtitleHeader(
                     title = "Melhores avaliados",
                     modifier = Modifier.fillMaxWidth(),
-                    isSystemInDarkTheme = true,
-                    onClick = {
-                        navController.navigate(AppGraph.rated_movies.RATED_MOVIES)
-
-                    }
+                    onClick = {  }
                 )
             }
             MovieNewUICell(navController = navController, state = stateRated)
@@ -165,7 +139,6 @@ fun MoviesScreenNewUI(navController: NavController,
         }
     }
 }
-
 
 @Preview
 @Composable
