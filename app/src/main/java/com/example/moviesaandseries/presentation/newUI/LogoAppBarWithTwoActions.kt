@@ -26,7 +26,7 @@ import com.example.moviesaandseries.R
 import com.example.moviesaandseries.ui.theme.MoviesAandSeriesTheme
 
 @Composable
-fun LogoAppBarWithTwoActions(
+fun MainAppBar(
     modifier: Modifier = Modifier,
     onSearchClick: () -> Unit = {},
     //onNotificationClick: () -> Unit = {},
@@ -96,7 +96,7 @@ fun LogoAppBarWithTwoActions(
 @Composable
 fun LogoAppBarWithTwoActionsPreview() {
     MoviesAandSeriesTheme {
-        LogoAppBarWithTwoActions(
+        MainAppBar(
             icon1 = R.drawable.search,
             //icon2 = R.drawable.notification,
             title = stringResource(id = R.string.app_name)

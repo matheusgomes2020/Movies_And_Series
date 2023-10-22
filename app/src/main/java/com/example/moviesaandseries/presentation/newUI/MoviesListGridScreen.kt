@@ -1,7 +1,5 @@
 package com.example.moviesaandseries.presentation.newUI
 
-import com.example.moviesaandseries.presentation.movies_genres.MoviesGenresViewModel
-
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -22,14 +20,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.presentation.movie_list.MovieListState
 import com.example.moviesaandseries.presentation.movie_list.MovieListViewModel
-import com.example.moviesaandseries.presentation.newUI.AppBarWithBack
-import com.example.moviesaandseries.presentation.newUI.DpDimensions
-import com.example.moviesaandseries.presentation.newUI.LogoAppBarWithTwoActions
-import com.example.moviesaandseries.presentation.newUI.MovieItemNewUi
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 
 
