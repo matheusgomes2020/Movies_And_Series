@@ -83,6 +83,7 @@ fun MoviesScreenNewUI(navController: NavController,
                     modifier = Modifier.fillMaxWidth(),
                     isSystemInDarkTheme = true,
                     onClick = {
+
                         navController.navigate(AppGraph.trending_today_movies.TRENDING_TODAY_MOVIES)
                     }
                 )
