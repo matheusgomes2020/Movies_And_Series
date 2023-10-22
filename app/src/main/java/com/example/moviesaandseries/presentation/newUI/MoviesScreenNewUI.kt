@@ -1,6 +1,5 @@
 package com.example.moviesaandseries.presentation.newUI
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,7 +13,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -59,12 +57,12 @@ fun MoviesScreenNewUI(navController: NavController,
 
     Scaffold(
         topBar = {
-            LogoAppBarWithTwoActions(
+            MainAppBar(
                 icon1 = R.drawable.search,
                 title = "Filmes",
                 onLogoClick = {},
                 onSearchClick = {
-                    navController.navigate( AppGraph.search_movies.SEARCH_MOVIES + "/${"gameN"}" )
+                    navController.navigate( AppGraph.search_movies.SEARCH_MOVIES + "/${" "}" )
                 })
         }
     ) {
@@ -102,7 +100,9 @@ fun MoviesScreenNewUI(navController: NavController,
                 horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
                 contentPadding = PaddingValues(horizontal = 16.dp),
             ) {
-                items(genres) { genre ->
+                items(genres.filter {  genre ->
+                    genre.type == 1 || genre.type == 3
+                }) { genre ->
                     GenreItem(genre = genre, onClick = {
                         navController.navigate( AppGraph.movie_genres.GENRE_MOVIES + "/${"1"}/${genre.id}/${genre.title}" )
                     }) } }

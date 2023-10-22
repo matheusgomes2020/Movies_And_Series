@@ -23,7 +23,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.navigation.AppGraph
-import com.example.moviesaandseries.presentation.movie_list.MovieTrendingCell
 import com.example.moviesaandseries.presentation.movie_list.SeriesNewUICell
 import com.example.moviesaandseries.presentation.movie_list.SeriesTrendingCell
 import com.example.moviesaandseries.presentation.series_list.SeriesListViewModel
@@ -55,12 +54,12 @@ fun SeriesScreenNewUI(navController: NavController,
 
     Scaffold(
         topBar = {
-            LogoAppBarWithTwoActions(
+            MainAppBar(
                 icon1 = R.drawable.search,
                 title = "Séries",
                 onLogoClick = {},
                 onSearchClick = {
-                    navController.navigate( AppGraph.search_movies.SEARCH_MOVIES + "/${"gameN"}" )
+                    navController.navigate( AppGraph.search_series.SEARCH_SERIES + "/${" "}" )
                 })
         }
     ) {
@@ -98,7 +97,9 @@ fun SeriesScreenNewUI(navController: NavController,
                 horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
                 contentPadding = PaddingValues(horizontal = 16.dp),
             ) {
-                items(genres) { genre ->
+                items(genres.filter {  genre ->
+                   genre.type == 2 || genre.type == 3
+                }) { genre ->
                     GenreItem(genre = genre, onClick = {
                         navController.navigate( AppGraph.series_genres.GENRE_SERIES + "/${"1"}/${genre.id}/${genre.title}" )
                     }) } }

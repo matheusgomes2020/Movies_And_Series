@@ -37,7 +37,7 @@ data class Genre(
 val genres = listOf(
     Genre(title = "Ação", image = R.drawable.logo, color = Grey62, id = "28", type = 1), ////
     Genre(title = "Aventura", image = R.drawable.logo, color = Coral70,id = "12", type = 1), ////
-    Genre(title = "Ação e aventura", image = R.drawable.logo, color = Coral70,id = "10759", type = 2),///
+    Genre(title = "Ação e aventura", image = R.drawable.logo, color = DarkSlateBlue14,id = "10759", type = 2),///
     Genre(title = "Animação", image = R.drawable.logo, color = Amarelo2,id = "16", type = 3), //
     Genre(title = "Comédia", image = R.drawable.logo, color = Green67, id = "35", type = 3), //
     Genre(title = "Crime", image = R.drawable.logo, color = BlueGrey11,id = "80", type = 3), //

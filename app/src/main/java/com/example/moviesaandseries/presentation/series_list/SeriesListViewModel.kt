@@ -36,6 +36,7 @@ class SeriesListViewModel @Inject constructor(
 
     init {
 
+        getTrendingTodaySeries()
         getPopularSeries()
         getOnAirSeries()
         getAiringTodaySeries()
