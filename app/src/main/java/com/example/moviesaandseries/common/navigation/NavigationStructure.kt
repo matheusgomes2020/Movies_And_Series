@@ -72,6 +72,36 @@ object TrendingTodayMoviesGraph {
     const val TRENDING_TODAY_MOVIES = "trendingTodayMovies"
 }
 
+object SeriesGenresGraph {
+    const val ROOT = "series_genres_graph"
+    const val GENRE_SERIES = "genreSeries"
+}
+
+object PopularSeriesGraph {
+    const val ROOT = "popular_series_graph"
+    const val POPULAR_SERIES = "popularSeries"
+}
+
+object RatedSeriesGraph {
+    const val ROOT = "rated_series_graph"
+    const val RATED_SERIES = "ratedSeries"
+}
+
+object OnAirSeriesGraph {
+    const val ROOT = "onAir_series_graph"
+    const val ON_AIR_SERIES = "onAirSeries"
+}
+
+object AiryingTodaySeriesGraph {
+    const val ROOT = "airyingToday_series_graph"
+    const val AIRYING_TODAY_SERIES = "airyingTodaySeries"
+}
+
+object TrendingTodaySeriesGraph {
+    const val ROOT = "trending_Today_series_graph"
+    const val TRENDING_TODAY_SERIES= "trendingTodaySeries"
+}
+
 
 object DetailsGraph {
     const val ROOT = "details_graph"
@@ -134,5 +164,15 @@ object AppGraph {
     val upcoming_movies = UpcomingMoviesGraph
     val now_Playing_movies = NowPlayingMoviesGraph
     val trending_today_movies = TrendingTodayMoviesGraph
+    val series_genres = SeriesGenresGraph
+    val popular_series = PopularSeriesGraph
+    val rated_series = RatedSeriesGraph
+    val airying_today_series = AiryingTodaySeriesGraph
+    val on_air_series = OnAirSeriesGraph
+    val trending_today_series = TrendingTodaySeriesGraph
+
+
+
+
 
 }

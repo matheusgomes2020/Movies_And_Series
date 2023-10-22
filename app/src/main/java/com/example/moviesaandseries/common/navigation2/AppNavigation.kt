@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.moviesaandseries.presentation.general.ScreenContent
 import com.example.moviesaandseries.presentation.login.LoginContent2
 import com.example.moviesaandseries.presentation.newUI.MoviesScreenNewUI
+import com.example.moviesaandseries.presentation.newUI.SeriesScreenNewUI
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreen
 import com.example.moviesaandseries.presentation.splash.AnimatedSplashScreen
 
@@ -59,7 +60,8 @@ fun HomeNavigation() {
         }
 
         composable(Screens.SeriesScreen.name) {
-            SeriesListScreen( navController = navController )
+            SeriesScreenNewUI(navController = navController, isSystemInDarkTheme = isSystemInDarkTheme() )
+            //SeriesListScreen( navController = navController )
         }
 
         composable(Screens.FavoritesScreen.name) {

@@ -25,7 +25,10 @@ import com.example.moviesaandseries.presentation.movie_list.components.MovieList
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListItemWork
 import com.example.moviesaandseries.presentation.newUI.DpDimensions
 import com.example.moviesaandseries.presentation.newUI.MovieItemNewUi
+import com.example.moviesaandseries.presentation.newUI.SeriesItemNewUi
 import com.example.moviesaandseries.presentation.newUI.TrendingCard
+import com.example.moviesaandseries.presentation.newUI.TrendingCardSeries
+import com.example.moviesaandseries.presentation.series_list.SeriesListState
 
 @Composable
 fun MovieListScreenCell(
@@ -112,6 +115,48 @@ fun MovieTrendingCell(
 }
 
 @Composable
+fun SeriesTrendingCell(
+    navController: NavController,
+    state: SeriesListState,
+){
+
+    Box(
+    ) {
+
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
+            contentPadding = PaddingValues(horizontal = 16.dp),
+        ) {
+            items(state.series) { series ->
+                TrendingCardSeries(series = series, onClick = {
+                    navController.navigate(AppGraph.series_details.DETAILS + "/${series.id}")
+                } )
+            }
+        }
+        if ( state.error.isNotBlank() ) {
+            Text(
+                text = state.error,
+                color = MaterialTheme.colorScheme.error,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+                    .align(Alignment.Center)
+            )
+        }
+        if(state.isLoading) {
+            LazyRow {
+                items(20) {
+                    Text(text = "Carregando")
+//                    ShimmerListItem(isLoading = true,
+//                        contentAfterLoading = { /*TODO*/ })
+                }
+            }
+        }
+    }
+}
+
+@Composable
 fun MovieNewUICell(
     navController: NavController,
     state: MovieListState,
@@ -127,6 +172,48 @@ fun MovieNewUICell(
             items(state.movies) { movie ->
                 MovieItemNewUi(movie = movie, onClick = {
                     navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
+                } )
+            }
+        }
+        if ( state.error.isNotBlank() ) {
+            Text(
+                text = state.error,
+                color = MaterialTheme.colorScheme.error,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+                    .align(Alignment.Center)
+            )
+        }
+        if(state.isLoading) {
+            LazyRow {
+                items(20) {
+                    Text(text = "Carregando")
+//                    ShimmerListItem(isLoading = true,
+//                        contentAfterLoading = { /*TODO*/ })
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun SeriesNewUICell(
+    navController: NavController,
+    state: SeriesListState,
+){
+
+    Box(
+    ) {
+
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
+            contentPadding = PaddingValues(horizontal = 16.dp),
+        ) {
+            items(state.series) { series ->
+                SeriesItemNewUi(series = series, onClick = {
+                    navController.navigate(AppGraph.series_details.DETAILS + "/${series.id}")
                 } )
             }
         }

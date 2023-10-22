@@ -18,8 +18,6 @@ interface MovieApi {
 
     ): Movies
 
-    //https://api.themoviedb.org/3/trending/movie/day?language=pt-BR&api_key=0f5183b12ca04341d5f0f71d8bc698b5
-
     @GET("trending/movie/day?language=pt-BR&api_key=$API_KEY")
     suspend fun getTrendingToday() : Movies
     @GET("movie/upcoming?language=pt-BR&api_key=$API_KEY")
@@ -41,8 +39,6 @@ interface MovieApi {
         @Query("sort_by") sortBy: String = "popularity.desc",
         @Query("page") pageNumber: String,
         @Query("with_genres") genreID: String) : Movies
-
-    //https://api.themoviedb.org/3/discover/movie?&language=?pt-BR&api_key=0f5183b12ca04341d5f0f71d8bc698b5&page=1&sort_by=popularity.desc&with_genres=10749
 
     @GET("movie/{movieID}?language=pt-BR&api_key=$API_KEY&append_to_response=videos,images,reviews,similar,credits,recommendations")
     suspend fun  getMovieInfo(@Path("movieID") movieId: String) : MovieDetailDto

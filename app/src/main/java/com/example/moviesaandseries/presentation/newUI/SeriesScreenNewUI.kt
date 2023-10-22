@@ -1,6 +1,5 @@
 package com.example.moviesaandseries.presentation.newUI
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,31 +13,28 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.presentation.movie_list.MovieTrendingCell
-import com.example.moviesaandseries.presentation.movie_list.MovieListViewModel
-import com.example.moviesaandseries.presentation.movie_list.MovieNewUICell
+import com.example.moviesaandseries.presentation.movie_list.SeriesNewUICell
+import com.example.moviesaandseries.presentation.movie_list.SeriesTrendingCell
+import com.example.moviesaandseries.presentation.series_list.SeriesListViewModel
 import com.example.moviesaandseries.ui.theme.DarkGrey11
-import com.example.moviesaandseries.ui.theme.MoviesAandSeriesTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 
 @Composable
-fun MoviesScreenNewUI(navController: NavController,
+fun SeriesScreenNewUI(navController: NavController,
                       isSystemInDarkTheme: Boolean,
-                      viewModel: MovieListViewModel = hiltViewModel()
+                      viewModel: SeriesListViewModel = hiltViewModel()
           ){
     val systemUiController = rememberSystemUiController()
     val useDarkIcons = !isSystemInDarkTheme
@@ -53,15 +49,15 @@ fun MoviesScreenNewUI(navController: NavController,
 
     val stateTrendingToday = viewModel.stateTrendingToday.value
     val statePopular = viewModel.statePopular.value
-    val stateUpcoming = viewModel.stateUpcoming.value
-    val stateNowPlaying = viewModel.stateNowPlaying.value
+    val stateAiringToday = viewModel.stateAiryngToday.value
+    val stateOnAir = viewModel.stateOnAir.value
     val stateRated = viewModel.stateRated.value
 
     Scaffold(
         topBar = {
             LogoAppBarWithTwoActions(
                 icon1 = R.drawable.search,
-                title = "Filmes",
+                title = "Séries",
                 onLogoClick = {},
                 onSearchClick = {
                     navController.navigate( AppGraph.search_movies.SEARCH_MOVIES + "/${"gameN"}" )
@@ -83,11 +79,11 @@ fun MoviesScreenNewUI(navController: NavController,
                     modifier = Modifier.fillMaxWidth(),
                     isSystemInDarkTheme = true,
                     onClick = {
-                        navController.navigate(AppGraph.trending_today_movies.TRENDING_TODAY_MOVIES)
+                        navController.navigate(AppGraph.trending_today_series.TRENDING_TODAY_SERIES)
                     }
                 )
             }
-            MovieTrendingCell(navController = navController, state = stateTrendingToday)
+            SeriesTrendingCell(navController = navController, state = stateTrendingToday)
             Spacer(modifier = Modifier.height(DpDimensions.Small))
             CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
                 SubtitleHeader(
@@ -104,8 +100,29 @@ fun MoviesScreenNewUI(navController: NavController,
             ) {
                 items(genres) { genre ->
                     GenreItem(genre = genre, onClick = {
-                        navController.navigate( AppGraph.movie_genres.GENRE_MOVIES + "/${"1"}/${genre.id}/${genre.title}" )
+                        navController.navigate( AppGraph.series_genres.GENRE_SERIES + "/${"1"}/${genre.id}/${genre.title}" )
                     }) } }
+            Spacer(modifier = Modifier.height(DpDimensions.Small))
+            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
+                SubtitleHeader(
+                    title = "No ar hoje",
+                    modifier = Modifier.fillMaxWidth(),
+                    isSystemInDarkTheme = true,
+                    onClick = {
+                        navController.navigate(AppGraph.airying_today_series.AIRYING_TODAY_SERIES) }
+                ) }
+            SeriesNewUICell(navController = navController, state = stateAiringToday)
+            Spacer(modifier = Modifier.height(DpDimensions.Small))
+            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
+                SubtitleHeader(
+                    title = "No ar",
+                    modifier = Modifier.fillMaxWidth(),
+                    isSystemInDarkTheme = true,
+                    onClick = {
+                        navController.navigate(AppGraph.on_air_series.ON_AIR_SERIES) }
+                )
+            }
+            SeriesNewUICell(navController = navController, state = stateOnAir)
             Spacer(modifier = Modifier.height(DpDimensions.Small))
             CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
                 SubtitleHeader(
@@ -113,53 +130,24 @@ fun MoviesScreenNewUI(navController: NavController,
                     modifier = Modifier.fillMaxWidth(),
                     isSystemInDarkTheme = true,
                     onClick = {
-                        navController.navigate(AppGraph.popular_movies.POPULAR_MOVIES) }
-                ) }
-            MovieNewUICell(navController = navController, state = statePopular)
-            Spacer(modifier = Modifier.height(DpDimensions.Small))
-            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-                SubtitleHeader(
-                    title = "Em cartaz",
-                    modifier = Modifier.fillMaxWidth(),
-                    isSystemInDarkTheme = true,
-                    onClick = {
-                        navController.navigate(AppGraph.now_Playing_movies.NOW_PLAYING_MOVIES) }
-                )
-            }
-            MovieNewUICell(navController = navController, state = stateNowPlaying)
-            Spacer(modifier = Modifier.height(DpDimensions.Small))
-            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-                SubtitleHeader(
-                    title = "Lançamentos",
-                    modifier = Modifier.fillMaxWidth(),
-                    isSystemInDarkTheme = true,
-                    onClick = {
-                        navController.navigate(AppGraph.upcoming_movies.UPCOMING_MOVIES)
+                        navController.navigate(AppGraph.popular_series.POPULAR_SERIES)
                     }
                 )
             }
-            MovieNewUICell(navController = navController, state = stateUpcoming)
+            SeriesNewUICell(navController = navController, state = statePopular)
             Spacer(modifier = Modifier.height(DpDimensions.Small))
             CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
                 SubtitleHeader(
-                    title = "Melhores avaliados",
+                    title = "Melhores avaliadas",
                     modifier = Modifier.fillMaxWidth(),
                     isSystemInDarkTheme = true,
                     onClick = {
-                        navController.navigate(AppGraph.rated_movies.RATED_MOVIES) }
+                        navController.navigate(AppGraph.rated_series.RATED_SERIES) }
                 )
             }
-            MovieNewUICell(navController = navController, state = stateRated)
+            SeriesNewUICell(navController = navController, state = stateRated)
             Spacer(modifier = Modifier.height(60.dp))
         }
     }
 }
 
-
-@Preview
-@Composable
-fun PreviewC(){
-    MoviesAandSeriesTheme {
-        MoviesScreenNewUI(rememberNavController(), false)
-    }
-}
