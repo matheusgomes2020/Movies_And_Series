@@ -27,6 +27,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.domain.model.Movie
+import com.example.moviesaandseries.domain.model.Series
 import com.example.moviesaandseries.ui.theme.MoviesAandSeriesTheme
 
 @Composable
@@ -72,6 +73,59 @@ fun MovieItemNewUi(
                 Text(
                     modifier = Modifier.width(110.dp),
                     text = movie.title,
+                    style = MaterialTheme.typography.titleSmall,
+                    color = Color.White,
+                    maxLines = 1
+                )
+            }
+        }
+    }
+
+}
+
+@Composable
+fun SeriesItemNewUi(
+    series: Series,
+    onClick: (Series) -> Unit,
+    height: Dp = 170.dp
+){
+
+    Surface(
+        shape = RoundedCornerShape(DpDimensions.Dp20),
+        modifier = Modifier
+            .width(120.dp)
+            .height(height),
+        onClick = { onClick(series) }
+    ) {
+
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .paint(
+                    painter = rememberAsyncImagePainter(model = if (!series.poster_path.isNullOrEmpty()) Constants.BASE_IMAGE_URL + series.poster_path else R.drawable.logo) ,
+                    contentScale = ContentScale.Crop
+                )
+                .background(
+                    brush = Brush.verticalGradient(
+                        listOf(
+                            Color.Transparent,
+                            Color.Transparent,
+                            Color.Black
+                        )
+                    ),
+                )
+                .clip(RoundedCornerShape(DpDimensions.Small)),
+            contentAlignment = Alignment.BottomStart
+        ) {
+
+
+            Column(
+                modifier = Modifier.padding(DpDimensions.Small)
+            ) {
+                Text(
+                    modifier = Modifier.width(110.dp),
+                    text = series.name,
                     style = MaterialTheme.typography.titleSmall,
                     color = Color.White,
                     maxLines = 1

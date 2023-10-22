@@ -24,7 +24,12 @@ import com.example.moviesaandseries.presentation.season.SeasonDetailScreen
 import com.example.moviesaandseries.presentation.series_detail.SeriesDetailScreen
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreen
 import com.example.moviesaandseries.presentation.favorites.ProfileScreen
+import com.example.moviesaandseries.presentation.movies_genres.MovieGenresScreen
+import com.example.moviesaandseries.presentation.movies_genres.SeriesGenresScreen
+import com.example.moviesaandseries.presentation.newUI.MoviesListGridScreen
 import com.example.moviesaandseries.presentation.newUI.MoviesScreenNewUI
+import com.example.moviesaandseries.presentation.newUI.SeriesListGidScreen
+import com.example.moviesaandseries.presentation.newUI.SeriesScreenNewUI
 import com.example.moviesaandseries.presentation.signIn.UserData
 
 @Composable
@@ -78,7 +83,8 @@ fun HomeNavGraph(navController: NavHostController, userData: UserData?,
             //MovieListScreen(navController = navController)
         }
         composable(route = AppGraph.home.SERIES) {
-            SeriesListScreen(navController = navController)
+            SeriesScreenNewUI(navController = navController, isSystemInDarkTheme = isSystemInDarkTheme() )
+            //SeriesListScreen(navController = navController)
         }
         composable(route = AppGraph.home.FAVORITES) {
             ProfileScreen(navController = navController, userData = userData, onSignOut = onSignOut)
@@ -87,9 +93,194 @@ fun HomeNavGraph(navController: NavHostController, userData: UserData?,
         seriesDetailsNavGraph( navController = navController, userData = userData )
         searchSeriesNavGraph( navController = navController )
         searchMoviesNavGraph( navController = navController )
+        moviesGenresNavGraph( navController = navController )
+        popularMoviesNavGraph( navController = navController )
+        ratedMoviesNavGraph( navController = navController )
+        upcomingMoviesNavGraph( navController = navController )
+        nowPlayingMoviesNavGraph( navController = navController )
+        trendingTodayMoviesNavGraph( navController = navController )
+        seriesGenresNavGraph( navController = navController )
+        popularSeriesNavGraph( navController = navController )
+        airyingTodayNavGraph( navController = navController )
+        onAirSeriesNavGraph( navController = navController )
+        ratedSeriesNavGraph( navController = navController )
+        trendingTodaySeriesNavGraph( navController = navController )
 
     }
 }
+
+fun NavGraphBuilder.moviesGenresNavGraph( navController: NavController ) {
+    navigation(
+        route = AppGraph.movie_genres.ROOT,
+        startDestination = AppGraph.movie_genres.GENRE_MOVIES
+    ) {
+        composable(route = AppGraph.movie_genres.GENRE_MOVIES + "/{pageNumber}/{genreID}/{genreTitle}",
+            arguments = listOf(
+                navArgument("pageNumber") {
+                    type = NavType.StringType
+                },
+                navArgument("genreID") {
+                    type = NavType.StringType
+                },
+                navArgument("genreTitle") {
+                    type = androidx.navigation.NavType.StringType
+                }
+            )
+        ) { navBackStackEntry ->
+
+            navBackStackEntry.arguments?.getString("genreTitle").let {
+                Log.d("BATATAO", "GENREMOVie: ${navBackStackEntry.destination}")
+                MovieGenresScreen( it!!, navController = navController )
+            }
+        }
+    }
+}
+
+fun NavGraphBuilder.popularMoviesNavGraph( navController: NavController ) {
+    navigation(
+        route = AppGraph.popular_movies.ROOT,
+        startDestination = AppGraph.popular_movies.POPULAR_MOVIES
+    ) {
+        composable(route = AppGraph.popular_movies.POPULAR_MOVIES,
+        ) {
+                MoviesListGridScreen( "Filmes em alta", navController = navController )
+        }
+    }
+}
+
+fun NavGraphBuilder.ratedMoviesNavGraph( navController: NavController ) {
+    navigation(
+        route = AppGraph.rated_movies.ROOT,
+        startDestination = AppGraph.rated_movies.RATED_MOVIES
+    ) {
+        composable(route = AppGraph.rated_movies.RATED_MOVIES,
+        ) {
+            MoviesListGridScreen( "Filmes melhores avaliados", navController = navController )
+        }
+    }
+}
+fun NavGraphBuilder.nowPlayingMoviesNavGraph( navController: NavController ) {
+    navigation(
+        route = AppGraph.now_Playing_movies.ROOT,
+        startDestination = AppGraph.now_Playing_movies.NOW_PLAYING_MOVIES
+    ) {
+        composable(route = AppGraph.now_Playing_movies.NOW_PLAYING_MOVIES,
+        ) {
+            MoviesListGridScreen( "Filmes em cartaz", navController = navController )
+        }
+    }
+}
+
+fun NavGraphBuilder.upcomingMoviesNavGraph( navController: NavController ) {
+    navigation(
+        route = AppGraph.upcoming_movies.ROOT,
+        startDestination = AppGraph.upcoming_movies.UPCOMING_MOVIES
+    ) {
+        composable(route = AppGraph.upcoming_movies.UPCOMING_MOVIES,
+        ) {
+            MoviesListGridScreen( "Filmes em lançamento", navController = navController )
+        }
+    }
+}
+
+fun NavGraphBuilder.trendingTodayMoviesNavGraph( navController: NavController ) {
+    navigation(
+        route = AppGraph.trending_today_movies.ROOT,
+        startDestination = AppGraph.trending_today_movies.TRENDING_TODAY_MOVIES
+    ) {
+        composable(route = AppGraph.trending_today_movies.TRENDING_TODAY_MOVIES,
+        ) {
+            MoviesListGridScreen( "Filmes em tendência hoje", navController = navController )
+        }
+    }
+}
+//
+fun NavGraphBuilder.seriesGenresNavGraph( navController: NavController ) {
+    navigation(
+        route = AppGraph.series_genres.ROOT,
+        startDestination = AppGraph.series_genres.GENRE_SERIES
+    ) {
+        composable(route = AppGraph.series_genres.GENRE_SERIES + "/{pageNumber}/{genreID}/{genreTitle}",
+            arguments = listOf(
+                navArgument("pageNumber") {
+                    type = NavType.StringType
+                },
+                navArgument("genreID") {
+                    type = NavType.StringType
+                },
+                navArgument("genreTitle") {
+                    type = androidx.navigation.NavType.StringType
+                }
+            )
+        ) { navBackStackEntry ->
+
+            navBackStackEntry.arguments?.getString("genreTitle").let {
+                Log.d("BATATAO", "GENREMOVie: ${navBackStackEntry.destination}")
+                SeriesGenresScreen( it!!, navController = navController )
+            }
+        }
+    }
+}
+
+fun NavGraphBuilder.popularSeriesNavGraph( navController: NavController ) {
+    navigation(
+        route = AppGraph.popular_series.ROOT,
+        startDestination = AppGraph.popular_series.POPULAR_SERIES
+    ) {
+        composable(route = AppGraph.popular_series.POPULAR_SERIES,
+        ) {
+            SeriesListGidScreen( "Séries em alta", navController = navController )
+        }
+    }
+}
+
+fun NavGraphBuilder.ratedSeriesNavGraph( navController: NavController ) {
+    navigation(
+        route = AppGraph.rated_series.ROOT,
+        startDestination = AppGraph.rated_series.RATED_SERIES
+    ) {
+        composable(route = AppGraph.rated_series.RATED_SERIES,
+        ) {
+            SeriesListGidScreen( "Melhores Avaliadas", navController = navController )
+        }
+    }
+}
+fun NavGraphBuilder.airyingTodayNavGraph( navController: NavController ) {
+    navigation(
+        route = AppGraph.airying_today_series.ROOT,
+        startDestination = AppGraph.airying_today_series.AIRYING_TODAY_SERIES
+    ) {
+        composable(route = AppGraph.airying_today_series.AIRYING_TODAY_SERIES,
+        ) {
+            SeriesListGidScreen( "No ar hoje", navController = navController )
+        }
+    }
+}
+
+fun NavGraphBuilder.onAirSeriesNavGraph( navController: NavController ) {
+    navigation(
+        route = AppGraph.on_air_series.ROOT,
+        startDestination = AppGraph.on_air_series.ON_AIR_SERIES
+    ) {
+        composable(route = AppGraph.on_air_series.ON_AIR_SERIES,
+        ) {
+            SeriesListGidScreen( "Séries no ar", navController = navController )
+        }
+    }
+}
+
+fun NavGraphBuilder.trendingTodaySeriesNavGraph( navController: NavController ) {
+    navigation(
+        route = AppGraph.trending_today_series.ROOT,
+        startDestination = AppGraph.trending_today_series.TRENDING_TODAY_SERIES
+    ) {
+        composable(route = AppGraph.trending_today_series.TRENDING_TODAY_SERIES,
+        ) {
+            SeriesListGidScreen( "Séries em tendência hoje", navController = navController )
+        }
+    }
+}
+//
 
 fun NavGraphBuilder.searchMoviesNavGraph( navController: NavController ) {
     navigation(
