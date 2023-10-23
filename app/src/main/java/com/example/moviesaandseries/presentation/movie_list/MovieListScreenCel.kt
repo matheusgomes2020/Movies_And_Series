@@ -302,7 +302,7 @@ fun MovieListScreenCellFirebase(
                     movie = movie,
                     onItemClick = {
                         try {
-                            if ( tipo == "movie" ) navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
+                            if ( tipo == "movie" ) navController.navigate(AppGraph.movies_details2.DETAILS + "/${movie.id}")
                             else navController.navigate(AppGraph.series_details.DETAILS + "/${movie.id}")
                         }catch (e: Exception){
                             e.printStackTrace()

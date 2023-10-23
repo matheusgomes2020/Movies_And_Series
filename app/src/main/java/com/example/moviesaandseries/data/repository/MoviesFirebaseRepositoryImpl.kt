@@ -1,10 +1,6 @@
 package com.example.moviesaandseries.data.repository
 
-import android.content.Context
-import android.widget.Toast
-import androidx.compose.ui.platform.LocalContext
-import com.example.moviesaandseries.common.Constants.MOVIES
-import com.example.moviesaandseries.domain.model.MovieFirebase
+import com.example.moviesaandseries.domain.model.MovieOrSeriesFirebase
 import com.example.moviesaandseries.domain.model.Response
 import com.example.moviesaandseries.domain.repository.MoviesFirebaseRepository
 import com.google.firebase.firestore.CollectionReference
@@ -12,7 +8,6 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Singleton
@@ -22,7 +17,7 @@ class MoviesFirebaseRepositoryImpl @Inject constructor(
     override fun getMoviesFromFirestore() = callbackFlow {
         val snapshotListener = moviesRef.addSnapshotListener { snapshot, e ->
             val moviesResponse = if (snapshot != null) {
-                val movies = snapshot.toObjects(MovieFirebase::class.java)
+                val movies = snapshot.toObjects(MovieOrSeriesFirebase::class.java)
                 Response.Success( movies )
             } else {
                 Response.Failure(e)
@@ -42,7 +37,7 @@ class MoviesFirebaseRepositoryImpl @Inject constructor(
         userId: String
     ) = try {
         val idFirebase = moviesRef.document().id
-        val movie = MovieFirebase(
+        val movie = MovieOrSeriesFirebase(
             id = id.toString(),
             title = title,
             posterPath = posterPath,

@@ -47,7 +47,7 @@ fun SubtitleHeader(
 
         Text(
             text = title,
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.headlineMedium,
             color = if (isSystemInDarkTheme()) Color.White else Color.Black,
             modifier = Modifier.weight(1f)
         )

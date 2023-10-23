@@ -1,6 +1,6 @@
 package com.example.moviesaandseries.domain.model
 
-data class MovieFirebase(
+data class MovieOrSeriesFirebase(
     var id: String,
     val posterPath: String,
     val tipo: String,

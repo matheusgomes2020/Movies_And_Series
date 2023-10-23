@@ -44,7 +44,7 @@ fun TextTitulos(title: String){
 fun TextBiografia(title: String){
     Text(
         text = title,
-        style = MaterialTheme.typography.headlineMedium,
+        //style = MaterialTheme.typography.headlineMedium,
         lineHeight = 25.sp,
         fontSize = 16.sp,
         fontFamily = fontFamilyLato

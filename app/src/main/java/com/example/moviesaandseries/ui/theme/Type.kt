@@ -83,12 +83,12 @@ val Typography = Typography(
     titleMedium = TextStyle(
         fontFamily = fontFamily3,
         fontWeight = FontWeight.Normal,
-        fontSize = SpDimensions.TitleLarge,
+        fontSize = SpDimensions.TitleMedium,
         lineHeight = 22.sp,
         letterSpacing = 0.5.sp
     ),
     titleLarge = TextStyle(
-        fontFamily = fontFamily2,
+        fontFamily = fontFamily3,
         fontWeight = FontWeight.SemiBold,
         fontSize = SpDimensions.TitleLarge,
         lineHeight = 24.sp,

@@ -3,6 +3,7 @@ package com.example.moviesaandseries.presentation.general
 import android.util.Log
 import androidx.compose.animation.AnimatedContentTransitionScope.SlideDirection.Companion.End
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -17,12 +19,18 @@ import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -40,11 +48,15 @@ import com.example.moviesaandseries.data.remote.dto.season.SeasonDto
 import com.example.moviesaandseries.presentation.person_list.components.CastListItem
 import com.example.moviesaandseries.presentation.movie_list.MovieListScreenCell
 import com.example.moviesaandseries.presentation.movie_list.MovieListState
+import com.example.moviesaandseries.presentation.newUI.AppBarWithBackAndIcon
+import com.example.moviesaandseries.presentation.newUI.CustomPadding
+import com.example.moviesaandseries.presentation.newUI.DpDimensions
 import com.example.moviesaandseries.presentation.review.ReviewListItem
 import com.example.moviesaandseries.presentation.season_list.SeasonListScreenCell
 import com.example.moviesaandseries.presentation.season_list.SeasonListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreenCell
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
+import com.example.moviesaandseries.ui.theme.DarkGrey11
 import com.example.moviesaandseries.ui.theme.fontFamilyLato
 
 
@@ -133,6 +145,159 @@ import com.example.moviesaandseries.ui.theme.fontFamilyLato
             TextBiografia(title = overview )
         }
     }
+}
+
+@Composable
+fun MainContent2(
+    navController: NavController,
+    isVideo: Boolean,
+    isFavorite: Boolean,
+    logo: String,
+    nomeOrTitle: String,
+    overview: String,
+    posterPath: String,
+    data: String,
+    runtime: String,
+    star: Double,
+    genres: List<Genre>,
+    onCLickFavoriteButton: () -> Unit
+) {
+
+    Scaffold(
+        topBar = {
+            AppBarWithBackAndIcon( title = nomeOrTitle,
+                backIcon = Icons.Default.ArrowBack,
+                icon = if (isFavorite) R.drawable.ic_boomarkfilled else R.drawable.ic_action_name,
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onIconClick = {
+                    onCLickFavoriteButton()
+                }
+                 )
+        }
+    ) {
+            paddingValues ->
+        Column(
+            modifier = Modifier
+                .padding(paddingValues)
+                //.verticalScroll(rememberScrollState())
+                .fillMaxWidth()
+//                .background(
+//                    color = if (useDarkIcons)
+//                        Color.White else DarkGrey11
+//                )
+        ) {
+            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
+                //data, time and star
+                IconsContent( data, runtime, star, genres, logo )
+                Spacer(modifier = Modifier.height(15.dp))
+                //image or trailer
+                if ( isVideo ) {
+                    Player( posterPath )
+                } else {
+                    Image(
+                        painter = rememberAsyncImagePainter(
+                            model = if (!posterPath.equals("sem poster")) Constants.BASE_IMAGE_URL + posterPath else R.drawable.logo
+                        ),
+                        contentScale = ContentScale.Crop,
+                        contentDescription = "poster image",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(200.dp)
+                            .clip(shape = RoundedCornerShape(16.dp))
+                    )
+                }
+                Column(
+                    Modifier.fillMaxWidth()
+                    //horizontalAlignment = Alignment.End
+                ) {
+                    if (logo != "sem logo") {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Image(
+                            painter = rememberAsyncImagePainter(
+                                model =  Constants.BASE_IMAGE_URL + logo
+                            ),
+                            contentScale = ContentScale.None,
+                            contentDescription = "production company",
+                            modifier = Modifier
+                                .width(100.dp)
+                                .height(30.dp)
+                                .align(Alignment.End)
+                                .clip(shape = RoundedCornerShape(8.dp))
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                //overview
+                if (overview != "sem overview") {
+                    TextBiografia(title = overview )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun MainContent3(
+    isVideo: Boolean,
+    logo: String,
+    overview: String,
+    posterPath: String,
+    data: String,
+    runtime: String,
+    star: Double,
+    genres: List<Genre>,
+) {
+
+//            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
+                //data, time and star
+                IconsContent( data, runtime, star, genres, logo )
+                Spacer(modifier = Modifier.height(15.dp))
+                //image or trailer
+                if ( isVideo ) {
+                    Player( posterPath )
+                } else {
+                    Image(
+                        painter = rememberAsyncImagePainter(
+                            model = if (!posterPath.equals("sem poster")) Constants.BASE_IMAGE_URL + posterPath else R.drawable.logo
+                        ),
+                        contentScale = ContentScale.Crop,
+                        contentDescription = "poster image",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(200.dp)
+                            .clip(shape = RoundedCornerShape(16.dp))
+                    )
+                }
+                Column(
+                    Modifier.fillMaxWidth()
+                    //horizontalAlignment = Alignment.End
+                ) {
+                    if (logo != "sem logo") {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Image(
+                            painter = rememberAsyncImagePainter(
+                                model =  Constants.BASE_IMAGE_URL + logo
+                            ),
+                            contentScale = ContentScale.None,
+                            contentDescription = "production company",
+                            modifier = Modifier
+                                .width(100.dp)
+                                .height(30.dp)
+                                .align(Alignment.End)
+                                .clip(shape = RoundedCornerShape(8.dp))
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                //overview
+                if (overview != "sem overview") {
+                    TextBiografia(title = overview )
+                }
+           // }
+
+
 }
 
 @Composable

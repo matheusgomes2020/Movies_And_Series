@@ -32,6 +32,13 @@ object MoviesDetailsGraph {
     const val SIMILAR = "similar"
 }
 
+object MoviesDetailsGraph2 {
+    const val ROOT = "movies_details_graph2"
+    const val DETAILS = "details2"
+    const val CAST= "cast"
+    const val SIMILAR = "similar"
+}
+
 object SearchSeriesGraph {
     const val ROOT = "search_series_graph"
     const val SEARCH_SERIES = "searchSeries"
@@ -151,6 +158,7 @@ object AppGraph {
     val home = HomeGraph
     val splash = SplashGraph
     val movies_details = MoviesDetailsGraph
+    val movies_details2 = MoviesDetailsGraph
     val series_details = SeriesDetailsGraph
     val search_movies = SearchMoviesGraph
     val search_series = SearchSeriesGraph
