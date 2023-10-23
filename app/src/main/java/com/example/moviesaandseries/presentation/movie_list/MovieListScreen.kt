@@ -37,7 +37,6 @@ import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.presentation.general.TextSearchBar
 import com.example.moviesaandseries.presentation.general.TextSubTitulos
-import com.example.moviesaandseries.ui.theme.fontFamily
 
 
 @OptIn(ExperimentalMaterial3Api::class)

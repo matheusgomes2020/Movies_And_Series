@@ -48,7 +48,7 @@ import com.example.moviesaandseries.presentation.signIn.UserData
 import com.example.moviesaandseries.ui.theme.BlueGrey11
 import com.example.moviesaandseries.ui.theme.MoviesAandSeriesTheme
 import com.example.moviesaandseries.ui.theme.Purple40
-import com.example.moviesaandseries.ui.theme.fontFamily
+import com.example.moviesaandseries.ui.theme.fontFamily3
 import com.example.moviesaandseries.ui.theme.teste
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -184,7 +184,7 @@ fun RowScope.AddItem(
         label = {
             Text(text = screen.label,
                 //, color = ( if (isSystemInDarkTheme())    Color.White else BlueGrey11),
-                fontFamily = fontFamily
+                fontFamily = fontFamily3
             )
         },
 

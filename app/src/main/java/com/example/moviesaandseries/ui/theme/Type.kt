@@ -5,27 +5,25 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.googlefonts.Font
-import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.compose.ui.unit.sp
 import com.example.moviesaandseries.R
 
-val provider = GoogleFont.Provider(
-    providerAuthority = "com.google.android.gms.fonts",
-    providerPackage = "com.google.android.gms",
-    certificates = R.array.com_google_android_gms_fonts_certs
-)
+//val provider = GoogleFont.Provider(
+//    providerAuthority = "com.google.android.gms.fonts",
+//    providerPackage = "com.google.android.gms",
+//    certificates = R.array.com_google_android_gms_fonts_certs
+//)
 
 
 // ...
 
-val fontName = GoogleFont("Poppins")
-val fontNameLato = GoogleFont("Lato")
-
-
-val fontFamily = FontFamily(
-    Font(googleFont = fontName, fontProvider = provider)
-)
+//val fontName = GoogleFont("Poppins")
+//val fontNameLato = GoogleFont("Lato")
+//
+//
+//val fontFamily = FontFamily(
+//    Font(googleFont = fontName, fontProvider = provider)
+//)
 
 val fontFamily2 = FontFamily(
     Font(R.font.nunito_bold, FontWeight.Bold),
@@ -36,7 +34,7 @@ val fontFamily2 = FontFamily(
     Font(R.font.nunito_regular, FontWeight.Normal)
 )
 
-val fontFamily3 = FontFamily(
+val fontFamily5 = FontFamily(
     Font(R.font.poppins_bold, FontWeight.Bold),
     Font(R.font.poppins_semibold, FontWeight.SemiBold),
     Font(R.font.poppins_extrabold, FontWeight.ExtraBold),
@@ -45,9 +43,13 @@ val fontFamily3 = FontFamily(
     Font(R.font.poppins_regular, FontWeight.Normal)
 )
 
-val fontFamilyLato = FontFamily(
-    Font(googleFont = fontNameLato, fontProvider = provider)
+val fontFamily3 = FontFamily(
+    Font(R.font.poppins_regular, FontWeight.Normal)
 )
+
+//val fontFamilyLato = FontFamily(
+//    Font(googleFont = fontNameLato, fontProvider = provider)
+//)
 
 
 // Set of Material typography styles to start with
@@ -81,14 +83,14 @@ val Typography = Typography(
         letterSpacing = 0.5.sp
     ),
     titleMedium = TextStyle(
-        fontFamily = fontFamily3,
+        fontFamily = fontFamily5,
         fontWeight = FontWeight.Normal,
         fontSize = SpDimensions.TitleMedium,
         lineHeight = 22.sp,
         letterSpacing = 0.5.sp
     ),
     titleLarge = TextStyle(
-        fontFamily = fontFamily3,
+        fontFamily = fontFamily5,
         fontWeight = FontWeight.SemiBold,
         fontSize = SpDimensions.TitleLarge,
         lineHeight = 24.sp,

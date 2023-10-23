@@ -14,16 +14,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.moviesaandseries.ui.theme.BlueGrey11
-import com.example.moviesaandseries.ui.theme.fontFamily
-import com.example.moviesaandseries.ui.theme.fontFamilyLato
+import com.example.moviesaandseries.ui.theme.fontFamily3
 
 @Composable
 fun TextSubTitulos(title: String){
     Text(text = title,
         fontSize = 18.sp,
-        style = MaterialTheme.typography.displayMedium,
+        //style = MaterialTheme.typography.displayMedium,
         fontWeight = FontWeight.Bold,
-        fontFamily = fontFamily,
+        fontFamily = fontFamily3,
     )
 }
 
@@ -33,7 +32,7 @@ fun TextTitulos(title: String){
         fontSize = 20.sp,
         style = MaterialTheme.typography.displayMedium,
         fontWeight = FontWeight.Bold,
-        fontFamily = fontFamily,
+        fontFamily = fontFamily3,
         maxLines = 1
     )
 
@@ -47,7 +46,7 @@ fun TextBiografia(title: String){
         //style = MaterialTheme.typography.headlineMedium,
         lineHeight = 25.sp,
         fontSize = 16.sp,
-        fontFamily = fontFamilyLato
+        //fontFamily = fontFamily3
     )
 }
 
@@ -60,7 +59,7 @@ fun TextCards(title: String){
             .background( color = if (isSystemInDarkTheme())  BlueGrey11 else Color.White )
             .padding(start = 3.dp),
         fontSize = 14.sp,
-        fontFamily = fontFamily,
+        fontFamily = fontFamily3,
         maxLines = 1
     )
 }
@@ -72,6 +71,6 @@ fun TextSearchBar(title: String){
         color = Color.LightGray,
         fontSize = 13.sp,
         textAlign = TextAlign.Center
-        , fontFamily = fontFamily
+        , fontFamily = fontFamily3
     )
 }

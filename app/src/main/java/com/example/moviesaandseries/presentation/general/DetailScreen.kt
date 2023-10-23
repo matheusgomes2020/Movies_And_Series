@@ -57,7 +57,9 @@ import com.example.moviesaandseries.presentation.season_list.SeasonListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListScreenCell
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
 import com.example.moviesaandseries.ui.theme.DarkGrey11
-import com.example.moviesaandseries.ui.theme.fontFamilyLato
+import com.example.moviesaandseries.ui.theme.fontFamily3
+
+//import com.example.moviesaandseries.ui.theme.fontFamilyLato
 
 
 @Composable
@@ -346,16 +348,16 @@ fun MainContent3(
         if (director != "Ninguém") {
             TextSubTitulos(title = "Direção")
             Text(text = director.trim(),
-                fontSize = 17.sp,
-                fontFamily = fontFamilyLato,
+                fontSize = 15.sp,
+                fontFamily = fontFamily3,
                 modifier = Modifier.padding(top = 5.dp, start = 7.dp))
             Spacer(modifier = Modifier.height( 10.dp ))
         }
         if (!roteiro.isNullOrEmpty()) {
             TextSubTitulos(title = "Roteiro")
             Text(text = roteiro.trim(),
-                fontSize = 17.sp,
-                fontFamily = fontFamilyLato,
+                fontSize = 15.sp,
+                fontFamily = fontFamily3,
                 modifier = Modifier.padding(top = 5.dp, start = 7.dp),
                 maxLines = 5)
         }
@@ -500,7 +502,7 @@ fun RowIcons(text: String, painterResource: Int) {
         Text(
             text = text,
             fontSize = 13.sp,
-            fontFamily = fontFamilyLato,
+            //fontFamily = fontFamily3,
         )
     }
 }

@@ -22,7 +22,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.data.remote.dto.movies.Cast
-import com.example.moviesaandseries.ui.theme.fontFamily
+import com.example.moviesaandseries.ui.theme.fontFamily3
 
 @Composable
 fun CastListItem(
@@ -53,7 +53,7 @@ fun CastListItem(
             if (!cast.name.isNullOrEmpty()) cast.name else "sem nome",
             style = MaterialTheme.typography.bodyMedium,
             fontSize = 14.sp,
-            fontFamily = fontFamily,
+            fontFamily = fontFamily3,
             modifier = Modifier
                 .width(110.dp),
             maxLines = 1

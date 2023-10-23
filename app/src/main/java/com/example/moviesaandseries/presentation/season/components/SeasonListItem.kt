@@ -24,7 +24,6 @@ import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.data.remote.dto.season.SeasonDto
 import com.example.moviesaandseries.presentation.general.TextCards
 import com.example.moviesaandseries.ui.theme.BlueGrey11
-import com.example.moviesaandseries.ui.theme.fontFamily
 
 
 @Composable
