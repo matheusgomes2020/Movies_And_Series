@@ -105,9 +105,8 @@ fun MovieTrendingCell(
         if(state.isLoading) {
             LazyRow {
                 items(20) {
-                    Text(text = "Carregando")
-//                    ShimmerListItem(isLoading = true,
-//                        contentAfterLoading = { /*TODO*/ })
+                    ShimmerListItem(isLoading = true,
+                        contentAfterLoading = { /*TODO*/ })
                 }
             }
         }
@@ -147,9 +146,8 @@ fun SeriesTrendingCell(
         if(state.isLoading) {
             LazyRow {
                 items(20) {
-                    Text(text = "Carregando")
-//                    ShimmerListItem(isLoading = true,
-//                        contentAfterLoading = { /*TODO*/ })
+                    ShimmerListItem(isLoading = true,
+                        contentAfterLoading = { /*TODO*/ })
                 }
             }
         }
@@ -189,9 +187,8 @@ fun MovieNewUICell(
         if(state.isLoading) {
             LazyRow {
                 items(20) {
-                    Text(text = "Carregando")
-//                    ShimmerListItem(isLoading = true,
-//                        contentAfterLoading = { /*TODO*/ })
+                    ShimmerListItem(isLoading = true,
+                        contentAfterLoading = { /*TODO*/ })
                 }
             }
         }
@@ -231,9 +228,8 @@ fun SeriesNewUICell(
         if(state.isLoading) {
             LazyRow {
                 items(20) {
-                    Text(text = "Carregando")
-//                    ShimmerListItem(isLoading = true,
-//                        contentAfterLoading = { /*TODO*/ })
+                    ShimmerListItem(isLoading = true,
+                        contentAfterLoading = { /*TODO*/ })
                 }
             }
         }

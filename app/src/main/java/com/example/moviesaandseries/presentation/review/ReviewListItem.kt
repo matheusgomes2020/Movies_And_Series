@@ -28,8 +28,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.data.remote.dto.Review
-import com.example.moviesaandseries.ui.theme.fontFamily
-import com.example.moviesaandseries.ui.theme.fontFamilyLato
+import com.example.moviesaandseries.ui.theme.fontFamily3
 
 @Composable
 fun ReviewListItem(
@@ -87,13 +86,13 @@ fun ReviewListItem(
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
                         maxLines = 1,
-                        fontFamily = fontFamily,
+                        fontFamily = fontFamily3,
                         overflow = TextOverflow.Ellipsis,
                     )
                     Text(
                         text = if (!review.created_at.isNullOrEmpty()) review.created_at else "no data",
                         fontSize = 11.sp,
-                        fontFamily = fontFamilyLato,
+                        fontFamily = fontFamily3,
                     )
                 }
             }

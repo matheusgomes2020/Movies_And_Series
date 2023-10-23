@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.ui.theme.BlueGrey11
-import com.example.moviesaandseries.ui.theme.fontFamily
+import com.example.moviesaandseries.ui.theme.fontFamily3
 
 @Composable
 fun SignInScreen(
@@ -104,7 +104,7 @@ fun SignInScreen(
                     modifier = Modifier
                         .padding( vertical = 7.dp, horizontal = 10.dp ),
                     fontSize = 16.sp,
-                    fontFamily = fontFamily,
+                    fontFamily = fontFamily3,
                     color = Color.DarkGray)
             }
         }
@@ -153,7 +153,7 @@ fun SignInScreen2(
                         modifier = Modifier
                             .padding( vertical = 7.dp, horizontal = 10.dp ),
                         fontSize = 16.sp,
-                        fontFamily = fontFamily,
+                        fontFamily = fontFamily3,
                         color = Color.DarkGray)
                 }
         }

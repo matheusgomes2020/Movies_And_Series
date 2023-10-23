@@ -40,8 +40,7 @@ import com.example.moviesaandseries.presentation.general.TextBiografia
 import com.example.moviesaandseries.presentation.general.TextSubTitulos
 import com.example.moviesaandseries.presentation.general.TextTitulos
 import com.example.moviesaandseries.ui.theme.BlueGrey11
-import com.example.moviesaandseries.ui.theme.fontFamily
-import com.example.moviesaandseries.ui.theme.fontFamilyLato
+import com.example.moviesaandseries.ui.theme.fontFamily3
 
 @Composable
  fun SeasonDetailScreen(
@@ -162,7 +161,7 @@ fun EpisodeListItem(
             Text(text = "${episode.episode_number} - ${episode.name}",
                 fontWeight = FontWeight.Bold,
                 fontSize = 14.sp,
-                fontFamily = fontFamily,
+                fontFamily = fontFamily3,
                 maxLines = 1,
                 color =  if (isSystemInDarkTheme()) Color.White  else BlueGrey11)
             Text(text = episode.overview,
@@ -171,7 +170,7 @@ fun EpisodeListItem(
                 ),
                 fontSize = 14.sp,
                 maxLines = 3
-            , fontFamily = fontFamilyLato,
+            , fontFamily = fontFamily3,
                 color =  if (isSystemInDarkTheme()) Color.White  else BlueGrey11)
         }
     }
