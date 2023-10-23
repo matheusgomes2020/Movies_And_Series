@@ -63,6 +63,7 @@ fun MainAppBar(
                     .weight(1f)
                     .padding(start = DpDimensions.Normal),
                 textAlign = TextAlign.Start,
+                maxLines = 1
             )
 
 
@@ -87,6 +88,52 @@ fun MainAppBar(
     }
 }
 
+@Composable
+fun AppBarWithBackAndIcon(
+    modifier: Modifier = Modifier,
+    title: String,
+    backIcon: ImageVector,
+    icon: Int,
+    onBackClick: () -> Unit = {},
+    onIconClick: () -> Unit = {}
+) {
+    Box(
+        modifier = modifier.background(MaterialTheme.colorScheme.background),
+        contentAlignment = Alignment.Center,
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(
+                horizontal = DpDimensions.Smallest,
+                vertical = DpDimensions.Small
+            )
+        ) {
+
+            IconButton(onClick = onBackClick) {
+                Icon(
+                    imageVector = backIcon,
+                    contentDescription = null,
+                )
+            }
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = DpDimensions.Normal),
+                textAlign = TextAlign.Start,
+            )
+            IconButton(onClick = onIconClick) {
+                Icon(
+                    modifier = Modifier
+                        .size(35.dp),
+                    painter = painterResource(id = icon),
+                    contentDescription = null,
+                )
+            }
+        }
+    }
+}
 
 
 

@@ -1,11 +1,9 @@
 package com.example.moviesaandseries.presentation.series_detail
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,7 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.moviesaandseries.domain.model.MovieFirebase
+import com.example.moviesaandseries.domain.model.MovieOrSeriesFirebase
 import com.example.moviesaandseries.domain.model.Response
 import com.example.moviesaandseries.presentation.episode.ImagesCell
 import com.example.moviesaandseries.presentation.favorites.FavoriteViewModel
@@ -32,7 +30,6 @@ import com.example.moviesaandseries.presentation.favorites.ProgressBar
 import com.example.moviesaandseries.presentation.general.CastCell
 import com.example.moviesaandseries.presentation.general.CrewCell
 import com.example.moviesaandseries.presentation.general.MainContent
-import com.example.moviesaandseries.presentation.general.RecommendationMoviesCell
 import com.example.moviesaandseries.presentation.general.RecommendationSeriesCell
 import com.example.moviesaandseries.presentation.general.ReviewsCell
 import com.example.moviesaandseries.presentation.general.SeasonsCell
@@ -62,7 +59,7 @@ fun SeriesDetailScreen(
             stateRecommendations = SeriesListState(series = series.recommendations.results)
             stateSeasons = SeasonListState(seasons = series.seasons)
 
-            var listOfMovies = emptyList<MovieFirebase>()
+            var listOfMovies = emptyList<MovieOrSeriesFirebase>()
             when(val moviesResponse = favoriteViewModel.moviesResponse) {
                 is Response.Loading -> ProgressBar()
                 is Response.Success -> moviesResponse.data.let { movies ->

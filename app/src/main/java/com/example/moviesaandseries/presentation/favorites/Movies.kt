@@ -3,7 +3,7 @@ package com.example.moviesaandseries.presentation.favorites
 import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.moviesaandseries.domain.model.MovieFirebase
+import com.example.moviesaandseries.domain.model.MovieOrSeriesFirebase
 import com.example.moviesaandseries.domain.model.Response
 import com.example.moviesaandseries.domain.repository.Movies
 import com.example.moviesaandseries.presentation.signIn.UserData
@@ -18,7 +18,7 @@ fun Movies(
 ) {
 
     if (tipo == "movies") {
-        var listOfMovies = emptyList<MovieFirebase>()
+        var listOfMovies = emptyList<MovieOrSeriesFirebase>()
         when(val moviesResponse = viewModel.moviesResponse) {
             is Response.Loading -> ProgressBar()
             is Response.Success -> moviesResponse.data.let { movies ->
@@ -31,7 +31,7 @@ fun Movies(
             is Response.Failure -> print(moviesResponse.e)
         }
     } else {
-        var listOfMovies = emptyList<MovieFirebase>()
+        var listOfMovies = emptyList<MovieOrSeriesFirebase>()
         when(val moviesResponse = viewModel.moviesResponse) {
             is Response.Loading -> ProgressBar()
             is Response.Success -> moviesResponse.data.let { movies ->

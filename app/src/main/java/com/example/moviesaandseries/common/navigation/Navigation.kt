@@ -26,8 +26,10 @@ import com.example.moviesaandseries.presentation.series_list.SeriesListScreen
 import com.example.moviesaandseries.presentation.favorites.ProfileScreen
 import com.example.moviesaandseries.presentation.movies_genres.MovieGenresScreen
 import com.example.moviesaandseries.presentation.movies_genres.SeriesGenresScreen
+import com.example.moviesaandseries.presentation.newUI.MovieDetailScreenNewUI
 import com.example.moviesaandseries.presentation.newUI.MoviesListGridScreen
 import com.example.moviesaandseries.presentation.newUI.MoviesScreenNewUI
+import com.example.moviesaandseries.presentation.newUI.SeriesDetailScreenNewUI
 import com.example.moviesaandseries.presentation.newUI.SeriesListGidScreen
 import com.example.moviesaandseries.presentation.newUI.SeriesScreenNewUI
 import com.example.moviesaandseries.presentation.signIn.UserData
@@ -90,6 +92,7 @@ fun HomeNavGraph(navController: NavHostController, userData: UserData?,
             ProfileScreen(navController = navController, userData = userData, onSignOut = onSignOut)
         }
         movieDetailsNavGraph( navController = navController, userData = userData )
+        movieDetailsNavGraph2( navController = navController, userData = userData )
         seriesDetailsNavGraph( navController = navController, userData = userData )
         searchSeriesNavGraph( navController = navController )
         searchMoviesNavGraph( navController = navController )
@@ -346,6 +349,27 @@ fun NavGraphBuilder.movieDetailsNavGraph(navController: NavController, userData:
     }
 }
 
+fun NavGraphBuilder.movieDetailsNavGraph2(navController: NavController, userData: UserData? ){
+    navigation(
+        route = AppGraph.movies_details2.ROOT,
+        startDestination = AppGraph.movies_details2.DETAILS
+    ) {
+        composable(route = AppGraph.movies_details2.DETAILS + "/{movieId}",
+            arguments = listOf(
+                navArgument( "movieId" ) {
+                    type = NavType.StringType
+                }
+            )
+        ) { navBackStackEntry ->
+
+            navBackStackEntry.arguments?.getString("movieId").let {
+                Log.d("TRT", "movieDetailsNavGraph2: ${navBackStackEntry.destination}")
+                MovieDetailScreenNewUI(navController = navController, userData = userData, isSystemInDarkTheme = isSystemInDarkTheme() )
+            }
+        }
+    }
+}
+
 fun NavGraphBuilder.seriesDetailsNavGraph( navController: NavController, userData: UserData? ){
     navigation(
         route = AppGraph.series_details.ROOT,
@@ -361,7 +385,8 @@ fun NavGraphBuilder.seriesDetailsNavGraph( navController: NavController, userDat
 
             navBackStackEntry.arguments?.getString("seriesId").let {
                 Log.d("TRT", "serieDetailsNavGraph2: ${navBackStackEntry.destination}")
-                SeriesDetailScreen(navController = navController, userData)
+                //SeriesDetailScreen(navController = navController, userData)
+                SeriesDetailScreenNewUI(navController = navController, isSystemInDarkTheme = isSystemInDarkTheme(), userData = userData)
             }
         }
         seasonDetailsNavGraph( navController = navController )
