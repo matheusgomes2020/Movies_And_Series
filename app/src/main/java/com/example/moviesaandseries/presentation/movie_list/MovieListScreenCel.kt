@@ -20,6 +20,8 @@ import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.domain.repository.Movies
 import com.example.moviesaandseries.presentation.person_list.MoviesCastListState
 import com.example.moviesaandseries.presentation.general.ShimmerListItem
+import com.example.moviesaandseries.presentation.general.ShimmerMovieAndSeriesListItem
+import com.example.moviesaandseries.presentation.general.ShimmerTrending
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListItem
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListItemFirebase
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListItemWork
@@ -103,10 +105,12 @@ fun MovieTrendingCell(
             )
         }
         if(state.isLoading) {
-            LazyRow {
-                items(20) {
-                    ShimmerListItem(isLoading = true,
-                        contentAfterLoading = { /*TODO*/ })
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
+                contentPadding = PaddingValues(horizontal = 16.dp),
+            ) {
+                items(3) {
+                    ShimmerTrending()
                 }
             }
         }
@@ -144,10 +148,12 @@ fun SeriesTrendingCell(
             )
         }
         if(state.isLoading) {
-            LazyRow {
-                items(20) {
-                    ShimmerListItem(isLoading = true,
-                        contentAfterLoading = { /*TODO*/ })
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
+                contentPadding = PaddingValues(horizontal = 16.dp),
+            ) {
+                items(3) {
+                    ShimmerTrending()
                 }
             }
         }
@@ -185,10 +191,12 @@ fun MovieNewUICell(
             )
         }
         if(state.isLoading) {
-            LazyRow {
-                items(20) {
-                    ShimmerListItem(isLoading = true,
-                        contentAfterLoading = { /*TODO*/ })
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
+                contentPadding = PaddingValues(horizontal = 16.dp),
+            ) {
+                items(3) {
+                    ShimmerMovieAndSeriesListItem()
                 }
             }
         }
@@ -226,10 +234,12 @@ fun SeriesNewUICell(
             )
         }
         if(state.isLoading) {
-            LazyRow {
-                items(20) {
-                    ShimmerListItem(isLoading = true,
-                        contentAfterLoading = { /*TODO*/ })
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
+                contentPadding = PaddingValues(horizontal = 16.dp),
+            ) {
+                items(3) {
+                    ShimmerMovieAndSeriesListItem()
                 }
             }
         }

@@ -158,7 +158,7 @@ fun MovieDetailScreen(
             )
         }
         if(state.isLoading) {
-            ShimmerDetail(isLoading = true, contentAfterLoading = { /*TODO*/ })
+            ShimmerDetail()
         }
     }
 }
