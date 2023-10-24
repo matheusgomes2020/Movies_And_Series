@@ -32,9 +32,34 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import com.example.moviesaandseries.presentation.newUI.DpDimensions
 
+@Preview
+@Composable
+fun ShimmerTrending(){
+    Box(
+        modifier = Modifier
+            .width(370.dp)
+            .height(190.dp)
+            .clip(shape = RoundedCornerShape(DpDimensions.Dp20))
+            .shimmerEffect()
+    )
+}
+
+@Preview
+@Composable
+fun ShimmerMovieAndSeriesListItem(){
+    Box(
+        modifier = Modifier
+            .width(120.dp)
+            .height(170.dp)
+            .clip(shape = RoundedCornerShape(DpDimensions.Dp20))
+            .shimmerEffect()
+    )
+}
 @Composable
 fun ShimmerListItem(
     isLoading: Boolean,
@@ -72,13 +97,10 @@ fun ShimmerListItem(
     }
 }
 
+@Preview
 @Composable
 fun ShimmerDetail(
-    isLoading: Boolean,
-    contentAfterLoading: @Composable () -> Unit,
-    modifier: Modifier = Modifier
 ) {
-    if ( isLoading ) {
         Column(
             modifier = Modifier
                 .padding(horizontal = 15.dp)
@@ -97,10 +119,6 @@ fun ShimmerDetail(
             Spacer(modifier = Modifier.height(16.dp))
             Crew()
         }
-
-    } else {
-        contentAfterLoading()
-    }
 }
 
 @Composable
@@ -201,6 +219,7 @@ private fun Genres( count: Int ) {
 private fun Image() {
     Box(
         modifier = Modifier
+            .clip(shape = RoundedCornerShape(15.dp))
             .fillMaxWidth()
             .height(200.dp)
             .shimmerEffect()
@@ -314,7 +333,7 @@ private fun RowCards() {
                 .shimmerEffect()
         )
         Spacer(modifier = Modifier.height(15.dp))
-        LazyRow(contentPadding = PaddingValues(5.dp)) {
+        LazyRow(contentPadding = PaddingValues()) {
             items(3) {
                 Box(
                     modifier = Modifier

@@ -36,7 +36,6 @@ fun MovieItemNewUi(
     onClick: (Movie) -> Unit,
     height: Dp = 170.dp
 ){
-
     Surface(
         shape = RoundedCornerShape(DpDimensions.Dp20),
         modifier = Modifier
@@ -44,8 +43,6 @@ fun MovieItemNewUi(
             .height(height),
         onClick = { onClick(movie) }
     ) {
-
-
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -66,7 +63,6 @@ fun MovieItemNewUi(
             contentAlignment = Alignment.BottomStart
         ) {
 
-
             Column(
                 modifier = Modifier.padding(DpDimensions.Small)
             ) {
@@ -80,7 +76,6 @@ fun MovieItemNewUi(
             }
         }
     }
-
 }
 
 @Composable
@@ -89,7 +84,6 @@ fun SeriesItemNewUi(
     onClick: (Series) -> Unit,
     height: Dp = 170.dp
 ){
-
     Surface(
         shape = RoundedCornerShape(DpDimensions.Dp20),
         modifier = Modifier
@@ -97,8 +91,6 @@ fun SeriesItemNewUi(
             .height(height),
         onClick = { onClick(series) }
     ) {
-
-
         Box(
             modifier = Modifier
                 .fillMaxSize()

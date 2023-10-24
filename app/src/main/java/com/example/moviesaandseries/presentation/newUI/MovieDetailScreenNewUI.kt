@@ -109,7 +109,7 @@ fun MovieDetailScreenNewUI(
 
         var listOfMovies = emptyList<MovieOrSeriesFirebase>()
         when(val moviesResponse = favoriteViewModel.moviesResponse) {
-            is Response.Loading -> ShimmerDetail(isLoading = true, contentAfterLoading = { /*TODO*/ })
+            is Response.Loading -> ShimmerDetail()
             is Response.Success -> moviesResponse.data.let { movies ->
                 listOfMovies = movies.filter { movieFirebase ->
                     movieFirebase.userId == userData?.userId && movieFirebase.title == movie.title
@@ -203,7 +203,7 @@ fun MovieDetailScreenNewUI(
         )
     }
     if(state.isLoading) {
-        ShimmerDetail(isLoading = true, contentAfterLoading = { /*TODO*/ })
+        ShimmerDetail()
     }
 }
 
