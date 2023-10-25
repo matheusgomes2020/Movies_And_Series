@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.newUI
+package com.example.moviesaandseries.presentation.movie_list.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -17,19 +17,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
-import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.domain.model.Movie
 import com.example.moviesaandseries.domain.model.Series
-import com.example.moviesaandseries.presentation.movie_list.MovieListState
-import com.example.moviesaandseries.ui.theme.MoviesAandSeriesTheme
+import com.example.moviesaandseries.presentation.general.DpDimensions
 
 @Composable
 fun TrendingCard(
@@ -73,45 +67,5 @@ fun TrendingCard(
     }
 }
 
-@Composable
-fun TrendingCardSeries(
-    series: Series,
-    onClick: (Series) -> Unit
 
-){
-    Surface(
-        shape = RoundedCornerShape(DpDimensions.Dp20),
-        modifier = Modifier
-            .width(370.dp)
-            .height(190.dp)
-            .clickable {
-                onClick(series)
-            }
-    ) {
-        Box(modifier = Modifier
-            .paint(
-                painter = rememberAsyncImagePainter(model = if (!series.poster_path.isNullOrEmpty()) Constants.BASE_IMAGE_URL + series.poster_path else R.drawable.logo) ,
-                contentScale = ContentScale.Crop
-            ),
-
-
-            contentAlignment = Alignment.BottomCenter) {
-
-            Column(
-                modifier = Modifier
-                    .padding(DpDimensions.Normal)
-                    .fillMaxWidth()
-            ) {
-
-                Text(
-                    text = series.name,
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = Color.White
-                )
-
-            }
-        }
-
-    }
-}
 

@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.movies_genres
+package com.example.moviesaandseries.presentation.series_genres
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

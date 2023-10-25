@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.newUI
+package com.example.moviesaandseries.presentation.general
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding

@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.newUI
+package com.example.moviesaandseries.presentation.general
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

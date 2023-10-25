@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.newUI
+package com.example.moviesaandseries.presentation.series_list.grid
 
 
 import androidx.compose.foundation.background
@@ -25,9 +25,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
+import com.example.moviesaandseries.presentation.general.AppBarWithBack
+import com.example.moviesaandseries.presentation.general.DpDimensions
 import com.example.moviesaandseries.presentation.general.ShimmerMovieAndSeriesListItem
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListViewModel
+import com.example.moviesaandseries.presentation.series_list.components.SeriesListItem
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 
 
@@ -87,7 +90,7 @@ fun SeriesListGidScreen(
                 ) {
 
                     items(series) { series ->
-                        SeriesItemNewUi(series = series, onClick = {
+                        SeriesListItem(series = series, onClick = {
                             navController.navigate(AppGraph.series_details.DETAILS + "/${series.id}")
                         })
                     }

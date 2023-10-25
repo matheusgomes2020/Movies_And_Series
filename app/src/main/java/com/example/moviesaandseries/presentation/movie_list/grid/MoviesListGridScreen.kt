@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.movies_genres
+package com.example.moviesaandseries.presentation.movie_list.grid
 
 
 import androidx.compose.foundation.background
@@ -25,24 +25,44 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
+import com.example.moviesaandseries.presentation.general.AppBarWithBack
+import com.example.moviesaandseries.presentation.general.DpDimensions
 import com.example.moviesaandseries.presentation.general.ShimmerMovieAndSeriesListItem
-import com.example.moviesaandseries.presentation.newUI.AppBarWithBack
-import com.example.moviesaandseries.presentation.newUI.DpDimensions
-import com.example.moviesaandseries.presentation.newUI.SeriesItemNewUi
+import com.example.moviesaandseries.presentation.movie_list.MovieListState
+import com.example.moviesaandseries.presentation.movie_list.MovieListViewModel
+import com.example.moviesaandseries.presentation.movie_list.components.MovieListItem
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 
 
 @Composable
-fun SeriesGenresScreen (
-    genreName: String,
+fun MoviesListGridScreen(
+    typeMovies: String,
     navController: NavController,
-    seriesGenresVIewModel: SeriesGenresVIewModel = hiltViewModel()
+    moviesViewModel: MovieListViewModel = hiltViewModel()
 ) {
-    val state = seriesGenresVIewModel.state.value
 
+    var state = MovieListState()
+
+    when (typeMovies) {
+        "Filmes em alta" -> {
+            state = moviesViewModel.statePopular.value
+        }
+        "Filmes em cartaz" -> {
+            state = moviesViewModel.stateNowPlaying.value
+        }
+        "Filmes melhores avaliados" -> {
+            state = moviesViewModel.stateRated.value
+        }
+        "Filmes em lançamento" -> {
+            state = moviesViewModel.stateUpcoming.value
+        }
+        "Filmes em tendência hoje" -> {
+            state = moviesViewModel.stateTrendingToday.value
+        }
+    }
     Scaffold(
         topBar = {
-            AppBarWithBack(title = genreName, backIcon = Icons.Default.ArrowBack, onBackClick = {
+            AppBarWithBack(title = typeMovies, backIcon = Icons.Default.ArrowBack, onBackClick = {
                 navController.popBackStack()
             } )
         }
@@ -57,9 +77,8 @@ fun SeriesGenresScreen (
                         DarkGrey11 else Color.White
                 )
         ) {
-            state.series?.let { series ->
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
+            state.movies?.let { movies ->
+                LazyVerticalGrid(columns = GridCells.Fixed( 2 ),
                     modifier = Modifier.fillMaxSize(),
 
                     horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
@@ -67,10 +86,10 @@ fun SeriesGenresScreen (
                     verticalArrangement = Arrangement.spacedBy(DpDimensions.Small)
                 ) {
 
-                    items(series) { series ->
-                        SeriesItemNewUi(series = series, onClick = {
-                            navController.navigate(AppGraph.series_details.DETAILS + "/${series.id}")
-                        })
+                    items( movies ) { movie ->
+                        MovieListItem(movie = movie, onClick = {
+                            navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
+                        } )
                     }
 
                 }
@@ -102,4 +121,3 @@ fun SeriesGenresScreen (
         }
     }
 }
-

@@ -35,7 +35,6 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import com.example.moviesaandseries.presentation.newUI.DpDimensions
 
 @Preview
 @Composable

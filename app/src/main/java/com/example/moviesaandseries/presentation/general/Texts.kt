@@ -58,7 +58,7 @@ fun TextCards(title: String){
             .width(110.dp)
             .background( color = if (isSystemInDarkTheme())  BlueGrey11 else Color.White )
             .padding(start = 3.dp),
-        fontSize = 14.sp,
+        fontSize = 13.sp,
         fontFamily = fontFamily3,
         maxLines = 1
     )

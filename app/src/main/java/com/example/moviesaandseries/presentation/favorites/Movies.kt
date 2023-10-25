@@ -1,11 +1,11 @@
 package com.example.moviesaandseries.presentation.favorites
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.moviesaandseries.domain.model.MovieOrSeriesFirebase
 import com.example.moviesaandseries.domain.model.Response
 import com.example.moviesaandseries.domain.repository.Movies
+import com.example.moviesaandseries.presentation.general.ProgressBar
 import com.example.moviesaandseries.presentation.signIn.UserData
 
 @Composable
@@ -25,7 +25,6 @@ fun Movies(
                 listOfMovies = movies.filter { movie ->
                     movie.userId == userData?.userId && movie.tipo == "movie"
                 }
-                Log.d("FFFFIRRE", "LISTTAAAA: " + listOfMovies)
                 moviesContent(listOfMovies)
             }
             is Response.Failure -> print(moviesResponse.e)
@@ -38,7 +37,6 @@ fun Movies(
                 listOfMovies = movies.filter { movie ->
                     movie.userId == userData?.userId && movie.tipo == "series"
                 }
-                Log.d("FFFFIRRE", "LISTTAAAA: " + listOfMovies)
                 moviesContent(listOfMovies)
             }
             is Response.Failure -> print(moviesResponse.e)

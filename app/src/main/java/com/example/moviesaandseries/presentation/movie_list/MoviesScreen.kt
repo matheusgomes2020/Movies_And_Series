@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.newUI
+package com.example.moviesaandseries.presentation.movie_list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,9 +25,12 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.navigation.AppGraph
-import com.example.moviesaandseries.presentation.movie_list.MovieTrendingCell
-import com.example.moviesaandseries.presentation.movie_list.MovieListViewModel
-import com.example.moviesaandseries.presentation.movie_list.MovieNewUICell
+import com.example.moviesaandseries.presentation.general.CustomPadding
+import com.example.moviesaandseries.presentation.general.DpDimensions
+import com.example.moviesaandseries.presentation.general.GenreItem
+import com.example.moviesaandseries.presentation.general.MainAppBar
+import com.example.moviesaandseries.presentation.general.SubtitleHeader
+import com.example.moviesaandseries.presentation.general.genres
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 import com.example.moviesaandseries.ui.theme.MoviesAandSeriesTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -60,6 +63,7 @@ fun MoviesScreenNewUI(navController: NavController,
             MainAppBar(
                 icon1 = R.drawable.search,
                 title = "Filmes",
+                imageUrl = "",
                 onLogoClick = {},
                 onSearchClick = {
                     navController.navigate( AppGraph.search_movies.SEARCH_MOVIES + "/${" "}" )
@@ -100,7 +104,7 @@ fun MoviesScreenNewUI(navController: NavController,
                 horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
                 contentPadding = PaddingValues(horizontal = 16.dp),
             ) {
-                items(genres.filter {  genre ->
+                items(genres.filter { genre ->
                     genre.type == 1 || genre.type == 3
                 }) { genre ->
                     GenreItem(genre = genre, onClick = {
@@ -115,7 +119,7 @@ fun MoviesScreenNewUI(navController: NavController,
                     onClick = {
                         navController.navigate(AppGraph.popular_movies.POPULAR_MOVIES) }
                 ) }
-            MovieNewUICell(navController = navController, state = statePopular)
+            MovieListCell(navController = navController, state = statePopular)
             Spacer(modifier = Modifier.height(DpDimensions.Small))
             CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
                 SubtitleHeader(
@@ -126,7 +130,7 @@ fun MoviesScreenNewUI(navController: NavController,
                         navController.navigate(AppGraph.now_Playing_movies.NOW_PLAYING_MOVIES) }
                 )
             }
-            MovieNewUICell(navController = navController, state = stateNowPlaying)
+            MovieListCell(navController = navController, state = stateNowPlaying)
             Spacer(modifier = Modifier.height(DpDimensions.Small))
             CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
                 SubtitleHeader(
@@ -138,7 +142,7 @@ fun MoviesScreenNewUI(navController: NavController,
                     }
                 )
             }
-            MovieNewUICell(navController = navController, state = stateUpcoming)
+            MovieListCell(navController = navController, state = stateUpcoming)
             Spacer(modifier = Modifier.height(DpDimensions.Small))
             CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
                 SubtitleHeader(
@@ -149,7 +153,7 @@ fun MoviesScreenNewUI(navController: NavController,
                         navController.navigate(AppGraph.rated_movies.RATED_MOVIES) }
                 )
             }
-            MovieNewUICell(navController = navController, state = stateRated)
+            MovieListCell(navController = navController, state = stateRated)
             Spacer(modifier = Modifier.height(60.dp))
         }
     }

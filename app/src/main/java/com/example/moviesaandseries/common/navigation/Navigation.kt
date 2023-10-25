@@ -16,22 +16,18 @@ import com.example.moviesaandseries.presentation.person_Image.ImagePersonScreen
 import com.example.moviesaandseries.presentation.episode.EpisodeScreen
 import com.example.moviesaandseries.presentation.general.ScreenContent
 import com.example.moviesaandseries.presentation.login.LoginContent
-import com.example.moviesaandseries.presentation.movie_detail.MovieDetailScreen
-import com.example.moviesaandseries.presentation.movie_list.MovieListScreen
 import com.example.moviesaandseries.presentation.searchMovies.SearchMoviesScreen
 import com.example.moviesaandseries.presentation.searchSeries.SearchSeriesScreen
 import com.example.moviesaandseries.presentation.season.SeasonDetailScreen
-import com.example.moviesaandseries.presentation.series_detail.SeriesDetailScreen
-import com.example.moviesaandseries.presentation.series_list.SeriesListScreen
 import com.example.moviesaandseries.presentation.favorites.ProfileScreen
 import com.example.moviesaandseries.presentation.movies_genres.MovieGenresScreen
-import com.example.moviesaandseries.presentation.movies_genres.SeriesGenresScreen
-import com.example.moviesaandseries.presentation.newUI.MovieDetailScreenNewUI
-import com.example.moviesaandseries.presentation.newUI.MoviesListGridScreen
-import com.example.moviesaandseries.presentation.newUI.MoviesScreenNewUI
-import com.example.moviesaandseries.presentation.newUI.SeriesDetailScreenNewUI
-import com.example.moviesaandseries.presentation.newUI.SeriesListGidScreen
-import com.example.moviesaandseries.presentation.newUI.SeriesScreenNewUI
+import com.example.moviesaandseries.presentation.series_genres.SeriesGenresScreen
+import com.example.moviesaandseries.presentation.movie_detail.MovieDetailScreenNewUI
+import com.example.moviesaandseries.presentation.movie_list.grid.MoviesListGridScreen
+import com.example.moviesaandseries.presentation.movie_list.MoviesScreenNewUI
+import com.example.moviesaandseries.presentation.series_detail.SeriesDetailScreenNewUI
+import com.example.moviesaandseries.presentation.series_list.grid.SeriesListGidScreen
+import com.example.moviesaandseries.presentation.series_list.SeriesScreenNewUI
 import com.example.moviesaandseries.presentation.signIn.UserData
 
 @Composable
@@ -82,16 +78,13 @@ fun HomeNavGraph(navController: NavHostController, userData: UserData?,
     ) {
         composable(route = AppGraph.home.MOVIES) {
             MoviesScreenNewUI(navController = navController, isSystemInDarkTheme())
-            //MovieListScreen(navController = navController)
         }
         composable(route = AppGraph.home.SERIES) {
             SeriesScreenNewUI(navController = navController, isSystemInDarkTheme = isSystemInDarkTheme() )
-            //SeriesListScreen(navController = navController)
         }
         composable(route = AppGraph.home.FAVORITES) {
-            ProfileScreen(navController = navController, userData = userData, onSignOut = onSignOut)
+            ProfileScreen(navController = navController, isSystemInDarkTheme(), userData = userData, onSignOut = onSignOut)
         }
-        movieDetailsNavGraph( navController = navController, userData = userData )
         movieDetailsNavGraph2( navController = navController, userData = userData )
         seriesDetailsNavGraph( navController = navController, userData = userData )
         searchSeriesNavGraph( navController = navController )
@@ -328,26 +321,7 @@ fun NavGraphBuilder.searchSeriesNavGraph( navController: NavController ) {
 }
 
 
-fun NavGraphBuilder.movieDetailsNavGraph(navController: NavController, userData: UserData? ){
-    navigation(
-        route = AppGraph.movies_details.ROOT,
-        startDestination = AppGraph.movies_details.DETAILS
-    ) {
-        composable(route = AppGraph.movies_details.DETAILS + "/{movieId}",
-            arguments = listOf(
-                navArgument( "movieId" ) {
-                    type = NavType.StringType
-                }
-            )
-        ) { navBackStackEntry ->
 
-            navBackStackEntry.arguments?.getString("movieId").let {
-                Log.d("TRT", "movieDetailsNavGraph2: ${navBackStackEntry.destination}")
-                MovieDetailScreen(navController = navController, userData = userData )
-            }
-        }
-    }
-}
 
 fun NavGraphBuilder.movieDetailsNavGraph2(navController: NavController, userData: UserData? ){
     navigation(
