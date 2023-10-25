@@ -40,7 +40,7 @@ import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.data.remote.dto.person.MovieWork
 import com.example.moviesaandseries.domain.model.Movie
 import com.example.moviesaandseries.domain.model.MovieOrSeriesFirebase
-import com.example.moviesaandseries.presentation.favorites.DeleteMovieBottomSheet
+import com.example.moviesaandseries.presentation.general.DeleteMovieBottomSheet
 import com.example.moviesaandseries.presentation.general.DpDimensions
 import com.example.moviesaandseries.presentation.series_list.components.MoviesAndSeriesColumnItem
 import com.example.moviesaandseries.ui.theme.BlueGrey11

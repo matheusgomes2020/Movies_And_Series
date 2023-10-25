@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.movie_list.grid
+package com.example.moviesaandseries.presentation.grid_series
 
 
 import androidx.compose.foundation.background
@@ -28,41 +28,43 @@ import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.presentation.general.AppBarWithBack
 import com.example.moviesaandseries.presentation.general.DpDimensions
 import com.example.moviesaandseries.presentation.general.ShimmerMovieAndSeriesListItem
-import com.example.moviesaandseries.presentation.movie_list.MovieListState
-import com.example.moviesaandseries.presentation.movie_list.MovieListViewModel
-import com.example.moviesaandseries.presentation.movie_list.components.MovieListItem
+import com.example.moviesaandseries.presentation.series_list.SeriesListState
+import com.example.moviesaandseries.presentation.series_list.SeriesListViewModel
+import com.example.moviesaandseries.presentation.series_list.components.SeriesListItem
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 
 
 @Composable
-fun MoviesListGridScreen(
-    typeMovies: String,
+fun SeriesListGidScreen(
+    typeSeries: String,
     navController: NavController,
-    moviesViewModel: MovieListViewModel = hiltViewModel()
+    seriesListViewModel: SeriesListViewModel = hiltViewModel()
 ) {
 
-    var state = MovieListState()
+    var state = SeriesListState()
 
-    when (typeMovies) {
-        "Filmes em alta" -> {
-            state = moviesViewModel.statePopular.value
+    when (typeSeries) {
+        "Séries em alta" -> {
+            state = seriesListViewModel.statePopular.value
         }
-        "Filmes em cartaz" -> {
-            state = moviesViewModel.stateNowPlaying.value
+        "No ar hoje" -> {
+            state = seriesListViewModel.stateAiryngToday.value
         }
-        "Filmes melhores avaliados" -> {
-            state = moviesViewModel.stateRated.value
+        "Séries no ar" -> {
+            state = seriesListViewModel.stateOnAir.value
         }
-        "Filmes em lançamento" -> {
-            state = moviesViewModel.stateUpcoming.value
+        "Melhores Avaliadas" -> {
+            state = seriesListViewModel.stateRated.value
         }
-        "Filmes em tendência hoje" -> {
-            state = moviesViewModel.stateTrendingToday.value
+        "Séries em tendência hoje" -> {
+            state = seriesListViewModel.stateTrendingToday.value
         }
     }
+
+
     Scaffold(
         topBar = {
-            AppBarWithBack(title = typeMovies, backIcon = Icons.Default.ArrowBack, onBackClick = {
+            AppBarWithBack(title = typeSeries, backIcon = Icons.Default.ArrowBack, onBackClick = {
                 navController.popBackStack()
             } )
         }
@@ -77,8 +79,9 @@ fun MoviesListGridScreen(
                         DarkGrey11 else Color.White
                 )
         ) {
-            state.movies?.let { movies ->
-                LazyVerticalGrid(columns = GridCells.Fixed( 2 ),
+            state.series?.let { series ->
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
                     modifier = Modifier.fillMaxSize(),
 
                     horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
@@ -86,38 +89,38 @@ fun MoviesListGridScreen(
                     verticalArrangement = Arrangement.spacedBy(DpDimensions.Small)
                 ) {
 
-                    items( movies ) { movie ->
-                        MovieListItem(movie = movie, onClick = {
-                            navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
-                        } )
+                    items(series) { series ->
+                        SeriesListItem(series = series, onClick = {
+                            navController.navigate(AppGraph.series_details.DETAILS + "/${series.id}")
+                        })
                     }
 
                 }
             }
         }
-        if ( state.error.isNotBlank() ) {
-            Text(
-                text = state.error,
-                color = MaterialTheme.colorScheme.error,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-                //.align(Alignment.Center)
-            )
-        }
-        if(state.isLoading) {
-            LazyVerticalGrid(columns = GridCells.Fixed( 2 ),
-                modifier = Modifier.fillMaxSize(),
+            if ( state.error.isNotBlank() ) {
+                Text(
+                    text = state.error,
+                    color = MaterialTheme.colorScheme.error,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                    //.align(Alignment.Center)
+                )
+            }
+            if(state.isLoading) {
+                LazyVerticalGrid(columns = GridCells.Fixed( 2 ),
+                    modifier = Modifier.fillMaxSize(),
 
-                horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
-                contentPadding = PaddingValues(horizontal = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(DpDimensions.Small)
-            ) {
-                items(20) {
-                    ShimmerMovieAndSeriesListItem()
+                    horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
+                    contentPadding = PaddingValues(horizontal = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(DpDimensions.Small)
+                ) {
+                    items(20) {
+                        ShimmerMovieAndSeriesListItem()
+                    }
                 }
             }
         }
-    }
 }

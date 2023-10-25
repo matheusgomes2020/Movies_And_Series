@@ -5,23 +5,33 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
+import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.data.remote.dto.season.SeasonDto
+import com.example.moviesaandseries.presentation.general.DpDimensions
 import com.example.moviesaandseries.presentation.general.TextCards
 import com.example.moviesaandseries.ui.theme.BlueGrey11
 
@@ -29,30 +39,48 @@ import com.example.moviesaandseries.ui.theme.BlueGrey11
 @Composable
 fun SeasonListItem(
     season: SeasonDto,
-    onItemClick: (SeasonDto) -> Unit
+    onItemClick: (SeasonDto) -> Unit,
+    height: Dp = 170.dp
 ) {
 
-    Card(
-        shape = RoundedCornerShape(15.dp),
+    Surface(
+        shape = RoundedCornerShape(DpDimensions.Dp20),
         modifier = Modifier
-            .padding(horizontal = 5.dp)
-            .clickable { onItemClick(season) }
-            .background(color = if (isSystemInDarkTheme()) BlueGrey11 else Color.White),
+            .width(120.dp)
+            .height(height),
+        onClick = { onItemClick(season) }
     ) {
-
-        Column(
+        Box(
             modifier = Modifier
-                    .background(color = if (isSystemInDarkTheme())  BlueGrey11 else Color.White),
+                .fillMaxSize()
+                .paint(
+                    painter = rememberAsyncImagePainter(model = if (!season.poster_path.isNullOrEmpty()) Constants.BASE_IMAGE_URL + season.poster_path else R.drawable.logo) ,
+                    contentScale = ContentScale.Crop
+                )
+                .background(
+                    brush = Brush.verticalGradient(
+                        listOf(
+                            Color.Transparent,
+                            Color.Transparent,
+                            Color.Black
+                        )
+                    ),
+                )
+                .clip(RoundedCornerShape(DpDimensions.Small)),
+            contentAlignment = Alignment.BottomStart
         ) {
-            Image(painter = rememberAsyncImagePainter(
-                model = Constants.BASE_IMAGE_URL + season.poster_path),
-                contentScale = ContentScale.Crop,
-                contentDescription = "movie image",
-                modifier = Modifier
-                    .width(110.dp)
-                    .height(150.dp)
-                    .clip(shape = RoundedCornerShape(15.dp)))
+
+            Column(
+                modifier = Modifier.padding(DpDimensions.Small)
+            ) {
+                Text(
+                    modifier = Modifier.width(110.dp),
+                    text ="${season.season_number} - temporada",
+                    style = MaterialTheme.typography.titleSmall,
+                    color = Color.White,
+                    maxLines = 1
+                )
+            }
         }
-        TextCards(title = "${season.season_number} - temporada")
     }
 }

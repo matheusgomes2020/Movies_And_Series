@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.series_list.grid
+package com.example.moviesaandseries.presentation.grid_movies
 
 
 import androidx.compose.foundation.background
@@ -28,43 +28,41 @@ import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.presentation.general.AppBarWithBack
 import com.example.moviesaandseries.presentation.general.DpDimensions
 import com.example.moviesaandseries.presentation.general.ShimmerMovieAndSeriesListItem
-import com.example.moviesaandseries.presentation.series_list.SeriesListState
-import com.example.moviesaandseries.presentation.series_list.SeriesListViewModel
-import com.example.moviesaandseries.presentation.series_list.components.SeriesListItem
+import com.example.moviesaandseries.presentation.movie_list.MovieListState
+import com.example.moviesaandseries.presentation.movie_list.MovieListViewModel
+import com.example.moviesaandseries.presentation.movie_list.components.MovieListItem
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 
 
 @Composable
-fun SeriesListGidScreen(
-    typeSeries: String,
+fun MoviesListGridScreen(
+    typeMovies: String,
     navController: NavController,
-    seriesListViewModel: SeriesListViewModel = hiltViewModel()
+    moviesViewModel: MovieListViewModel = hiltViewModel()
 ) {
 
-    var state = SeriesListState()
+    var state = MovieListState()
 
-    when (typeSeries) {
-        "Séries em alta" -> {
-            state = seriesListViewModel.statePopular.value
+    when (typeMovies) {
+        "Filmes em alta" -> {
+            state = moviesViewModel.statePopular.value
         }
-        "No ar hoje" -> {
-            state = seriesListViewModel.stateAiryngToday.value
+        "Filmes em cartaz" -> {
+            state = moviesViewModel.stateNowPlaying.value
         }
-        "Séries no ar" -> {
-            state = seriesListViewModel.stateOnAir.value
+        "Filmes melhores avaliados" -> {
+            state = moviesViewModel.stateRated.value
         }
-        "Melhores Avaliadas" -> {
-            state = seriesListViewModel.stateRated.value
+        "Filmes em lançamento" -> {
+            state = moviesViewModel.stateUpcoming.value
         }
-        "Séries em tendência hoje" -> {
-            state = seriesListViewModel.stateTrendingToday.value
+        "Filmes em tendência hoje" -> {
+            state = moviesViewModel.stateTrendingToday.value
         }
     }
-
-
     Scaffold(
         topBar = {
-            AppBarWithBack(title = typeSeries, backIcon = Icons.Default.ArrowBack, onBackClick = {
+            AppBarWithBack(title = typeMovies, backIcon = Icons.Default.ArrowBack, onBackClick = {
                 navController.popBackStack()
             } )
         }
@@ -79,37 +77,7 @@ fun SeriesListGidScreen(
                         DarkGrey11 else Color.White
                 )
         ) {
-            state.series?.let { series ->
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    modifier = Modifier.fillMaxSize(),
-
-                    horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
-                    contentPadding = PaddingValues(horizontal = 16.dp),
-                    verticalArrangement = Arrangement.spacedBy(DpDimensions.Small)
-                ) {
-
-                    items(series) { series ->
-                        SeriesListItem(series = series, onClick = {
-                            navController.navigate(AppGraph.series_details.DETAILS + "/${series.id}")
-                        })
-                    }
-
-                }
-            }
-        }
-            if ( state.error.isNotBlank() ) {
-                Text(
-                    text = state.error,
-                    color = MaterialTheme.colorScheme.error,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 20.dp)
-                    //.align(Alignment.Center)
-                )
-            }
-            if(state.isLoading) {
+            state.movies?.let { movies ->
                 LazyVerticalGrid(columns = GridCells.Fixed( 2 ),
                     modifier = Modifier.fillMaxSize(),
 
@@ -117,10 +85,39 @@ fun SeriesListGidScreen(
                     contentPadding = PaddingValues(horizontal = 16.dp),
                     verticalArrangement = Arrangement.spacedBy(DpDimensions.Small)
                 ) {
-                    items(20) {
-                        ShimmerMovieAndSeriesListItem()
+
+                    items( movies ) { movie ->
+                        MovieListItem(movie = movie, onClick = {
+                            navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
+                        } )
                     }
+
                 }
             }
         }
+        if ( state.error.isNotBlank() ) {
+            Text(
+                text = state.error,
+                color = MaterialTheme.colorScheme.error,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+                //.align(Alignment.Center)
+            )
+        }
+        if(state.isLoading) {
+            LazyVerticalGrid(columns = GridCells.Fixed( 2 ),
+                modifier = Modifier.fillMaxSize(),
+
+                horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
+                contentPadding = PaddingValues(horizontal = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(DpDimensions.Small)
+            ) {
+                items(20) {
+                    ShimmerMovieAndSeriesListItem()
+                }
+            }
+        }
+    }
 }

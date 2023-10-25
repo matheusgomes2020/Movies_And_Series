@@ -1,23 +1,22 @@
-package com.example.moviesaandseries.presentation.favorites
+package com.example.moviesaandseries.presentation.general
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.moviesaandseries.domain.model.MovieOrSeriesFirebase
 import com.example.moviesaandseries.domain.model.Response
 import com.example.moviesaandseries.domain.repository.Movies
-import com.example.moviesaandseries.presentation.general.ProgressBar
-import com.example.moviesaandseries.presentation.signIn.UserData
+import com.example.moviesaandseries.presentation.favorites.FavoriteViewModel
 
 @Composable
 fun Movies(
     userData: UserData?,
-    tipo: String,
+    type: String,
     viewModel: FavoriteViewModel = hiltViewModel(),
     moviesContent: @Composable ( movies: Movies ) -> Unit
 
 ) {
 
-    if (tipo == "movies") {
+    if (type == "movies") {
         var listOfMovies = emptyList<MovieOrSeriesFirebase>()
         when(val moviesResponse = viewModel.moviesResponse) {
             is Response.Loading -> ProgressBar()

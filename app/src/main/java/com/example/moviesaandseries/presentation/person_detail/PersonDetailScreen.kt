@@ -38,10 +38,10 @@ import com.example.moviesaandseries.presentation.general.RowIcons
 import com.example.moviesaandseries.presentation.general.TextBiografia
 import com.example.moviesaandseries.presentation.general.TextSubTitulos
 import com.example.moviesaandseries.presentation.general.TextTitulos
-import com.example.moviesaandseries.presentation.movie_list.MovieListScreenCellWork
+import com.example.moviesaandseries.presentation.movie_list.components.MovieListScreenCellWork
 import com.example.moviesaandseries.presentation.person_list.MoviesCastListState
 import com.example.moviesaandseries.presentation.person_list.SeriesCastListState
-import com.example.moviesaandseries.presentation.series_list.SeriesListScreenCellPerson
+import com.example.moviesaandseries.presentation.series_list.components.SeriesListScreenCellPerson
 import com.example.moviesaandseries.ui.theme.BlueGrey11
 
 @Composable

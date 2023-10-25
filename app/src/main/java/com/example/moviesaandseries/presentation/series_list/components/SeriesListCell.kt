@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.series_list
+package com.example.moviesaandseries.presentation.series_list.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,9 +21,7 @@ import com.example.moviesaandseries.presentation.general.DpDimensions
 import com.example.moviesaandseries.presentation.person_list.SeriesCastListState
 import com.example.moviesaandseries.presentation.general.ShimmerMovieAndSeriesListItem
 import com.example.moviesaandseries.presentation.general.ShimmerTrending
-import com.example.moviesaandseries.presentation.series_list.components.SeriesListItem
-import com.example.moviesaandseries.presentation.series_list.components.SeriesListItemWork
-import com.example.moviesaandseries.presentation.series_list.components.TrendingCardSeries
+import com.example.moviesaandseries.presentation.series_list.SeriesListState
 
 @Composable
 fun SeriesTrendingCell(

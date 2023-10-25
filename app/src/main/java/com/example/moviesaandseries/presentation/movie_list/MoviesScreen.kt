@@ -31,6 +31,8 @@ import com.example.moviesaandseries.presentation.general.GenreItem
 import com.example.moviesaandseries.presentation.general.MainAppBar
 import com.example.moviesaandseries.presentation.general.SubtitleHeader
 import com.example.moviesaandseries.presentation.general.genres
+import com.example.moviesaandseries.presentation.movie_list.components.MovieListCell
+import com.example.moviesaandseries.presentation.movie_list.components.MovieTrendingCell
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 import com.example.moviesaandseries.ui.theme.MoviesAandSeriesTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
