@@ -2,6 +2,7 @@ package com.example.moviesaandseries.presentation.general
 
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -34,14 +36,16 @@ import com.example.moviesaandseries.data.remote.dto.movies.Crew
 import com.example.moviesaandseries.data.remote.dto.Genre
 import com.example.moviesaandseries.data.remote.dto.Review
 import com.example.moviesaandseries.data.remote.dto.season.SeasonDto
-import com.example.moviesaandseries.presentation.person_list.components.CastListItem
+import com.example.moviesaandseries.presentation.person_list.components.PersonListItem
 import com.example.moviesaandseries.presentation.movie_list.MovieListState
-import com.example.moviesaandseries.presentation.movie_list.MovieListCell
+import com.example.moviesaandseries.presentation.movie_list.components.MovieListCell
+import com.example.moviesaandseries.presentation.person_list.components.CastListCell
+import com.example.moviesaandseries.presentation.person_list.components.PersonListItemNewUI
 import com.example.moviesaandseries.presentation.review.ReviewListItem
 import com.example.moviesaandseries.presentation.season_list.SeasonListScreenCell
 import com.example.moviesaandseries.presentation.season_list.SeasonListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
-import com.example.moviesaandseries.presentation.series_list.SeriesListCell
+import com.example.moviesaandseries.presentation.series_list.components.SeriesListCell
 import com.example.moviesaandseries.ui.theme.fontFamily3
 
 @Composable
@@ -118,7 +122,7 @@ fun MainContent(
             contentPadding = PaddingValues()
         ) {
             items(cast) { cast ->
-                CastListItem(
+                PersonListItem(
                     cast = cast,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -137,7 +141,61 @@ fun MainContent(
 }
 
 @Composable
+fun CastCellNewUI(navController: NavController,
+                  cast: List<Cast>) {
+    CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
+        SubtitleHeader(
+            title = "Elenco",
+            modifier = Modifier.fillMaxWidth(),
+            isSystemInDarkTheme = true,
+            onClick = {
+            }
+        )
+    }
+    CastListCell( navController = navController, cast = cast )
+    Spacer(modifier = Modifier.height(DpDimensions.Small))
+}
+
+
+
+@Composable
  fun CrewCell(
+    director: String,
+    crew: List<Crew>) {
+    Column {
+        var roteiro = ""
+        for (i in crew) if ( i.department == "Writing" ) {
+            roteiro += i.name + "\n"
+        }
+        if (director != "Ninguém") {
+            SubtitleHeader(
+                title = "Direção",
+                modifier = Modifier.fillMaxWidth(),
+                isSystemInDarkTheme = true,
+                onClick = {
+                }
+            )
+            Text(text = director.trim(),
+                fontSize = 15.sp,
+                fontFamily = fontFamily3,
+                modifier = Modifier.padding(top = 5.dp, start = 7.dp))
+            Spacer(modifier = Modifier.height( 10.dp ))
+        }
+        if (!roteiro.isNullOrEmpty()) {
+            Text( text = "Roteiro",
+                style = MaterialTheme.typography.headlineMedium,)
+            Text(text = roteiro.trim(),
+                fontSize = 15.sp,
+                fontFamily = fontFamily3,
+                modifier = Modifier.padding(top = 5.dp, start = 7.dp),
+                maxLines = 5)
+        }
+
+    }
+}
+
+@Composable
+fun CrewCell2(
     director: String,
     crew: List<Crew>) {
     Column {
@@ -170,35 +228,41 @@ fun SeasonsCell(
     navController: NavController,
     seriesId: String, numeroTemporadas: Int, seasons: List<SeasonDto>, state: SeasonListState
 ) {
-    TextSubTitulos(title =  if (numeroTemporadas > 1) "$numeroTemporadas - temporadas" else "$numeroTemporadas - temporada")
-    Column(
-        modifier = Modifier.padding(
-            horizontal = 10.dp
+    CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
+        SubtitleHeader(
+            title = if (numeroTemporadas > 1) "$numeroTemporadas - temporadas" else "$numeroTemporadas - temporada",
+            modifier = Modifier.fillMaxWidth(),
+            isSystemInDarkTheme = true,
+            onClick = {
+            }
         )
-    ) {
-        Spacer(modifier = Modifier.height( 15.dp ))
-        SeasonListScreenCell(navController = navController, seriesId = seriesId , state = state )
     }
+    SeasonListScreenCell(navController = navController, seriesId = seriesId , state = state )
+    Spacer(modifier = Modifier.height(DpDimensions.Small))
 }
 
 @Composable
  fun SimilarSeriesCell(navController: NavController, state: SeriesListState) {
-    TextSubTitulos(title = "Séries Similares")
-    Column(modifier = Modifier.padding(10.dp)
-    ) {
-        SeriesListCell(navController  , state = state)
+    CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
+        SubtitleHeader(
+            title = "Séries Similares",
+            modifier = Modifier.fillMaxWidth(),
+            isSystemInDarkTheme = true,
+            onClick = {
+            }
+        )
     }
+    SeriesListCell(navController  , state = state)
+    Spacer(modifier = Modifier.height(DpDimensions.Small))
 }
 
 @Composable
 fun SimilarsMoviesCell(navController: NavController, state: MovieListState) {
     TextSubTitulos(title = "Filmes Similares")
-    Column(modifier = Modifier.padding(10.dp)) {
         MovieListCell(
             navController = navController,
             state = state
         )
-    }
 }
 
 @Composable
@@ -214,24 +278,32 @@ fun RecommendationMoviesCell(navController: NavController, state: MovieListState
 
 @Composable
 fun RecommendationSeriesCell(navController: NavController, state: SeriesListState) {
-    TextSubTitulos(title = "Séries Recomendadas")
-    Column(modifier = Modifier.padding(10.dp)) {
-        SeriesListCell(
-            navController = navController,
-            state = state
+    CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
+        SubtitleHeader(
+            title = "Séries recomendadas",
+            modifier = Modifier.fillMaxWidth(),
+            isSystemInDarkTheme = true,
+            onClick = {
+            }
         )
     }
+    SeriesListCell(navController  , state = state)
+    Spacer(modifier = Modifier.height(DpDimensions.Small))
 }
 
 @Composable
 fun ReviewsCell(reviews: List<Review> ){
-    TextSubTitulos(title = "Avaliações")
-    Column(
-        modifier = Modifier.padding( horizontal = 10.dp )
-    ) {
-        Spacer(modifier = Modifier.height(15.dp))
+    CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
+        SubtitleHeader(
+            title = "Avaliações",
+            modifier = Modifier.fillMaxWidth(),
+            isSystemInDarkTheme = true,
+            onClick = {
+            }
+        )
         ReviewListScreenCell(reviews = reviews)
     }
+
 }
 
 @Composable

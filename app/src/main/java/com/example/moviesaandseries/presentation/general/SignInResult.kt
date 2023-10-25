@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.signIn
+package com.example.moviesaandseries.presentation.general
 
 data class SignInResult(
     val data: UserData?,

@@ -29,7 +29,6 @@ import com.example.moviesaandseries.domain.model.MovieOrSeriesFirebase
 import com.example.moviesaandseries.domain.model.Response
 import com.example.moviesaandseries.presentation.episode.ImagesCell
 import com.example.moviesaandseries.presentation.favorites.FavoriteViewModel
-import com.example.moviesaandseries.presentation.general.CastCell
 import com.example.moviesaandseries.presentation.general.CrewCell
 import com.example.moviesaandseries.presentation.general.MainContent
 import com.example.moviesaandseries.presentation.general.RecommendationSeriesCell
@@ -38,21 +37,25 @@ import com.example.moviesaandseries.presentation.general.SeasonsCell
 import com.example.moviesaandseries.presentation.general.ShimmerDetail
 import com.example.moviesaandseries.presentation.general.SimilarSeriesCell
 import com.example.moviesaandseries.presentation.general.AppBarWithBackAndIcon
+import com.example.moviesaandseries.presentation.general.CastCellNewUI
+import com.example.moviesaandseries.presentation.general.CrewCell2
 import com.example.moviesaandseries.presentation.general.CustomPadding
 import com.example.moviesaandseries.presentation.general.DpDimensions
+import com.example.moviesaandseries.presentation.general.SubtitleHeader
 import com.example.moviesaandseries.presentation.season_list.SeasonListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
-import com.example.moviesaandseries.presentation.signIn.UserData
+import com.example.moviesaandseries.presentation.general.UserData
+import com.example.moviesaandseries.presentation.person_list.components.CastListCell
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun SeriesDetailScreenNewUI(
-        navController: NavController,
-        isSystemInDarkTheme: Boolean,
-        userData: UserData?,
-        viewModel: SeriesDetailViewModel = hiltViewModel(),
-        favoriteViewModel: FavoriteViewModel = hiltViewModel(),
+    navController: NavController,
+    isSystemInDarkTheme: Boolean,
+    userData: UserData?,
+    viewModel: SeriesDetailViewModel = hiltViewModel(),
+    favoriteViewModel: FavoriteViewModel = hiltViewModel(),
 ) {
 
     val systemUiController = rememberSystemUiController()
@@ -158,36 +161,44 @@ fun SeriesDetailScreenNewUI(
                             verticalPadding = 0.dp,
                             horizontalPadding = DpDimensions.Normal
                         ) {
-                            MainContent(isVideo, logo, overview, posterPath, data, runtime, series.vote_average, series.genres)
+                            MainContent(
+                                isVideo,
+                                logo,
+                                overview,
+                                posterPath,
+                                data,
+                                runtime,
+                                series.vote_average,
+                                series.genres
+                            )
+                        }
                             if ( !series.seasons.isNullOrEmpty() ) {
-                                Spacer(modifier = Modifier.height( 16.dp ))
                                 SeasonsCell(navController = navController,series.id.toString(), series.number_of_seasons, series.seasons, stateSeasons )
                             }
                             if ( !series.aggregate_credits.cast.isNullOrEmpty() ) {
-                                Spacer(modifier = Modifier.height( 16.dp ))
-                                CastCell( navController = navController, cast = series.aggregate_credits.cast, "Elenco" )
+                                CastCellNewUI( navController = navController, cast = series.aggregate_credits.cast )
                             }
                             if (!createdBy.isNullOrEmpty() && !series.aggregate_credits.crew.isNullOrEmpty() ) {
-                                Spacer(modifier = Modifier.height( 16.dp ))
-                                CrewCell(createdBy, crew = series.aggregate_credits.crew)
+                                CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
+                                    CrewCell(createdBy, crew = series.aggregate_credits.crew)
+                                }
                             }
                             if (!series.recommendations.results.isNullOrEmpty()) {
-                                Spacer(modifier = Modifier.height( 16.dp ))
                                 RecommendationSeriesCell(navController = navController, state = stateRecommendations )
                             }
                             if (!series.similar.results.isNullOrEmpty()) {
-                                Spacer(modifier = Modifier.height( 16.dp ))
                                 SimilarSeriesCell(navController = navController, state = stateSimilar )
                             }
                             if (!series.reviews.results.isNullOrEmpty()) {
-                                Spacer(modifier = Modifier.height( 16.dp ))
-                                ReviewsCell(reviews = series.reviews.results)
-                            }
+                                    ReviewsCell(reviews = series.reviews.results)
+                                }
+
+
                             if (!series.images.stills.isNullOrEmpty()) {
                                 Spacer(modifier = Modifier.height( 16.dp ))
                                 ImagesCell(images = series.images.stills)
                             }
-                        }
+
                     }
                 }
             }

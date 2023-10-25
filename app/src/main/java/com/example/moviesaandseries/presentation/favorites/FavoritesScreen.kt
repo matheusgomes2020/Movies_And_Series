@@ -19,12 +19,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.R
-import com.example.moviesaandseries.presentation.movie_list.MovieNewUICellFirebase
+import com.example.moviesaandseries.common.navigation.AppGraph
+import com.example.moviesaandseries.presentation.movie_list.components.MovieNewUICellFirebase
 import com.example.moviesaandseries.presentation.general.CustomPadding
 import com.example.moviesaandseries.presentation.general.DpDimensions
 import com.example.moviesaandseries.presentation.general.MainAppBar
+import com.example.moviesaandseries.presentation.general.Movies
 import com.example.moviesaandseries.presentation.general.SubtitleHeader
-import com.example.moviesaandseries.presentation.signIn.UserData
+import com.example.moviesaandseries.presentation.general.UserData
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
@@ -58,7 +60,7 @@ fun ProfileScreen(
                 imageUrl = if (userData?.profilePictureUrl != null) userData.profilePictureUrl else "sem imagem",
                 onLogoClick = {},
                 onSearchClick = {
-
+                    navController.navigate(AppGraph.account_details.ACCOUNT_DETAILS)
                 })
         }
     ) {
@@ -83,7 +85,7 @@ fun ProfileScreen(
                 )
             }
                 Movies(userData = userData,
-                    tipo = "movies"
+                    type = "movies"
                 ) { movies ->
                     MovieNewUICellFirebase(
                         navController = navController,
@@ -103,7 +105,7 @@ fun ProfileScreen(
                 )
             }
                 Movies(userData = userData,
-                    tipo = "series"
+                    type = "series"
                 ) { movies ->
                     MovieNewUICellFirebase(
                         navController = navController,

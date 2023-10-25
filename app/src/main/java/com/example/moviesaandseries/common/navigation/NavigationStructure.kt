@@ -109,6 +109,11 @@ object TrendingTodaySeriesGraph {
     const val TRENDING_TODAY_SERIES= "trendingTodaySeries"
 }
 
+object AccountDetailsGraph {
+    const val ROOT = "account_details_graph"
+    const val ACCOUNT_DETAILS = "accountDetails"
+}
+
 
 object DetailsGraph {
     const val ROOT = "details_graph"
@@ -178,6 +183,7 @@ object AppGraph {
     val airying_today_series = AiryingTodaySeriesGraph
     val on_air_series = OnAirSeriesGraph
     val trending_today_series = TrendingTodaySeriesGraph
+    val account_details = AccountDetailsGraph
 
 
 

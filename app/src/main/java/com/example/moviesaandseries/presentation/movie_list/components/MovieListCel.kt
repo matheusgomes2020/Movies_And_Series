@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.movie_list
+package com.example.moviesaandseries.presentation.movie_list.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,11 +21,9 @@ import com.example.moviesaandseries.domain.repository.Movies
 import com.example.moviesaandseries.presentation.person_list.MoviesCastListState
 import com.example.moviesaandseries.presentation.general.ShimmerMovieAndSeriesListItem
 import com.example.moviesaandseries.presentation.general.ShimmerTrending
-import com.example.moviesaandseries.presentation.movie_list.components.MovieListItemFirebase
-import com.example.moviesaandseries.presentation.movie_list.components.MovieListItemWork
 import com.example.moviesaandseries.presentation.general.DpDimensions
-import com.example.moviesaandseries.presentation.movie_list.components.MovieListItem
-import com.example.moviesaandseries.presentation.movie_list.components.TrendingCard
+import com.example.moviesaandseries.presentation.movie_list.MovieListState
+
 @Composable
 fun MovieTrendingCell(
     navController: NavController,

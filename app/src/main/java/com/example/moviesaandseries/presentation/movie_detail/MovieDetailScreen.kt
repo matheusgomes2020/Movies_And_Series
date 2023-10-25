@@ -46,7 +46,7 @@ import com.example.moviesaandseries.presentation.movie_list.MovieListState
 import com.example.moviesaandseries.presentation.general.AppBarWithBackAndIcon
 import com.example.moviesaandseries.presentation.general.CustomPadding
 import com.example.moviesaandseries.presentation.general.DpDimensions
-import com.example.moviesaandseries.presentation.signIn.UserData
+import com.example.moviesaandseries.presentation.general.UserData
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 import com.example.moviesaandseries.ui.theme.MoviesAandSeriesTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController

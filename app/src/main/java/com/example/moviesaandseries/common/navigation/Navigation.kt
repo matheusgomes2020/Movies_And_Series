@@ -11,6 +11,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
+import com.example.moviesaandseries.presentation.account_details.AccountDetailsScreen
+import com.example.moviesaandseries.presentation.account_details.components.AccountDetails
 import com.example.moviesaandseries.presentation.person_detail.CastScreen
 import com.example.moviesaandseries.presentation.person_Image.ImagePersonScreen
 import com.example.moviesaandseries.presentation.episode.EpisodeScreen
@@ -23,12 +25,12 @@ import com.example.moviesaandseries.presentation.favorites.ProfileScreen
 import com.example.moviesaandseries.presentation.movies_genres.MovieGenresScreen
 import com.example.moviesaandseries.presentation.series_genres.SeriesGenresScreen
 import com.example.moviesaandseries.presentation.movie_detail.MovieDetailScreenNewUI
-import com.example.moviesaandseries.presentation.movie_list.grid.MoviesListGridScreen
+import com.example.moviesaandseries.presentation.grid_movies.MoviesListGridScreen
 import com.example.moviesaandseries.presentation.movie_list.MoviesScreenNewUI
 import com.example.moviesaandseries.presentation.series_detail.SeriesDetailScreenNewUI
-import com.example.moviesaandseries.presentation.series_list.grid.SeriesListGidScreen
+import com.example.moviesaandseries.presentation.grid_series.SeriesListGidScreen
 import com.example.moviesaandseries.presentation.series_list.SeriesScreenNewUI
-import com.example.moviesaandseries.presentation.signIn.UserData
+import com.example.moviesaandseries.presentation.general.UserData
 
 @Composable
 fun RootNavigationGraph(navController: NavHostController) {
@@ -101,6 +103,7 @@ fun HomeNavGraph(navController: NavHostController, userData: UserData?,
         onAirSeriesNavGraph( navController = navController )
         ratedSeriesNavGraph( navController = navController )
         trendingTodaySeriesNavGraph( navController = navController )
+        accountDetailsNavGraph( navController = navController, userData = userData, onSignOut = onSignOut )
 
     }
 }
@@ -140,6 +143,18 @@ fun NavGraphBuilder.popularMoviesNavGraph( navController: NavController ) {
         composable(route = AppGraph.popular_movies.POPULAR_MOVIES,
         ) {
                 MoviesListGridScreen( "Filmes em alta", navController = navController )
+        }
+    }
+}
+
+fun NavGraphBuilder.accountDetailsNavGraph( navController: NavController, userData: UserData?, onSignOut: () -> Unit ) {
+    navigation(
+        route = AppGraph.account_details.ROOT,
+        startDestination = AppGraph.account_details.ACCOUNT_DETAILS
+    ) {
+        composable(route = AppGraph.account_details.ACCOUNT_DETAILS,
+        ) {
+            AccountDetailsScreen(navController = navController, isSystemInDarkTheme = isSystemInDarkTheme() , userData = userData, onSignOut = onSignOut )
         }
     }
 }
