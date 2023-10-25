@@ -19,70 +19,20 @@ import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.domain.repository.Movies
 import com.example.moviesaandseries.presentation.person_list.MoviesCastListState
-import com.example.moviesaandseries.presentation.general.ShimmerListItem
 import com.example.moviesaandseries.presentation.general.ShimmerMovieAndSeriesListItem
 import com.example.moviesaandseries.presentation.general.ShimmerTrending
-import com.example.moviesaandseries.presentation.movie_list.components.MovieListItem
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListItemFirebase
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListItemWork
-import com.example.moviesaandseries.presentation.newUI.DpDimensions
-import com.example.moviesaandseries.presentation.newUI.MovieItemNewUi
-import com.example.moviesaandseries.presentation.newUI.SeriesItemNewUi
-import com.example.moviesaandseries.presentation.newUI.TrendingCard
-import com.example.moviesaandseries.presentation.newUI.TrendingCardSeries
-import com.example.moviesaandseries.presentation.series_list.SeriesListState
-
-@Composable
-fun MovieListScreenCell(
-    navController: NavController,
-    state: MovieListState,
-
-){
-
-    Box(
-    ) {
-
-        LazyRow {
-            items(state.movies) { movie ->
-                MovieListItem(
-                    movie = movie,
-                    onItemClick = {
-                        navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
-                    }
-                )
-            }
-        }
-        if ( state.error.isNotBlank() ) {
-            Text(
-                text = state.error,
-                color = MaterialTheme.colorScheme.error,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-                    .align(Alignment.Center)
-            )
-        }
-        if(state.isLoading) {
-            LazyRow {
-                items(20) {
-                   ShimmerListItem(isLoading = true,
-                       contentAfterLoading = { /*TODO*/ })
-                }
-            }
-        }
-    }
-}
-
+import com.example.moviesaandseries.presentation.general.DpDimensions
+import com.example.moviesaandseries.presentation.movie_list.components.MovieListItem
+import com.example.moviesaandseries.presentation.movie_list.components.TrendingCard
 @Composable
 fun MovieTrendingCell(
     navController: NavController,
     state: MovieListState,
     ){
-
     Box(
     ) {
-
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
                 contentPadding = PaddingValues(horizontal = 16.dp),
@@ -117,64 +67,21 @@ fun MovieTrendingCell(
     }
 }
 
-@Composable
-fun SeriesTrendingCell(
-    navController: NavController,
-    state: SeriesListState,
-){
 
-    Box(
-    ) {
-
-        LazyRow(
-            horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
-            contentPadding = PaddingValues(horizontal = 16.dp),
-        ) {
-            items(state.series) { series ->
-                TrendingCardSeries(series = series, onClick = {
-                    navController.navigate(AppGraph.series_details.DETAILS + "/${series.id}")
-                } )
-            }
-        }
-        if ( state.error.isNotBlank() ) {
-            Text(
-                text = state.error,
-                color = MaterialTheme.colorScheme.error,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-                    .align(Alignment.Center)
-            )
-        }
-        if(state.isLoading) {
-            LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
-                contentPadding = PaddingValues(horizontal = 16.dp),
-            ) {
-                items(3) {
-                    ShimmerTrending()
-                }
-            }
-        }
-    }
-}
 
 @Composable
-fun MovieNewUICell(
+fun MovieListCell(
     navController: NavController,
     state: MovieListState,
 ){
-
     Box(
     ) {
-
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
             contentPadding = PaddingValues(horizontal = 16.dp),
         ) {
             items(state.movies) { movie ->
-                MovieItemNewUi(movie = movie, onClick = {
+                MovieListItem(movie = movie, onClick = {
                     navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
                 } )
             }
@@ -203,48 +110,7 @@ fun MovieNewUICell(
     }
 }
 
-@Composable
-fun SeriesNewUICell(
-    navController: NavController,
-    state: SeriesListState,
-){
 
-    Box(
-    ) {
-
-        LazyRow(
-            horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
-            contentPadding = PaddingValues(horizontal = 16.dp),
-        ) {
-            items(state.series) { series ->
-                SeriesItemNewUi(series = series, onClick = {
-                    navController.navigate(AppGraph.series_details.DETAILS + "/${series.id}")
-                } )
-            }
-        }
-        if ( state.error.isNotBlank() ) {
-            Text(
-                text = state.error,
-                color = MaterialTheme.colorScheme.error,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-                    .align(Alignment.Center)
-            )
-        }
-        if(state.isLoading) {
-            LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
-                contentPadding = PaddingValues(horizontal = 16.dp),
-            ) {
-                items(3) {
-                    ShimmerMovieAndSeriesListItem()
-                }
-            }
-        }
-    }
-}
 
 @Composable
 fun MovieListScreenCellWork(
@@ -292,16 +158,19 @@ fun MovieListScreenCellWork(
 }
 
 @Composable
-fun MovieListScreenCellFirebase(
+fun MovieNewUICellFirebase(
     navController: NavController,
     movies: Movies,
     tipo: String,
     deleteMovie: (idFirebase: String) -> Unit
 ){
+
     Box(
     ) {
 
         LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
+            contentPadding = PaddingValues(horizontal = 16.dp),
         ) {
             items(movies) { movie ->
                 MovieListItemFirebase(
@@ -322,24 +191,5 @@ fun MovieListScreenCellFirebase(
                 )
             }
         }
-//        if ( state.error.isNotBlank() ) {
-//            Text(
-//                text = state.error,
-//                color = MaterialTheme.colorScheme.error,
-//                textAlign = TextAlign.Center,
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(horizontal = 20.dp)
-//                    .align(Alignment.Center)
-//            )
-//        }
-//        if(state.isLoading) {
-//            LazyRow {
-//                items(20) {
-//                    ShimmerListItem(isLoading = true,
-//                        contentAfterLoading = { /*TODO*/ })
-//                }
-//            }
-//        }
     }
 }

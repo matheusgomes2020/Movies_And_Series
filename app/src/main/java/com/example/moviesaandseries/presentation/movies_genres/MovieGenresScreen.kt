@@ -26,9 +26,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.presentation.general.ShimmerMovieAndSeriesListItem
-import com.example.moviesaandseries.presentation.newUI.AppBarWithBack
-import com.example.moviesaandseries.presentation.newUI.DpDimensions
-import com.example.moviesaandseries.presentation.newUI.MovieItemNewUi
+import com.example.moviesaandseries.presentation.general.AppBarWithBack
+import com.example.moviesaandseries.presentation.general.DpDimensions
+import com.example.moviesaandseries.presentation.movie_list.components.MovieListItem
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 
 
@@ -67,7 +67,7 @@ fun MovieGenresScreen(
                 ) {
 
                     items( movies ) { movie ->
-                        MovieItemNewUi(movie = movie, onClick = {
+                        MovieListItem(movie = movie, onClick = {
                             navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
                         } )
                     }

@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.newUI
+package com.example.moviesaandseries.presentation.general
 
 import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color

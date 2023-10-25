@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.newUI
+package com.example.moviesaandseries.presentation.series_list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,9 +23,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.navigation.AppGraph
-import com.example.moviesaandseries.presentation.movie_list.SeriesNewUICell
-import com.example.moviesaandseries.presentation.movie_list.SeriesTrendingCell
-import com.example.moviesaandseries.presentation.series_list.SeriesListViewModel
+import com.example.moviesaandseries.presentation.general.CustomPadding
+import com.example.moviesaandseries.presentation.general.DpDimensions
+import com.example.moviesaandseries.presentation.general.GenreItem
+import com.example.moviesaandseries.presentation.general.MainAppBar
+import com.example.moviesaandseries.presentation.general.SubtitleHeader
+import com.example.moviesaandseries.presentation.general.genres
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
@@ -57,6 +60,7 @@ fun SeriesScreenNewUI(navController: NavController,
             MainAppBar(
                 icon1 = R.drawable.search,
                 title = "Séries",
+                imageUrl = "",
                 onLogoClick = {},
                 onSearchClick = {
                     navController.navigate( AppGraph.search_series.SEARCH_SERIES + "/${" "}" )
@@ -97,7 +101,7 @@ fun SeriesScreenNewUI(navController: NavController,
                 horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
                 contentPadding = PaddingValues(horizontal = 16.dp),
             ) {
-                items(genres.filter {  genre ->
+                items(genres.filter { genre ->
                    genre.type == 2 || genre.type == 3
                 }) { genre ->
                     GenreItem(genre = genre, onClick = {
@@ -112,7 +116,7 @@ fun SeriesScreenNewUI(navController: NavController,
                     onClick = {
                         navController.navigate(AppGraph.airying_today_series.AIRYING_TODAY_SERIES) }
                 ) }
-            SeriesNewUICell(navController = navController, state = stateAiringToday)
+            SeriesListCell(navController = navController, state = stateAiringToday)
             Spacer(modifier = Modifier.height(DpDimensions.Small))
             CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
                 SubtitleHeader(
@@ -123,7 +127,7 @@ fun SeriesScreenNewUI(navController: NavController,
                         navController.navigate(AppGraph.on_air_series.ON_AIR_SERIES) }
                 )
             }
-            SeriesNewUICell(navController = navController, state = stateOnAir)
+            SeriesListCell(navController = navController, state = stateOnAir)
             Spacer(modifier = Modifier.height(DpDimensions.Small))
             CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
                 SubtitleHeader(
@@ -135,7 +139,7 @@ fun SeriesScreenNewUI(navController: NavController,
                     }
                 )
             }
-            SeriesNewUICell(navController = navController, state = statePopular)
+            SeriesListCell(navController = navController, state = statePopular)
             Spacer(modifier = Modifier.height(DpDimensions.Small))
             CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
                 SubtitleHeader(
@@ -146,7 +150,7 @@ fun SeriesScreenNewUI(navController: NavController,
                         navController.navigate(AppGraph.rated_series.RATED_SERIES) }
                 )
             }
-            SeriesNewUICell(navController = navController, state = stateRated)
+            SeriesListCell(navController = navController, state = stateRated)
             Spacer(modifier = Modifier.height(60.dp))
         }
     }
