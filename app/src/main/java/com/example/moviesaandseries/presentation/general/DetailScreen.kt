@@ -1,8 +1,6 @@
 package com.example.moviesaandseries.presentation.general
 
-import android.util.Log
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -30,18 +28,16 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
-import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.data.remote.dto.movies.Cast
 import com.example.moviesaandseries.data.remote.dto.movies.Crew
 import com.example.moviesaandseries.data.remote.dto.Genre
 import com.example.moviesaandseries.data.remote.dto.Review
 import com.example.moviesaandseries.data.remote.dto.season.SeasonDto
-import com.example.moviesaandseries.presentation.person_list.components.PersonListItem
 import com.example.moviesaandseries.presentation.movie_list.MovieListState
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListCell
 import com.example.moviesaandseries.presentation.person_list.components.CastListCell
-import com.example.moviesaandseries.presentation.person_list.components.PersonListItemNewUI
 import com.example.moviesaandseries.presentation.review.ReviewListItem
+import com.example.moviesaandseries.presentation.review.ReviewListScreenCell
 import com.example.moviesaandseries.presentation.season_list.SeasonListScreenCell
 import com.example.moviesaandseries.presentation.season_list.SeasonListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
@@ -49,103 +45,58 @@ import com.example.moviesaandseries.presentation.series_list.components.SeriesLi
 import com.example.moviesaandseries.ui.theme.fontFamily3
 
 @Composable
-fun MainContent(
-    isVideo: Boolean,
-    logo: String,
-    overview: String,
-    posterPath: String,
-    data: String,
-    runtime: String,
-    star: Double,
-    genres: List<Genre>,
+fun MainContent(isVideo: Boolean, logo: String, overview: String, posterPath: String,
+    data: String, runtime: String, star: Double, genres: List<Genre>,
 ) {
      //data, time and star
-                IconsContent( data, runtime, star, genres, logo )
-                Spacer(modifier = Modifier.height(15.dp))
-                //image or trailer
-                if ( isVideo ) {
-                    Player( posterPath )
-                } else {
-                    Image(
-                        painter = rememberAsyncImagePainter(
-                            model = if (!posterPath.equals("sem poster")) Constants.BASE_IMAGE_URL + posterPath else R.drawable.logo
-                        ),
-                        contentScale = ContentScale.Crop,
-                        contentDescription = "poster image",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp)
-                            .clip(shape = RoundedCornerShape(16.dp))
-                    )
-                }
-                Column(
-                    Modifier.fillMaxWidth()
-                ) {
-                    if (logo != "sem logo") {
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Image(
-                            painter = rememberAsyncImagePainter(
-                                model =  Constants.BASE_IMAGE_URL + logo
-                            ),
-                            contentScale = ContentScale.None,
-                            contentDescription = "production company",
-                            modifier = Modifier
-                                .width(100.dp)
-                                .height(30.dp)
-                                .align(Alignment.End)
-                                .clip(shape = RoundedCornerShape(8.dp))
-                        )
-                    }
-                }
-                Spacer(modifier = Modifier.height(8.dp))
-                //overview
-                if (overview != "sem overview") {
-                    TextBiografia(title = overview )
-                }
-
-
-}
-
-@Composable
- fun CastCell(
-    navController: NavController,
-    cast: List<Cast>,
-    title: String) {
-    TextSubTitulos(title = title)
-    Column(
-        modifier = Modifier.padding(
-            10.dp
+    IconsContent( data, runtime, star, genres, logo )
+    Spacer(modifier = Modifier.height(15.dp))
+    //image or trailer
+    if ( isVideo ) {
+        Player( posterPath )
+    } else {
+        Image(
+            painter = rememberAsyncImagePainter(
+                model = if (!posterPath.equals("sem poster")) Constants.BASE_IMAGE_URL + posterPath else R.drawable.logo
+            ),
+            contentScale = ContentScale.Crop,
+            contentDescription = "poster image",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+                .clip(shape = RoundedCornerShape(16.dp))
         )
+    }
+    Column(Modifier.fillMaxWidth()
     ) {
-        //Spacer(modifier = Modifier.height(10.dp))
-        LazyRow(
-            contentPadding = PaddingValues()
-        ) {
-            items(cast) { cast ->
-                PersonListItem(
-                    cast = cast,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(5.dp),
-                    onItemClick = {
-                        try {
-                            navController.navigate(AppGraph.cast_details.DETAILS + "/${cast.id}")
-                        }catch (e: Exception){
-                            Log.d("QQQ", "CastCell: ${e.printStackTrace()}")
-                        }
-                    }
-                )
-            }
+        if (logo != "sem logo") {
+            Spacer(modifier = Modifier.height(8.dp))
+            Image(
+                painter = rememberAsyncImagePainter(
+                    model =  Constants.BASE_IMAGE_URL + logo
+                ),
+                contentScale = ContentScale.None,
+                contentDescription = "production company",
+                modifier = Modifier
+                    .width(100.dp)
+                    .height(30.dp)
+                    .align(Alignment.End)
+                    .clip(shape = RoundedCornerShape(8.dp))
+            )
         }
+    }
+    Spacer(modifier = Modifier.height(8.dp))
+    //overview
+    if (overview != "sem overview") {
+        TextBiografia(title = overview )
     }
 }
 
 @Composable
-fun CastCellNewUI(navController: NavController,
-                  cast: List<Cast>) {
+fun CastCell(navController: NavController, cast: List<Cast>, text: String) {
     CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
         SubtitleHeader(
-            title = "Elenco",
+            title = text,
             modifier = Modifier.fillMaxWidth(),
             isSystemInDarkTheme = true,
             onClick = {
@@ -156,77 +107,50 @@ fun CastCellNewUI(navController: NavController,
     Spacer(modifier = Modifier.height(DpDimensions.Small))
 }
 
-
-
 @Composable
- fun CrewCell(
-    director: String,
-    crew: List<Crew>) {
-    Column {
-        var roteiro = ""
-        for (i in crew) if ( i.department == "Writing" ) {
-            roteiro += i.name + "\n"
+ fun CrewCell(directorOrCreatedBy: String, isDirector: Boolean, crew: List<Crew>) {
+    CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
+        Column {
+            var roteiro = ""
+            for (i in crew) if (i.department == "Writing") {
+                roteiro += i.name + "\n"
+            }
+            if (directorOrCreatedBy != "Ninguém") {
+                SubtitleHeader(
+                    title = if (isDirector) "Direção" else "Criada por",
+                    modifier = Modifier.fillMaxWidth(),
+                    isSystemInDarkTheme = true,
+                    onClick = {
+                    }
+                )
+                Text(
+                    text = directorOrCreatedBy.trim(),
+                    fontSize = 15.sp,
+                    fontFamily = fontFamily3,
+                    modifier = Modifier.padding(start = 7.dp)
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+            if (!roteiro.isNullOrEmpty()) {
+                Text(
+                    text = "Roteiro",
+                    style = MaterialTheme.typography.headlineMedium,
+                )
+                Text(
+                    text = roteiro.trim(),
+                    fontSize = 15.sp,
+                    fontFamily = fontFamily3,
+                    modifier = Modifier.padding(top = 5.dp, start = 7.dp),
+                    maxLines = 5
+                )
+            }
         }
-        if (director != "Ninguém") {
-            SubtitleHeader(
-                title = "Direção",
-                modifier = Modifier.fillMaxWidth(),
-                isSystemInDarkTheme = true,
-                onClick = {
-                }
-            )
-            Text(text = director.trim(),
-                fontSize = 15.sp,
-                fontFamily = fontFamily3,
-                modifier = Modifier.padding(top = 5.dp, start = 7.dp))
-            Spacer(modifier = Modifier.height( 10.dp ))
-        }
-        if (!roteiro.isNullOrEmpty()) {
-            Text( text = "Roteiro",
-                style = MaterialTheme.typography.headlineMedium,)
-            Text(text = roteiro.trim(),
-                fontSize = 15.sp,
-                fontFamily = fontFamily3,
-                modifier = Modifier.padding(top = 5.dp, start = 7.dp),
-                maxLines = 5)
-        }
-
-    }
-}
-
-@Composable
-fun CrewCell2(
-    director: String,
-    crew: List<Crew>) {
-    Column {
-        var roteiro = ""
-        for (i in crew) if ( i.department == "Writing" ) {
-            roteiro += i.name + "\n"
-        }
-        if (director != "Ninguém") {
-            TextSubTitulos(title = "Direção")
-            Text(text = director.trim(),
-                fontSize = 15.sp,
-                fontFamily = fontFamily3,
-                modifier = Modifier.padding(top = 5.dp, start = 7.dp))
-            Spacer(modifier = Modifier.height( 10.dp ))
-        }
-        if (!roteiro.isNullOrEmpty()) {
-            TextSubTitulos(title = "Roteiro")
-            Text(text = roteiro.trim(),
-                fontSize = 15.sp,
-                fontFamily = fontFamily3,
-                modifier = Modifier.padding(top = 5.dp, start = 7.dp),
-                maxLines = 5)
-        }
-
     }
 }
 
 @Composable
 fun SeasonsCell(
-    navController: NavController,
-    seriesId: String, numeroTemporadas: Int, seasons: List<SeasonDto>, state: SeasonListState
+    navController: NavController, seriesId: String, numeroTemporadas: Int, seasons: List<SeasonDto>, state: SeasonListState
 ) {
     CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
         SubtitleHeader(
@@ -248,32 +172,36 @@ fun SeasonsCell(
             title = "Séries Similares",
             modifier = Modifier.fillMaxWidth(),
             isSystemInDarkTheme = true,
-            onClick = {
-            }
+            onClick = {}
         )
     }
     SeriesListCell(navController  , state = state)
-    Spacer(modifier = Modifier.height(DpDimensions.Small))
 }
 
 @Composable
 fun SimilarsMoviesCell(navController: NavController, state: MovieListState) {
-    TextSubTitulos(title = "Filmes Similares")
-        MovieListCell(
-            navController = navController,
-            state = state
+    CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
+        SubtitleHeader(
+            title = "Filmes Similares",
+            modifier = Modifier.fillMaxWidth(),
+            isSystemInDarkTheme = true,
+            onClick = {}
         )
+    }
+    MovieListCell(navController = navController, state = state)
 }
 
 @Composable
 fun RecommendationMoviesCell(navController: NavController, state: MovieListState) {
-    TextSubTitulos(title = "Filmes Recomendados")
-    Column(modifier = Modifier.padding(10.dp)) {
-        MovieListCell(
-            navController = navController,
-            state = state
+    CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
+        SubtitleHeader(
+            title = "Filmes Recomendados",
+            modifier = Modifier.fillMaxWidth(),
+            isSystemInDarkTheme = true,
+            onClick = {}
         )
     }
+    MovieListCell(navController = navController, state = state)
 }
 
 @Composable
@@ -283,8 +211,7 @@ fun RecommendationSeriesCell(navController: NavController, state: SeriesListStat
             title = "Séries recomendadas",
             modifier = Modifier.fillMaxWidth(),
             isSystemInDarkTheme = true,
-            onClick = {
-            }
+            onClick = {}
         )
     }
     SeriesListCell(navController  , state = state)
@@ -298,26 +225,9 @@ fun ReviewsCell(reviews: List<Review> ){
             title = "Avaliações",
             modifier = Modifier.fillMaxWidth(),
             isSystemInDarkTheme = true,
-            onClick = {
-            }
+            onClick = {}
         )
         ReviewListScreenCell(reviews = reviews)
-    }
-
-}
-
-@Composable
-fun ReviewListScreenCell(
-    reviews: List<Review>
-) {
-    Box(
-    ) {
-        LazyRow( contentPadding = PaddingValues()){
-            items(reviews) { review ->
-                ReviewListItem(review
-                )
-            }
-        }
     }
 }
 

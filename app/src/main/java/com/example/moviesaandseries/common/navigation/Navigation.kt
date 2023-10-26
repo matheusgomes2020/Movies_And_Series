@@ -442,7 +442,7 @@ fun NavGraphBuilder.seasonDetailsNavGraph(navController: NavController){
             )
         ) { navBackStackEntry ->
             navBackStackEntry.arguments?.getString("seriesId").let {
-                SeasonDetailScreen(  it!!, navController = navController)
+                SeasonDetailScreen(  it!!, navController = navController, isSystemInDarkTheme())
             }
         }
         episodeDetailsNavGraph(navController = navController)
@@ -468,7 +468,7 @@ fun NavGraphBuilder.episodeDetailsNavGraph(navController: NavController){
             )
         ) { navBackStackEntry ->
             navBackStackEntry.arguments?.getString("episodeNumber").let {
-                EpisodeScreen(navController = navController)
+                EpisodeScreen( navController = navController, isSystemInDarkTheme() )
             }
         }
     }}
