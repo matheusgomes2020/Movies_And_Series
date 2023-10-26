@@ -3,10 +3,8 @@ package com.example.moviesaandseries.presentation.series_detail
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -37,15 +35,12 @@ import com.example.moviesaandseries.presentation.general.SeasonsCell
 import com.example.moviesaandseries.presentation.general.ShimmerDetail
 import com.example.moviesaandseries.presentation.general.SimilarSeriesCell
 import com.example.moviesaandseries.presentation.general.AppBarWithBackAndIcon
-import com.example.moviesaandseries.presentation.general.CastCellNewUI
-import com.example.moviesaandseries.presentation.general.CrewCell2
+import com.example.moviesaandseries.presentation.general.CastCell
 import com.example.moviesaandseries.presentation.general.CustomPadding
 import com.example.moviesaandseries.presentation.general.DpDimensions
-import com.example.moviesaandseries.presentation.general.SubtitleHeader
 import com.example.moviesaandseries.presentation.season_list.SeasonListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
 import com.example.moviesaandseries.presentation.general.UserData
-import com.example.moviesaandseries.presentation.person_list.components.CastListCell
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
@@ -161,27 +156,16 @@ fun SeriesDetailScreenNewUI(
                             verticalPadding = 0.dp,
                             horizontalPadding = DpDimensions.Normal
                         ) {
-                            MainContent(
-                                isVideo,
-                                logo,
-                                overview,
-                                posterPath,
-                                data,
-                                runtime,
-                                series.vote_average,
-                                series.genres
-                            )
+                            MainContent(isVideo, logo, overview, posterPath, data, runtime, series.vote_average, series.genres)
                         }
                             if ( !series.seasons.isNullOrEmpty() ) {
                                 SeasonsCell(navController = navController,series.id.toString(), series.number_of_seasons, series.seasons, stateSeasons )
                             }
                             if ( !series.aggregate_credits.cast.isNullOrEmpty() ) {
-                                CastCellNewUI( navController = navController, cast = series.aggregate_credits.cast )
+                                CastCell( navController = navController, cast = series.aggregate_credits.cast, "Elenco")
                             }
                             if (!createdBy.isNullOrEmpty() && !series.aggregate_credits.crew.isNullOrEmpty() ) {
-                                CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-                                    CrewCell(createdBy, crew = series.aggregate_credits.crew)
-                                }
+                                    CrewCell(createdBy, isDirector = false, crew = series.aggregate_credits.crew)
                             }
                             if (!series.recommendations.results.isNullOrEmpty()) {
                                 RecommendationSeriesCell(navController = navController, state = stateRecommendations )
@@ -190,15 +174,11 @@ fun SeriesDetailScreenNewUI(
                                 SimilarSeriesCell(navController = navController, state = stateSimilar )
                             }
                             if (!series.reviews.results.isNullOrEmpty()) {
-                                    ReviewsCell(reviews = series.reviews.results)
-                                }
-
-
+                                ReviewsCell(reviews = series.reviews.results)
+                            }
                             if (!series.images.stills.isNullOrEmpty()) {
-                                Spacer(modifier = Modifier.height( 16.dp ))
                                 ImagesCell(images = series.images.stills)
                             }
-
                     }
                 }
             }
@@ -214,7 +194,6 @@ fun SeriesDetailScreenNewUI(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp)
-//                .align(Alignment.Center)
         )
     }
     if(state.isLoading) {

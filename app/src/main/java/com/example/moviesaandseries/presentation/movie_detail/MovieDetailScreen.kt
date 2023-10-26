@@ -3,10 +3,8 @@ package com.example.moviesaandseries.presentation.movie_detail
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -17,26 +15,19 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.R
-import com.example.moviesaandseries.data.remote.dto.Genre
-import com.example.moviesaandseries.domain.model.Movie
 import com.example.moviesaandseries.domain.model.MovieOrSeriesFirebase
 import com.example.moviesaandseries.domain.model.Response
 import com.example.moviesaandseries.presentation.episode.ImagesCell
 import com.example.moviesaandseries.presentation.favorites.FavoriteViewModel
-import com.example.moviesaandseries.presentation.general.CastCell
 import com.example.moviesaandseries.presentation.general.CrewCell
-import com.example.moviesaandseries.presentation.general.IconsContent
 import com.example.moviesaandseries.presentation.general.MainContent
 import com.example.moviesaandseries.presentation.general.RecommendationMoviesCell
 import com.example.moviesaandseries.presentation.general.ReviewsCell
@@ -44,11 +35,11 @@ import com.example.moviesaandseries.presentation.general.ShimmerDetail
 import com.example.moviesaandseries.presentation.general.SimilarsMoviesCell
 import com.example.moviesaandseries.presentation.movie_list.MovieListState
 import com.example.moviesaandseries.presentation.general.AppBarWithBackAndIcon
+import com.example.moviesaandseries.presentation.general.CastCell
 import com.example.moviesaandseries.presentation.general.CustomPadding
 import com.example.moviesaandseries.presentation.general.DpDimensions
 import com.example.moviesaandseries.presentation.general.UserData
 import com.example.moviesaandseries.ui.theme.DarkGrey11
-import com.example.moviesaandseries.ui.theme.MoviesAandSeriesTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
@@ -155,37 +146,26 @@ fun MovieDetailScreenNewUI(
                             horizontalPadding = DpDimensions.Normal
                         ) {
                             MainContent(isVideo, logo, overview, url, data, movie.runtime.toString(), movie.vote_average, movie.genres)
+                        }
                             if (!movie.credits.cast.isNullOrEmpty()) {
-                                Spacer(modifier = Modifier.height(16.dp))
                                 CastCell(navController, cast = movie.credits.cast, "Elenco")
                             }
                             if (!movie.credits.crew.isNullOrEmpty()) {
-                                Spacer(modifier = Modifier.height(16.dp))
-                                CrewCell(director, crew = movie.credits.crew)
+                                CrewCell(director, isDirector = true, crew = movie.credits.crew)
                             }
                             if (!movie.recommendations.results.isNullOrEmpty()) {
-                                Spacer(modifier = Modifier.height(16.dp))
-                                RecommendationMoviesCell(
-                                    navController = navController,
-                                    state = stateRecommendations
-                                )
+                                RecommendationMoviesCell(navController = navController, state = stateRecommendations)
                             }
                             if (!movie.similar.results.isNullOrEmpty()) {
-                                Spacer(modifier = Modifier.height(16.dp))
                                 SimilarsMoviesCell(navController = navController, state = stateSimilar)
                             }
                             if (!movie.reviews.results.isNullOrEmpty()) {
-                                Spacer(modifier = Modifier.height(16.dp))
                                 ReviewsCell(reviews = movie.reviews.results)
                             }
                             if (!movie.images.stills.isNullOrEmpty()) {
-                                Spacer(modifier = Modifier.height(16.dp))
                                 ImagesCell(images = movie.images.stills)
                             }
-
-                        }
                     }
-
                 }
             }
             is Response.Failure -> print(moviesResponse.e)
@@ -199,83 +179,9 @@ fun MovieDetailScreenNewUI(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp)
-//                .align(Alignment.Center)
         )
     }
     if(state.isLoading) {
         ShimmerDetail()
-    }
-}
-
-@Composable
-fun MovieDetailScreenNewUITeste(
-) {
-    val isFavorite = true
-
-    val movie = Movie(
-        title = "Pantera Negra",
-        poster_path = "",
-        overview = "O príncipe T'Challa retorna a Wakanda para ser coroado rei. Assumindo o manto de Pantera Negra, ele vai à caça de um vilão que roubou um precioso metal de seu país.",
-        vote_average = 10.0,
-        id = 12345
-
-    )
-
-    val genre = Genre(
-        11,
-        "Drama"
-    )
-
-    val genre2 = Genre(
-        11,
-        "Acão"
-    )
-
-    val genre3 = Genre(
-        11,
-        "Luta"
-    )
-
-    var genres = remember {
-        mutableStateListOf(
-            genre, genre2, genre3
-        )
-    }
-
-
-
-
-        Scaffold(
-            topBar = {
-                AppBarWithBackAndIcon(backIcon = Icons.Default.ArrowBack, icon = if (isFavorite) R.drawable.ic_boomarkfilled else R.drawable.ic_boomark, title = movie.title )
-            }
-        ) {
-                paddingValues ->
-            Column(
-                modifier = Modifier
-                    .padding(paddingValues)
-                    .verticalScroll(rememberScrollState())
-                    .fillMaxSize()
-//                    .background(
-//                        color = if (isSystemInDarkTheme())
-//                            Color.White else DarkGrey11
-//                    )
-            ) {
-                CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-                    IconsContent(data = "27/09/2009", runtime = "165" , star = 6.0 , genres = genres , logo = "" )
-                    movie.overview?.let { Text(text = it) }
-                }
-
-
-            }
-        }
-
-}
-
-@Preview
-@Composable
-fun MainPreview(){
-    MoviesAandSeriesTheme {
-        MovieDetailScreenNewUITeste()
     }
 }

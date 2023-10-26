@@ -6,7 +6,7 @@ object SpDimensions {
     val HeadlineLarge = 24.sp
     val HeadlineMedium = 18.sp
     val HeadlineSmall = 16.sp
-    val TitleLarge = 20.sp
+    val TitleLarge = 18.sp
     val TitleMedium = 16.sp
     val TitleSmall = 14.sp
     val BodyMedium = 16.sp
