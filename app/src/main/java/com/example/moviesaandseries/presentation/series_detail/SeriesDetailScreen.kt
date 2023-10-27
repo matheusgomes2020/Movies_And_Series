@@ -171,7 +171,7 @@ fun SeriesDetailScreenNewUI(
                                 RecommendationSeriesCell(navController = navController, state = stateRecommendations )
                             }
                             if (!series.similar.results.isNullOrEmpty()) {
-                                SimilarSeriesCell(navController = navController, state = stateSimilar )
+                                SimilarSeriesCell(navController = navController, state = stateSimilar, true )
                             }
                             if (!series.reviews.results.isNullOrEmpty()) {
                                 ReviewsCell(reviews = series.reviews.results)

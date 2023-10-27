@@ -18,10 +18,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.domain.repository.Movies
+import com.example.moviesaandseries.presentation.general.CustomPadding
 import com.example.moviesaandseries.presentation.person_list.MoviesCastListState
 import com.example.moviesaandseries.presentation.general.ShimmerMovieAndSeriesListItem
 import com.example.moviesaandseries.presentation.general.ShimmerTrending
 import com.example.moviesaandseries.presentation.general.DpDimensions
+import com.example.moviesaandseries.presentation.general.SubtitleHeader
 import com.example.moviesaandseries.presentation.movie_list.MovieListState
 
 @Composable
@@ -65,13 +67,23 @@ fun MovieTrendingCell(
     }
 }
 
-
-
 @Composable
 fun MovieListCell(
     navController: NavController,
     state: MovieListState,
+    headerTitle: String,
+    onHeaderClick: () -> Unit
 ){
+    CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
+        SubtitleHeader(
+            title = headerTitle,
+            modifier = Modifier.fillMaxWidth(),
+            isSystemInDarkTheme = true,
+            onClick = {
+                onHeaderClick()
+            }
+        )
+    }
     Box(
     ) {
         LazyRow(
@@ -107,54 +119,6 @@ fun MovieListCell(
         }
     }
 }
-
-
-
-@Composable
-fun MovieListScreenCellWork(
-    navController: NavController,
-    state: MoviesCastListState
-){
-    Box(
-        //  modifier = Modifier.fillMaxSize()
-    ) {
-
-        LazyRow(
-            //modifier = Modifier.fillMaxSize()
-        ) {
-            items(state.movies) { movie ->
-                MovieListItemWork(
-                    movie = movie,
-                    onItemClick = {
-                        try {
-                            navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
-                        }catch (e: Exception){
-                            e.printStackTrace()
-                        }
-                        // navController.navigate(DetailsScreen.MoviesDetails.route + "/${movie.id}")
-
-                        //navController.navigate(Graph.DETAILS)
-                    }
-                )
-            }
-        }
-        if ( state.error.isNotBlank() ) {
-            Text(
-                text = state.error,
-                color = MaterialTheme.colorScheme.error,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-                    .align(Alignment.Center)
-            )
-        }
-        if(state.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-        }
-    }
-}
-
 @Composable
 fun MovieNewUICellFirebase(
     navController: NavController,

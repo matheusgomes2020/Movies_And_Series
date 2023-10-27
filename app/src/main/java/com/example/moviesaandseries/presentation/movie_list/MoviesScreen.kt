@@ -78,8 +78,10 @@ fun MoviesScreenNewUI(navController: NavController,
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
                 .fillMaxSize()
-                .background(color =if (useDarkIcons)
-                    Color.White else DarkGrey11)
+                .background(
+                    color = if (useDarkIcons)
+                        Color.White else DarkGrey11
+                )
         ) {
             CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
                 SubtitleHeader(
@@ -113,59 +115,19 @@ fun MoviesScreenNewUI(navController: NavController,
                         navController.navigate( AppGraph.movie_genres.GENRE_MOVIES + "/${"1"}/${genre.id}/${genre.title}" )
                     }) } }
             Spacer(modifier = Modifier.height(DpDimensions.Small))
-            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-                SubtitleHeader(
-                    title = "Em alta",
-                    modifier = Modifier.fillMaxWidth(),
-                    isSystemInDarkTheme = true,
-                    onClick = {
-                        navController.navigate(AppGraph.popular_movies.POPULAR_MOVIES) }
-                ) }
-            MovieListCell(navController = navController, state = statePopular)
-            Spacer(modifier = Modifier.height(DpDimensions.Small))
-            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-                SubtitleHeader(
-                    title = "Em cartaz",
-                    modifier = Modifier.fillMaxWidth(),
-                    isSystemInDarkTheme = true,
-                    onClick = {
-                        navController.navigate(AppGraph.now_Playing_movies.NOW_PLAYING_MOVIES) }
-                )
-            }
-            MovieListCell(navController = navController, state = stateNowPlaying)
-            Spacer(modifier = Modifier.height(DpDimensions.Small))
-            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-                SubtitleHeader(
-                    title = "Lançamentos",
-                    modifier = Modifier.fillMaxWidth(),
-                    isSystemInDarkTheme = true,
-                    onClick = {
-                        navController.navigate(AppGraph.upcoming_movies.UPCOMING_MOVIES)
-                    }
-                )
-            }
-            MovieListCell(navController = navController, state = stateUpcoming)
-            Spacer(modifier = Modifier.height(DpDimensions.Small))
-            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-                SubtitleHeader(
-                    title = "Melhores avaliados",
-                    modifier = Modifier.fillMaxWidth(),
-                    isSystemInDarkTheme = true,
-                    onClick = {
-                        navController.navigate(AppGraph.rated_movies.RATED_MOVIES) }
-                )
-            }
-            MovieListCell(navController = navController, state = stateRated)
-            Spacer(modifier = Modifier.height(60.dp))
+                MovieListCell(navController = navController, state = statePopular, headerTitle = "Em alta", onHeaderClick = {
+                    navController.navigate(AppGraph.popular_movies.POPULAR_MOVIES) } )
+                Spacer(modifier = Modifier.height(DpDimensions.Small))
+                MovieListCell(navController = navController, state = stateNowPlaying, headerTitle = "Em cartaz", onHeaderClick = {
+                    navController.navigate(AppGraph.now_Playing_movies.NOW_PLAYING_MOVIES) } )
+                Spacer(modifier = Modifier.height(DpDimensions.Small))
+                MovieListCell(navController = navController, state = stateUpcoming, headerTitle = "Lançamentos", onHeaderClick = {
+                    navController.navigate(AppGraph.upcoming_movies.UPCOMING_MOVIES) } )
+                Spacer(modifier = Modifier.height(DpDimensions.Small))
+                MovieListCell(navController = navController, state = stateRated, headerTitle = "Melhores avaliados", onHeaderClick = {
+                    navController.navigate(AppGraph.rated_movies.RATED_MOVIES) } )
+                Spacer(modifier = Modifier.height(DpDimensions.Small))
+                Spacer(modifier = Modifier.height(60.dp))
         }
-    }
-}
-
-
-@Preview
-@Composable
-fun PreviewC(){
-    MoviesAandSeriesTheme {
-        MoviesScreenNewUI(rememberNavController(), false)
     }
 }

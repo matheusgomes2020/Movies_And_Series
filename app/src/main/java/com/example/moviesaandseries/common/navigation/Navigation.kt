@@ -397,7 +397,7 @@ fun NavGraphBuilder.castDetailNavGraph(navController: NavController) {
         ) { navBackStackEntry ->
 
             navBackStackEntry.arguments?.getString("castId").let {
-                CastScreen(navController = navController)
+                CastScreen(navController = navController, isSystemInDarkTheme())
             }
         }
     }
