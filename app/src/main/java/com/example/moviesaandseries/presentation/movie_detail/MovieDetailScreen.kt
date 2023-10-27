@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.R
+import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.domain.model.MovieOrSeriesFirebase
 import com.example.moviesaandseries.domain.model.Response
 import com.example.moviesaandseries.presentation.episode.ImagesCell
@@ -39,6 +40,7 @@ import com.example.moviesaandseries.presentation.general.CastCell
 import com.example.moviesaandseries.presentation.general.CustomPadding
 import com.example.moviesaandseries.presentation.general.DpDimensions
 import com.example.moviesaandseries.presentation.general.UserData
+import com.example.moviesaandseries.presentation.movie_list.components.MovieListCell
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
@@ -154,10 +156,10 @@ fun MovieDetailScreenNewUI(
                                 CrewCell(director, isDirector = true, crew = movie.credits.crew)
                             }
                             if (!movie.recommendations.results.isNullOrEmpty()) {
-                                RecommendationMoviesCell(navController = navController, state = stateRecommendations)
+                                MovieListCell(navController = navController, state = stateRecommendations, headerTitle = "Filmes Recomendados", onHeaderClick = {} )
                             }
                             if (!movie.similar.results.isNullOrEmpty()) {
-                                SimilarsMoviesCell(navController = navController, state = stateSimilar)
+                                MovieListCell(navController = navController, state = stateSimilar, headerTitle = "Filmes Similares", onHeaderClick = {} )
                             }
                             if (!movie.reviews.results.isNullOrEmpty()) {
                                 ReviewsCell(reviews = movie.reviews.results)

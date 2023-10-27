@@ -3,9 +3,7 @@ package com.example.moviesaandseries.presentation.movie_list.components
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -36,14 +33,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
-import com.example.moviesaandseries.common.Constants
-import com.example.moviesaandseries.data.remote.dto.person.MovieWork
+import com.example.moviesaandseries.common.Constants.BASE_IMAGE_URL
 import com.example.moviesaandseries.domain.model.Movie
 import com.example.moviesaandseries.domain.model.MovieOrSeriesFirebase
 import com.example.moviesaandseries.presentation.general.DeleteMovieBottomSheet
 import com.example.moviesaandseries.presentation.general.DpDimensions
-import com.example.moviesaandseries.presentation.series_list.components.MoviesAndSeriesColumnItem
-import com.example.moviesaandseries.ui.theme.BlueGrey11
 
 
 @Composable
@@ -55,59 +49,12 @@ fun MovieListItem(
     Surface(
         shape = RoundedCornerShape(DpDimensions.Dp20),
         modifier = Modifier
-            .width(120.dp)
+            .width(118.dp)
             .height(height),
         onClick = { onClick(movie) }
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .paint(
-                    painter = rememberAsyncImagePainter(model = if (!movie.poster_path.isNullOrEmpty()) Constants.BASE_IMAGE_URL + movie.poster_path else R.drawable.logo) ,
-                    contentScale = ContentScale.Crop
-                )
-                .background(
-                    brush = Brush.verticalGradient(
-                        listOf(
-                            Color.Transparent,
-                            Color.Transparent,
-                            Color.Black
-                        )
-                    ),
-                )
-                .clip(RoundedCornerShape(DpDimensions.Small)),
-            contentAlignment = Alignment.BottomStart
-        ) {
+        MovieAndSeriesItem( title = movie.title, posterPath = if (!movie.poster_path.isNullOrEmpty()) movie.poster_path else "sem poster" )
 
-            Column(
-                modifier = Modifier.padding(DpDimensions.Small)
-            ) {
-                Text(
-                    modifier = Modifier.width(110.dp),
-                    text = movie.title,
-                    style = MaterialTheme.typography.titleSmall,
-                    color = Color.White,
-                    maxLines = 1
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun MovieListItemWork(
-    movie: MovieWork,
-    onItemClick: (MovieWork) -> Unit
-) {
-
-    Card(
-        shape = RoundedCornerShape(15.dp),
-        modifier = Modifier
-            .padding(5.dp)
-            .clickable { onItemClick(movie) }
-            .background(color = if (isSystemInDarkTheme()) BlueGrey11 else Color.White),
-    ) {
-        MoviesAndSeriesColumnItem(nameOrTitle = movie.title, posterPath = movie.poster_path )
     }
 }
 
@@ -138,37 +85,7 @@ fun MovieListItemFirebase(
                 }
             ),
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .paint(
-                    painter = rememberAsyncImagePainter(model = if (!movie.posterPath.isNullOrEmpty()) Constants.BASE_IMAGE_URL + movie.posterPath else R.drawable.logo) ,
-                    contentScale = ContentScale.Crop
-                )
-                .background(
-                    brush = Brush.verticalGradient(
-                        listOf(
-                            Color.Transparent,
-                            Color.Transparent,
-                            Color.Black
-                        )
-                    ),
-                )
-                .clip(RoundedCornerShape(DpDimensions.Small)),
-            contentAlignment = Alignment.BottomStart
-        ) {
-            Column(
-                modifier = Modifier.padding(DpDimensions.Small)
-            ) {
-                Text(
-                    modifier = Modifier.width(110.dp),
-                    text = movie.title,
-                    style = MaterialTheme.typography.titleSmall,
-                    color = Color.White,
-                    maxLines = 1
-                )
-            }
-        }
+        MovieAndSeriesItem( title = movie.title, posterPath = if (!movie.posterPath.isNullOrEmpty()) movie.posterPath else "sem poster" )
     }
     if (isLogoutSheetOpen) {
         DeleteMovieBottomSheet(
@@ -182,5 +99,44 @@ fun MovieListItemFirebase(
             onCancel = {
                 isLogoutSheetOpen = false
             })
+    }
+}
+
+@Composable
+fun MovieAndSeriesItem(
+    title: String,
+    posterPath: String
+){
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .paint(
+                painter = rememberAsyncImagePainter(model = if (posterPath != "sem poster") "$BASE_IMAGE_URL$posterPath" else R.drawable.logo),
+                contentScale = ContentScale.Crop
+            )
+            .background(
+                brush = Brush.verticalGradient(
+                    listOf(
+                        Color.Transparent,
+                        Color.Transparent,
+                        Color.Black
+                    )
+                ),
+            )
+            .clip(RoundedCornerShape(DpDimensions.Small)),
+        contentAlignment = Alignment.BottomStart
+    ) {
+        Column(
+            modifier = Modifier.padding(DpDimensions.Small)
+        ) {
+            Text(
+                modifier = Modifier.width(110.dp),
+                text = title,
+                style = MaterialTheme.typography.titleSmall,
+                color = Color.White,
+                maxLines = 1
+            )
+        }
     }
 }

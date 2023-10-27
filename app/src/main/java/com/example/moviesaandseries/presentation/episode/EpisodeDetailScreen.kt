@@ -82,7 +82,7 @@ fun EpisodeScreen(
 
     Scaffold(
         topBar = {
-            AppBarWithBack(title = episode.name,
+            AppBarWithBack(title = nome,
                 backIcon = Icons.Default.ArrowBack,
                 onBackClick = {
                     navController.popBackStack()
@@ -184,7 +184,6 @@ fun MainContent(overview: String){
     Column(
     ) {
         if (overview != "sem overview") {
-            Spacer(modifier = Modifier.height(16.dp))
             TextBiografia(title = overview)
         }
     }

@@ -166,10 +166,10 @@ fun SeasonsCell(
 }
 
 @Composable
- fun SimilarSeriesCell(navController: NavController, state: SeriesListState) {
+ fun SimilarSeriesCell(navController: NavController, state: SeriesListState, isSimilar: Boolean) {
     CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
         SubtitleHeader(
-            title = "Séries Similares",
+            title = if (isSimilar) "Séries Similares" else "Séries",
             modifier = Modifier.fillMaxWidth(),
             isSystemInDarkTheme = true,
             onClick = {}
@@ -179,16 +179,16 @@ fun SeasonsCell(
 }
 
 @Composable
-fun SimilarsMoviesCell(navController: NavController, state: MovieListState) {
+fun SimilarsMoviesCell(navController: NavController, state: MovieListState, text: String) {
     CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
         SubtitleHeader(
-            title = "Filmes Similares",
+            title = text,
             modifier = Modifier.fillMaxWidth(),
             isSystemInDarkTheme = true,
             onClick = {}
         )
     }
-    MovieListCell(navController = navController, state = state)
+    //MovieListCell(navController = navController, state = state)
 }
 
 @Composable
@@ -201,7 +201,7 @@ fun RecommendationMoviesCell(navController: NavController, state: MovieListState
             onClick = {}
         )
     }
-    MovieListCell(navController = navController, state = state)
+    //MovieListCell(navController = navController, state = state)
 }
 
 @Composable
