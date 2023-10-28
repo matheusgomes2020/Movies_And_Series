@@ -45,8 +45,6 @@ fun TrendingCard(
             painter = rememberAsyncImagePainter(model = if (!movie.poster_path.isNullOrEmpty()) Constants.BASE_IMAGE_URL + movie.poster_path else R.drawable.logo) ,
             contentScale = ContentScale.Crop
         ),
-
-
                 contentAlignment = Alignment.BottomCenter) {
 
             Column(
@@ -54,7 +52,6 @@ fun TrendingCard(
                     .padding(DpDimensions.Normal)
                     .fillMaxWidth()
             ) {
-
                 Text(
                     text = movie.title,
                     style = MaterialTheme.typography.headlineMedium,
@@ -63,7 +60,6 @@ fun TrendingCard(
 
             }
         }
-
     }
 }
 

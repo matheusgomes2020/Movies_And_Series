@@ -28,7 +28,7 @@ fun SearchSeriesListItem(
         modifier = Modifier
             .padding(bottom = 8.dp)
             .clickable { onItemClick( series ) }
-            .background(color = Color.Transparent),
+           // .background(color = Color.Transparent),
         //
     ) {
 

@@ -13,6 +13,6 @@ data class EpisodeDetail(
     val name: String,
     val overview: String,
     val runtime: Int,
-    val still_path: String,
+    val still_path: String?,
     val vote_average: Double,
 )

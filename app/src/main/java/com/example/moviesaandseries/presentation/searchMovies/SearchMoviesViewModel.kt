@@ -32,14 +32,11 @@ class SearchMoviesViewModel @Inject constructor(
 
 
       fun searchMovies(query: String ) {
-         Log.d("BATATAO", "VIEW MODEL searchMovies: $query")
 
         searchMoviesUseCase( query ).onEach { result ->
-            Log.d("BATATAO", "VIEW MODEL result: $result")
             when (result) {
                 is Resource.Success -> {
                     _state.value = MovieListState(movies = result.data ?: emptyList())
-                    Log.d("BATATAO", "VIEW MODEL state value: ${state.value}")
                 }
 
                 is Resource.Error -> {

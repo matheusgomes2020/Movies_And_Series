@@ -29,6 +29,7 @@ import com.example.moviesaandseries.presentation.general.GenreItem
 import com.example.moviesaandseries.presentation.general.MainAppBar
 import com.example.moviesaandseries.presentation.general.SubtitleHeader
 import com.example.moviesaandseries.presentation.general.genres
+import com.example.moviesaandseries.presentation.movie_list.components.GenresCell
 import com.example.moviesaandseries.presentation.series_list.components.SeriesListCell
 import com.example.moviesaandseries.presentation.series_list.components.SeriesTrendingCell
 import com.example.moviesaandseries.ui.theme.DarkGrey11
@@ -36,10 +37,8 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 
 @Composable
-fun SeriesScreenNewUI(navController: NavController,
-                      isSystemInDarkTheme: Boolean,
-                      viewModel: SeriesListViewModel = hiltViewModel()
-          ){
+fun SeriesScreenNewUI(navController: NavController, isSystemInDarkTheme: Boolean, viewModel: SeriesListViewModel = hiltViewModel()
+){
     val systemUiController = rememberSystemUiController()
     val useDarkIcons = !isSystemInDarkTheme
 
@@ -78,81 +77,28 @@ fun SeriesScreenNewUI(navController: NavController,
                 .background(color =if (useDarkIcons)
                     Color.White else DarkGrey11)
         ) {
-            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-                SubtitleHeader(
-                    title = "Tendência hoje",
-                    modifier = Modifier.fillMaxWidth(),
-                    isSystemInDarkTheme = true,
-                    onClick = {
-                        navController.navigate(AppGraph.trending_today_series.TRENDING_TODAY_SERIES)
-                    }
-                )
-            }
-            SeriesTrendingCell(navController = navController, state = stateTrendingToday)
+            SeriesTrendingCell(navController = navController, state = stateTrendingToday, "Tendência hoje", onHeaderClick = {
+                navController.navigate(AppGraph.trending_today_series.TRENDING_TODAY_SERIES)
+            } )
             Spacer(modifier = Modifier.height(DpDimensions.Small))
-            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-                SubtitleHeader(
-                    title = "Gêneros",
-                    modifier = Modifier.fillMaxWidth(),
-                    isSystemInDarkTheme = true,
-                    onClick = {  }
-                )
-            }
+            GenresCell(navController = navController, isGenresMovies = false, onHeaderClick =  {})
             Spacer(modifier = Modifier.height(DpDimensions.Small))
-            LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
-                contentPadding = PaddingValues(horizontal = 16.dp),
-            ) {
-                items(genres.filter { genre ->
-                   genre.type == 2 || genre.type == 3
-                }) { genre ->
-                    GenreItem(genre = genre, onClick = {
-                        navController.navigate( AppGraph.series_genres.GENRE_SERIES + "/${"1"}/${genre.id}/${genre.title}" )
-                    }) } }
+            SeriesListCell(navController = navController, state = stateAiringToday, "No ar hoje", onHeaderClick = {
+                navController.navigate(AppGraph.airying_today_series.AIRYING_TODAY_SERIES)
+            })
             Spacer(modifier = Modifier.height(DpDimensions.Small))
-            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-                SubtitleHeader(
-                    title = "No ar hoje",
-                    modifier = Modifier.fillMaxWidth(),
-                    isSystemInDarkTheme = true,
-                    onClick = {
-                        navController.navigate(AppGraph.airying_today_series.AIRYING_TODAY_SERIES) }
-                ) }
-            SeriesListCell(navController = navController, state = stateAiringToday)
+            SeriesListCell(navController = navController, state = stateOnAir, "No ar", onHeaderClick = {
+                navController.navigate(AppGraph.on_air_series.ON_AIR_SERIES)
+            })
             Spacer(modifier = Modifier.height(DpDimensions.Small))
-            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-                SubtitleHeader(
-                    title = "No ar",
-                    modifier = Modifier.fillMaxWidth(),
-                    isSystemInDarkTheme = true,
-                    onClick = {
-                        navController.navigate(AppGraph.on_air_series.ON_AIR_SERIES) }
-                )
-            }
-            SeriesListCell(navController = navController, state = stateOnAir)
+            SeriesListCell(navController = navController, state = statePopular, "Em alta", onHeaderClick = {
+                navController.navigate(AppGraph.popular_series.POPULAR_SERIES)
+            })
             Spacer(modifier = Modifier.height(DpDimensions.Small))
-            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-                SubtitleHeader(
-                    title = "Em alta",
-                    modifier = Modifier.fillMaxWidth(),
-                    isSystemInDarkTheme = true,
-                    onClick = {
-                        navController.navigate(AppGraph.popular_series.POPULAR_SERIES)
-                    }
-                )
-            }
-            SeriesListCell(navController = navController, state = statePopular)
+            SeriesListCell(navController = navController, state = stateRated,"Melhores avaliadas", onHeaderClick = {
+                navController.navigate(AppGraph.rated_series.RATED_SERIES)
+            })
             Spacer(modifier = Modifier.height(DpDimensions.Small))
-            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-                SubtitleHeader(
-                    title = "Melhores avaliadas",
-                    modifier = Modifier.fillMaxWidth(),
-                    isSystemInDarkTheme = true,
-                    onClick = {
-                        navController.navigate(AppGraph.rated_series.RATED_SERIES) }
-                )
-            }
-            SeriesListCell(navController = navController, state = stateRated)
             Spacer(modifier = Modifier.height(60.dp))
         }
     }

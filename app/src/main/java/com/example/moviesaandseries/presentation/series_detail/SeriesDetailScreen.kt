@@ -29,18 +29,17 @@ import com.example.moviesaandseries.presentation.episode.ImagesCell
 import com.example.moviesaandseries.presentation.favorites.FavoriteViewModel
 import com.example.moviesaandseries.presentation.general.CrewCell
 import com.example.moviesaandseries.presentation.general.MainContent
-import com.example.moviesaandseries.presentation.general.RecommendationSeriesCell
 import com.example.moviesaandseries.presentation.general.ReviewsCell
-import com.example.moviesaandseries.presentation.general.SeasonsCell
 import com.example.moviesaandseries.presentation.general.ShimmerDetail
-import com.example.moviesaandseries.presentation.general.SimilarSeriesCell
 import com.example.moviesaandseries.presentation.general.AppBarWithBackAndIcon
 import com.example.moviesaandseries.presentation.general.CastCell
 import com.example.moviesaandseries.presentation.general.CustomPadding
 import com.example.moviesaandseries.presentation.general.DpDimensions
-import com.example.moviesaandseries.presentation.season_list.SeasonListState
+import com.example.moviesaandseries.presentation.series_detail.components.season_list.SeasonListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
 import com.example.moviesaandseries.presentation.general.UserData
+import com.example.moviesaandseries.presentation.series_detail.components.SeasonsCell
+import com.example.moviesaandseries.presentation.series_list.components.SeriesListCell
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
@@ -168,10 +167,10 @@ fun SeriesDetailScreenNewUI(
                                     CrewCell(createdBy, isDirector = false, crew = series.aggregate_credits.crew)
                             }
                             if (!series.recommendations.results.isNullOrEmpty()) {
-                                RecommendationSeriesCell(navController = navController, state = stateRecommendations )
+                                SeriesListCell(navController = navController, state = stateRecommendations, "Séries Recomendadas", onHeaderClick = {} )
                             }
                             if (!series.similar.results.isNullOrEmpty()) {
-                                SimilarSeriesCell(navController = navController, state = stateSimilar, true )
+                                SeriesListCell(navController = navController, state = stateSimilar, "Séries Similares", onHeaderClick = {} )
                             }
                             if (!series.reviews.results.isNullOrEmpty()) {
                                 ReviewsCell(reviews = series.reviews.results)

@@ -62,16 +62,3 @@ fun GenreItem(
     }
 }
 
-
-
-
-
-
-//@Preview
-//@Composable
-//fun CollectionItemPreview() {
-//    MoviesAandSeriesTheme {
-//        GenreItem(genre = genres[0])
-//    }
-//}
-

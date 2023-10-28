@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.person_list.components
+package com.example.moviesaandseries.presentation.general
 
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
@@ -10,7 +10,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.data.remote.dto.movies.Cast
-import com.example.moviesaandseries.presentation.general.DpDimensions
 
 @Composable
 fun CastListCell(

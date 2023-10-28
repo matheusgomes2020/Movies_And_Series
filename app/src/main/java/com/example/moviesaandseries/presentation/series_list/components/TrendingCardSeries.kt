@@ -31,6 +31,7 @@ fun TrendingCardSeries(
     onClick: (Series) -> Unit
 
 ){
+
     Surface(
         shape = RoundedCornerShape(DpDimensions.Dp20),
         modifier = Modifier
@@ -45,24 +46,18 @@ fun TrendingCardSeries(
                 painter = rememberAsyncImagePainter(model = if (!series.poster_path.isNullOrEmpty()) Constants.BASE_IMAGE_URL + series.poster_path else R.drawable.logo) ,
                 contentScale = ContentScale.Crop
             ),
-
-
             contentAlignment = Alignment.BottomCenter) {
-
             Column(
                 modifier = Modifier
                     .padding(DpDimensions.Normal)
                     .fillMaxWidth()
             ) {
-
                 Text(
                     text = series.name,
                     style = MaterialTheme.typography.headlineMedium,
                     color = Color.White
                 )
-
             }
         }
-
     }
 }
