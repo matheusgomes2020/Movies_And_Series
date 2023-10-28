@@ -3,6 +3,7 @@ package com.example.moviesaandseries.presentation.searchMovies.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -26,6 +27,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.domain.model.Movie
+import com.example.moviesaandseries.ui.theme.BlueGrey11
 
 @Composable
 fun SearchMovieListItem(
@@ -42,7 +44,7 @@ fun SearchMovieListItem(
         modifier = Modifier
             .padding(bottom = 8.dp)
             .clickable { onItemClick(movie) }
-            .background(color = Color.Transparent),
+            //.background(color = Color.Transparent),
         //
     ) {
 
@@ -73,7 +75,7 @@ fun SearchItem(
         modifier =
         Modifier
             //.padding( 1.dp )
-            .background(color = Color.White)
+            .background(color = if (isSystemInDarkTheme()) BlueGrey11 else Color.White),
     ) {
         Image(
             painter = rememberAsyncImagePainter(

@@ -1,10 +1,12 @@
 package com.example.moviesaandseries.presentation.general
 
+import android.content.res.Configuration
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,9 +34,34 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import com.example.moviesaandseries.ui.theme.BlueGrey11
 
+@Preview
+@Composable
+fun ShimmerTrending(){
+    Box(
+        modifier = Modifier
+            .width(370.dp)
+            .height(190.dp)
+            .clip(shape = RoundedCornerShape(DpDimensions.Dp20))
+            .shimmerEffect()
+    )
+}
+
+@Preview
+@Composable
+fun ShimmerMovieAndSeriesListItem(){
+    Box(
+        modifier = Modifier
+            .width(120.dp)
+            .height(170.dp)
+            .clip(shape = RoundedCornerShape(DpDimensions.Dp20))
+            .shimmerEffect()
+    )
+}
 @Composable
 fun ShimmerListItem(
     isLoading: Boolean,
@@ -72,16 +99,15 @@ fun ShimmerListItem(
     }
 }
 
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun ShimmerDetail(
-    isLoading: Boolean,
-    contentAfterLoading: @Composable () -> Unit,
-    modifier: Modifier = Modifier
 ) {
-    if ( isLoading ) {
         Column(
             modifier = Modifier
-                .padding(horizontal = 15.dp)
+                //.padding(horizontal = 15.dp)
+                .background(color = if (isSystemInDarkTheme()) BlueGrey11 else Color.White),
         ) {
             Title()
             Spacer(modifier = Modifier.height(16.dp))
@@ -97,10 +123,6 @@ fun ShimmerDetail(
             Spacer(modifier = Modifier.height(16.dp))
             Crew()
         }
-
-    } else {
-        contentAfterLoading()
-    }
 }
 
 @Composable
@@ -153,16 +175,15 @@ fun EpisodeDetailShimmer(
     }
 }
 
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun ActorDetailShimmer(
-    isLoading: Boolean,
-    contentAfterLoading: @Composable () -> Unit,
-    modifier: Modifier = Modifier
 ) {
-    if ( isLoading ) {
+
         Column(
             modifier = Modifier
-                .padding(horizontal = 15.dp)
+                .background(color = if (isSystemInDarkTheme()) BlueGrey11 else Color.White),
         ) {
             Title()
             Spacer(modifier = Modifier.height(16.dp))
@@ -177,9 +198,6 @@ fun ActorDetailShimmer(
             RowCards()
         }
 
-    } else {
-        contentAfterLoading()
-    }
 }
 
 @Composable
@@ -201,6 +219,7 @@ private fun Genres( count: Int ) {
 private fun Image() {
     Box(
         modifier = Modifier
+            .clip(shape = RoundedCornerShape(15.dp))
             .fillMaxWidth()
             .height(200.dp)
             .shimmerEffect()
@@ -314,7 +333,7 @@ private fun RowCards() {
                 .shimmerEffect()
         )
         Spacer(modifier = Modifier.height(15.dp))
-        LazyRow(contentPadding = PaddingValues(5.dp)) {
+        LazyRow(contentPadding = PaddingValues(8.dp)) {
             items(3) {
                 Box(
                     modifier = Modifier
@@ -520,11 +539,23 @@ fun Modifier.shimmerEffect(): Modifier = composed {
     )
     background(
         brush = Brush.linearGradient(
-            colors = listOf(
-                Color(0xFFC9C9C3),
-                Color(0xFFB8B5B5),
-                Color(0xFFCECECA)
-            ),
+
+            colors = if (isSystemInDarkTheme()) {
+                listOf(
+                    Color(0xFF464643),
+                    Color(0xFF3D3A3A),
+                    Color(0xFF333332)
+                )
+
+            } else {
+                listOf(
+                    Color(0xFFC9C9C3),
+                    Color(0xFFB8B5B5),
+                    Color(0xFFCECECA)
+
+
+                )
+            },
             start = Offset( startOffsetX, 0f ),
             end = Offset( startOffsetX + size.width.toFloat(), size.height.toFloat() )
         )

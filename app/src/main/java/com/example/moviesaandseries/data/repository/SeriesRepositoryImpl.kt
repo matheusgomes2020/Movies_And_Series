@@ -16,6 +16,10 @@ class SeriesRepositoryImpl @Inject constructor(
         return api.searchSeries( searchQuery ).results
     }
 
+    override suspend fun getTrendingTodaySeries(): List<SeriesDto> {
+        return api.getTrendingToday().results
+    }
+
     override suspend fun getPopularSeries(): List<SeriesDto> {
         return api.getPopularSeries().results
     }
@@ -38,6 +42,10 @@ class SeriesRepositoryImpl @Inject constructor(
 
     override suspend fun getSeasonInfo(seriesId: String, seasonNumber: String): SeasonDetailDto {
         return api.getSeasonInfo(seriesId, seasonNumber)
+    }
+
+    override suspend fun getSeriesGenre(pageNumber: String, genreId: String): List<SeriesDto> {
+        return api.getSeriesGenres(pageNumber = pageNumber, genreID = genreId).results
     }
 
     override suspend fun getEpisodeInfo( seriesId: String, seasonNumber: String, episodeNumber: String): EpisodeDetailDto {

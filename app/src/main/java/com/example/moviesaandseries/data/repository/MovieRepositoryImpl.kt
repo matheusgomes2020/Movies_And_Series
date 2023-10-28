@@ -1,5 +1,6 @@
 package com.example.moviesaandseries.data.repository
 
+import android.util.Log
 import com.example.moviesaandseries.data.remote.MovieApi
 import com.example.moviesaandseries.data.remote.dto.movies.MovieDetailDto
 import com.example.moviesaandseries.data.remote.dto.movies.MovieDto
@@ -13,6 +14,11 @@ class MovieRepositoryImpl @Inject constructor(
     override suspend fun searchMovies( searchQuery: String ): List<MovieDto> {
         return api.searchMovies( searchQuery ).results
     }
+
+    override suspend fun getTrendingTodayMovies(): List<MovieDto> {
+        return api.getTrendingToday().results
+    }
+
     override suspend fun getPopularMovies(): List<MovieDto> {
         return api.getPopularMovies().results
     }
@@ -27,6 +33,11 @@ class MovieRepositoryImpl @Inject constructor(
 
     override suspend fun getRatedMovies(): List<MovieDto> {
         return api.getRatedMovies().results
+    }
+
+    override suspend fun getMoviesGenre( pageNumber: String, genreId: String ): List<MovieDto> {
+        Log.d("BORA", "IMPL: $pageNumber | $genreId")
+        return api.getMoviesGenres( pageNumber = pageNumber, genreID = genreId ).results
     }
 
     override suspend fun getMovieInfo(movieId: String): MovieDetailDto {

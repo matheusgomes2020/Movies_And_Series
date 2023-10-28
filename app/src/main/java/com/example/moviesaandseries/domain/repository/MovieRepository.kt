@@ -7,6 +7,7 @@ import com.example.moviesaandseries.data.remote.dto.movies.MovieDto
 interface MovieRepository {
     suspend fun searchMovies( searchQuery: String ): List<MovieDto>
 
+    suspend fun getTrendingTodayMovies(): List<MovieDto>
     suspend fun getPopularMovies(): List<MovieDto>
 
     suspend fun getUpcomingMovies(): List<MovieDto>
@@ -16,5 +17,6 @@ interface MovieRepository {
     suspend fun getRatedMovies(): List<MovieDto>
 
     suspend fun getMovieInfo(movieId: String): MovieDetailDto
+    suspend fun getMoviesGenre(pageNumber: String, genreId: String): List<MovieDto>
 
 }

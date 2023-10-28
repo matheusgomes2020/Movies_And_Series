@@ -26,23 +26,23 @@ class EpisodeViewModel @Inject constructor(
 
     init {
 
-        var a = ""
-        var b = ""
-        var c = ""
+        var seriesIdHandle = ""
+        var seasonNumberHandle = ""
+        var episodeNumberHandle = ""
 
         savedStateHandle.get<String>(Constants.PARAM_SERIES_ID)?.let { seriesId ->
-            a = seriesId
+            seriesIdHandle = seriesId
         }
         savedStateHandle.get<String>(Constants.PARAM_SEASON_NUMBER)?.let { seasonNumber ->
-            b = seasonNumber
+            seasonNumberHandle = seasonNumber
         }
 
         savedStateHandle.get<String>(Constants.PARAM_EPISODE_NUMBER)?.let { episodeNumber ->
-            c = episodeNumber
+            episodeNumberHandle = episodeNumber
         }
 
-        getEpisode( a, b, c )
-        Log.d("BATATA", "INIT ViewModel: id: $a | season number: $b | episode number: $c")
+        getEpisode( seriesIdHandle, seasonNumberHandle, episodeNumberHandle )
+        Log.d("BATATA", "INIT ViewModel: id: $seriesIdHandle | season number: $seasonNumberHandle | episode number: $episodeNumberHandle")
     }
 
     private fun getEpisode(seriesId: String, seasonNumber: String, episodeNumber: String) {

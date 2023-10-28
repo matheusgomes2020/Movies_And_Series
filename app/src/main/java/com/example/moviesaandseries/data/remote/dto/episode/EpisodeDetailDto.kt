@@ -17,7 +17,7 @@ data class EpisodeDetailDto(
     val production_code: String,
     val runtime: Int,
     val season_number: Int,
-    val still_path: String,
+    val still_path: String?,
     val vote_average: Double,
     val vote_count: Int
 )

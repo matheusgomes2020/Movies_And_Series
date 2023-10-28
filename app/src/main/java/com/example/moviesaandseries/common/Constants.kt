@@ -12,6 +12,14 @@ object Constants {
 
     const val PARAM_PERSON_ID = "castId"
 
+    const val GENRE_ID = "genreID"
+
+    const val GENRE_TITLE= "genreTitle"
+
+    const val PAGE_NUMBER = "pageNumber"
+
+    const val TYPE = "type"
+
     const val PARAM_EPISODE_NUMBER = "episodeNumber"
 
     const val PARAM_SEASON_NUMBER = "seasonNumber"

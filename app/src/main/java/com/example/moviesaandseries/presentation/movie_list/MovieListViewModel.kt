@@ -8,6 +8,7 @@ import com.example.moviesaandseries.common.Resource
 import com.example.moviesaandseries.domain.use_case.get_movies.GetNowPlayingMoviesUseCase
 import com.example.moviesaandseries.domain.use_case.get_movies.GetPopularMoviesUseCase
 import com.example.moviesaandseries.domain.use_case.get_movies.GetRatedMoviesUseCase
+import com.example.moviesaandseries.domain.use_case.get_movies.GetTrendingTodayMoviesUseCase
 import com.example.moviesaandseries.domain.use_case.get_movies.GetUpcomingMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -16,26 +17,49 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieListViewModel @Inject constructor(
+    private val getTrendingTodayMoviesUseCase: GetTrendingTodayMoviesUseCase,
     private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
     private val getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase,
     private val getNowPlayingMoviesUseCase: GetNowPlayingMoviesUseCase,
     private val getRatedMoviesUseCase: GetRatedMoviesUseCase
 ): ViewModel(){
 
+    private val _stateTrendingToday = mutableStateOf(MovieListState())
     private val _statePopular = mutableStateOf(MovieListState())
     private val _stateUpcoming = mutableStateOf(MovieListState())
     private val _stateNowPlaying = mutableStateOf(MovieListState())
     private val _stateRated = mutableStateOf(MovieListState())
+
+    val stateTrendingToday: State<MovieListState> = _stateTrendingToday
     val statePopular: State<MovieListState> = _statePopular
     val stateUpcoming: State<MovieListState> = _stateUpcoming
     val stateNowPlaying: State<MovieListState> = _stateNowPlaying
     val stateRated: State<MovieListState> = _stateRated
 
     init {
+        getTrendingTodayMovies()
         getPopularMovies()
         getUpcomingMovies()
         getNowPlayingMovies()
         getRatedMovies()
+    }
+
+    private fun getTrendingTodayMovies() {
+        getTrendingTodayMoviesUseCase().onEach { result ->
+            when (result) {
+                is Resource.Success -> {
+                    _stateTrendingToday.value = MovieListState(movies = result.data ?: emptyList())
+                }
+                is Resource.Error -> {
+                    _stateTrendingToday.value = MovieListState(
+                        error = result.message ?: "An unexpected error occured"
+                    )
+                }
+                is Resource.Loading -> {
+                    _stateTrendingToday.value = MovieListState(isLoading = true)
+                }
+            }
+        }.launchIn(viewModelScope)
     }
 
     private fun getPopularMovies() {
