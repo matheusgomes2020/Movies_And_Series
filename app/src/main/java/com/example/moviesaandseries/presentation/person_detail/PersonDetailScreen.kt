@@ -33,26 +33,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
-import com.example.moviesaandseries.common.Constants
-import com.example.moviesaandseries.data.remote.dto.Profile
 import com.example.moviesaandseries.presentation.general.ActorDetailShimmer
 import com.example.moviesaandseries.presentation.general.AppBarWithBack
 import com.example.moviesaandseries.presentation.general.CustomPadding
 import com.example.moviesaandseries.presentation.general.DpDimensions
 import com.example.moviesaandseries.presentation.general.RowIcons
-import com.example.moviesaandseries.presentation.general.SimilarSeriesCell
-import com.example.moviesaandseries.presentation.general.SimilarsMoviesCell
-import com.example.moviesaandseries.presentation.general.SubtitleHeader
 import com.example.moviesaandseries.presentation.general.TextBiografia
 import com.example.moviesaandseries.presentation.movie_list.MovieListState
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListCell
 import com.example.moviesaandseries.presentation.person_detail.components.PersonImagesCell
-import com.example.moviesaandseries.presentation.person_list.MoviesCastListState
-import com.example.moviesaandseries.presentation.person_list.SeriesCastListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
-import com.example.moviesaandseries.ui.theme.BlueGrey11
+import com.example.moviesaandseries.presentation.series_list.components.SeriesListCell
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
@@ -122,24 +114,23 @@ fun CastScreen(
                             MovieListCell(navController, statemovies, "Filmes", {} )
                         }
                         if (!person.tv_credits.cast.isNullOrEmpty()) {
-                            SimilarSeriesCell(navController, stateSeries, false  )
+                            SeriesListCell(navController, stateSeries, "Séries", {}  )
                         }
-
                 }
             }
-        if ( state.error.isNotBlank() ) {
-            Text(
-                text = state.error,
-                color = MaterialTheme.colorScheme.error,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-            )
         }
-        if(state.isLoading) {
-            ActorDetailShimmer(isLoading = true, contentAfterLoading = { /*TODO*/ })
-        }
+    if ( state.error.isNotBlank() ) {
+        Text(
+            text = state.error,
+            color = MaterialTheme.colorScheme.error,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp)
+        )
+    }
+    if(state.isLoading) {
+        ActorDetailShimmer()
     }
 }
 

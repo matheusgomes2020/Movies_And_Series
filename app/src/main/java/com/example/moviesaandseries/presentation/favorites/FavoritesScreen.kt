@@ -11,6 +11,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
@@ -20,7 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.navigation.AppGraph
-import com.example.moviesaandseries.presentation.movie_list.components.MovieNewUICellFirebase
+import com.example.moviesaandseries.presentation.movie_list.components.MovieAndSeriesUICellFirebase
 import com.example.moviesaandseries.presentation.general.CustomPadding
 import com.example.moviesaandseries.presentation.general.DpDimensions
 import com.example.moviesaandseries.presentation.general.MainAppBar
@@ -71,8 +72,10 @@ fun ProfileScreen(
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
                 .fillMaxSize()
-                .background(color =if (useDarkIcons)
-                    Color.White else DarkGrey11)
+                .background(
+                    color = if (useDarkIcons)
+                        Color.White else DarkGrey11
+                )
         ) {
             CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
                 SubtitleHeader(
@@ -87,14 +90,23 @@ fun ProfileScreen(
                 Movies(userData = userData,
                     type = "movies"
                 ) { movies ->
-                    MovieNewUICellFirebase(
-                        navController = navController,
-                        movies = movies,
-                        tipo = "movie",
-                    ) { idFirebase ->
-                        viewModel.deleteMovie(idFirebase)
+                    if (!movies.isNullOrEmpty()) {
+                        MovieAndSeriesUICellFirebase(
+                            navController = navController,
+                            movies = movies,
+                            tipo = "movie",
+                        ) { idFirebase ->
+                            viewModel.deleteMovie(idFirebase)
+                        }
+                    } else {
+                        CustomPadding(
+                            verticalPadding = 0.dp,
+                            horizontalPadding = DpDimensions.Normal
+                        ) {
+                            Text(text = "Favorite filmes para vê-los aqui.")
+                        }
                     }
-            }
+                }
             Spacer(modifier = Modifier.height(DpDimensions.Small))
             CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
                 SubtitleHeader(
@@ -107,13 +119,19 @@ fun ProfileScreen(
                 Movies(userData = userData,
                     type = "series"
                 ) { movies ->
-                    MovieNewUICellFirebase(
-                        navController = navController,
-                        movies = movies,
-                        tipo = "series",
-                    ) { idFirebase ->
-                        viewModel.deleteMovie(idFirebase)
+                    if (!movies.isNullOrEmpty()) {
+                        MovieAndSeriesUICellFirebase(
+                            navController = navController,
+                            movies = movies,
+                            tipo = "series",
+                        ) { idFirebase ->
+                            viewModel.deleteMovie(idFirebase)
+                        }
+                    } else {
+                        CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
+                        Text(text = "Favorite séries para vê-las aqui.")}
                     }
+                    
                 }
         }
     }

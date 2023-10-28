@@ -1,11 +1,8 @@
-package com.example.moviesaandseries.presentation.episode.components
+package com.example.moviesaandseries.presentation.season.components
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -14,11 +11,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.data.remote.dto.episode.EpisodeDto
-import com.example.moviesaandseries.presentation.episode_list.EpisodeListItem
 import com.example.moviesaandseries.presentation.general.CustomPadding
 import com.example.moviesaandseries.presentation.general.DpDimensions
 import com.example.moviesaandseries.presentation.general.SubtitleHeader
-import com.example.moviesaandseries.presentation.general.TextSubTitulos
 
 @Composable
 fun EpisodeCell(navController: NavController, seriesId: String, episodes: List<EpisodeDto>){

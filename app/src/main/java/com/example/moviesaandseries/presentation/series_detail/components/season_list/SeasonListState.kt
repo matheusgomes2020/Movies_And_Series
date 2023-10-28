@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.season_list
+package com.example.moviesaandseries.presentation.series_detail.components.season_list
 
 import com.example.moviesaandseries.data.remote.dto.season.SeasonDto
 

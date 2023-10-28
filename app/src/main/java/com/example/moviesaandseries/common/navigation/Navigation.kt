@@ -16,8 +16,6 @@ import com.example.moviesaandseries.presentation.account_details.components.Acco
 import com.example.moviesaandseries.presentation.person_detail.CastScreen
 import com.example.moviesaandseries.presentation.person_Image.ImagePersonScreen
 import com.example.moviesaandseries.presentation.episode.EpisodeScreen
-import com.example.moviesaandseries.presentation.general.ScreenContent
-import com.example.moviesaandseries.presentation.login.LoginContent
 import com.example.moviesaandseries.presentation.searchMovies.SearchMoviesScreen
 import com.example.moviesaandseries.presentation.searchSeries.SearchSeriesScreen
 import com.example.moviesaandseries.presentation.season.SeasonDetailScreen
@@ -52,20 +50,20 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
         startDestination = AppGraph.auth.LOGIN
     ) {
         composable(route = AppGraph.auth.LOGIN) {
-            LoginContent(
-                onLoginClick = {
-                    navController.popBackStack()
-                    navController.navigate(AppGraph.home.ROOT)
-                },
-                onSignInClick = { navController.navigate(AppGraph.auth.SIGN_UP) },
-                onForgotClick = { navController.navigate(AppGraph.auth.FORGOT_PASSWORD) }
-            )
+//            LoginContent(
+//                onLoginClick = {
+//                    navController.popBackStack()
+//                    navController.navigate(AppGraph.home.ROOT)
+//                },
+//                onSignInClick = { navController.navigate(AppGraph.auth.SIGN_UP) },
+//                onForgotClick = { navController.navigate(AppGraph.auth.FORGOT_PASSWORD) }
+//            )
         }
         composable(route = AppGraph.auth.SIGN_UP) {
-            ScreenContent(name = "SIGN UP") {}
+           // ScreenContent(name = "SIGN UP") {}
         }
         composable(route = AppGraph.auth.FORGOT_PASSWORD) {
-            ScreenContent(name = "FORGOT PASSWORD") {}
+           // ScreenContent(name = "FORGOT PASSWORD") {}
         }
     }
 }
@@ -308,7 +306,7 @@ fun NavGraphBuilder.searchMoviesNavGraph( navController: NavController ) {
 
             navBackStackEntry.arguments?.getString("queryMovie").let {
                 Log.d("BATATAO", "searchMovies: ${navBackStackEntry.destination}")
-                SearchMoviesScreen( it!!, navController = navController )
+                SearchMoviesScreen( it!!, navController = navController, isSystemInDarkTheme() )
             }
         }
     }
@@ -329,7 +327,7 @@ fun NavGraphBuilder.searchSeriesNavGraph( navController: NavController ) {
 
             navBackStackEntry.arguments?.getString("querySeries").let {
                 Log.d("BATATAO", "searchSeries: ${navBackStackEntry.destination}")
-                SearchSeriesScreen(it!!, navController = navController)
+                SearchSeriesScreen(it!!, navController = navController, isSystemInDarkTheme())
             }
         }
     }

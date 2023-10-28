@@ -38,6 +38,7 @@ import com.example.moviesaandseries.domain.model.Movie
 import com.example.moviesaandseries.domain.model.MovieOrSeriesFirebase
 import com.example.moviesaandseries.presentation.general.DeleteMovieBottomSheet
 import com.example.moviesaandseries.presentation.general.DpDimensions
+import com.example.moviesaandseries.presentation.general.MovieAndSeriesItem
 
 
 @Composable
@@ -99,44 +100,5 @@ fun MovieListItemFirebase(
             onCancel = {
                 isLogoutSheetOpen = false
             })
-    }
-}
-
-@Composable
-fun MovieAndSeriesItem(
-    title: String,
-    posterPath: String
-){
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .paint(
-                painter = rememberAsyncImagePainter(model = if (posterPath != "sem poster") "$BASE_IMAGE_URL$posterPath" else R.drawable.logo),
-                contentScale = ContentScale.Crop
-            )
-            .background(
-                brush = Brush.verticalGradient(
-                    listOf(
-                        Color.Transparent,
-                        Color.Transparent,
-                        Color.Black
-                    )
-                ),
-            )
-            .clip(RoundedCornerShape(DpDimensions.Small)),
-        contentAlignment = Alignment.BottomStart
-    ) {
-        Column(
-            modifier = Modifier.padding(DpDimensions.Small)
-        ) {
-            Text(
-                modifier = Modifier.width(110.dp),
-                text = title,
-                style = MaterialTheme.typography.titleSmall,
-                color = Color.White,
-                maxLines = 1
-            )
-        }
     }
 }

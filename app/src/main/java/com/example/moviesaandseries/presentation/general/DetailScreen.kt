@@ -1,7 +1,6 @@
 package com.example.moviesaandseries.presentation.general
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -32,16 +31,7 @@ import com.example.moviesaandseries.data.remote.dto.movies.Cast
 import com.example.moviesaandseries.data.remote.dto.movies.Crew
 import com.example.moviesaandseries.data.remote.dto.Genre
 import com.example.moviesaandseries.data.remote.dto.Review
-import com.example.moviesaandseries.data.remote.dto.season.SeasonDto
-import com.example.moviesaandseries.presentation.movie_list.MovieListState
-import com.example.moviesaandseries.presentation.movie_list.components.MovieListCell
-import com.example.moviesaandseries.presentation.person_list.components.CastListCell
-import com.example.moviesaandseries.presentation.review.ReviewListItem
 import com.example.moviesaandseries.presentation.review.ReviewListScreenCell
-import com.example.moviesaandseries.presentation.season_list.SeasonListScreenCell
-import com.example.moviesaandseries.presentation.season_list.SeasonListState
-import com.example.moviesaandseries.presentation.series_list.SeriesListState
-import com.example.moviesaandseries.presentation.series_list.components.SeriesListCell
 import com.example.moviesaandseries.ui.theme.fontFamily3
 
 @Composable
@@ -148,75 +138,7 @@ fun CastCell(navController: NavController, cast: List<Cast>, text: String) {
     }
 }
 
-@Composable
-fun SeasonsCell(
-    navController: NavController, seriesId: String, numeroTemporadas: Int, seasons: List<SeasonDto>, state: SeasonListState
-) {
-    CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-        SubtitleHeader(
-            title = if (numeroTemporadas > 1) "$numeroTemporadas - temporadas" else "$numeroTemporadas - temporada",
-            modifier = Modifier.fillMaxWidth(),
-            isSystemInDarkTheme = true,
-            onClick = {
-            }
-        )
-    }
-    SeasonListScreenCell(navController = navController, seriesId = seriesId , state = state )
-    Spacer(modifier = Modifier.height(DpDimensions.Small))
-}
 
-@Composable
- fun SimilarSeriesCell(navController: NavController, state: SeriesListState, isSimilar: Boolean) {
-    CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-        SubtitleHeader(
-            title = if (isSimilar) "Séries Similares" else "Séries",
-            modifier = Modifier.fillMaxWidth(),
-            isSystemInDarkTheme = true,
-            onClick = {}
-        )
-    }
-    SeriesListCell(navController  , state = state)
-}
-
-@Composable
-fun SimilarsMoviesCell(navController: NavController, state: MovieListState, text: String) {
-    CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-        SubtitleHeader(
-            title = text,
-            modifier = Modifier.fillMaxWidth(),
-            isSystemInDarkTheme = true,
-            onClick = {}
-        )
-    }
-    //MovieListCell(navController = navController, state = state)
-}
-
-@Composable
-fun RecommendationMoviesCell(navController: NavController, state: MovieListState) {
-    CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-        SubtitleHeader(
-            title = "Filmes Recomendados",
-            modifier = Modifier.fillMaxWidth(),
-            isSystemInDarkTheme = true,
-            onClick = {}
-        )
-    }
-    //MovieListCell(navController = navController, state = state)
-}
-
-@Composable
-fun RecommendationSeriesCell(navController: NavController, state: SeriesListState) {
-    CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-        SubtitleHeader(
-            title = "Séries recomendadas",
-            modifier = Modifier.fillMaxWidth(),
-            isSystemInDarkTheme = true,
-            onClick = {}
-        )
-    }
-    SeriesListCell(navController  , state = state)
-    Spacer(modifier = Modifier.height(DpDimensions.Small))
-}
 
 @Composable
 fun ReviewsCell(reviews: List<Review> ){
@@ -245,11 +167,11 @@ fun ReviewsCell(reviews: List<Review> ){
         LazyRow(modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ){
-            if (!data.isNullOrEmpty()) {
+            if (data != "null") {
                 item { RowIcons(text = data, painterResource = R.drawable.ic_calendar  )
                     Spacer(modifier = Modifier.width(8.dp))}
             }
-            if (runtime != "null") {
+            if (runtime != "null" && runtime!= "0") {
                 item { RowIcons(text = runtime, painterResource = R.drawable.ic_clock  )
                     Spacer(modifier = Modifier.width(8.dp))}
             }

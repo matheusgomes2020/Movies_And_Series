@@ -30,10 +30,8 @@ import com.example.moviesaandseries.presentation.episode.ImagesCell
 import com.example.moviesaandseries.presentation.favorites.FavoriteViewModel
 import com.example.moviesaandseries.presentation.general.CrewCell
 import com.example.moviesaandseries.presentation.general.MainContent
-import com.example.moviesaandseries.presentation.general.RecommendationMoviesCell
 import com.example.moviesaandseries.presentation.general.ReviewsCell
 import com.example.moviesaandseries.presentation.general.ShimmerDetail
-import com.example.moviesaandseries.presentation.general.SimilarsMoviesCell
 import com.example.moviesaandseries.presentation.movie_list.MovieListState
 import com.example.moviesaandseries.presentation.general.AppBarWithBackAndIcon
 import com.example.moviesaandseries.presentation.general.CastCell

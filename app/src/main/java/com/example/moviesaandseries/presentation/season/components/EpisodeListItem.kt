@@ -1,4 +1,4 @@
-package com.example.moviesaandseries.presentation.episode_list
+package com.example.moviesaandseries.presentation.season.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,7 +19,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
+import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
+import com.example.moviesaandseries.common.Constants.BASE_IMAGE_URL
 import com.example.moviesaandseries.data.remote.dto.episode.EpisodeDto
 import com.example.moviesaandseries.ui.theme.BlueGrey11
 import com.example.moviesaandseries.ui.theme.fontFamily3
@@ -32,12 +34,14 @@ fun EpisodeListItem(episode: EpisodeDto, onItemClick: (EpisodeDto) -> Unit
             .padding(
                 bottom = 5.dp
             )
-            .clickable { onItemClick(episode)
+            .clickable {
+                onItemClick(episode)
             }
-            .background(color = if (isSystemInDarkTheme())  BlueGrey11 else Color.White),
+            .background(color = if (isSystemInDarkTheme()) BlueGrey11 else Color.White),
     ) {
         Image(painter = rememberAsyncImagePainter(
-            model = Constants.BASE_IMAGE_URL + episode.still_path),
+            model = if (!episode.still_path.isNullOrEmpty()) "$BASE_IMAGE_URL${episode.still_path}" else R.drawable.logo
+        ),
             contentDescription = null,
             modifier = Modifier
                 .requiredSize(110.dp)
@@ -56,7 +60,7 @@ fun EpisodeListItem(episode: EpisodeDto, onItemClick: (EpisodeDto) -> Unit
                 fontFamily = fontFamily3,
                 maxLines = 1,
                 color =  if (isSystemInDarkTheme()) Color.White  else BlueGrey11)
-            Text(text = episode.overview,
+            Text(text = if (!episode.overview.isNullOrEmpty()) episode.overview else "Sinopse não disponível",
                 modifier = Modifier.padding(
                     top = 7.dp
                 ),
