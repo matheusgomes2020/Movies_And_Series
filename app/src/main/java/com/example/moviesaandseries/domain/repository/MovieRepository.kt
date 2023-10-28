@@ -17,5 +17,6 @@ interface MovieRepository {
     suspend fun getRatedMovies(): List<MovieDto>
 
     suspend fun getMovieInfo(movieId: String): MovieDetailDto
+    suspend fun getMoviesGenre(pageNumber: String, genreId: String): List<MovieDto>
 
 }
