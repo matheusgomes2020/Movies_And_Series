@@ -19,6 +19,8 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
@@ -26,16 +28,17 @@ import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.data.remote.dto.movies.Cast
 
 @Composable
-fun PersonListItemNewUI(
+fun PersonListItem(
     cast: Cast,
-    onItemClick: (Cast) -> Unit
+    onItemClick: (Cast) -> Unit,
+    height: Dp
 ) {
 
     Surface(
         shape = RoundedCornerShape(DpDimensions.Dp20),
         modifier = Modifier
-            .width(120.dp)
-            .height(140.dp),
+            .width(123.dp)
+            .height(height),
         onClick = { onItemClick(cast) }
     ) {
         Box(

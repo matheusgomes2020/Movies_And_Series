@@ -34,7 +34,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.data.remote.dto.Profile
-import com.example.moviesaandseries.presentation.cast_grid.SharedViewModel
+import com.example.moviesaandseries.presentation.cast_grid.SharedCastGridViewModel
 import com.example.moviesaandseries.presentation.general.AppBarWithBack
 import com.example.moviesaandseries.presentation.general.CastCell
 import com.example.moviesaandseries.presentation.general.CrewCell
@@ -51,7 +51,7 @@ fun EpisodeScreen(
     navController: NavController,
     isSystemInDarkTheme: Boolean,
     viewModel: EpisodeViewModel = hiltViewModel(),
-    sharedViewModel: SharedViewModel
+    sharedViewModel: SharedCastGridViewModel
 ){
 
     val systemUiController = rememberSystemUiController()

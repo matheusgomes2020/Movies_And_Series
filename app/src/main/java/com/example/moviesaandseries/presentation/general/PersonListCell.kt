@@ -21,7 +21,7 @@ fun CastListCell(
         contentPadding = PaddingValues(horizontal = 16.dp),
     ) {
         items(cast) { cast ->
-            PersonListItemNewUI(
+            PersonListItem(
                 cast = cast,
                 onItemClick = {
                     try {
@@ -29,7 +29,8 @@ fun CastListCell(
                     }catch (e: Exception){
                         Log.d("QQQ", "CastCell: ${e.printStackTrace()}")
                     }
-                }
+                },
+                height = 140.dp
             )
         }
     }

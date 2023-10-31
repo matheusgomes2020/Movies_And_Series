@@ -45,7 +45,7 @@ import com.example.moviesaandseries.presentation.general.MovieAndSeriesItem
 fun MovieListItem(
     movie: Movie,
     onClick: (Movie) -> Unit,
-    height: Dp = 170.dp
+    height: Dp
 ){
     Surface(
         shape = RoundedCornerShape(DpDimensions.Dp20),

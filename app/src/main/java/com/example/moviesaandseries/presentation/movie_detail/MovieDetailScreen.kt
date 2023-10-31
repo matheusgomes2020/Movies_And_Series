@@ -26,7 +26,7 @@ import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.domain.model.MovieOrSeriesFirebase
 import com.example.moviesaandseries.domain.model.Response
-import com.example.moviesaandseries.presentation.cast_grid.SharedViewModel
+import com.example.moviesaandseries.presentation.cast_grid.SharedCastGridViewModel
 import com.example.moviesaandseries.presentation.episode.ImagesCell
 import com.example.moviesaandseries.presentation.favorites.FavoriteViewModel
 import com.example.moviesaandseries.presentation.general.CrewCell
@@ -39,18 +39,20 @@ import com.example.moviesaandseries.presentation.general.CastCell
 import com.example.moviesaandseries.presentation.general.CustomPadding
 import com.example.moviesaandseries.presentation.general.DpDimensions
 import com.example.moviesaandseries.presentation.general.UserData
+import com.example.moviesaandseries.presentation.grid_movies.SharedMoviesGridViewModel
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListCell
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
-fun MovieDetailScreenNewUI(
+fun MovieDetailScreen(
     navController: NavController,
     isSystemInDarkTheme: Boolean,
     userData: UserData?,
     viewModel: MovieDetailViewModel = hiltViewModel(),
     favoriteViewModel: FavoriteViewModel = hiltViewModel(),
-    sharedViewModel: SharedViewModel
+    sharedViewModel: SharedCastGridViewModel,
+    sharedMoviesGridViewModel: SharedMoviesGridViewModel
 ) {
 
     val systemUiController = rememberSystemUiController()
@@ -156,10 +158,16 @@ fun MovieDetailScreenNewUI(
                                 CrewCell(director, isDirector = true, crew = movie.credits.crew)
                             }
                             if (!movie.recommendations.results.isNullOrEmpty()) {
-                                MovieListCell(navController = navController, state = stateRecommendations, headerTitle = "Filmes Recomendados", onHeaderClick = {} )
+                                MovieListCell(navController = navController, state = stateRecommendations, headerTitle = "Filmes Recomendados", onHeaderClick = {
+                                    sharedMoviesGridViewModel.getMovies(stateRecommendations.movies)
+                                    navController.navigate(AppGraph.movies_grid.MOVIES_GRID)
+                                } )
                             }
                             if (!movie.similar.results.isNullOrEmpty()) {
-                                MovieListCell(navController = navController, state = stateSimilar, headerTitle = "Filmes Similares", onHeaderClick = {} )
+                                MovieListCell(navController = navController, state = stateSimilar, headerTitle = "Filmes Similares", onHeaderClick = {
+                                    sharedMoviesGridViewModel.getMovies(stateSimilar.movies)
+                                    navController.navigate(AppGraph.movies_grid.MOVIES_GRID)
+                                } )
                             }
                             if (!movie.reviews.results.isNullOrEmpty()) {
                                 ReviewsCell(reviews = movie.reviews.results)

@@ -148,7 +148,8 @@ fun MovieListCell(
             items(state.movies) { movie ->
                 MovieListItem(movie = movie, onClick = {
                     navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
-                } )
+                },
+                    height = 170.dp )
             }
         }
         if ( state.error.isNotBlank() ) {
@@ -175,7 +176,7 @@ fun MovieListCell(
     }
 }
 @Composable
-fun MovieAndSeriesUICellFirebase(
+fun MovieAndSeriesCellFirebase(
     navController: NavController,
     movies: Movies,
     tipo: String,

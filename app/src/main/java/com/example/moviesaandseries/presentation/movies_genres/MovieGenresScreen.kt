@@ -69,7 +69,8 @@ fun MovieGenresScreen(
                     items( movies ) { movie ->
                         MovieListItem(movie = movie, onClick = {
                             navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
-                        } )
+                        },
+                            height = 240.dp )
                     }
 
                 }

@@ -21,13 +21,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.navigation.AppGraph
-import com.example.moviesaandseries.presentation.movie_list.components.MovieAndSeriesUICellFirebase
+import com.example.moviesaandseries.domain.model.Movie
+import com.example.moviesaandseries.presentation.movie_list.components.MovieAndSeriesCellFirebase
 import com.example.moviesaandseries.presentation.general.CustomPadding
 import com.example.moviesaandseries.presentation.general.DpDimensions
 import com.example.moviesaandseries.presentation.general.MainAppBar
 import com.example.moviesaandseries.presentation.general.Movies
 import com.example.moviesaandseries.presentation.general.SubtitleHeader
 import com.example.moviesaandseries.presentation.general.UserData
+import com.example.moviesaandseries.presentation.grid_movies.SharedMoviesGridViewModel
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
@@ -40,6 +42,7 @@ fun ProfileScreen(
     userData: UserData?,
     onSignOut: () -> Unit,
     viewModel: FavoriteViewModel = hiltViewModel(),
+    moviesGridViewModel: SharedMoviesGridViewModel
 ) {
 
     val systemUiController = rememberSystemUiController()
@@ -67,6 +70,8 @@ fun ProfileScreen(
     ) {
         paddingValues ->
 
+
+
         Column(
             modifier = Modifier
                 .padding(paddingValues)
@@ -77,22 +82,37 @@ fun ProfileScreen(
                         Color.White else DarkGrey11
                 )
         ) {
-            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-                SubtitleHeader(
-                    title = "Filmes favoritos",
-                    modifier = Modifier.fillMaxWidth(),
-                    isSystemInDarkTheme = true,
-                    isIconVisible = true,
-                    onClick = {
-                        //navController.navigate(AppGraph.trending_today_movies.TRENDING_TODAY_MOVIES)
-                    }
-                )
-            }
+
                 Movies(userData = userData,
                     type = "movies"
                 ) { movies ->
+                    CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
+                        SubtitleHeader(
+                            title = "Filmes favoritos",
+                            modifier = Modifier.fillMaxWidth(),
+                            isSystemInDarkTheme = true,
+                            isIconVisible = true,
+                            onClick = {
+                                var movv = mutableListOf<Movie>()
+                                movies.forEach{
+                                    var m = Movie(
+                                        id = it.id.toInt(),
+                                        title = it.title,
+                                        poster_path = it.posterPath,
+                                        overview = "",
+                                        vote_average = 0.0
+                                    )
+                                    movv.add(m)
+                                }
+                                moviesGridViewModel.getMovies(movv)
+                                navController.navigate(AppGraph.movies_grid.MOVIES_GRID)
+
+                                //navController.navigate(AppGraph.trending_today_movies.TRENDING_TODAY_MOVIES)
+                            }
+                        )
+                    }
                     if (!movies.isNullOrEmpty()) {
-                        MovieAndSeriesUICellFirebase(
+                        MovieAndSeriesCellFirebase(
                             navController = navController,
                             movies = movies,
                             tipo = "movie",
@@ -122,7 +142,7 @@ fun ProfileScreen(
                     type = "series"
                 ) { movies ->
                     if (!movies.isNullOrEmpty()) {
-                        MovieAndSeriesUICellFirebase(
+                        MovieAndSeriesCellFirebase(
                             navController = navController,
                             movies = movies,
                             tipo = "series",

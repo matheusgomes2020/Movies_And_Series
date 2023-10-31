@@ -12,11 +12,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.example.moviesaandseries.data.remote.dto.movies.Cast
 import com.example.moviesaandseries.presentation.account_details.AccountDetailsScreen
-import com.example.moviesaandseries.presentation.account_details.components.AccountDetails
 import com.example.moviesaandseries.presentation.cast_grid.CastGridScreen
-import com.example.moviesaandseries.presentation.cast_grid.SharedViewModel
+import com.example.moviesaandseries.presentation.cast_grid.SharedCastGridViewModel
 import com.example.moviesaandseries.presentation.person_detail.CastScreen
 import com.example.moviesaandseries.presentation.person_Image.ImagePersonScreen
 import com.example.moviesaandseries.presentation.episode.EpisodeScreen
@@ -26,13 +24,15 @@ import com.example.moviesaandseries.presentation.season.SeasonDetailScreen
 import com.example.moviesaandseries.presentation.favorites.ProfileScreen
 import com.example.moviesaandseries.presentation.movies_genres.MovieGenresScreen
 import com.example.moviesaandseries.presentation.series_genres.SeriesGenresScreen
-import com.example.moviesaandseries.presentation.movie_detail.MovieDetailScreenNewUI
+import com.example.moviesaandseries.presentation.movie_detail.MovieDetailScreen
 import com.example.moviesaandseries.presentation.grid_movies.MoviesListGridScreen
 import com.example.moviesaandseries.presentation.movie_list.MoviesScreenNewUI
 import com.example.moviesaandseries.presentation.series_detail.SeriesDetailScreenNewUI
 import com.example.moviesaandseries.presentation.grid_series.SeriesListGidScreen
 import com.example.moviesaandseries.presentation.series_list.SeriesScreenNewUI
 import com.example.moviesaandseries.presentation.general.UserData
+import com.example.moviesaandseries.presentation.grid_movies.MoviesGridScreen
+import com.example.moviesaandseries.presentation.grid_movies.SharedMoviesGridViewModel
 
 @Composable
 fun RootNavigationGraph(navController: NavHostController) {
@@ -76,7 +76,8 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
 fun HomeNavGraph(navController: NavHostController, userData: UserData?,
                  onSignOut: () -> Unit) {
 
-    val sharedViewModel: SharedViewModel = viewModel()
+    val sharedViewModel: SharedCastGridViewModel = viewModel()
+    val sharedMoviesGridViewModel: SharedMoviesGridViewModel = viewModel()
 
     NavHost(
         navController = navController,
@@ -90,10 +91,10 @@ fun HomeNavGraph(navController: NavHostController, userData: UserData?,
             SeriesScreenNewUI(navController = navController, isSystemInDarkTheme = isSystemInDarkTheme() )
         }
         composable(route = AppGraph.home.FAVORITES) {
-            ProfileScreen(navController = navController, isSystemInDarkTheme(), userData = userData, onSignOut = onSignOut)
+            ProfileScreen(navController = navController, isSystemInDarkTheme(), userData = userData, onSignOut = onSignOut, moviesGridViewModel = sharedMoviesGridViewModel)
         }
-        movieDetailsNavGraph2( navController = navController, userData = userData, sharedViewModel = sharedViewModel )
-        seriesDetailsNavGraph( navController = navController, userData = userData, sharedViewModel = sharedViewModel )
+        movieDetailsNavGraph2( navController = navController, userData = userData, sharedViewModel = sharedViewModel, sharedMoviesGridViewModel = sharedMoviesGridViewModel )
+        seriesDetailsNavGraph( navController = navController, userData = userData, sharedViewModel = sharedViewModel, moviesGridViewModel = sharedMoviesGridViewModel )
         searchSeriesNavGraph( navController = navController )
         searchMoviesNavGraph( navController = navController )
         moviesGenresNavGraph( navController = navController )
@@ -110,6 +111,7 @@ fun HomeNavGraph(navController: NavHostController, userData: UserData?,
         trendingTodaySeriesNavGraph( navController = navController )
         accountDetailsNavGraph( navController = navController, userData = userData, onSignOut = onSignOut )
         castGridNavGraph( navController = navController, sharedViewModel = sharedViewModel )
+        moviesGridNavGraph( navController = navController, sharedMoviesGridViewModel = sharedMoviesGridViewModel )
 
     }
 }
@@ -141,7 +143,7 @@ fun NavGraphBuilder.moviesGenresNavGraph( navController: NavController ) {
     }
 }
 
-fun NavGraphBuilder.castGridNavGraph( navController: NavController, sharedViewModel: SharedViewModel ) {
+fun NavGraphBuilder.castGridNavGraph( navController: NavController, sharedViewModel: SharedCastGridViewModel ) {
     navigation(
         route = AppGraph.cast_grid.ROOT,
         startDestination = AppGraph.cast_grid.GRID
@@ -151,6 +153,19 @@ fun NavGraphBuilder.castGridNavGraph( navController: NavController, sharedViewMo
         ) {
                 CastGridScreen(navController = navController, sharedViewModel = sharedViewModel
                 )
+        }
+    }
+}
+
+fun NavGraphBuilder.moviesGridNavGraph( navController: NavController, sharedMoviesGridViewModel: SharedMoviesGridViewModel ) {
+    navigation(
+        route = AppGraph.movies_grid.ROOT,
+        startDestination = AppGraph.movies_grid.MOVIES_GRID
+    ) {
+        // composable(route = AppGraph.cast_grid.GRID +"/cast",
+        composable(route = AppGraph.movies_grid.MOVIES_GRID,
+        ) {
+            MoviesGridScreen(navController = navController, sharedMoviesGridViewModel = sharedMoviesGridViewModel )
         }
     }
 }
@@ -359,7 +374,7 @@ fun NavGraphBuilder.searchSeriesNavGraph( navController: NavController ) {
 
 
 
-fun NavGraphBuilder.movieDetailsNavGraph2(navController: NavController, userData: UserData?, sharedViewModel: SharedViewModel ){
+fun NavGraphBuilder.movieDetailsNavGraph2(navController: NavController, userData: UserData?, sharedViewModel: SharedCastGridViewModel, sharedMoviesGridViewModel: SharedMoviesGridViewModel ){
     navigation(
         route = AppGraph.movies_details2.ROOT,
         startDestination = AppGraph.movies_details2.DETAILS
@@ -374,14 +389,14 @@ fun NavGraphBuilder.movieDetailsNavGraph2(navController: NavController, userData
 
             navBackStackEntry.arguments?.getString("movieId").let {
                 Log.d("TRT", "movieDetailsNavGraph2: ${navBackStackEntry.destination}")
-                MovieDetailScreenNewUI(navController = navController, userData = userData, isSystemInDarkTheme = isSystemInDarkTheme(),
-                    sharedViewModel = sharedViewModel )
+                MovieDetailScreen(navController = navController, userData = userData, isSystemInDarkTheme = isSystemInDarkTheme(),
+                    sharedViewModel = sharedViewModel, sharedMoviesGridViewModel = sharedMoviesGridViewModel )
             }
         }
     }
 }
 
-fun NavGraphBuilder.seriesDetailsNavGraph( navController: NavController, userData: UserData?, sharedViewModel: SharedViewModel ){
+fun NavGraphBuilder.seriesDetailsNavGraph( navController: NavController, userData: UserData?, sharedViewModel: SharedCastGridViewModel, moviesGridViewModel: SharedMoviesGridViewModel ){
     navigation(
         route = AppGraph.series_details.ROOT,
         startDestination = AppGraph.series_details.DETAILS
@@ -401,11 +416,11 @@ fun NavGraphBuilder.seriesDetailsNavGraph( navController: NavController, userDat
             }
         }
         seasonDetailsNavGraph( navController = navController, sharedViewModel = sharedViewModel )
-        castDetailNavGraph(navController = navController)
+        castDetailNavGraph(navController = navController, moviesGridViewModel = moviesGridViewModel )
     }
 }
 
-fun NavGraphBuilder.castDetailNavGraph(navController: NavController) {
+fun NavGraphBuilder.castDetailNavGraph(navController: NavController, moviesGridViewModel: SharedMoviesGridViewModel) {
     navigation(
         route = AppGraph.cast_details.ROOT,
         startDestination = AppGraph.cast_details.DETAILS
@@ -419,7 +434,7 @@ fun NavGraphBuilder.castDetailNavGraph(navController: NavController) {
         ) { navBackStackEntry ->
 
             navBackStackEntry.arguments?.getString("castId").let {
-                CastScreen(navController = navController, isSystemInDarkTheme())
+                CastScreen(navController = navController, isSystemInDarkTheme(), moviesGridViewModel = moviesGridViewModel)
             }
         }
     }
@@ -448,7 +463,7 @@ fun NavGraphBuilder.imagePersonNavGraph( navController: NavController ) {
     }
 }
 
-fun NavGraphBuilder.seasonDetailsNavGraph(navController: NavController, sharedViewModel: SharedViewModel){
+fun NavGraphBuilder.seasonDetailsNavGraph(navController: NavController, sharedViewModel: SharedCastGridViewModel){
     navigation(
         route = AppGraph.season_details.ROOT,
         startDestination = AppGraph.season_details.DETAILS
@@ -471,7 +486,7 @@ fun NavGraphBuilder.seasonDetailsNavGraph(navController: NavController, sharedVi
     }
 }
 
-fun NavGraphBuilder.episodeDetailsNavGraph(navController: NavController, sharedViewModel: SharedViewModel){
+fun NavGraphBuilder.episodeDetailsNavGraph(navController: NavController, sharedViewModel: SharedCastGridViewModel){
     navigation(
         route = AppGraph.episode_details.ROOT,
         startDestination = AppGraph.episode_details.DETAILS

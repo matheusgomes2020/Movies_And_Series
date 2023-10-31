@@ -25,7 +25,7 @@ import androidx.navigation.NavController
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.domain.model.MovieOrSeriesFirebase
 import com.example.moviesaandseries.domain.model.Response
-import com.example.moviesaandseries.presentation.cast_grid.SharedViewModel
+import com.example.moviesaandseries.presentation.cast_grid.SharedCastGridViewModel
 import com.example.moviesaandseries.presentation.episode.ImagesCell
 import com.example.moviesaandseries.presentation.favorites.FavoriteViewModel
 import com.example.moviesaandseries.presentation.general.CrewCell
@@ -51,7 +51,7 @@ fun SeriesDetailScreenNewUI(
     userData: UserData?,
     viewModel: SeriesDetailViewModel = hiltViewModel(),
     favoriteViewModel: FavoriteViewModel = hiltViewModel(),
-    sharedViewModel: SharedViewModel
+    sharedViewModel: SharedCastGridViewModel
 ) {
 
     val systemUiController = rememberSystemUiController()

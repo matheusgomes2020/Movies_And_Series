@@ -23,7 +23,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
@@ -33,7 +32,7 @@ import com.example.moviesaandseries.data.remote.dto.movies.Cast
 import com.example.moviesaandseries.data.remote.dto.movies.Crew
 import com.example.moviesaandseries.data.remote.dto.Genre
 import com.example.moviesaandseries.data.remote.dto.Review
-import com.example.moviesaandseries.presentation.cast_grid.SharedViewModel
+import com.example.moviesaandseries.presentation.cast_grid.SharedCastGridViewModel
 import com.example.moviesaandseries.presentation.review.ReviewListScreenCell
 import com.example.moviesaandseries.ui.theme.fontFamily3
 
@@ -86,7 +85,7 @@ fun MainContent(isVideo: Boolean, logo: String, overview: String, posterPath: St
 }
 
 @Composable
-fun CastCell(navController: NavController, sharedViewModel: SharedViewModel, cast: List<Cast>, text: String
+fun CastCell(navController: NavController, sharedViewModel: SharedCastGridViewModel, cast: List<Cast>, text: String
             // , type: String
 ) {
     CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
@@ -96,7 +95,7 @@ fun CastCell(navController: NavController, sharedViewModel: SharedViewModel, cas
             isIconVisible = true,
             isSystemInDarkTheme = true,
             onClick = {
-                sharedViewModel.addCast(newCast = cast)
+                sharedViewModel.getCast(newCast = cast)
                 navController.navigate(AppGraph.cast_grid.GRID)
                 //navController.navigate(AppGraph.cast_grid.GRID +"/${cast}")
                 //navController.navigate(AppGraph.cast_grid.GRID + "/${id}/${type}")

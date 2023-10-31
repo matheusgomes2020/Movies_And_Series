@@ -34,12 +34,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.R
+import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.presentation.general.ActorDetailShimmer
 import com.example.moviesaandseries.presentation.general.AppBarWithBack
 import com.example.moviesaandseries.presentation.general.CustomPadding
 import com.example.moviesaandseries.presentation.general.DpDimensions
 import com.example.moviesaandseries.presentation.general.RowIcons
 import com.example.moviesaandseries.presentation.general.TextBiografia
+import com.example.moviesaandseries.presentation.grid_movies.SharedMoviesGridViewModel
 import com.example.moviesaandseries.presentation.movie_list.MovieListState
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListCell
 import com.example.moviesaandseries.presentation.person_detail.components.PersonImagesCell
@@ -52,7 +54,8 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 fun CastScreen(
     navController: NavController,
     isSystemInDarkTheme: Boolean,
-    viewModel: PersonViewModel = hiltViewModel()
+    viewModel: PersonViewModel = hiltViewModel(),
+    moviesGridViewModel: SharedMoviesGridViewModel
 ){
 
     val systemUiController = rememberSystemUiController()
@@ -111,10 +114,15 @@ fun CastScreen(
                             PersonImagesCell( navController,images = person.images!!.profiles)
                         }
                         if (!person.movie_credits.cast.isNullOrEmpty()) {
-                            MovieListCell(navController, statemovies, "Filmes", {} )
+                            MovieListCell(navController, statemovies, "Filmes") {
+                                moviesGridViewModel.getMovies(statemovies.movies)
+                                navController.navigate(AppGraph.movies_grid.MOVIES_GRID)
+                            }
                         }
                         if (!person.tv_credits.cast.isNullOrEmpty()) {
-                            SeriesListCell(navController, stateSeries, "Séries", {}  )
+                            SeriesListCell(navController, stateSeries, "Séries", {
+
+                            }  )
                         }
                 }
             }
