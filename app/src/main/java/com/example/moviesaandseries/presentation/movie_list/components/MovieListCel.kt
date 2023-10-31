@@ -40,6 +40,7 @@ fun MovieTrendingCell(
             title = headerTitle,
             modifier = Modifier.fillMaxWidth(),
             isSystemInDarkTheme = true,
+            isIconVisible = true,
             onClick = {
                 onHeaderClick()
             }
@@ -87,6 +88,7 @@ fun GenresCell( navController: NavController, isGenresMovies: Boolean, onHeaderC
         SubtitleHeader(
             title = "Gêneros",
             modifier = Modifier.fillMaxWidth(),
+            isIconVisible = false,
             isSystemInDarkTheme = true,
             onClick = {
                 onHeaderClick()
@@ -131,6 +133,7 @@ fun MovieListCell(
             title = headerTitle,
             modifier = Modifier.fillMaxWidth(),
             isSystemInDarkTheme = true,
+            isIconVisible = true,
             onClick = {
                 onHeaderClick()
             }

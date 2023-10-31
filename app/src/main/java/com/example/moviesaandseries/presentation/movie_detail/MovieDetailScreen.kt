@@ -26,6 +26,7 @@ import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.domain.model.MovieOrSeriesFirebase
 import com.example.moviesaandseries.domain.model.Response
+import com.example.moviesaandseries.presentation.cast_grid.SharedViewModel
 import com.example.moviesaandseries.presentation.episode.ImagesCell
 import com.example.moviesaandseries.presentation.favorites.FavoriteViewModel
 import com.example.moviesaandseries.presentation.general.CrewCell
@@ -49,6 +50,7 @@ fun MovieDetailScreenNewUI(
     userData: UserData?,
     viewModel: MovieDetailViewModel = hiltViewModel(),
     favoriteViewModel: FavoriteViewModel = hiltViewModel(),
+    sharedViewModel: SharedViewModel
 ) {
 
     val systemUiController = rememberSystemUiController()
@@ -148,7 +150,7 @@ fun MovieDetailScreenNewUI(
                             MainContent(isVideo, logo, overview, url, data, movie.runtime.toString(), movie.vote_average, movie.genres)
                         }
                             if (!movie.credits.cast.isNullOrEmpty()) {
-                                CastCell(navController, cast = movie.credits.cast, "Elenco")
+                                CastCell(navController = navController, cast = movie.credits.cast,  text =  "Elenco", sharedViewModel = sharedViewModel)
                             }
                             if (!movie.credits.crew.isNullOrEmpty()) {
                                 CrewCell(director, isDirector = true, crew = movie.credits.crew)

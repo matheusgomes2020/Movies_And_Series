@@ -146,6 +146,10 @@ object CastGraph {
     const val MOVIES = "movies"
     const val SERIES = "series"
 }
+object CastGridGraph {
+    const val ROOT = "cast_grid_graph"
+    const val GRID = "cast_grid"
+}
 
 
 object RootGraph {
@@ -184,6 +188,7 @@ object AppGraph {
     val on_air_series = OnAirSeriesGraph
     val trending_today_series = TrendingTodaySeriesGraph
     val account_details = AccountDetailsGraph
+    val cast_grid = CastGridGraph
 
 
 

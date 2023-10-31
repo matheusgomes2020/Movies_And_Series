@@ -25,6 +25,7 @@ import androidx.navigation.NavController
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.domain.model.MovieOrSeriesFirebase
 import com.example.moviesaandseries.domain.model.Response
+import com.example.moviesaandseries.presentation.cast_grid.SharedViewModel
 import com.example.moviesaandseries.presentation.episode.ImagesCell
 import com.example.moviesaandseries.presentation.favorites.FavoriteViewModel
 import com.example.moviesaandseries.presentation.general.CrewCell
@@ -50,6 +51,7 @@ fun SeriesDetailScreenNewUI(
     userData: UserData?,
     viewModel: SeriesDetailViewModel = hiltViewModel(),
     favoriteViewModel: FavoriteViewModel = hiltViewModel(),
+    sharedViewModel: SharedViewModel
 ) {
 
     val systemUiController = rememberSystemUiController()
@@ -161,7 +163,7 @@ fun SeriesDetailScreenNewUI(
                                 SeasonsCell(navController = navController,series.id.toString(), series.number_of_seasons, series.seasons, stateSeasons )
                             }
                             if ( !series.aggregate_credits.cast.isNullOrEmpty() ) {
-                                CastCell( navController = navController, cast = series.aggregate_credits.cast, "Elenco")
+                                CastCell( navController = navController, cast = series.aggregate_credits.cast, text = "Elenco", sharedViewModel = sharedViewModel)
                             }
                             if (!createdBy.isNullOrEmpty() && !series.aggregate_credits.crew.isNullOrEmpty() ) {
                                     CrewCell(createdBy, isDirector = false, crew = series.aggregate_credits.crew)

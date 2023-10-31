@@ -35,6 +35,7 @@ fun SeriesTrendingCell(
             title = headerTitle,
             modifier = Modifier.fillMaxWidth(),
             isSystemInDarkTheme = true,
+            isIconVisible = true,
             onClick = {
                 onHeaderClick()
             }
@@ -89,6 +90,7 @@ fun SeriesListCell(
             title = headerTitle,
             modifier = Modifier.fillMaxWidth(),
             isSystemInDarkTheme = true,
+            isIconVisible = true,
             onClick = {
                 onHeaderClick()
             }

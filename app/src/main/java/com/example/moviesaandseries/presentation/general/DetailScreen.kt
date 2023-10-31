@@ -23,14 +23,17 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
+import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.data.remote.dto.movies.Cast
 import com.example.moviesaandseries.data.remote.dto.movies.Crew
 import com.example.moviesaandseries.data.remote.dto.Genre
 import com.example.moviesaandseries.data.remote.dto.Review
+import com.example.moviesaandseries.presentation.cast_grid.SharedViewModel
 import com.example.moviesaandseries.presentation.review.ReviewListScreenCell
 import com.example.moviesaandseries.ui.theme.fontFamily3
 
@@ -83,13 +86,21 @@ fun MainContent(isVideo: Boolean, logo: String, overview: String, posterPath: St
 }
 
 @Composable
-fun CastCell(navController: NavController, cast: List<Cast>, text: String) {
+fun CastCell(navController: NavController, sharedViewModel: SharedViewModel, cast: List<Cast>, text: String
+            // , type: String
+) {
     CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
         SubtitleHeader(
             title = text,
             modifier = Modifier.fillMaxWidth(),
+            isIconVisible = true,
             isSystemInDarkTheme = true,
             onClick = {
+                sharedViewModel.addCast(newCast = cast)
+                navController.navigate(AppGraph.cast_grid.GRID)
+                //navController.navigate(AppGraph.cast_grid.GRID +"/${cast}")
+                //navController.navigate(AppGraph.cast_grid.GRID + "/${id}/${type}")
+                //navController.navigate(AppGraph.cast_grid.GRID + "/${id}")
             }
         )
     }
@@ -110,6 +121,7 @@ fun CastCell(navController: NavController, cast: List<Cast>, text: String) {
                     title = if (isDirector) "Direção" else "Criada por",
                     modifier = Modifier.fillMaxWidth(),
                     isSystemInDarkTheme = true,
+                    isIconVisible = true,
                     onClick = {
                     }
                 )
@@ -147,6 +159,7 @@ fun ReviewsCell(reviews: List<Review> ){
             title = "Avaliações",
             modifier = Modifier.fillMaxWidth(),
             isSystemInDarkTheme = true,
+            isIconVisible = true,
             onClick = {}
         )
         ReviewListScreenCell(reviews = reviews)

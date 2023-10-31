@@ -34,6 +34,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.Constants
 import com.example.moviesaandseries.data.remote.dto.Profile
+import com.example.moviesaandseries.presentation.cast_grid.SharedViewModel
 import com.example.moviesaandseries.presentation.general.AppBarWithBack
 import com.example.moviesaandseries.presentation.general.CastCell
 import com.example.moviesaandseries.presentation.general.CrewCell
@@ -49,7 +50,8 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 fun EpisodeScreen(
     navController: NavController,
     isSystemInDarkTheme: Boolean,
-    viewModel: EpisodeViewModel = hiltViewModel()
+    viewModel: EpisodeViewModel = hiltViewModel(),
+    sharedViewModel: SharedViewModel
 ){
 
     val systemUiController = rememberSystemUiController()
@@ -101,7 +103,8 @@ fun EpisodeScreen(
                 MainContent(overview)
             }
                 if ( !episode.guest_stars.isNullOrEmpty() ) {
-                    CastCell(navController = navController, cast = episode.guest_stars, "Elenco convidado")
+                    CastCell(navController = navController, cast = episode.guest_stars, text = "Elenco convidado", sharedViewModel = sharedViewModel)
+
                 }
                 if (!episode.crew.isNullOrEmpty() ) {
                     CrewCell( director, isDirector = true, episode.crew )
@@ -157,6 +160,7 @@ fun ImagesCell(
             title = "Imagens",
             modifier = Modifier.fillMaxWidth(),
             isSystemInDarkTheme = true,
+            isIconVisible = false,
             onClick = {
             }
         )

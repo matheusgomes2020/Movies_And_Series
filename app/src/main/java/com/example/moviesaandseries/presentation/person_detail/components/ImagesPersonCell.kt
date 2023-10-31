@@ -33,6 +33,7 @@ fun PersonImagesCell(
             title = "Imagens",
             modifier = Modifier.fillMaxWidth(),
             isSystemInDarkTheme = true,
+            isIconVisible = false,
             onClick = {
             }
         )

@@ -23,6 +23,7 @@ fun SeasonsCell(
             title = if (numeroTemporadas > 1) "$numeroTemporadas - temporadas" else "$numeroTemporadas - temporada",
             modifier = Modifier.fillMaxWidth(),
             isSystemInDarkTheme = true,
+            isIconVisible = false,
             onClick = {
             }
         )

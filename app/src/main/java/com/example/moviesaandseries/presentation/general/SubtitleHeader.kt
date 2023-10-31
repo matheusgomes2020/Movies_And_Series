@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,6 +24,7 @@ import com.example.moviesaandseries.ui.theme.MoviesAandSeriesTheme
 fun SubtitleHeader(
     modifier: Modifier = Modifier,
     title: String,
+    isIconVisible: Boolean,
     isSystemInDarkTheme: Boolean,
     onClick: () -> Unit = {}
 ) {
@@ -37,6 +39,7 @@ fun SubtitleHeader(
 //            darkIcons = useDarkIcons
 //        )
 //    }
+
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -56,6 +59,8 @@ fun SubtitleHeader(
                 contentDescription = "Right arrow",
                 //tint = MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier.size(DpDimensions.Dp20)
+                    .alpha(if (!isIconVisible) 0f else 1f),
+
 
             )
         }
@@ -70,6 +75,6 @@ fun SubtitleHeader(
 @Composable
 fun CategoryHeaderPreview() {
     MoviesAandSeriesTheme {
-        SubtitleHeader(title = "Em alta", modifier = Modifier.fillMaxWidth(), isSystemInDarkTheme = true)
+        SubtitleHeader(title = "Em alta", modifier = Modifier.fillMaxWidth(), isIconVisible = true, isSystemInDarkTheme = true)
     }
 }

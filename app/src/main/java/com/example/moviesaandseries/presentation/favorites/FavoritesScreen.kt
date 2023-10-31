@@ -82,6 +82,7 @@ fun ProfileScreen(
                     title = "Filmes favoritos",
                     modifier = Modifier.fillMaxWidth(),
                     isSystemInDarkTheme = true,
+                    isIconVisible = true,
                     onClick = {
                         //navController.navigate(AppGraph.trending_today_movies.TRENDING_TODAY_MOVIES)
                     }
@@ -111,6 +112,7 @@ fun ProfileScreen(
             CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
                 SubtitleHeader(
                     title = "Séries favoritas",
+                    isIconVisible = true,
                     modifier = Modifier.fillMaxWidth(),
                     isSystemInDarkTheme = true,
                     onClick = {  }

@@ -20,6 +20,8 @@ object Constants {
 
     const val TYPE = "type"
 
+    const val CAST = "cast"
+
     const val PARAM_EPISODE_NUMBER = "episodeNumber"
 
     const val PARAM_SEASON_NUMBER = "seasonNumber"

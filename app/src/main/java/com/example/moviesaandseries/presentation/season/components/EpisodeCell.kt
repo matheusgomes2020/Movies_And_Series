@@ -22,6 +22,7 @@ fun EpisodeCell(navController: NavController, seriesId: String, episodes: List<E
             title = "Episódios",
             modifier = Modifier.fillMaxWidth(),
             isSystemInDarkTheme = true,
+            isIconVisible = false,
             onClick = {
             }
         )
