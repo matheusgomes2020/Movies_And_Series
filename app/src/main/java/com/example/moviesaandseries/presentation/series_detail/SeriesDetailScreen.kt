@@ -23,9 +23,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.R
+import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.domain.model.MovieOrSeriesFirebase
 import com.example.moviesaandseries.domain.model.Response
-import com.example.moviesaandseries.presentation.cast_grid.SharedCastGridViewModel
+import com.example.moviesaandseries.presentation.cast_grid.CastGridViewModel
 import com.example.moviesaandseries.presentation.episode.ImagesCell
 import com.example.moviesaandseries.presentation.favorites.FavoriteViewModel
 import com.example.moviesaandseries.presentation.general.CrewCell
@@ -39,19 +40,21 @@ import com.example.moviesaandseries.presentation.general.DpDimensions
 import com.example.moviesaandseries.presentation.series_detail.components.season_list.SeasonListState
 import com.example.moviesaandseries.presentation.series_list.SeriesListState
 import com.example.moviesaandseries.presentation.general.UserData
+import com.example.moviesaandseries.presentation.grid_series.SeriesGridViewModel
 import com.example.moviesaandseries.presentation.series_detail.components.SeasonsCell
 import com.example.moviesaandseries.presentation.series_list.components.SeriesListCell
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
-fun SeriesDetailScreenNewUI(
+fun SeriesDetailScreen(
     navController: NavController,
     isSystemInDarkTheme: Boolean,
     userData: UserData?,
     viewModel: SeriesDetailViewModel = hiltViewModel(),
     favoriteViewModel: FavoriteViewModel = hiltViewModel(),
-    sharedViewModel: SharedCastGridViewModel
+    castGridViewModel: CastGridViewModel,
+    seriesGridViewModel: SeriesGridViewModel
 ) {
 
     val systemUiController = rememberSystemUiController()
@@ -163,16 +166,20 @@ fun SeriesDetailScreenNewUI(
                                 SeasonsCell(navController = navController,series.id.toString(), series.number_of_seasons, series.seasons, stateSeasons )
                             }
                             if ( !series.aggregate_credits.cast.isNullOrEmpty() ) {
-                                CastCell( navController = navController, cast = series.aggregate_credits.cast, text = "Elenco", sharedViewModel = sharedViewModel)
+                                CastCell( navController = navController, cast = series.aggregate_credits.cast, text = "Elenco", castGridViewModel = castGridViewModel)
                             }
                             if (!createdBy.isNullOrEmpty() && !series.aggregate_credits.crew.isNullOrEmpty() ) {
                                     CrewCell(createdBy, isDirector = false, crew = series.aggregate_credits.crew)
                             }
                             if (!series.recommendations.results.isNullOrEmpty()) {
-                                SeriesListCell(navController = navController, state = stateRecommendations, "Séries Recomendadas", onHeaderClick = {} )
+                                SeriesListCell(navController = navController, state = stateRecommendations, "Séries Recomendadas", onHeaderClick = {
+                                    seriesGridViewModel.getSeries(stateRecommendations.series)
+                                    navController.navigate(AppGraph.series_grid.SERIES_GRID + "/recomendadas") } )
                             }
                             if (!series.similar.results.isNullOrEmpty()) {
-                                SeriesListCell(navController = navController, state = stateSimilar, "Séries Similares", onHeaderClick = {} )
+                                SeriesListCell(navController = navController, state = stateSimilar, "Séries Similares", onHeaderClick = {
+                                    seriesGridViewModel.getSeries(stateSimilar.series)
+                                    navController.navigate(AppGraph.series_grid.SERIES_GRID + "/similares") } )
                             }
                             if (!series.reviews.results.isNullOrEmpty()) {
                                 ReviewsCell(reviews = series.reviews.results)

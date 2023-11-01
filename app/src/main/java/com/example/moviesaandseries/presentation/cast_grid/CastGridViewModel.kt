@@ -1,30 +1,18 @@
 package com.example.moviesaandseries.presentation.cast_grid
 
-import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.SavedStateHandle
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.example.moviesaandseries.common.Constants
-import com.example.moviesaandseries.common.navigation.MoviesDetailsGraph.CAST
 import com.example.moviesaandseries.data.remote.dto.movies.Cast
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class CastGridViewModel  @Inject constructor(
-    savedStateHandle: SavedStateHandle
-) :ViewModel() {
+class CastGridViewModel: ViewModel() {
 
-    private val _state = mutableStateOf(CastGridState())
-    val state: State<CastGridState> = _state
+    var cast by mutableStateOf<List<Cast>?>(null)
+        private set
 
-    init {
-        getCast( savedStateHandle.get<List<Cast>>(CAST)!! )
+    fun getCast(newCast: List<Cast>) {
+        cast = newCast
     }
-
-    private fun getCast( cast: List<Cast> ) {
-        _state.value = CastGridState(cast = cast)
-    }
-
 
 }

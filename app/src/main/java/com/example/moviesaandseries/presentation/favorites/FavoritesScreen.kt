@@ -22,6 +22,7 @@ import androidx.navigation.NavController
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.domain.model.Movie
+import com.example.moviesaandseries.domain.model.Series
 import com.example.moviesaandseries.presentation.movie_list.components.MovieAndSeriesCellFirebase
 import com.example.moviesaandseries.presentation.general.CustomPadding
 import com.example.moviesaandseries.presentation.general.DpDimensions
@@ -29,7 +30,8 @@ import com.example.moviesaandseries.presentation.general.MainAppBar
 import com.example.moviesaandseries.presentation.general.Movies
 import com.example.moviesaandseries.presentation.general.SubtitleHeader
 import com.example.moviesaandseries.presentation.general.UserData
-import com.example.moviesaandseries.presentation.grid_movies.SharedMoviesGridViewModel
+import com.example.moviesaandseries.presentation.grid_movies.MoviesGridViewModel
+import com.example.moviesaandseries.presentation.grid_series.SeriesGridViewModel
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
@@ -42,7 +44,8 @@ fun ProfileScreen(
     userData: UserData?,
     onSignOut: () -> Unit,
     viewModel: FavoriteViewModel = hiltViewModel(),
-    moviesGridViewModel: SharedMoviesGridViewModel
+    moviesGridViewModel: MoviesGridViewModel,
+    seriesGridViewModel: SeriesGridViewModel
 ) {
 
     val systemUiController = rememberSystemUiController()
@@ -55,7 +58,6 @@ fun ProfileScreen(
             darkIcons = useDarkIcons
         )
     }
-
     Scaffold(
         topBar = {
             MainAppBar(icon1 = R.drawable.ic_star,
@@ -69,9 +71,6 @@ fun ProfileScreen(
         }
     ) {
         paddingValues ->
-
-
-
         Column(
             modifier = Modifier
                 .padding(paddingValues)
@@ -82,7 +81,6 @@ fun ProfileScreen(
                         Color.White else DarkGrey11
                 )
         ) {
-
                 Movies(userData = userData,
                     type = "movies"
                 ) { movies ->
@@ -93,21 +91,19 @@ fun ProfileScreen(
                             isSystemInDarkTheme = true,
                             isIconVisible = true,
                             onClick = {
-                                var movv = mutableListOf<Movie>()
+                                var moviesList = mutableListOf<Movie>()
                                 movies.forEach{
-                                    var m = Movie(
+                                    var movie = Movie(
                                         id = it.id.toInt(),
                                         title = it.title,
                                         poster_path = it.posterPath,
                                         overview = "",
                                         vote_average = 0.0
                                     )
-                                    movv.add(m)
+                                    moviesList.add(movie)
                                 }
-                                moviesGridViewModel.getMovies(movv)
-                                navController.navigate(AppGraph.movies_grid.MOVIES_GRID)
-
-                                //navController.navigate(AppGraph.trending_today_movies.TRENDING_TODAY_MOVIES)
+                                moviesGridViewModel.getMovies(moviesList)
+                                navController.navigate(AppGraph.movies_grid.MOVIES_GRID + "/favoritos")
                             }
                         )
                     }
@@ -129,18 +125,32 @@ fun ProfileScreen(
                     }
                 }
             Spacer(modifier = Modifier.height(DpDimensions.Small))
-            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
-                SubtitleHeader(
-                    title = "Séries favoritas",
-                    isIconVisible = true,
-                    modifier = Modifier.fillMaxWidth(),
-                    isSystemInDarkTheme = true,
-                    onClick = {  }
-                )
-            }
                 Movies(userData = userData,
                     type = "series"
                 ) { movies ->
+                    CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
+                        SubtitleHeader(
+                            title = "Séries favoritas",
+                            modifier = Modifier.fillMaxWidth(),
+                            isSystemInDarkTheme = true,
+                            isIconVisible = true,
+                            onClick = {
+                                var seriesList = mutableListOf<Series>()
+                                movies.forEach{
+                                    var series = Series(
+                                        id = it.id.toInt(),
+                                        name = it.title,
+                                        poster_path = it.posterPath,
+                                        overview = "",
+                                        vote_average = 0.0
+                                    )
+                                    seriesList.add(series)
+                                }
+                                seriesGridViewModel.getSeries(seriesList)
+                                navController.navigate(AppGraph.series_grid.SERIES_GRID + "/favoritas")
+                            }
+                        )
+                    }
                     if (!movies.isNullOrEmpty()) {
                         MovieAndSeriesCellFirebase(
                             navController = navController,

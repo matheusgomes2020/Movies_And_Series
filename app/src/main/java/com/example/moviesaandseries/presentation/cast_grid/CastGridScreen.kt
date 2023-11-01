@@ -20,24 +20,21 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.presentation.general.AppBarWithBack
 import com.example.moviesaandseries.presentation.general.DpDimensions
 import com.example.moviesaandseries.presentation.general.PersonListItem
-import com.example.moviesaandseries.presentation.movie_detail.MovieDetailViewModel
-import com.example.moviesaandseries.presentation.series_detail.SeriesDetailViewModel
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 
 
 @Composable
 fun CastGridScreen(
     navController: NavController,
-    sharedViewModel: SharedCastGridViewModel,
+    viewModel: CastGridViewModel,
 ) {
 
-    val cast = sharedViewModel.cast
+    val cast = viewModel.cast
 
     LaunchedEffect(key1 = cast ) {
         if (cast!=null) {

@@ -105,7 +105,7 @@ fun SeriesListCell(
             items(state.series) { series ->
                 SeriesListItem(series = series, onClick = {
                     navController.navigate(AppGraph.series_details.DETAILS + "/${series.id}")
-                } )
+                } , height = 170.dp)
             }
         }
         if ( state.error.isNotBlank() ) {

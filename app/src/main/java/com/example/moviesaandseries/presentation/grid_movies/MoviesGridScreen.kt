@@ -1,6 +1,5 @@
 package com.example.moviesaandseries.presentation.grid_movies
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -16,7 +15,6 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -24,22 +22,21 @@ import androidx.navigation.NavController
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.presentation.general.AppBarWithBack
 import com.example.moviesaandseries.presentation.general.DpDimensions
-import com.example.moviesaandseries.presentation.general.PersonListItem
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListItem
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 
 @Composable
 fun MoviesGridScreen(
+    title: String,
     navController: NavController,
-    sharedMoviesGridViewModel: SharedMoviesGridViewModel
+    sharedMoviesGridViewModel: MoviesGridViewModel
 
 ) {
 
     val movies = sharedMoviesGridViewModel.movies
-
     Scaffold(
         topBar = {
-            AppBarWithBack(title = "Filmes", backIcon = Icons.Default.ArrowBack, onBackClick = {
+            AppBarWithBack(title = "Filmes $title", backIcon = Icons.Default.ArrowBack, onBackClick = {
                 navController.popBackStack()
             })
         }
@@ -54,11 +51,7 @@ fun MoviesGridScreen(
                         DarkGrey11 else Color.White
                 )
         ) {
-
-
             if (movies!=null) {
-
-
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2),
                         modifier = Modifier.fillMaxSize(),
@@ -67,7 +60,6 @@ fun MoviesGridScreen(
                         contentPadding = PaddingValues(horizontal = 16.dp),
                         verticalArrangement = Arrangement.spacedBy(DpDimensions.Small)
                     ) {
-
                         items(movies!!) { movie ->
                             MovieListItem(movie = movie, onClick = {
                                 navController.navigate(AppGraph.movies_details.DETAILS + "/${movie.id}")
@@ -75,11 +67,9 @@ fun MoviesGridScreen(
                                 height = 240.dp)
                         }
                     }
-
             } else {
                 Text(text = "erro")
             }
         }
     }
-
 }

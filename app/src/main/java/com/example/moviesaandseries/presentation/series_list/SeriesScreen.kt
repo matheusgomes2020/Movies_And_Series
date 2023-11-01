@@ -1,16 +1,11 @@
 package com.example.moviesaandseries.presentation.series_list
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Scaffold
@@ -23,12 +18,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.navigation.AppGraph
-import com.example.moviesaandseries.presentation.general.CustomPadding
 import com.example.moviesaandseries.presentation.general.DpDimensions
-import com.example.moviesaandseries.presentation.general.GenreItem
 import com.example.moviesaandseries.presentation.general.MainAppBar
-import com.example.moviesaandseries.presentation.general.SubtitleHeader
-import com.example.moviesaandseries.presentation.general.genres
+import com.example.moviesaandseries.presentation.grid_series.SeriesGridViewModel
 import com.example.moviesaandseries.presentation.movie_list.components.GenresCell
 import com.example.moviesaandseries.presentation.series_list.components.SeriesListCell
 import com.example.moviesaandseries.presentation.series_list.components.SeriesTrendingCell
@@ -37,7 +29,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 
 @Composable
-fun SeriesScreenNewUI(navController: NavController, isSystemInDarkTheme: Boolean, viewModel: SeriesListViewModel = hiltViewModel()
+fun SeriesScreen(navController: NavController, isSystemInDarkTheme: Boolean, viewModel: SeriesListViewModel = hiltViewModel(), seriesGridViewModel: SeriesGridViewModel
 ){
     val systemUiController = rememberSystemUiController()
     val useDarkIcons = !isSystemInDarkTheme
@@ -78,26 +70,26 @@ fun SeriesScreenNewUI(navController: NavController, isSystemInDarkTheme: Boolean
                     Color.White else DarkGrey11)
         ) {
             SeriesTrendingCell(navController = navController, state = stateTrendingToday, "Tendência hoje", onHeaderClick = {
-                navController.navigate(AppGraph.trending_today_series.TRENDING_TODAY_SERIES)
-            } )
+            seriesGridViewModel.getSeries(stateTrendingToday.series)
+            navController.navigate( AppGraph.series_grid.SERIES_GRID + "/em tendência hoje") })
             Spacer(modifier = Modifier.height(DpDimensions.Small))
             GenresCell(navController = navController, isGenresMovies = false, onHeaderClick =  {})
             Spacer(modifier = Modifier.height(DpDimensions.Small))
             SeriesListCell(navController = navController, state = stateAiringToday, "No ar hoje", onHeaderClick = {
-                navController.navigate(AppGraph.airying_today_series.AIRYING_TODAY_SERIES)
-            })
+                seriesGridViewModel.getSeries(stateAiringToday.series)
+                navController.navigate( AppGraph.series_grid.SERIES_GRID + "/no ar hoje") })
             Spacer(modifier = Modifier.height(DpDimensions.Small))
             SeriesListCell(navController = navController, state = stateOnAir, "No ar", onHeaderClick = {
-                navController.navigate(AppGraph.on_air_series.ON_AIR_SERIES)
-            })
+                seriesGridViewModel.getSeries(stateOnAir.series)
+                navController.navigate( AppGraph.series_grid.SERIES_GRID + "/no ar") })
             Spacer(modifier = Modifier.height(DpDimensions.Small))
             SeriesListCell(navController = navController, state = statePopular, "Em alta", onHeaderClick = {
-                navController.navigate(AppGraph.popular_series.POPULAR_SERIES)
-            })
+                seriesGridViewModel.getSeries(statePopular.series)
+                navController.navigate( AppGraph.series_grid.SERIES_GRID + "/em alta") })
             Spacer(modifier = Modifier.height(DpDimensions.Small))
             SeriesListCell(navController = navController, state = stateRated,"Melhores avaliadas", onHeaderClick = {
-                navController.navigate(AppGraph.rated_series.RATED_SERIES)
-            })
+                seriesGridViewModel.getSeries(stateRated.series)
+                navController.navigate( AppGraph.series_grid.SERIES_GRID + "/melhores avaliadas") })
             Spacer(modifier = Modifier.height(DpDimensions.Small))
             Spacer(modifier = Modifier.height(60.dp))
         }

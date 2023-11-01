@@ -64,11 +64,12 @@ fun SeasonListItem(
         ) {
 
             Column(
-                modifier = Modifier.padding(DpDimensions.Small)
+                modifier = Modifier.padding(vertical = DpDimensions.Small, horizontal = DpDimensions.Smallest ),
+                //horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
                     modifier = Modifier.width(110.dp),
-                    text ="${season.season_number} - temporada",
+                    text ="${season.season_number}° temporada",
                     style = MaterialTheme.typography.titleSmall,
                     color = Color.White,
                     maxLines = 1

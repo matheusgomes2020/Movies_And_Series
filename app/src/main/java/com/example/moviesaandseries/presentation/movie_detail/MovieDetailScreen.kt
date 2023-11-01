@@ -26,7 +26,7 @@ import com.example.moviesaandseries.R
 import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.domain.model.MovieOrSeriesFirebase
 import com.example.moviesaandseries.domain.model.Response
-import com.example.moviesaandseries.presentation.cast_grid.SharedCastGridViewModel
+import com.example.moviesaandseries.presentation.cast_grid.CastGridViewModel
 import com.example.moviesaandseries.presentation.episode.ImagesCell
 import com.example.moviesaandseries.presentation.favorites.FavoriteViewModel
 import com.example.moviesaandseries.presentation.general.CrewCell
@@ -39,7 +39,8 @@ import com.example.moviesaandseries.presentation.general.CastCell
 import com.example.moviesaandseries.presentation.general.CustomPadding
 import com.example.moviesaandseries.presentation.general.DpDimensions
 import com.example.moviesaandseries.presentation.general.UserData
-import com.example.moviesaandseries.presentation.grid_movies.SharedMoviesGridViewModel
+import com.example.moviesaandseries.presentation.grid_movies.MoviesGridViewModel
+import com.example.moviesaandseries.presentation.grid_series.SeriesGridViewModel
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListCell
 import com.example.moviesaandseries.ui.theme.DarkGrey11
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -51,8 +52,9 @@ fun MovieDetailScreen(
     userData: UserData?,
     viewModel: MovieDetailViewModel = hiltViewModel(),
     favoriteViewModel: FavoriteViewModel = hiltViewModel(),
-    sharedViewModel: SharedCastGridViewModel,
-    sharedMoviesGridViewModel: SharedMoviesGridViewModel
+    castGridViewModel: CastGridViewModel,
+    moviesGridViewModel: MoviesGridViewModel,
+    seriesGridViewModel: SeriesGridViewModel
 ) {
 
     val systemUiController = rememberSystemUiController()
@@ -152,22 +154,20 @@ fun MovieDetailScreen(
                             MainContent(isVideo, logo, overview, url, data, movie.runtime.toString(), movie.vote_average, movie.genres)
                         }
                             if (!movie.credits.cast.isNullOrEmpty()) {
-                                CastCell(navController = navController, cast = movie.credits.cast,  text =  "Elenco", sharedViewModel = sharedViewModel)
+                                CastCell(navController = navController, cast = movie.credits.cast,  text =  "Elenco", castGridViewModel = castGridViewModel)
                             }
                             if (!movie.credits.crew.isNullOrEmpty()) {
                                 CrewCell(director, isDirector = true, crew = movie.credits.crew)
                             }
                             if (!movie.recommendations.results.isNullOrEmpty()) {
                                 MovieListCell(navController = navController, state = stateRecommendations, headerTitle = "Filmes Recomendados", onHeaderClick = {
-                                    sharedMoviesGridViewModel.getMovies(stateRecommendations.movies)
-                                    navController.navigate(AppGraph.movies_grid.MOVIES_GRID)
-                                } )
+                                    moviesGridViewModel.getMovies(stateRecommendations.movies)
+                                    navController.navigate(AppGraph.movies_grid.MOVIES_GRID + "/recomendados") } )
                             }
                             if (!movie.similar.results.isNullOrEmpty()) {
                                 MovieListCell(navController = navController, state = stateSimilar, headerTitle = "Filmes Similares", onHeaderClick = {
-                                    sharedMoviesGridViewModel.getMovies(stateSimilar.movies)
-                                    navController.navigate(AppGraph.movies_grid.MOVIES_GRID)
-                                } )
+                                    moviesGridViewModel.getMovies(stateSimilar.movies)
+                                    navController.navigate(AppGraph.movies_grid.MOVIES_GRID + "/similares") } )
                             }
                             if (!movie.reviews.results.isNullOrEmpty()) {
                                 ReviewsCell(reviews = movie.reviews.results)

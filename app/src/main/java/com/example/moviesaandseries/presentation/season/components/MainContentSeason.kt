@@ -30,7 +30,7 @@ fun MainContentSeason( posterPath: String, overview: String ){
                 .fillMaxWidth()
                 .height(350.dp)
                 .clip(shape = RoundedCornerShape(16.dp)),
-            contentScale = ContentScale.FillBounds
+            contentScale = ContentScale.Crop
         )
         if (overview != "sem overview") {
             Spacer(modifier = Modifier.height( 16.dp ))

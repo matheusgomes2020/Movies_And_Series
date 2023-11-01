@@ -1,25 +1,18 @@
 package com.example.moviesaandseries.presentation.person_detail
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -28,7 +21,6 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -41,7 +33,8 @@ import com.example.moviesaandseries.presentation.general.CustomPadding
 import com.example.moviesaandseries.presentation.general.DpDimensions
 import com.example.moviesaandseries.presentation.general.RowIcons
 import com.example.moviesaandseries.presentation.general.TextBiografia
-import com.example.moviesaandseries.presentation.grid_movies.SharedMoviesGridViewModel
+import com.example.moviesaandseries.presentation.grid_movies.MoviesGridViewModel
+import com.example.moviesaandseries.presentation.grid_series.SeriesGridViewModel
 import com.example.moviesaandseries.presentation.movie_list.MovieListState
 import com.example.moviesaandseries.presentation.movie_list.components.MovieListCell
 import com.example.moviesaandseries.presentation.person_detail.components.PersonImagesCell
@@ -51,11 +44,12 @@ import com.example.moviesaandseries.ui.theme.DarkGrey11
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
-fun CastScreen(
+fun PersonDetailScreen(
     navController: NavController,
     isSystemInDarkTheme: Boolean,
     viewModel: PersonViewModel = hiltViewModel(),
-    moviesGridViewModel: SharedMoviesGridViewModel
+    moviesGridViewModel: MoviesGridViewModel,
+    seriesGridViewModel: SeriesGridViewModel
 ){
 
     val systemUiController = rememberSystemUiController()
@@ -116,13 +110,13 @@ fun CastScreen(
                         if (!person.movie_credits.cast.isNullOrEmpty()) {
                             MovieListCell(navController, statemovies, "Filmes") {
                                 moviesGridViewModel.getMovies(statemovies.movies)
-                                navController.navigate(AppGraph.movies_grid.MOVIES_GRID)
-                            }
+                                navController.navigate(AppGraph.movies_grid.MOVIES_GRID + "/ ") }
                         }
                         if (!person.tv_credits.cast.isNullOrEmpty()) {
-                            SeriesListCell(navController, stateSeries, "Séries", {
-
-                            }  )
+                            SeriesListCell(navController, stateSeries, "Séries") {
+                                seriesGridViewModel.getSeries(stateSeries.series)
+                                navController.navigate(AppGraph.series_grid.SERIES_GRID + "/ ")
+                            }
                         }
                 }
             }
@@ -158,7 +152,6 @@ fun MainContent(
     }
 }
 
-
 @Composable
 fun PersonIconsContent(data: String, localNascimento: String) {
     Column {
@@ -178,6 +171,5 @@ fun PersonIconsContent(data: String, localNascimento: String) {
                 }
             }
         }
-
     }
 }
