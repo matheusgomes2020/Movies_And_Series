@@ -127,7 +127,7 @@ fun EpisodeScreen(
         }
     }
         if(state.isLoading) {
-            EpisodeDetailShimmer(isLoading = true, contentAfterLoading = { /*TODO*/ })
+            EpisodeDetailShimmer()
         }
     }
 

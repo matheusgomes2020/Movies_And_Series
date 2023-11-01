@@ -97,7 +97,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
             )
         }
         if(state.isLoading) {
-            SeasonDetailShimmer(isLoading = true, contentAfterLoading = { /*TODO*/ })
+            SeasonDetailShimmer()
         }
 
 }

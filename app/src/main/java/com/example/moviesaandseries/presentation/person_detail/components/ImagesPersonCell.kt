@@ -39,7 +39,7 @@ fun PersonImagesCell(
         )
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(DpDimensions.Small),
-            contentPadding = PaddingValues(),
+            contentPadding = PaddingValues(horizontal = 16.dp),
         ) {
             items(images) { image ->
                 ImagePersonListItem(

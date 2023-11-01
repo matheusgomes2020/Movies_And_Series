@@ -153,7 +153,7 @@ fun SearchSeriesScreen(
                 if (state.isLoading) {
                     Column {
                         LazyColumn(
-                            contentPadding = PaddingValues(12.dp),
+                            //contentPadding = PaddingValues(12.dp),
                         ) {
                             items(count = 20) { movies ->
                                 SearchResultsShimmer(

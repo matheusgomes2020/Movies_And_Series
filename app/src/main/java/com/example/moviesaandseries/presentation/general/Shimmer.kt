@@ -109,69 +109,68 @@ fun ShimmerDetail(
                 //.padding(horizontal = 15.dp)
                 .background(color = if (isSystemInDarkTheme()) BlueGrey11 else Color.White),
         ) {
-            Title()
-            Spacer(modifier = Modifier.height(16.dp))
-            TopItems( count = 3 )
-            Spacer(modifier = Modifier.height(16.dp))
-            Genres( count = 3 )
-            Spacer(modifier = Modifier.height(16.dp))
-            Image()
-            Spacer(modifier = Modifier.height(16.dp))
-            OverviewAndBiography( count = 5 )
-            Spacer(modifier = Modifier.height(11.dp))
-            RowCards()
-            Spacer(modifier = Modifier.height(16.dp))
-            Crew()
+            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
+                Title()
+                Spacer(modifier = Modifier.height(16.dp))
+                TopItems( count = 3 )
+                Spacer(modifier = Modifier.height(16.dp))
+                Genres( count = 3 )
+                Spacer(modifier = Modifier.height(16.dp))
+                Image()
+                Spacer(modifier = Modifier.height(16.dp))
+                OverviewAndBiography( count = 5 )
+                Spacer(modifier = Modifier.height(11.dp))
+                RowCards()
+                Spacer(modifier = Modifier.height(16.dp))
+                Crew(3)
+            }
         }
-}
+    }
 
+
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun SeasonDetailShimmer(
-    isLoading: Boolean,
-    contentAfterLoading: @Composable () -> Unit,
-    modifier: Modifier = Modifier
+
 ) {
-    if ( isLoading ) {
         Column(
             modifier = Modifier
-                .padding(horizontal = 15.dp)
+                .background(color = if (isSystemInDarkTheme()) BlueGrey11 else Color.White),
         ) {
+            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
             Title()
             Spacer(modifier = Modifier.height(16.dp))
             ImageSeason()
             Spacer(modifier = Modifier.height(16.dp))
             OverviewAndBiography(count = 3)
             Spacer(modifier = Modifier.height(16.dp))
-            Episodes()
+            EpisodeShimmer()
         }
-
-    } else {
-        contentAfterLoading()
     }
 }
 
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun EpisodeDetailShimmer(
-    isLoading: Boolean,
-    contentAfterLoading: @Composable () -> Unit,
-    modifier: Modifier = Modifier
 ) {
-    if ( isLoading ) {
         Column(
             modifier = Modifier
-                .padding(horizontal = 15.dp)
+                .background(color = if (isSystemInDarkTheme()) BlueGrey11 else Color.White),
         ) {
-            Title()
-            Spacer(modifier = Modifier.height(16.dp))
-            OverviewAndBiography(count = 3)
-            Spacer(modifier = Modifier.height(16.dp))
-            RowCards()
-            Spacer(modifier = Modifier.height(16.dp))
-            Crew()
-        }
+            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
+                Title()
+                Spacer(modifier = Modifier.height(10.dp))
+                OverviewAndBiography(count = 2)
+                Spacer(modifier = Modifier.height(10.dp))
+                RowCast()
+                Spacer(modifier = Modifier.height(10.dp))
+                Crew(1)
+                ImagesEpisode()
+                Spacer(modifier = Modifier.height(500.dp))
 
-    } else {
-        contentAfterLoading()
+            }
     }
 }
 
@@ -180,22 +179,24 @@ fun EpisodeDetailShimmer(
 @Composable
 fun ActorDetailShimmer(
 ) {
-
         Column(
             modifier = Modifier
                 .background(color = if (isSystemInDarkTheme()) BlueGrey11 else Color.White),
         ) {
-            Title()
-            Spacer(modifier = Modifier.height(16.dp))
-            TopItems( count = 2 )
-            Spacer(modifier = Modifier.height(16.dp))
-            OverviewAndBiography( count = 5 )
-            Spacer(modifier = Modifier.height(16.dp))
-            ImagesActor()
-            Spacer(modifier = Modifier.height(16.dp))
-            RowCards()
-            Spacer(modifier = Modifier.height(16.dp))
-            RowCards()
+            CustomPadding(verticalPadding = 0.dp, horizontalPadding = DpDimensions.Normal) {
+
+                Title()
+                Spacer(modifier = Modifier.height(10.dp))
+                TopItems(count = 2)
+                Spacer(modifier = Modifier.height(10.dp))
+                OverviewAndBiography(count = 3)
+                Spacer(modifier = Modifier.height(10.dp))
+                ImagesActor()
+                Spacer(modifier = Modifier.height(10.dp))
+                RowCards()
+                Spacer(modifier = Modifier.height(10.dp))
+                RowCards()
+            }
         }
 
 }
@@ -232,8 +233,40 @@ private fun ImageSeason() {
         modifier = Modifier
             .fillMaxWidth()
             .height(300.dp)
+            .clip(shape = RoundedCornerShape(15.dp))
             .shimmerEffect()
     )
+}
+
+@Composable
+private fun ImageEpisode() {
+    Box(
+        modifier = Modifier
+            .width(355.dp)
+            .height(200.dp)
+            .clip(shape = RoundedCornerShape(15.dp))
+            .shimmerEffect()
+    )
+}
+
+@Composable
+private fun ImagesEpisode() {
+    Column(
+    ) {
+        Box(
+            modifier = Modifier
+                .width(100.dp)
+                .height(25.dp)
+                .shimmerEffect()
+        )
+        Spacer(modifier = Modifier.height(15.dp))
+        LazyRow(contentPadding = PaddingValues()) {
+            items(3) {
+                ImageEpisode()
+                Spacer(modifier = Modifier.width(10.dp))
+            }
+        }
+    }
 }
 
 @Composable
@@ -250,7 +283,6 @@ private fun ImageActor() {
 @Composable
 private fun ImagesActor() {
     Column(
-        modifier = Modifier.padding(horizontal = 8.dp)
     ) {
         Box(
             modifier = Modifier
@@ -259,7 +291,7 @@ private fun ImagesActor() {
                 .shimmerEffect()
         )
         Spacer(modifier = Modifier.height(15.dp))
-        LazyRow(contentPadding = PaddingValues(horizontal = 16.dp)) {
+        LazyRow(contentPadding = PaddingValues()) {
             items(3) {
                 ImageActor()
                 Spacer(modifier = Modifier.width(10.dp))
@@ -348,6 +380,32 @@ private fun RowCards() {
     }
 }
 
+@Composable
+private fun RowCast() {
+    Column(
+    ) {
+        Box(
+            modifier = Modifier
+                .width(100.dp)
+                .height(25.dp)
+                .shimmerEffect()
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        LazyRow() {
+            items(3) {
+                Box(
+                    modifier = Modifier
+                        .width(110.dp)
+                        .height(120.dp)
+                        .clip(shape = RoundedCornerShape(15.dp))
+                        .shimmerEffect()
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+            }
+        }
+    }
+}
+
 
 
 @Composable
@@ -418,23 +476,17 @@ private fun RowCards() {
     }
 
 }
+
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun Episodes() {
-    Column(
-    ) {
-        Box(
-            modifier = Modifier
-                .width(110.dp)
-                .height(23.dp)
-                .shimmerEffect()
-        )
-        Spacer(modifier = Modifier.height(15.dp))
+private fun EpisodeShimmer() {
         LazyColumn() {
             items(5) {
                 Row(
                     modifier = Modifier
                         .padding(
-                            10.dp
+                            vertical = 3.dp
                         )
                 ) {
                     Box(
@@ -481,11 +533,10 @@ private fun Episodes() {
                 Spacer(modifier = Modifier.width(16.dp))
             }
         }
-    }
 }
 
 @Composable
-private fun Crew() {
+private fun Crew(count: Int) {
     Column(
     ) {
         Box(
@@ -511,7 +562,7 @@ private fun Crew() {
         )
         Spacer(modifier = Modifier.height(10.dp))
         LazyColumn(contentPadding = PaddingValues(5.dp)) {
-            items(3) {
+            items(count) {
                 Box(
                     modifier = Modifier
                         .width(90.dp)

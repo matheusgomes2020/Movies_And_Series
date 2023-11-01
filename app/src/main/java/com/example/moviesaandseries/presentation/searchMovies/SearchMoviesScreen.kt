@@ -46,7 +46,6 @@ import com.example.moviesaandseries.common.navigation.AppGraph
 import com.example.moviesaandseries.presentation.general.AppBarWithBack
 import com.example.moviesaandseries.presentation.general.CustomPadding
 import com.example.moviesaandseries.presentation.general.DpDimensions
-import com.example.moviesaandseries.presentation.general.SearchBarM
 import com.example.moviesaandseries.presentation.general.SearchIcon
 import com.example.moviesaandseries.presentation.general.SearchResultsShimmer
 import com.example.moviesaandseries.presentation.general.TextSearchBar

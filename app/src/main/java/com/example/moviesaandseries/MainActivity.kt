@@ -83,7 +83,7 @@ class MainActivity : ComponentActivity() {
                                 if(state.isSignInSuccessful) {
                                     Toast.makeText(
                                         applicationContext,
-                                        "Sign in successful",
+                                        "Sucesso ao logar!",
                                         Toast.LENGTH_LONG
                                     ).show()
 
@@ -116,7 +116,7 @@ class MainActivity : ComponentActivity() {
                                         googleAuthUiClient.signOut()
                                         Toast.makeText(
                                             applicationContext,
-                                            "Signed out",
+                                            "Sucesso ao deslogar!",
                                             Toast.LENGTH_LONG
                                         ).show()
 

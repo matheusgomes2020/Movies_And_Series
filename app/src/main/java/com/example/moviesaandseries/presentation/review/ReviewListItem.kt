@@ -50,7 +50,7 @@ fun ReviewListItem(
         ),
         modifier = Modifier
             .padding(bottom = 16.dp, end = 8.dp)
-            .background(color = Color.White),
+            //.background(color = Color.White),
     ) {
 
         Column(

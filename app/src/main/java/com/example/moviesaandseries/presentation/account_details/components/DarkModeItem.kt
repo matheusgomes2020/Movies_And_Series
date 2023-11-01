@@ -1,5 +1,6 @@
 package com.example.moviesaandseries.presentation.account_details.components
 
+import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -15,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.moviesaandseries.presentation.general.DpDimensions
@@ -30,6 +32,7 @@ fun DarkModeItem(
    // onState: () -> SwitchState,
     //onCheckChange: (Boolean) -> Unit
 ) {
+    val context = LocalContext.current
 
     Surface(
         shape = RoundedCornerShape(DpDimensions.Small),
@@ -63,6 +66,7 @@ fun DarkModeItem(
                 checked = true,
                 //onState().isChecked,
                 onCheckedChange = {
+                    Toast.makeText( context, "Em breve!!!", Toast.LENGTH_SHORT ).show()
                         //isChecked -> onCheckChange(isChecked)
                                   },
                 colors = SwitchDefaults.colors(

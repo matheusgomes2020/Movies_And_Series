@@ -1,5 +1,6 @@
 package com.example.moviesaandseries.presentation.account_details
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -22,6 +23,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.moviesaandseries.R
@@ -53,8 +55,7 @@ fun AccountDetailsScreen(
     var isLogoutSheetOpen by rememberSaveable {
         mutableStateOf(false)
     }
-
-
+    val context = LocalContext.current
 
     SideEffect {
         systemUiController.setSystemBarsColor(
@@ -93,6 +94,7 @@ fun AccountDetailsScreen(
                     icon = R.drawable.account, title = "Dados",
                     modifier = Modifier.fillMaxWidth()
                 ) {
+                    Toast.makeText( context, "Em breve!!!", Toast.LENGTH_SHORT ).show()
                 }
                 LanguageItem(
                     icon = R.drawable.language,
@@ -100,6 +102,7 @@ fun AccountDetailsScreen(
                     language = "Português (BR)",
                     modifier = Modifier.fillMaxWidth()
                 ) {
+                    Toast.makeText( context, "Em breve!!!", Toast.LENGTH_SHORT ).show()
                 }
 
                 DarkModeItem(
@@ -113,18 +116,24 @@ fun AccountDetailsScreen(
                     icon = R.drawable.privacy,
                     title = "Política de privacidade",
                     modifier = Modifier.fillMaxWidth()
-                ) { }
+                ) {
+                    Toast.makeText( context, "Em breve!!!", Toast.LENGTH_SHORT ).show()
+                }
 
                 AccountItem(
                     icon = R.drawable.info,
                     title = "Sobre",
                     modifier = Modifier.fillMaxWidth()
-                ) { }
+                ) {
+                    Toast.makeText( context, "Em breve!!!", Toast.LENGTH_SHORT ).show()
+                }
                 AccountItem(
                     icon = R.drawable.delete,
                     title = "Excluir conta",
                     modifier = Modifier.fillMaxWidth()
-                ) { }
+                ) {
+                    Toast.makeText( context, "Em breve!!!", Toast.LENGTH_SHORT ).show()
+                }
                 AccountLogoutItem(
                     icon = R.drawable.logout,
                     title = "Sair",

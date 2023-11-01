@@ -155,7 +155,7 @@ fun ReviewsCell(reviews: List<Review> ){
             title = "Avaliações",
             modifier = Modifier.fillMaxWidth(),
             isSystemInDarkTheme = true,
-            isIconVisible = true,
+            isIconVisible = false,
             onClick = {}
         )
         ReviewListScreenCell(reviews = reviews)
