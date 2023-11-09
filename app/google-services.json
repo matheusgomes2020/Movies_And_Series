@@ -44,17 +44,17 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:16127773899:android:dbdd8a3a1c6b365685df4e",
+        "mobilesdk_app_id": "1:16127773899:android:f2bfb4b4ba09f20185df4e",
         "android_client_info": {
-          "package_name": "com.example.moviesaandseries"
+          "package_name": "com.popcine.moviesaandseries"
         }
       },
       "oauth_client": [
         {
-          "client_id": "16127773899-b94j2o82lmprnv2tnhpmgkqvu8mtoba7.apps.googleusercontent.com",
+          "client_id": "16127773899-fglbs2g19a0me5ontfqq1pge4v71ojor.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.moviesaandseries",
+            "package_name": "com.popcine.moviesaandseries",
             "certificate_hash": "11b92d39eda6c1ce7229aaa5170b2f78314ba21a"
           }
         },
