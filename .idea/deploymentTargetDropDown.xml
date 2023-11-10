@@ -12,36 +12,9 @@
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2023-11-09T13:59:57.169215400Z" />
+    <timeTargetWasSelectedWithDropDown value="2023-11-10T15:50:44.184946500Z" />
     <multipleDevicesSelectedInDropDown value="true" />
     <runningDeviceTargetsSelectedWithDialog>
-      <Target>
-        <type value="RUNNING_DEVICE_TARGET" />
-        <deviceKey>
-          <Key>
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\batat\.android\avd\Pixel_2_API_29.avd" />
-          </Key>
-        </deviceKey>
-      </Target>
-      <Target>
-        <type value="RUNNING_DEVICE_TARGET" />
-        <deviceKey>
-          <Key>
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\batat\.android\avd\Nexus_10_API_29.avd" />
-          </Key>
-        </deviceKey>
-      </Target>
-      <Target>
-        <type value="RUNNING_DEVICE_TARGET" />
-        <deviceKey>
-          <Key>
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\batat\.android\avd\Pixel_API_31.avd" />
-          </Key>
-        </deviceKey>
-      </Target>
       <Target>
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
@@ -57,15 +30,6 @@
           <Key>
             <type value="SERIAL_NUMBER" />
             <value value="96665905" />
-          </Key>
-        </deviceKey>
-      </Target>
-      <Target>
-        <type value="RUNNING_DEVICE_TARGET" />
-        <deviceKey>
-          <Key>
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\batat\.android\avd\Nexus_7_API_29.avd" />
           </Key>
         </deviceKey>
       </Target>
@@ -94,7 +58,7 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\batat\.android\avd\Pixel_API_31.avd" />
+            <value value="C:\Users\batat\.android\avd\Pixel_7_Pro_API_33.avd" />
           </Key>
         </deviceKey>
       </Target>
@@ -103,7 +67,7 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\batat\.android\avd\Pixel_7_Pro_API_33.avd" />
+            <value value="C:\Users\batat\.android\avd\Pixel_API_31.avd" />
           </Key>
         </deviceKey>
       </Target>

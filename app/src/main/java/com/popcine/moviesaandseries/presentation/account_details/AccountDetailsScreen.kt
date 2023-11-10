@@ -1,5 +1,7 @@
 package com.popcine.moviesaandseries.presentation.account_details
 
+import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -58,6 +60,10 @@ fun AccountDetailsScreen(
     }
     val context = LocalContext.current
 
+    val webIntentPrivacy: Intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://doc-hosting.flycricket.io/pop-cine-privacy-policy/7016f44d-67a3-40d5-8700-868e80fab0d1/privacy"))
+    val webIntentDelete: Intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://popcinepp.blogspot.com/2023/11/exclusao-de-dados-ou-conta.html"))
+
+
     SideEffect {
         systemUiController.setSystemBarsColor(
             color = if (useDarkIcons)
@@ -91,49 +97,48 @@ fun AccountDetailsScreen(
                 verticalPadding = 0.dp,
                 horizontalPadding = DpDimensions.Normal
             ) {
-                AccountItem(
-                    icon = R.drawable.account, title = "Dados",
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Toast.makeText( context, "Em breve!!!", Toast.LENGTH_SHORT ).show()
-                }
-                LanguageItem(
-                    icon = R.drawable.language,
-                    title = "Idioma",
-                    language = "Português (BR)",
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Toast.makeText( context, "Em breve!!!", Toast.LENGTH_SHORT ).show()
-                }
-
-                DarkModeItem(
-                    icon = R.drawable.dark_mode,
-                    title = "Modo escuro",
-                    //onState = {  },
-                    //onCheckChange = viewModel::onCheckChange
-                )
+//                AccountItem(
+//                    icon = R.drawable.account, title = "Dados",
+//                    modifier = Modifier.fillMaxWidth()
+//                ) {
+//                    Toast.makeText( context, "Em breve!!!", Toast.LENGTH_SHORT ).show()
+//                }
+//                LanguageItem(
+//                    icon = R.drawable.language,
+//                    title = "Idioma",
+//                    language = "Português (BR)",
+//                    modifier = Modifier.fillMaxWidth()
+//                ) {
+//                    Toast.makeText( context, "Em breve!!!", Toast.LENGTH_SHORT ).show()
+//                }
+//
+//                DarkModeItem(
+//                    icon = R.drawable.dark_mode,
+//                    title = "Modo escuro",
+//                    //onState = {  },
+//                    //onCheckChange = viewModel::onCheckChange
+//                )
 
                 AccountItem(
                     icon = R.drawable.privacy,
                     title = "Política de privacidade",
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Toast.makeText( context, "Em breve!!!", Toast.LENGTH_SHORT ).show()
-                }
-
-                AccountItem(
-                    icon = R.drawable.info,
-                    title = "Sobre",
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Toast.makeText( context, "Em breve!!!", Toast.LENGTH_SHORT ).show()
-                }
+                    context.startActivity(webIntentPrivacy)                }
+//
+//                AccountItem(
+//                    icon = R.drawable.info,
+//                    title = "Sobre",
+//                    modifier = Modifier.fillMaxWidth()
+//                ) {
+//                    Toast.makeText( context, "Em breve!!!", Toast.LENGTH_SHORT ).show()
+//                }
                 AccountItem(
                     icon = R.drawable.delete,
                     title = "Excluir conta",
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Toast.makeText( context, "Em breve!!!", Toast.LENGTH_SHORT ).show()
+                    context.startActivity(webIntentDelete)
                 }
                 AccountLogoutItem(
                     icon = R.drawable.logout,

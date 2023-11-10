@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
@@ -36,10 +37,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -47,8 +52,10 @@ import androidx.navigation.compose.rememberNavController
 import com.popcine.moviesaandseries.R
 import com.popcine.moviesaandseries.common.navigation.AppGraph
 import com.popcine.moviesaandseries.presentation.general.DpDimensions
+import com.popcine.moviesaandseries.presentation.sign_up.privacyAndTerms
 import com.popcine.moviesaandseries.ui.theme.BlueGrey11
 import com.popcine.moviesaandseries.ui.theme.MoviesAandSeriesTheme
+import java.lang.StringBuilder
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,6 +69,7 @@ fun LoginScreen(viewModel: AuthViewModel?, navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .width(40.dp)
             .background(color = if (isSystemInDarkTheme()) BlueGrey11 else Color.White),
         contentAlignment = Alignment.Center
     ) {
@@ -75,10 +83,10 @@ fun LoginScreen(viewModel: AuthViewModel?, navController: NavController) {
                 painterResource(id  = R.drawable.logo), contentDescription = "app logo",
                 modifier = Modifier.size(70.dp))
             Spacer(modifier = Modifier.height(40.dp))
-            Text(text = "Olá!",
+            Text(text = "Hi, Welcome back!",
                 style = MaterialTheme.typography.headlineLarge)
             Spacer(modifier = Modifier.height(5.dp))
-            Text(text = "Entre em sua conta!",
+            Text(text = "Enter in your account!",
                 style = MaterialTheme.typography.bodyMedium)
             Spacer(modifier = Modifier.height(40.dp))
             Column(
@@ -86,7 +94,7 @@ fun LoginScreen(viewModel: AuthViewModel?, navController: NavController) {
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "E-mail",
+                    text = "E-mail *",
                     style = MaterialTheme.typography.headlineSmall,
                 )
                     TextField(
@@ -99,7 +107,7 @@ fun LoginScreen(viewModel: AuthViewModel?, navController: NavController) {
 //                        label = {Text(text = "Senha") },
                         placeholder = {
                             Text(
-                                text = "Digite o seu e-mail",
+                                text = "Type your e-mail",
                                 style = MaterialTheme.typography.bodyMedium,
                             )
                         },
@@ -122,7 +130,7 @@ fun LoginScreen(viewModel: AuthViewModel?, navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
             Column {
                 Text(
-                    text = "Senha",
+                    text = "Password *",
                     style = MaterialTheme.typography.headlineSmall,
                 )
                     TextField(
@@ -134,7 +142,7 @@ fun LoginScreen(viewModel: AuthViewModel?, navController: NavController) {
                             .fillMaxWidth(),
                         placeholder = {
                             Text(
-                                text = "Digite a sua senha",
+                                text = "Type your password",
                                 style = MaterialTheme.typography.bodyMedium,
                             )
                         },
@@ -165,18 +173,22 @@ fun LoginScreen(viewModel: AuthViewModel?, navController: NavController) {
                     viewModel?.loginUser(email, password)
                 },
             ) {
-                Text(text = "Entrar", style = MaterialTheme.typography.titleMedium)
+
+                Text(text = "Login", style = MaterialTheme.typography.titleMedium)
             }
-
-
+            privacyAndTerms(context, "Login")
+            val annotatedTextSignUp = buildAnnotatedString {
+                    append("Don't have an account? ")
+                withStyle(style = SpanStyle(
+                    fontWeight = FontWeight.Bold)) {
+                    append("SignUp") } }
+            Spacer(modifier = Modifier.height(80.dp))
             Text(
                 modifier = Modifier
                     .clickable {
                         navController.navigate(AppGraph.auth.SIGN_UP)
-                    }
-                    .padding(top = 80.dp),
-                text = "Não tem uma conta? Cadastre-se",
-                style = MaterialTheme.typography.bodyLarge,
+                    },
+                text = annotatedTextSignUp,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onSurface
             )

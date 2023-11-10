@@ -1,6 +1,9 @@
 package com.popcine.moviesaandseries.presentation.sign_up
+import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,6 +11,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,12 +39,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.popcine.moviesaandseries.R
@@ -77,10 +87,10 @@ fun SignupScreen(viewModel: AuthViewModel?, navController: NavController) {
                 painterResource(id  = R.drawable.logo), contentDescription = "app logo",
                 modifier = Modifier.size(70.dp))
             Spacer(modifier = Modifier.height(40.dp))
-            Text(text = "Criar conta!",
+            Text(text = "Create a new account!",
                 style = MaterialTheme.typography.headlineLarge)
             Spacer(modifier = Modifier.height(5.dp))
-            Text(text = "Crie uma sua conta!",
+            Text(text = "Create your account!",
                 style = MaterialTheme.typography.bodyMedium)
             Spacer(modifier = Modifier.height(40.dp))
             Column(
@@ -88,7 +98,7 @@ fun SignupScreen(viewModel: AuthViewModel?, navController: NavController) {
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "Nome",
+                    text = "Name *",
                     style = MaterialTheme.typography.headlineSmall,
                 )
                 TextField(
@@ -100,7 +110,7 @@ fun SignupScreen(viewModel: AuthViewModel?, navController: NavController) {
                         .fillMaxWidth(),
                     placeholder = {
                         Text(
-                            text = "Digite o seu nome",
+                            text = "Type your name",
                             style = MaterialTheme.typography.bodyMedium,
                         )
                     },
@@ -126,7 +136,7 @@ fun SignupScreen(viewModel: AuthViewModel?, navController: NavController) {
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "E-mail",
+                    text = "E-mail *",
                     style = MaterialTheme.typography.headlineSmall,
                 )
                 TextField(
@@ -139,7 +149,7 @@ fun SignupScreen(viewModel: AuthViewModel?, navController: NavController) {
 //                        label = {Text(text = "Senha") },
                     placeholder = {
                         Text(
-                            text = "Digite o seu e-mail",
+                            text = "Type your e-mail",
                             style = MaterialTheme.typography.bodyMedium,
                         )
                     },
@@ -162,7 +172,7 @@ fun SignupScreen(viewModel: AuthViewModel?, navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
             Column {
                 Text(
-                    text = "Senha",
+                    text = "Password *",
                     style = MaterialTheme.typography.headlineSmall,
                 )
                 TextField(
@@ -174,7 +184,7 @@ fun SignupScreen(viewModel: AuthViewModel?, navController: NavController) {
                         .fillMaxWidth(),
                     placeholder = {
                         Text(
-                            text = "Crie a sua senha com 6 caracteres",
+                            text = "Crete a password with 6 characters",
                             style = MaterialTheme.typography.bodyMedium,
                         )
                     },
@@ -205,15 +215,23 @@ fun SignupScreen(viewModel: AuthViewModel?, navController: NavController) {
                     viewModel?.signupUser(name, email, password)
                 },
             ) {
-                Text(text = "Cadastrar", style = MaterialTheme.typography.titleMedium)
+                Text(text = "Sign Up", style = MaterialTheme.typography.titleMedium)
             }
+            privacyAndTerms(context, "Sign Up")
+
+            val annotatedTextSignIn = buildAnnotatedString {
+                append("Do you have an account? ")
+                withStyle(style = SpanStyle(
+                    fontWeight = FontWeight.Bold)
+                ) {
+                    append("Sign In") } }
+            Spacer(modifier = Modifier.height(40.dp))
             Text(
                 modifier = Modifier
                     .clickable {
                         navController.navigate(AppGraph.auth.LOGIN)
-                    }
-                    .padding(top = 40.dp),
-                text = "Já tem uma conta? Entre",
+                    },
+                text = annotatedTextSignIn,
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onSurface
@@ -235,6 +253,51 @@ fun SignupScreen(viewModel: AuthViewModel?, navController: NavController) {
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun privacyAndTerms(
+    context: Context,
+    text: String
+) {
+
+    val webIntentPrivacy: Intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://doc-hosting.flycricket.io/pop-cine-privacy-policy/7016f44d-67a3-40d5-8700-868e80fab0d1/privacy"))
+    val webIntentTerms: Intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://doc-hosting.flycricket.io/pop-cine-terms-of-use/39ce1a2c-e7a5-4eb2-ab3e-4d86affd2585/terms"))
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 5.dp)
+    ) {
+        Row {
+            Text(
+                text = "Clicking $text you are agreeing if our ",
+                fontSize = 14.sp
+            )
+            Text(
+                modifier = Modifier
+                    .clickable {
+                        context.startActivity(webIntentTerms)
+                    },
+                text = "Terms of Use ",
+                textDecoration = TextDecoration.Underline,
+                fontSize = 14.sp
+            )
+        }
+        Row {
+            Text(
+                text = "and ",
+                fontSize = 14.sp
+            )
+            Text(
+                modifier = Modifier
+                    .clickable {
+                        context.startActivity(webIntentPrivacy)
+                    }, text = "Privacy Policy", textDecoration = TextDecoration.Underline,
+                fontSize = 14.sp
+            )
         }
     }
 }
